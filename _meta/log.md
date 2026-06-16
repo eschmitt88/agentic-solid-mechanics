@@ -5,3 +5,14 @@ skills; read by `/lint`.
 2026-06-16 19:23 discover llm-agents-solid-mechanics-solvers n=15
 2026-06-16 20:17 fetch-paper arxiv:2311.08166 -> raw/papers/ni2023mechagents.pdf
 2026-06-16 20:17 ingest ni2023mechagents (+concepts: agent-as-solver-operator, multi-agent-self-correction)
+2026-06-16 20:20 fetch-paper arxiv:2603.21011 -> raw/papers/deotale2026allfem.pdf
+2026-06-16 20:20 ingest deotale2026allfem
+2026-06-16 20:20 fetch-paper arxiv:2505.04997 -> raw/papers/yue2025foamagent.pdf
+2026-06-16 20:20 ingest yue2025foamagent
+2026-06-16 20:20 fetch-paper arxiv:2512.20732 -> raw/papers/mohammadzadeh2025fembench.pdf
+2026-06-16 20:20 ingest mohammadzadeh2025fembench
+2026-06-16 20:20 fetch-paper arxiv:2212.00964 -> raw/papers/xue2022jaxfem.pdf
+2026-06-16 20:20 ingest xue2022jaxfem
+2026-06-16 20:20 fetch-paper arxiv:2509.16204 -> raw/papers/guo2025engdesign.pdf
+2026-06-16 20:20 ingest guo2025engdesign
+2026-06-16 20:20 ingest +concepts: physics-grounded-evaluation, differentiable-inverse-design, agentic-design-optimization
