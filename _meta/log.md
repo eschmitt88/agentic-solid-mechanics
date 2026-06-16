@@ -16,3 +16,7 @@ skills; read by `/lint`.
 2026-06-16 20:20 fetch-paper arxiv:2509.16204 -> raw/papers/guo2025engdesign.pdf
 2026-06-16 20:20 ingest guo2025engdesign
 2026-06-16 20:20 ingest +concepts: physics-grounded-evaluation, differentiable-inverse-design, agentic-design-optimization
+2026-06-16 20:56 ingest batch (backlog drain): park2026self, xue2025implicit, bouziani2024differentiable, du2026autonumerics
+2026-06-16 20:56 ingest repos: calculix, deepmodeling-jax-fem, fenics-dolfinx, nvidia-warp, sfepy
+2026-06-16 20:56 concept +code-from-scratch-numerical-solver-agent
+2026-06-16 20:56 curate candidates 2026-06-16: 15 ingested, 6 declined -> _done/

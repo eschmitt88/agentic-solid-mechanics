@@ -146,3 +146,20 @@ agent driving Abaqus from drawings; commercial solver, lower fit), DiffTaichi
 (arXiv 1910.00935 — foundational differentiable sim), physics-encoded FNO for
 stress fields (arXiv 2408.15408), Finite-PINN (arXiv 2412.09453 — PINN for
 finite solid geometries), Kratos Multiphysics, MOOSE.
+
+## Disposition (curated 2026-06-16)
+
+**Ingested (all 15 ranked entries):**
+papers — ni2023mechagents, deotale2026allfem, mohammadzadeh2025fembench,
+xue2022jaxfem, yue2025foamagent, guo2025engdesign, park2026self (TopOptAgents),
+xue2025implicit, bouziani2024differentiable (Firedrake), du2026autonumerics;
+repos — calculix, deepmodeling-jax-fem, fenics-dolfinx, nvidia-warp, sfepy.
+
+**Declined (honorable mentions) with reason:**
+- VFEAgent (2605.28978) — drives commercial Abaqus from drawings; off our free-solver path. Revisit if multimodal/CAD-input becomes a goal.
+- DiffTaichi (1910.00935) — foundational differentiable sim, but superseded for our needs by JAX-FEM/Warp (both ingested).
+- physics-encoded FNO (2408.15408) — neural surrogate; out of current single-physics operator/inverse scope (surrogate loop not selected).
+- Finite-PINN (2412.09453) — PINN for finite geometries; same reason as above.
+- Kratos Multiphysics, MOOSE — alternative solvers; redundant given CalculiX committed (ADR 0001) and FEniCSx/SfePy already noted as alternatives.
+
+All declines are recoverable from this file; re-open via /fetch-paper if scope shifts (e.g. adding the surrogate loop or multiphysics).
