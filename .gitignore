@@ -28,3 +28,14 @@ __pycache__/
 *.tar
 *.tar.gz
 *.zip
+
+# CalculiX solver byproducts — regenerable, large. Keep code (.py) and
+# the small JSON results (reference.json, agent_result.json), drop the rest.
+experiments/**/*.inp
+experiments/**/*.dat
+experiments/**/*.frd
+experiments/**/*.sta
+experiments/**/*.cvg
+experiments/**/*.12d
+experiments/**/spooles.out
+experiments/**/*.out

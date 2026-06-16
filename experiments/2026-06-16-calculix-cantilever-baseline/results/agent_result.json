@@ -1,0 +1,22 @@
+{
+  "agent": "general-purpose subagent as CalculiX operator",
+  "reported_tip_deflection_m": 0.000382,
+  "reported_max_vm_stress_pa": 13200000.0,
+  "element_type": "C3D20R",
+  "mesh": "40x4x8 = 1280 elems (refined from 20x2x4)",
+  "ccx_runs": 2,
+  "deck_errors": 0,
+  "grade": {
+    "analytical": {
+      "I_m4": 4.166666666666668e-06,
+      "tip_deflection_m": 0.0003809523809523809,
+      "max_bending_stress_pa": 11999999.999999996
+    },
+    "fem_tip_deflection_m": 0.000382,
+    "deflection_rel_err": 0.002750000000000155,
+    "deflection_pass": true,
+    "fem_max_vm_stress_pa": 13200000.0,
+    "stress_rel_err": 0.10000000000000034,
+    "stress_pass": false
+  }
+}

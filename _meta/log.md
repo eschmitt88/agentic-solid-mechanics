@@ -20,3 +20,6 @@ skills; read by `/lint`.
 2026-06-16 20:56 ingest repos: calculix, deepmodeling-jax-fem, fenics-dolfinx, nvidia-warp, sfepy
 2026-06-16 20:56 concept +code-from-scratch-numerical-solver-agent
 2026-06-16 20:56 curate candidates 2026-06-16: 15 ingested, 6 declined -> _done/
+2026-06-16 21:20 new-experiment 2026-06-16-calculix-cantilever-baseline
+2026-06-16 21:20 trial-1 done: CalculiX operator baseline — agent deflection 0.275% err (PASS), ref converged
+2026-06-16 21:20 env: installed CalculiX 2.23 + gmsh via micromamba (solidmech)
