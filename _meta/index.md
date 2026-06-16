@@ -38,7 +38,11 @@ Triage curated → `raw/_candidates/_done/2026-06-16-llm-agents-solid-mechanics-
 
 ## Active experiments
 
-(none yet — trial roadmap in README; trial 1 = CalculiX cantilever operator baseline)
+- `experiments/2026-06-16-calculix-cantilever-baseline/` — **done** (trial 1):
+  agent-as-operator on CalculiX. Agent authored its own deck unaided →
+  deflection 0.275% err (PASS). Deterministic reference + agent harness
+  (`agent_operator.py`, pass@k) in place. Next: trials 2/3 + problem
+  distribution with HCE split.
 
 ## Open questions
 

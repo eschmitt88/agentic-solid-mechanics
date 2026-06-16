@@ -1,0 +1,17 @@
+{
+  "reference": {
+    "finest_deflection_rel_err": 0.002998325000000166,
+    "finest_stress_rel_err": 0.049621789651283235,
+    "deflection_converges": true,
+    "n_mesh_levels_ran": 4
+  },
+  "agent_operator": {
+    "deflection_rel_err": 0.002750000000000155,
+    "deflection_pass": true,
+    "stress_rel_err": 0.10000000000000034,
+    "stress_pass": false,
+    "ccx_runs": 2,
+    "deck_errors": 0,
+    "authored_own_deck": true
+  }
+}

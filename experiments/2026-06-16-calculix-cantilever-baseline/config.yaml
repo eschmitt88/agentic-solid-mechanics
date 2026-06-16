@@ -1,0 +1,23 @@
+# Inputs for the cantilever operator-baseline trial.
+seed: 42
+
+# Problem spec (SI units) — a slender steel cantilever, end-loaded.
+problem:
+  length_m: 1.0          # L
+  width_m: 0.05          # b (cross-section)
+  height_m: 0.10         # h (cross-section, bending direction)
+  youngs_modulus_pa: 2.1e+11   # 210 GPa (signed exponent — PyYAML needs it to parse as float)
+  poisson_ratio: 0.30
+  tip_load_n: 1000.0     # P, downward at the free end
+
+# Mesh-convergence sweep: elements through the height at each refinement level.
+mesh_levels: [1, 2, 4, 8]
+element_type: C3D20R     # quadratic hex, reduced integration
+
+# Grading tolerances (relative error vs Euler-Bernoulli at the finest mesh).
+tol_deflection_rel: 0.05
+tol_stress_rel: 0.10
+
+solver:
+  micromamba_env: solidmech
+  ccx_bin: ccx

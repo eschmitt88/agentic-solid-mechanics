@@ -12,3 +12,22 @@
     "Bash": 2
   }
 }
+{
+  "timestamp": "2026-06-16T20:57:25Z",
+  "session_id": "56aea47b-2522-4658-9d10-a1e7435218c4",
+  "input_tokens": 32399,
+  "output_tokens": 311466,
+  "cache_read_tokens": 10924779,
+  "cache_creation_tokens": 495044,
+  "tools_used_summary": {
+    "Bash": 20,
+    "AskUserQuestion": 3,
+    "Skill": 3,
+    "Edit": 14,
+    "Read": 8,
+    "Agent": 12,
+    "Write": 14,
+    "ToolSearch": 1,
+    "WebFetch": 6
+  }
+}

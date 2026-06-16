@@ -43,5 +43,29 @@ SessionEnd hook backstops this if you forget.
      validates vs. analytical beam + mesh convergence).
   2. Operator design loop (min mass s.t. stress constraint, iterative).
   3. Differentiable inverse design on JAX-FEM (topology / param ID, GPU).
-- Decision pending from user: build trial 1, or hold.
 - Borrow FEM-Bench's pass@5 + EngDesign's sim-in-the-loop scoring for HCE grading.
+
+### Did (cont.) — Trial 1 built and run
+- Installed CalculiX 2.23 + Gmsh via micromamba (`solidmech` env, no sudo, on SN850X).
+- `experiments/2026-06-16-calculix-cantilever-baseline/`: full harness —
+  `cantilever.py` (analytical + C3D20R deck gen + ccx runner + .dat parser +
+  grader), `reference_sweep.py` (deterministic ground truth), `agent_operator.py`
+  (automated LLM operator loop w/ run_ccx + submit_answer tools, pass@k).
+- Ran it: deterministic reference mesh-converged (0.30% deflection err); a live
+  subagent operated ccx **unaided** and hit **0.275% deflection error (PASS)**,
+  authoring its own mesh generator + deck, 2 runs, 0 errors.
+
+### Findings (cont.)
+- Agent-as-operator loop works end to end on the cantilever; the agent reasoned
+  about physics (chose C3D20R to avoid shear locking, explained FEM>EB shear gap).
+- Stress grading exposed a real subtlety: agent reported surface-peak vM (incl.
+  clamp stress concentration, 10% over nominal) vs the grader's nominal bending
+  stress — a metric-definition gap to fix, not an agent error.
+- Two harness bugs found+fixed: PyYAML needs signed exponents (`2.1e+11`);
+  mesh convergence = successive-solution-change→0, not error-vs-EB→0.
+
+### Next (updated)
+- `agent_operator.py --trials 10` for pass@k + deck-error rate (needs ANTHROPIC_API_KEY).
+- Trial 2 (operator design loop: size section to a stress constraint).
+- Add a problem *distribution* + HCE held-out test split; disambiguate the
+  stress metric and add a .frd von-Mises parser.
