@@ -59,8 +59,9 @@ agent-as-operator loop this project studies.
 ## Critique / open questions
 
 - Demonstration-scale, not a controlled benchmark with held-out grading — no
-  quantified success rate across a problem distribution (cf. [[fem-bench]] /
-  ALL-FEM, which add that rigor later).
+  quantified success rate across a problem distribution (cf.
+  [[mohammadzadeh2025fembench]] / [[deotale2026allfem]], which add that rigor
+  later).
 - Uses a Python FEM API; our project commits to **CalculiX text decks** for the
   operator loop — open question whether deck-vs-API changes agent success rate.
 - How much of the success is the multi-agent structure vs. just a strong base
