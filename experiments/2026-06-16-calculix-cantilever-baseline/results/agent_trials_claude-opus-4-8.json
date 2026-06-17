@@ -1,0 +1,34 @@
+{
+  "model": "claude-opus-4-8",
+  "n_trials": 1,
+  "n_submitted": 1,
+  "deflection_pass_at_k": 1.0,
+  "submission_rate": 1.0,
+  "trials": [
+    {
+      "submitted": true,
+      "answer": {
+        "ccx_runs": 4,
+        "element_type": "C3D20R",
+        "max_von_mises_pa": 13310534.6,
+        "tip_deflection_m": 0.0003821194
+      },
+      "grade": {
+        "analytical": {
+          "I_m4": 4.166666666666668e-06,
+          "tip_deflection_m": 0.0003809523809523809,
+          "max_bending_stress_pa": 11999999.999999996
+        },
+        "fem_tip_deflection_m": 0.0003821194,
+        "deflection_rel_err": 0.003063425000000167,
+        "deflection_pass": true,
+        "fem_max_vm_stress_pa": 13310534.6,
+        "stress_rel_err": 0.10921121666666699,
+        "stress_pass": false
+      },
+      "deflection_pass": true,
+      "cost_usd": 0.78553,
+      "num_turns": 12
+    }
+  ]
+}
