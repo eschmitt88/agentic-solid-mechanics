@@ -37,9 +37,13 @@ grading harness ([[physics-grounded-evaluation]]).
   - `reference_sweep.py` — deterministic mesh-convergence reference (no LLM):
     runs the templated deck at each mesh level, validates vs analytical, writes
     `results/reference.json`. Proves the solver + parser + ground truth.
-  - `agent_operator.py` — the agentic harness: drives an LLM agent through the
-    operator loop with a `run_ccx` tool, grades the agent's answer. (Needs API
-    credentials; the deterministic reference runs without them.)
+  - `agent_operator.py` — the automated agentic harness: drives the **Claude
+    Code CLI headless** (`claude -p`) once per trial; the agent authors its own
+    deck, runs `ccx` via Bash, and returns numbers under a JSON schema, graded
+    against the reference. **No `ANTHROPIC_API_KEY`** — `claude -p` uses the
+    logged-in subscription (`~/.claude/.credentials.json`), billed against the
+    Max token pool. Each trial runs isolated in `/tmp` (no project-framework
+    autoload; cannot read the reference). pass@k via `--trials`.
 - **Solver:** CalculiX 2.23 via micromamba env `solidmech`
   (`micromamba run -n solidmech ccx <job>`). See [[calculix]].
 - **Data:** none — the ground truth is closed-form, so no HCE split (that
@@ -122,7 +126,9 @@ Unless noted, numbers reference `metrics.json`.
 - metric_aggregation: single run; reference is a 4-level mesh sweep.
 - next_candidates:
   - Run `agent_operator.py --trials 10` to measure pass@k and deck-error rate
-    across nondeterministic runs (needs ANTHROPIC_API_KEY).
+    across nondeterministic runs (uses the Claude subscription via `claude -p`,
+    no API key). Note: headless trials are far slower than the in-session
+    subagent (~15 min vs ~90 s) — bound with `--max-turns`, isolate in `/tmp`.
   - Add a problem *distribution* (vary L/b/h/load/BCs) and introduce an HCE
     held-out test split, grading deflection against a per-problem analytical or
     converged-FEM reference.
