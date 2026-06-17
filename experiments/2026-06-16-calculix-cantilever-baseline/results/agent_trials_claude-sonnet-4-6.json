@@ -1,0 +1,13 @@
+{
+  "model": "claude-sonnet-4-6",
+  "n_trials": 1,
+  "n_submitted": 0,
+  "deflection_pass_at_k": 0.0,
+  "submission_rate": 0.0,
+  "trials": [
+    {
+      "submitted": false,
+      "error": "timeout"
+    }
+  ]
+}
