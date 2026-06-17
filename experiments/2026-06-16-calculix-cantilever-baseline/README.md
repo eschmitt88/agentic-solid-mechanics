@@ -88,6 +88,18 @@ Mesh-converged (successive change → 0.11%). The finest result lands ~0.30%
   fails the 10% stress gate; its integration-point value 1.13e7 (5.8%) passes.
 - 2 ccx runs, 0 deck errors.
 
+**Automated headless harness** (`agent_operator.py` via `claude -p`, subscription
+auth, no API key; `results/agent_trials_claude-opus-4-8.json`):
+
+- claude-opus-4-8, isolated `/tmp`, pass@1 = **1/1**, deflection **0.306% err**
+  (PASS), 12 turns, 4 ccx runs, ~$0.79-equiv subscription tokens.
+- Same stress behaviour (13.3 MPa surface peak, 10.9% over nominal) — confirms
+  the clamp stress-concentration / metric-definition issue is reproducible.
+- Harness note: headless trials are ~10× slower than the in-session subagent
+  (an early unbounded sonnet run took 15 min and timed out before reporting,
+  though it *had* solved it to 0.13%); isolation in `/tmp` + `--max-turns`
+  fixes the runaway.
+
 ## Interpretation
 
 The agent-as-operator loop works on this problem with no human help: spec →

@@ -13,5 +13,14 @@
     "ccx_runs": 2,
     "deck_errors": 0,
     "authored_own_deck": true
+  },
+  "agent_operator_headless": {
+    "runner": "claude -p (subscription, no API key)",
+    "model": "claude-opus-4-8",
+    "pass_at_1_deflection": 1.0,
+    "submission_rate": 1.0,
+    "deflection_rel_err": 0.003063425000000167,
+    "num_turns": 12,
+    "cost_usd_equiv": 0.78553
   }
 }

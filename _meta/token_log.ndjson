@@ -50,3 +50,22 @@
     "WebFetch": 6
   }
 }
+{
+  "timestamp": "2026-06-17T03:24:21Z",
+  "session_id": "56aea47b-2522-4658-9d10-a1e7435218c4",
+  "input_tokens": 35514,
+  "output_tokens": 518509,
+  "cache_read_tokens": 36194995,
+  "cache_creation_tokens": 1258835,
+  "tools_used_summary": {
+    "Bash": 45,
+    "AskUserQuestion": 3,
+    "Skill": 4,
+    "Edit": 31,
+    "Read": 16,
+    "Agent": 14,
+    "Write": 20,
+    "ToolSearch": 1,
+    "WebFetch": 6
+  }
+}
