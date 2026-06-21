@@ -15,3 +15,4 @@
 - Live subagent designer: b=10mm (found min-width corner), h=108.6mm, feasible
   (defl 2.993mm), mass 8.525kg = +0.07% above optimum, 3 FE evals. Reasoned
   mass∝b^(2/3), self-corrected EB→FE for shear. Clean (no reference reads).
+- Headless agent_design.py (opus, claude -p): feasible 1/1, +0.07% above optimum, b=10mm h=108.6mm, 11 turns. Scriptable design harness validated on subscription (no API key).
