@@ -15,5 +15,16 @@
     "check_fe_deflection_m": 0.002993467,
     "found_min_width_corner": true,
     "n_designs_evaluated": 3
+  },
+  "agent_designer_headless": {
+    "runner": "claude -p (subscription, no API key)",
+    "model": "claude-opus-4-8",
+    "feasible_rate": 1.0,
+    "best_pct_above_optimum": 0.07309254467222637,
+    "b_m": 0.01,
+    "h_m": 0.1086,
+    "mass_kg": 8.5251,
+    "num_turns": 11,
+    "cost_usd_equiv": 0.8744965000000001
   }
 }

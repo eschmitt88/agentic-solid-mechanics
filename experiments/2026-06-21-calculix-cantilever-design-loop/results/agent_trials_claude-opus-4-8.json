@@ -1,0 +1,40 @@
+{
+  "model": "claude-opus-4-8",
+  "n_trials": 1,
+  "reference_optimum_mass_kg": 8.518873338699342,
+  "feasible_rate": 1.0,
+  "best_pct_above_optimum": 0.07309254467222637,
+  "mean_pct_above_optimum": 0.07309254467222637,
+  "trials": [
+    {
+      "submitted": true,
+      "answer": {
+        "b_m": 0.01,
+        "h_m": 0.1086,
+        "achieved_tip_deflection_m": 0.002993407,
+        "achieved_mass_kg": 8.5251,
+        "n_designs_evaluated": 7,
+        "reasoning": "Deflection is the binding constraint, so I drove width to its 10 mm lower bound (width adds mass linearly but barely affects bending stiffness) and set height to the minimum meeting the 3 mm tip-deflection limit; FE on a converged C3D20R mesh gives 2.993 mm with stress ~100 MPa (well under 200 MPa)."
+      },
+      "grade": {
+        "b": 0.01,
+        "h": 0.1086,
+        "mass_kg": 8.5251,
+        "within_bounds": true,
+        "check_fe_deflection_m": 0.002993467,
+        "delta_allow_m": 0.003,
+        "deflection_feasible": true,
+        "nominal_stress_pa": 101746995.91994545,
+        "sigma_allow_pa": 200000000.0,
+        "stress_feasible": true,
+        "mass_ratio_to_opt": 1.0007309254467223,
+        "pct_above_optimum": 0.07309254467222637,
+        "feasible": true
+      },
+      "feasible": true,
+      "pct_above_optimum": 0.07309254467222637,
+      "cost_usd": 0.8744965000000001,
+      "num_turns": 11
+    }
+  ]
+}
