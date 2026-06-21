@@ -23,3 +23,5 @@ skills; read by `/lint`.
 2026-06-16 21:20 new-experiment 2026-06-16-calculix-cantilever-baseline
 2026-06-16 21:20 trial-1 done: CalculiX operator baseline — agent deflection 0.275% err (PASS), ref converged
 2026-06-16 21:20 env: installed CalculiX 2.23 + gmsh via micromamba (solidmech)
+2026-06-21 04:28 new-experiment 2026-06-21-calculix-cantilever-design-loop
+2026-06-21 04:28 trial-2 done: design loop — agent +0.07% above FE-true optimum (PASS), found min-width corner

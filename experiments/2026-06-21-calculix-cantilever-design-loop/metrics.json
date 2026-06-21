@@ -1,0 +1,19 @@
+{
+  "reference": {
+    "fe_optimum_mass_kg": 8.518873338699342,
+    "fe_optimum_b_m": 0.01,
+    "fe_optimum_h_m": 0.10852067947387697,
+    "eb_optimum_mass_kg": 8.500663063193967
+  },
+  "agent_designer_demo": {
+    "runner": "in-session subagent (general-purpose)",
+    "feasible": true,
+    "mass_kg": 8.5251,
+    "pct_above_optimum": 0.07309254467222637,
+    "b_m": 0.01,
+    "h_m": 0.1086,
+    "check_fe_deflection_m": 0.002993467,
+    "found_min_width_corner": true,
+    "n_designs_evaluated": 3
+  }
+}

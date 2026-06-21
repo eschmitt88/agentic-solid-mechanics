@@ -40,9 +40,13 @@ Triage curated → `raw/_candidates/_done/2026-06-16-llm-agents-solid-mechanics-
 
 - `experiments/2026-06-16-calculix-cantilever-baseline/` — **done** (trial 1):
   agent-as-operator on CalculiX. Agent authored its own deck unaided →
-  deflection 0.275% err (PASS). Deterministic reference + agent harness
-  (`agent_operator.py`, pass@k) in place. Next: trials 2/3 + problem
-  distribution with HCE split.
+  deflection 0.275% err (PASS). Deterministic reference + `claude -p` harness
+  (subscription, no API key), pass@k.
+- `experiments/2026-06-21-calculix-cantilever-design-loop/` — **done** (trial 2):
+  operator design loop (minimise mass s.t. deflection+stress). Agent found the
+  min-width corner + shear correction → feasible, +0.07% above FE-true optimum,
+  3 FE evals. Next: trials with both constraints active / tapered section; trial 3
+  (differentiable inverse design on JAX-FEM).
 
 ## Open questions
 

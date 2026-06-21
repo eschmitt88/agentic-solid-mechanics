@@ -1,0 +1,7 @@
+---
+title: "Cantilever design-loop trial — notes"
+format: html
+---
+
+```{python}
+```

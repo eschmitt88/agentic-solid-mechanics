@@ -1,0 +1,25 @@
+{
+  "agent": "general-purpose subagent (designer)",
+  "reported": {
+    "b_m": 0.01,
+    "h_m": 0.1086,
+    "achieved_deflection_m": 0.002992206,
+    "n_designs": 3
+  },
+  "grade": {
+    "b": 0.01,
+    "h": 0.1086,
+    "mass_kg": 8.5251,
+    "within_bounds": true,
+    "check_fe_deflection_m": 0.002993467,
+    "delta_allow_m": 0.003,
+    "deflection_feasible": true,
+    "nominal_stress_pa": 101746995.91994545,
+    "sigma_allow_pa": 200000000.0,
+    "stress_feasible": true,
+    "mass_ratio_to_opt": 1.0007309254467223,
+    "pct_above_optimum": 0.07309254467222637,
+    "feasible": true
+  },
+  "reasoning": "drove b to min (mass\u221db^2/3 at deflection limit), sized h to FE deflection incl. shear"
+}
