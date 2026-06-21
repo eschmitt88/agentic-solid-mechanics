@@ -1,0 +1,31 @@
+# Trial 2 — operator design loop: size a cantilever section to meet constraints.
+seed: 42
+
+# Fixed problem (SI units).
+problem:
+  length_m: 1.0
+  youngs_modulus_pa: 2.1e+11      # 210 GPa (signed exponent for PyYAML)
+  poisson_ratio: 0.30
+  density_kg_m3: 7850.0
+  tip_load_n: 2000.0              # P, downward at the free end
+
+# Design variables (rectangular cross-section), with bounds.
+design_vars:
+  width_m:  {min: 0.010, max: 0.080}    # b
+  height_m: {min: 0.010, max: 0.200}    # h
+
+# Constraints.
+constraints:
+  max_tip_deflection_m: 3.0e-3          # graded by FE (binding)
+  max_nominal_bending_stress_pa: 2.0e+8 # 200 MPa, graded by closed-form 6PL/(b h^2)
+
+# Objective: minimize mass = density * length * b * h.
+
+# FE settings.
+mesh_n_grade: 8                          # mesh for the reference optimum AND the independent
+                                         # feasibility check (same mesh → reference passes its own grader)
+feasibility_tol_rel: 0.01               # allow 1% over the deflection cap on the check
+
+solver:
+  micromamba_env: solidmech
+  ccx_bin: ccx

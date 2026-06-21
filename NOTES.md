@@ -69,3 +69,30 @@ SessionEnd hook backstops this if you forget.
 - Trial 2 (operator design loop: size section to a stress constraint).
 - Add a problem *distribution* + HCE held-out test split; disambiguate the
   stress metric and add a .frd von-Mises parser.
+
+## 2026-06-21 — Trial 2: operator design loop
+
+### Did
+- Built `experiments/2026-06-21-calculix-cantilever-design-loop/`: size a
+  cantilever (b,h) to minimise mass s.t. tip deflection ≤ 3mm (FE-graded) +
+  nominal bending stress ≤ 200MPa (closed-form — applies trial-1's lesson that
+  the FE clamp-stress peak is a mesh-dependent singularity, ill-posed as a constraint).
+- `fea.py` (reuses trial-1 C3D20R gen), `design.py` (FE-true reference via b-scan +
+  h-bisection; grader on fixed n=8 mesh so reference passes its own grader),
+  `reference_design.py`, `agent_design.py` (claude -p harness, pass@k, no API key).
+- FE-true optimum: b=10mm, h=108.5mm, mass=8.519kg (deflection-binding, stress slack).
+
+### Findings
+- Live subagent designer: **+0.07% above the FE-true optimum**, feasible, 3 FE evals.
+  Found the non-obvious corner solution (drive width b→min; reasoned mass∝b^(2/3) at
+  the deflection limit) AND closed the FE loop (noticed FE deflection > Euler-Bernoulli
+  seed due to shear, nudged h up). Genuine constrained optimisation, not a blind sweep.
+- This beam is slender (L/h≈9) so the EB-vs-FE gap is only ~0.2% — feasibility is
+  easy; the discriminator is optimality. To make FE *essential*, next variants need a
+  stubbier/tapered section or both constraints active.
+
+### Next
+- `agent_design.py --trials 10` → feasible-rate + mass-gap distribution (pass@k).
+- Harder variants: both constraints active (raise P), or tapered/stepped section (no
+  closed form) so FE is genuinely in the loop.
+- Trial 3: differentiable inverse design on JAX-FEM (loop 2, GPU).
