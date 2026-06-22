@@ -266,6 +266,184 @@ def plot_xy(rows: list[dict], xkey: str, ykey: str, png_out: Path, *,
     fig.tight_layout(); fig.savefig(png_out, dpi=130); plt.close(fig)
 
 
+# --------------------------------------------------------------------------- #
+# boundary-condition schematics (plain, labelled diagrams for newcomers)
+# --------------------------------------------------------------------------- #
+def _clamp_wall(ax, x, y0, y1, width=0.06, side="left"):
+    """Draw a hatched fixed-support wall (the clamp)."""
+    import matplotlib.patches as mp
+    dx = -width if side == "left" else width
+    ax.add_patch(mp.Rectangle((min(x, x + dx), y0), abs(dx), y1 - y0,
+                              hatch="////", facecolor="#dde3ea", edgecolor="#333", lw=1.2))
+    ax.plot([x, x], [y0, y1], color="#333", lw=2)
+
+
+def _load_arrow(ax, x, y, label, dy=0.32, color="#cf222e"):
+    ax.annotate("", xy=(x, y - dy / 2), xytext=(x, y + dy / 2),
+                arrowprops=dict(arrowstyle="-|>", lw=2.4, color=color))
+    ax.text(x, y + dy / 2 + 0.04, label, ha="center", va="bottom",
+            color=color, fontsize=9, fontweight="bold")
+
+
+def bc_beam(png_out: Path, *, h_root=0.5, h_tip=0.5, title="", load_label="load P (downward)"):
+    """Cantilever side-view: clamped left wall, beam, downward tip load."""
+    import matplotlib.patches as mp
+    plt = _mpl()
+    fig, ax = plt.subplots(figsize=(6.4, 2.7))
+    L = 1.0
+    yc = 0.0
+    poly = [(0, yc - h_root / 2), (L, yc - h_tip / 2), (L, yc + h_tip / 2), (0, yc + h_root / 2)]
+    ax.add_patch(mp.Polygon(poly, closed=True, facecolor="#cfe2ff", edgecolor="#1f6feb", lw=1.5))
+    _clamp_wall(ax, 0, yc - h_root / 2 - 0.06, yc + h_root / 2 + 0.06)
+    _load_arrow(ax, L, yc + h_tip / 2, load_label)
+    ax.annotate("", xy=(0, -0.62), xytext=(L, -0.62), arrowprops=dict(arrowstyle="<->", color="#555"))
+    ax.text(L / 2, -0.7, "length L", ha="center", va="top", fontsize=9, color="#555")
+    ax.text(-0.07, yc, "fixed end\n(clamped:\nall motion = 0)", ha="right", va="center",
+            fontsize=8.5, color="#333")
+    ax.text(L + 0.02, yc - h_tip / 2 - 0.05, "free end", ha="left", va="top", fontsize=8.5, color="#333")
+    ax.set_xlim(-0.5, 1.35); ax.set_ylim(-0.95, 0.7); ax.set_aspect("equal"); ax.axis("off")
+    if title:
+        ax.set_title(title, fontsize=10)
+    fig.tight_layout(); fig.savefig(png_out, dpi=130); plt.close(fig)
+
+
+def bc_domain_2d(png_out: Path, *, nx=48, ny=16, title="2-D design domain"):
+    """Rectangular design domain: clamped left edge, load at mid-right edge."""
+    import matplotlib.patches as mp
+    plt = _mpl()
+    fig, ax = plt.subplots(figsize=(6.6, 2.8))
+    w, h = float(nx), float(ny)
+    ax.add_patch(mp.Rectangle((0, 0), w, h, facecolor="#f0f3f7", edgecolor="#1f6feb", lw=1.5, ls="--"))
+    _clamp_wall(ax, 0, -1, h + 1, width=2.0)
+    _load_arrow(ax, w, h / 2, "load (downward)", dy=h * 0.45)
+    ax.text(w / 2, h / 2, "material is placed\nhere by optimization", ha="center", va="center",
+            fontsize=8.5, color="#777")
+    ax.text(-2.4, h / 2, "left edge\nclamped", ha="right", va="center", fontsize=8.5, color="#333")
+    ax.text(w / 2, -2.0, f"grid: {nx} × {ny} cells", ha="center", va="top", fontsize=8.5, color="#555")
+    ax.set_xlim(-9, w + 7); ax.set_ylim(-4, h + 3); ax.set_aspect("equal"); ax.axis("off")
+    ax.set_title(title, fontsize=10)
+    fig.tight_layout(); fig.savefig(png_out, dpi=130); plt.close(fig)
+
+
+def bc_mbb(png_out: Path, *, nx=60, ny=20):
+    """MBB beam: symmetry rollers on the left edge, vertical roller bottom-right,
+    downward load at the top-left corner."""
+    import matplotlib.patches as mp
+    plt = _mpl()
+    fig, ax = plt.subplots(figsize=(6.8, 2.8))
+    w, h = float(nx), float(ny)
+    ax.add_patch(mp.Rectangle((0, 0), w, h, facecolor="#f0f3f7", edgecolor="#1f6feb", lw=1.5, ls="--"))
+    # left-edge symmetry rollers (x fixed): small circles
+    for yy in np.linspace(2, h - 2, 5):
+        ax.add_patch(mp.Circle((-1.2, yy), 0.9, facecolor="#dde3ea", edgecolor="#333", lw=1))
+    ax.text(-3.0, h / 2, "symmetry\n(left edge:\nx fixed)", ha="right", va="center", fontsize=8.5, color="#333")
+    # bottom-right vertical roller (y fixed)
+    ax.add_patch(mp.Polygon([(w, 0), (w - 2, -2.6), (w + 2, -2.6)], closed=True,
+                            facecolor="#dde3ea", edgecolor="#333", lw=1))
+    ax.add_patch(mp.Circle((w - 1, -3.4), 0.8, facecolor="#dde3ea", edgecolor="#333", lw=1))
+    ax.add_patch(mp.Circle((w + 1, -3.4), 0.8, facecolor="#dde3ea", edgecolor="#333", lw=1))
+    ax.text(w + 3, -2.0, "roller\n(y fixed)", ha="left", va="center", fontsize=8.5, color="#333")
+    # downward load at top-left, label placed to the left so it clears the title
+    ax.annotate("", xy=(0, h - 1), xytext=(0, h + 6), arrowprops=dict(arrowstyle="-|>", lw=2.4, color="#cf222e"))
+    ax.text(-1.5, h + 5, "load\n(downward)", ha="right", va="center", color="#cf222e",
+            fontsize=9, fontweight="bold")
+    ax.set_xlim(-13, w + 9); ax.set_ylim(-6, h + 10); ax.set_aspect("equal"); ax.axis("off")
+    ax.set_title("MBB beam — standard textbook benchmark setup", fontsize=10, pad=14)
+    fig.tight_layout(); fig.savefig(png_out, dpi=130); plt.close(fig)
+
+
+def bc_domain_3d(png_out: Path, *, nx=24, ny=8, nz=8):
+    """3-D block: one end face clamped, downward load at centre of the far face."""
+    plt = _mpl()
+    from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+    fig = plt.figure(figsize=(6.6, 3.4))
+    ax = fig.add_subplot(111, projection="3d")
+    X, Y, Z = float(nx), float(ny), float(nz)
+    # box edges
+    pts = np.array([[0, 0, 0], [X, 0, 0], [X, Y, 0], [0, Y, 0],
+                    [0, 0, Z], [X, 0, Z], [X, Y, Z], [0, Y, Z]])
+    edges = [(0, 1), (1, 2), (2, 3), (3, 0), (4, 5), (5, 6), (6, 7), (7, 4),
+             (0, 4), (1, 5), (2, 6), (3, 7)]
+    for a, b in edges:
+        ax.plot(*zip(pts[a], pts[b]), color="#1f6feb", lw=1.2)
+    # clamped face x=0 (shaded)
+    face = [pts[0], pts[3], pts[7], pts[4]]
+    ax.add_collection3d(Poly3DCollection([face], facecolor="#dde3ea", edgecolor="#333", alpha=0.8))
+    ax.text(0, Y / 2, Z + 2, "this face clamped\n(all motion = 0)", color="#333", fontsize=8)
+    # load arrow at far-face centre, downward (-y)
+    ax.quiver(X, Y / 2, Z / 2, 0, -Y * 0.7, 0, color="#cf222e", lw=2.5, arrow_length_ratio=0.3)
+    ax.text(X, Y * 0.1, Z / 2, "load\n(downward)", color="#cf222e", fontsize=8, fontweight="bold")
+    ax.set_xlabel("x (length)"); ax.set_ylabel("y (height)"); ax.set_zlabel("z (width)")
+    ax.set_title(f"3-D design block: {nx} × {ny} × {nz} cells", fontsize=10)
+    ax.set_box_aspect((X, Y, Z)); ax.view_init(elev=22, azim=-60)
+    fig.tight_layout(); fig.savefig(png_out, dpi=130); plt.close(fig)
+
+
+# --------------------------------------------------------------------------- #
+# plain-language intro + glossary
+# --------------------------------------------------------------------------- #
+GLOSSARY = {
+    "FEA": "Finite Element Analysis — a numerical method that splits a structure into many small "
+           "“elements” and solves for how it deforms and where it is stressed under load.",
+    "agent": "Here, an AI agent: the large language model does the engineering work itself — writing "
+             "the solver input, running it, reading the results, and deciding the next step — instead of "
+             "a human driving the tool.",
+    "boundary conditions": "How the structure is held and loaded: which parts are fixed in place and "
+                           "where forces are applied.",
+    "cantilever": "A beam fixed rigidly at one end and free at the other (like a diving board).",
+    "Euler–Bernoulli": "Classic beam theory giving a closed-form formula for deflection; it ignores "
+                       "shear deformation, so it is slightly off for short, stubby beams.",
+    "Timoshenko": "Beam theory that adds the shear-deformation term Euler–Bernoulli omits; accurate "
+                  "for stubby beams too.",
+    "von Mises stress": "A single scalar combining the stress components, compared against a material’s "
+                        "yield strength to judge failure.",
+    "compliance": "A measure of flexibility (force × displacement at the load). Lower compliance = "
+                  "stiffer structure, so minimizing compliance maximizes stiffness.",
+    "topology optimization": "Deciding the optimal layout of material within a region — which parts "
+                             "should be solid and which empty — for a given amount of material.",
+    "SIMP": "Solid Isotropic Material with Penalization — the standard topology-optimization scheme "
+            "that treats each cell’s density as a design variable and pushes intermediate “grey” "
+            "values toward fully solid or fully empty.",
+    "OC": "Optimality Criteria — a classic, fast update rule for topology optimization.",
+    "differentiable FEM": "A finite-element solver written so you can compute exact gradients of the "
+                          "result with respect to the design (via automatic differentiation) — which is "
+                          "what lets a gradient-based optimizer improve the design.",
+    "CalculiX": "A free, open-source FEA solver that reads Abaqus-style plain-text input files (“decks”).",
+    "C3D20R": "A 20-node quadratic hexahedral (“brick”) element with reduced integration — chosen "
+              "because simpler elements suffer “shear locking” (artificial over-stiffness in bending).",
+    "MBB beam": "Messerschmitt-Bölkow-Blohm beam — the canonical textbook benchmark problem in "
+                "topology optimization.",
+    "ndof": "Number of degrees of freedom — the count of unknown displacements the solver computes "
+            "(roughly, 2 or 3 per mesh node in 2-D / 3-D).",
+    "pass@k": "Run the agent k independent times; report how often it succeeds — a reliability measure.",
+    "GPU": "Graphics Processing Unit — massively parallel hardware that accelerates the linear algebra "
+           "in the solver.",
+    "shear locking": "A numerical artifact where simple elements act too stiff in bending; it shrinks "
+                     "as the mesh is refined.",
+}
+
+
+def terms_block(keys: list[str]) -> str:
+    rows = "".join(f"<tr><td><b>{html.escape(k)}</b></td><td>{html.escape(GLOSSARY[k])}</td></tr>"
+                   for k in keys if k in GLOSSARY)
+    if not rows:
+        return ""
+    return ("<details><summary>Terms used on this page</summary>"
+            "<div class='card'><table class='leg'>" + rows + "</table></div></details>")
+
+
+def intro_block(objective: str, setup_rows: list[tuple[str, str]], bc_png: str,
+                bc_caption: str, measured: str) -> str:
+    rows = "".join(f"<tr><td>{html.escape(l)}</td><td>{v}</td></tr>" for l, v in setup_rows)
+    return (
+        "<h2>Objective</h2><div class='card'><p>" + objective + "</p></div>"
+        "<h2>The problem &amp; how it is held</h2><div class='card'>"
+        f"<img class='fig' src='{bc_png}' alt='boundary conditions' style='max-width:560px'>"
+        f"<p class='hint'>{bc_caption}</p>"
+        "<table class='leg' style='margin-top:10px'>" + rows + "</table></div>"
+        "<h2>What is measured</h2><div class='card'><p>" + measured + "</p></div>")
+
+
 def topology_heatmap(ref: np.ndarray, agent: np.ndarray | None, png_out: Path,
                      comps: tuple[float, float] | None = None,
                      labels: tuple[str, str] = ("reference", "agent"),

@@ -47,13 +47,13 @@ def leg_row(label: str, value: str) -> str:
 
 def legitimacy_card(rows: list[str], leak: dict, notes: str = "") -> str:
     if leak["clean"]:
-        leak_html = qa.chip(True, "CLEAN") + " no reference/grader reads in the agent's files"
+        leak_html = qa.chip(True, "CLEAN") + " the agent's own files never read the stored answer or grader"
     else:
         items = ", ".join(f"<code>{h['file']}:{h['token']}</code>" for h in leak["hits"])
         leak_html = qa.chip(False, "FLAG") + f" {items}"
-    rows = rows + [leg_row("leakage scan", leak_html)]
+    rows = rows + [leg_row("no peeking at the answer", leak_html)]
     note_html = f"<p class='hint'>{notes}</p>" if notes else ""
-    return ("<h2>Agentic legitimacy</h2>"
+    return ("<h2>Did the agent really do this? (independent checks)</h2>"
             "<div class='card'><table class='leg'>"
             + "".join(rows)
             + "</table>" + note_html + "</div>")
@@ -102,18 +102,44 @@ def build_trial1(slug: str) -> dict:
                           "Independently re-graded against Euler–Bernoulli + a deterministic mesh-converged "
                           "reference sweep; the agent operated ccx unaided.")
 
-    body = ("<h2>Physics — deformed shape &amp; stress</h2>" + scene
+    qa.bc_beam(out / "bc.png", title="Cantilever beam — fixed at the left, loaded down at the tip")
+    intro = qa.intro_block(
+        objective=("Can an AI agent operate a Finite Element Analysis (FEA) solver entirely on its own? "
+                   "Given a cantilever beam (a beam fixed at one end, free at the other) and a goal — find "
+                   "the tip deflection and peak stress — the agent must write the solver's text input file, "
+                   "run the solver, read back the numbers, and check them against textbook beam theory, "
+                   "with no human in the loop."),
+        setup_rows=[
+            ("Structure", "Steel cantilever beam, length L = 1.0 m, rectangular cross-section "
+                          "(width 50 mm × height 100 mm)"),
+            ("Material", "Steel — Young's modulus E = 210 GPa, Poisson's ratio ν = 0.30"),
+            ("How it is held", "Left end fully clamped (all displacement fixed to zero)"),
+            ("Load", "Downward point force P = 1000 N at the free tip"),
+            ("Solver", "CalculiX (free open-source FEA), 20-node quadratic “brick” elements "
+                       "(type C3D20R) chosen to avoid shear-locking stiffness errors"),
+        ],
+        bc_png="bc.png",
+        bc_caption="Boundary conditions: the hatched wall is the clamp; the red arrow is the tip load.",
+        measured=("<b>Tip deflection</b> compared with the Euler–Bernoulli beam formula "
+                  "δ = P·L³ / (3·E·I). The agent passes if its simulated deflection is within tolerance "
+                  "of the analytical value and the mesh has converged (the answer stops changing as the "
+                  "mesh is refined)."))
+    body = (intro
+            + "<h2>Result — deformed shape &amp; stress</h2>" + scene
             + "<h2>Mesh convergence</h2><div class='card'><img class='fig' src='convergence.png' "
-              "alt='convergence'><p class='hint'>FE settles ~0.3% above Euler–Bernoulli — the shear "
-              "correction beam theory omits.</p></div>"
+              "alt='convergence'><p class='hint'>The simulated deflection settles ~0.3% above the "
+              "Euler–Bernoulli formula — exactly the shear-deformation correction that simple beam theory "
+              "leaves out.</p></div>"
             + leg
+            + qa.terms_block(["FEA", "agent", "cantilever", "Euler–Bernoulli", "von Mises stress",
+                              "CalculiX", "C3D20R", "pass@k"])
             + artifact_links(src))
     (out / "index.html").write_text(qa.page(
-        "Trial 1 — agent as CalculiX operator",
-        "The agent writes the deck, runs ccx, parses results, and validates against beam theory.",
+        "Trial 1 — Can an AI agent run a structural solver?",
+        "The agent writes the solver input, runs it, reads the results, and checks them against beam theory.",
         body, crumb_for(slug)))
     return {"slug": slug, "title": "Trial 1 — operator baseline",
-            "axis": "drive a solver", "headline": f"{g['deflection_rel_err']*100:.3f}% deflection error · PASS"}
+            "axis": "running a solver", "headline": f"{g['deflection_rel_err']*100:.3f}% deflection error · PASS"}
 
 
 # --------------------------------------------------------------------------- #
@@ -170,17 +196,42 @@ def build_trial2(slug: str) -> dict:
                           "Independently re-graded on a fixed n=8 mesh; the agent derived the min-width "
                           "corner from a stiffness-per-mass argument and closed the FE loop (shear vs EB).")
 
-    body = ("<h2>Physics — final design</h2>" + scene
+    qa.bc_beam(out / "bc.png", title="Cantilever beam — the agent chooses the cross-section size")
+    intro = qa.intro_block(
+        objective=("Can the agent <i>design</i> a part, not just analyze one? It must choose the "
+                   "cross-section dimensions of a cantilever beam to make it as light as possible while "
+                   "still meeting limits on how much it bends and how highly it is stressed — running the "
+                   "loop itself: propose dimensions → build the mesh → simulate → check the limits → revise."),
+        setup_rows=[
+            ("Structure", "Steel cantilever, length L = 1.0 m, rectangular cross-section"),
+            ("Design freedom", "Width b (10–80 mm) and height h (10–200 mm) — the agent picks these"),
+            ("Goal", "Minimize mass (= density × length × b × h)"),
+            ("Limits (constraints)", "Tip deflection ≤ 3 mm (checked by simulation) and bending stress "
+                                     "≤ 200 MPa"),
+            ("Load", "Downward tip force P = 2000 N"),
+        ],
+        bc_png="bc.png",
+        bc_caption="Same cantilever as Trial 1; now the cross-section width and height are the variables "
+                   "the agent optimizes.",
+        measured=("<b>Mass of the agent's final design</b> versus the true optimum found by an independent "
+                  "brute-force search, plus an independent re-check that the design actually meets the "
+                  "deflection and stress limits. A subtlety the agent must discover: stiffness-per-mass "
+                  "favors height, so the lightest design pushes width to its minimum — a non-obvious "
+                  "“corner” answer."))
+    body = (intro
+            + "<h2>Result — the agent's final design</h2>" + scene
             + "<h2>Design space</h2><div class='card'><img class='fig' src='design_space.png' "
-              "alt='design space'><p class='hint'>Mass is monotone in width → optimum pins b at its "
-              "10 mm floor (the non-obvious corner solution).</p></div>"
-            + leg + artifact_links(src))
+              "alt='design space'><p class='hint'>Mass falls as width shrinks, so the optimum pins width "
+              "at its 10 mm minimum — the non-obvious corner solution the agent found.</p></div>"
+            + leg
+            + qa.terms_block(["agent", "cantilever", "FEA", "pass@k"])
+            + artifact_links(src))
     (out / "index.html").write_text(qa.page(
-        "Trial 2 — operator design loop",
-        "Size a cantilever (b,h) to minimise mass under deflection + stress constraints.",
+        "Trial 2 — Can the agent design a part to meet limits?",
+        "Choose a cantilever's cross-section to minimize weight under deflection and stress limits.",
         body, crumb_for(slug)))
     return {"slug": slug, "title": "Trial 2 — design loop (prismatic)",
-            "axis": "design with a solver", "headline": f"+{g['pct_above_optimum']:.3f}% above optimum · pass@10 10/10"}
+            "axis": "designing a part", "headline": f"+{g['pct_above_optimum']:.3f}% above optimum · reliable 10/10"}
 
 
 def build_trial2b(slug: str) -> dict:
@@ -216,17 +267,43 @@ def build_trial2b(slug: str) -> dict:
                           "A tapered beam has no elementary deflection formula, so every candidate had to be "
                           "FE-solved; the agent ran a 29-design search and matched the interior optimum.")
 
-    body = ("<h2>Physics — tapered design</h2>" + scene
-            + "<h2>Taper design space</h2><div class='card'><img class='fig' src='taper_scan.png' "
-              "alt='taper scan'><p class='hint'>An interior optimum near taper ratio ≈0.25 — no closed "
-              "form predicts it; FE is genuinely in the loop.</p></div>"
-            + leg + artifact_links(src))
+    qa.bc_beam(out / "bc.png", h_root=0.62, h_tip=0.20,
+               title="Tapered cantilever — height shrinks from the clamp to the tip")
+    intro = qa.intro_block(
+        objective=("A harder version of Trial 2. Now the beam's height <i>tapers</i> from a tall root "
+                   "(at the clamp) to a short tip. A tapered beam has <b>no textbook deflection formula</b>, "
+                   "so the agent cannot shortcut with an equation — it must simulate every candidate design. "
+                   "This tests whether the agent will lean on the simulation when no formula exists."),
+        setup_rows=[
+            ("Structure", "Steel tapered cantilever, length L = 1.0 m, constant width, height varying "
+                          "linearly from root to tip"),
+            ("Design freedom", "Width b, root height, and tip height — three variables"),
+            ("Goal", "Minimize mass"),
+            ("Limits (constraints)", "Tip deflection ≤ 3 mm (only obtainable by simulation) and bending "
+                                     "stress ≤ 200 MPa"),
+            ("Load", "Downward tip force P = 2000 N"),
+        ],
+        bc_png="bc.png",
+        bc_caption="A tapered cantilever: deep at the clamped end, shallow at the free end — no closed-form "
+                   "deflection equation exists, so simulation is essential.",
+        measured=("<b>Mass of the agent's final taper</b> versus the true optimum from an independent "
+                  "simulation-based search, plus a feasibility re-check. The interesting finding: the best "
+                  "taper is an interior trade-off (neither uniform nor extreme), which only simulation can "
+                  "locate."))
+    body = (intro
+            + "<h2>Result — the agent's tapered design</h2>" + scene
+            + "<h2>Design space</h2><div class='card'><img class='fig' src='taper_scan.png' "
+              "alt='taper scan'><p class='hint'>The lightest feasible beam sits at an interior taper "
+              "(tip height ≈ ¼ of root height) — no formula predicts this; only simulation finds it.</p></div>"
+            + leg
+            + qa.terms_block(["agent", "cantilever", "FEA"])
+            + artifact_links(src))
     (out / "index.html").write_text(qa.page(
-        "Trial 2b — tapered design loop",
-        "Harder variant: a tapered section with no closed-form deflection — FE in the loop, not a correction.",
+        "Trial 2b — Designing when no formula exists",
+        "A tapered cantilever with no closed-form deflection — the agent must rely on simulation.",
         body, crumb_for(slug)))
     return {"slug": slug, "title": "Trial 2b — design loop (tapered)",
-            "axis": "design with a solver", "headline": f"{g['pct_above_optimum']:+.3f}% vs optimum · {lighter:.0f}% lighter than prismatic"}
+            "axis": "designing a part (no formula)", "headline": f"{g['pct_above_optimum']:+.3f}% vs optimum · {lighter:.0f}% lighter than uniform"}
 
 
 def build_trial3(slug: str) -> dict:
@@ -272,28 +349,41 @@ def build_trial3(slug: str) -> dict:
             f"vs Euler–Bernoulli {r['err_vs_eb_pct']:+.1f}% · vs Timoshenko {r['err_vs_timoshenko_pct']:+.2f}%</td></tr>"
             for r in b["rows"])
         mbb = v["optimizer_gold_mbb"]
-        # render MBB topology image
+        # render MBB setup diagram + reproduced topology
         mbb_npy = src / "results" / "mbb_density.npy"
         mbb_img = ""
         if mbb_npy.exists():
+            qa.bc_mbb(out / "mbb_bc.png")
             qa.topology_heatmap(np.load(mbb_npy), None, out / "mbb.png",
-                                labels=("MBB beam (our solver)", ""), origin="upper",
-                                suptitle="Canonical MBB beam — reproduced (Sigmund 2001 / Andreassen 2011)")
-            mbb_img = ("<div class='card'><img class='fig' src='mbb.png' alt='MBB beam'>"
-                       f"<p class='hint'>Reproduces the textbook MBB topology (top + bottom chords, "
-                       f"triangulated web). Our compliance {mbb['our_compliance']:.1f}; the published "
-                       f"scalar is filter/rmin-dependent (~200–220) so the topology is the rigorous match.</p></div>")
+                                labels=("our reproduced layout", ""), origin="upper",
+                                suptitle="MBB beam — material layout our solver produced")
+            mbb_img = ("<img class='fig' src='mbb_bc.png' alt='MBB setup' style='max-width:520px'>"
+                       "<img class='fig' src='mbb.png' alt='MBB beam' style='margin-top:10px'>"
+                       f"<p class='hint'>Our solver reproduces the textbook MBB layout (solid top and bottom "
+                       f"chords with a triangulated web of diagonals). Our stiffness measure (compliance) "
+                       f"is {mbb['our_compliance']:.1f}; the published number depends on solver settings "
+                       f"(roughly 200–220), so the <b>shape match is the rigorous check</b>, not a single "
+                       f"number.</p>")
         verif = (
-            "<h2>External-gold verification</h2>"
-            "<div class='card'><p class='hint'>Does our reference machinery match targets defined "
-            "<i>outside</i> this repo? Two checks:</p>"
-            "<p><b>1. Forward-model gold (closed form)</b> &nbsp;" + qa.chip(b["pass"])
-            + " — uniform-density compliance = tip deflection vs analytical beam theory:</p>"
+            "<h2>Is the scoring trustworthy? (verification against outside references)</h2>"
+            "<div class='card'><p>The agent above is scored against a reference we compute ourselves. To "
+            "show that reference is correct, we check our simulator against two targets defined "
+            "<i>outside</i> this project:</p></div>"
+            "<div class='card'><p><b>Check 1 — does the simulator match textbook physics?</b> &nbsp;"
+            + qa.chip(b["pass"])
+            + "</p><p class='hint'>For a plain uniform beam, the simulator's predicted tip deflection should "
+            "equal the analytical beam-theory formulas. <b>Euler–Bernoulli</b> is the simple formula; "
+            "<b>Timoshenko</b> adds the shear-deformation term it omits. L/h is the beam's "
+            "length-to-height (slenderness) ratio.</p>"
             "<table class='leg'>" + brows + "</table>"
-            f"<p class='hint'>Max |error vs Timoshenko| = {b['max_abs_err_vs_timoshenko_pct']:.2f}%. "
-            "The L/h=3 row shows EB breaking down (shear) while Timoshenko holds — the same correction "
-            "CalculiX showed in trial 1, now confirmed in the JAX solver.</p></div>"
-            "<div class='card'><p><b>2. Optimizer gold (published problem)</b> — the canonical MBB beam:</p>"
+            f"<p class='hint'>Largest error versus Timoshenko = {b['max_abs_err_vs_timoshenko_pct']:.2f}%. "
+            "The short, stubby beam (L/h = 3) shows Euler–Bernoulli breaking down while Timoshenko still "
+            "holds — the same shear correction the CalculiX solver showed in Trial 1.</p></div>"
+            "<div class='card'><p><b>Check 2 — does it reproduce a famous published benchmark?</b></p>"
+            "<p class='hint'>The MBB beam (Messerschmitt-Bölkow-Blohm, the standard textbook "
+            "topology-optimization problem) has a well-known optimal shape. Setup: the left edge is a "
+            "symmetry plane (rollers), a single roller supports the bottom-right corner, and a downward "
+            "load sits at the top-left.</p>"
             + mbb_img + "</div>")
 
     # --- GPU + grid scaling ---
@@ -310,16 +400,41 @@ def build_trial3(slug: str) -> dict:
             "~4× faster; at 120×40 (ndof 9922) it runs in ~70 s — the dense direct solve is the wall, which "
             "is exactly why the next step is a sparse / real-JAX-FEM solver.</p></div>")
 
-    body = ("<h2>Physics — optimised topology</h2><div class='card'><img class='fig' src='topology.png' "
-            "alt='topology'><p class='hint'>Classic cantilever truss; the agent's field is visually and "
-            "numerically equivalent to the reference.</p></div>"
-            + leg + verif + scaling + artifact_links(src))
+    qa.bc_domain_2d(out / "bc.png", nx=48, ny=16)
+    intro = qa.intro_block(
+        objective=("Can the agent invent the best <i>material layout</i> from scratch? This is "
+                   "<b>topology optimization</b> — deciding which parts of a region should be solid and "
+                   "which empty to make the stiffest possible structure from a fixed amount of material. "
+                   "The twist: the agent is handed a <b>differentiable</b> physics simulator (one that also "
+                   "returns gradients — the sensitivity of stiffness to each cell's material) and must write "
+                   "its <i>own</i> gradient-based optimizer to solve it."),
+        setup_rows=[
+            ("Design region", "A 2-D rectangle, 48 × 16 cells, each cell solid or empty"),
+            ("How it is held", "The entire left edge is clamped (fixed)"),
+            ("Load", "A downward force at the middle of the right edge"),
+            ("Material budget", "At most 40% of the region may be solid"),
+            ("Goal", "Minimize compliance (flexibility) = maximize stiffness"),
+        ],
+        bc_png="bc.png",
+        bc_caption="The design region: left edge clamped, load pulling down at the right. The optimizer "
+                   "chooses where to put the limited material.",
+        measured=("<b>Compliance of the agent's layout</b> versus a reference optimum we compute the same "
+                  "way, and — crucially — an <b>independent recompute</b> of the agent's reported number "
+                  "from its saved design (to rule out a fabricated result). Lower compliance is better."))
+    body = (intro
+            + "<h2>Result — the optimized layout</h2><div class='card'><img class='fig' src='topology.png' "
+              "alt='topology'><p class='hint'>Both reach the classic cantilever truss; the agent's layout is "
+              "visually and numerically equivalent to the reference (darker = solid material).</p></div>"
+            + leg + verif + scaling
+            + qa.terms_block(["agent", "topology optimization", "compliance", "differentiable FEM",
+                              "SIMP", "OC", "MBB beam", "Euler–Bernoulli", "Timoshenko", "GPU", "ndof"])
+            + artifact_links(src))
     (out / "index.html").write_text(qa.page(
-        "Trial 3 — differentiable inverse design",
-        "Minimum-compliance topology optimisation on a differentiable FEM (loop 2 substrate).",
+        "Trial 3 — Can the agent invent an optimal structure?",
+        "Topology optimization on a differentiable simulator — the agent writes its own optimizer.",
         body, crumb_for(slug)))
     return {"slug": slug, "title": "Trial 3 — differentiable topology",
-            "axis": "differentiate a solver", "headline": f"+{g['rel_diff_vs_reference']*100:.2f}% vs reference · recompute EXACT"}
+            "axis": "inventing a structure (2-D)", "headline": f"+{g['rel_diff_vs_reference']*100:.2f}% vs reference · recompute EXACT"}
 
 
 def build_trial4(slug: str) -> dict:
@@ -352,37 +467,66 @@ def build_trial4(slug: str) -> dict:
 
     eg = v["element_gold"]
     rows = [
-        leg_row("element stiffness — rigid-body modes",
-                f"{eg['n_zero_eigs']} zero eigenvalues (expect 6) &nbsp; " + qa.chip(eg["pass"])),
-        leg_row("element symmetric / PSD",
-                f"symmetric={eg['symmetric']}, rigid-translation force "
-                f"{eg['rigid_translation_max_force']:.0e} (≈0)"),
-        leg_row("forward model → Euler–Bernoulli",
-                f"converges monotonically to {bc['finest_err_vs_eb_pct']:+.2f}% at finest mesh &nbsp; "
+        leg_row("element math — rigid-body check",
+                f"{eg['n_zero_eigs']} of the expected 6 free-motion modes (a correct element can move/rotate "
+                f"freely with zero internal force) &nbsp; " + qa.chip(eg["pass"])),
+        leg_row("element math — symmetry &amp; zero-force motion",
+                f"stiffness matrix symmetric = {eg['symmetric']}; force under a rigid shift "
+                f"{eg['rigid_translation_max_force']:.0e} (≈ 0, as it must be)"),
+        leg_row("simulator vs textbook beam theory",
+                f"error shrinks to {bc['finest_err_vs_eb_pct']:+.2f}% at the finest mesh (converges) &nbsp; "
                 + qa.chip(bc["pass"])),
-        leg_row("reference compliance",
-                f"{m['reference_compliance']:.2f} at vol {m['reference_volume']:.2f} "
-                f"(grid {m['grid'][0]}×{m['grid'][1]}×{m['grid'][2]}, ndof {m['ndof']}, GPU)"),
+        leg_row("optimized stiffness (compliance, lower = stiffer)",
+                f"{m['reference_compliance']:.2f} using {m['reference_volume']*100:.0f}% material "
+                f"(block {m['grid'][0]}×{m['grid'][1]}×{m['grid'][2]}, {m['ndof']} unknowns, on GPU)"),
     ]
     leg = legitimacy_card(rows, {"clean": True, "hits": [], "scanned_dir": "n/a (no agent yet)"},
-                          "No agent in this experiment yet — this is the verified 3D loop-2 substrate. "
-                          "The element passes exact algebraic checks and the forward model converges to "
-                          "closed-form beam theory; coarse-mesh stiffness is the known shear-locking of "
-                          "fully-integrated trilinear hex.")
+                          "No AI agent runs in this experiment yet — it builds and verifies the 3-D "
+                          "simulator that a later agent-design trial will use. The element passes exact "
+                          "algebraic checks and the simulator converges to closed-form beam theory; the "
+                          "coarse-mesh stiffness is the known shear-locking artifact of simple elements.")
 
-    body = ("<h2>Physics — 3D optimised structure</h2>" + scene
-            + "<h2>Forward-model verification (→ beam theory)</h2><div class='card'>"
+    qa.bc_domain_3d(out / "bc.png", nx=m["grid"][0], ny=m["grid"][1], nz=m["grid"][2])
+    intro = qa.intro_block(
+        objective=("The same “invent the optimal material layout” problem as Trial 3, but in full "
+                   "<b>3-D</b> — a solid block instead of a flat rectangle. Because no ready-made 3-D "
+                   "simulator was on hand, this trial <b>builds one from scratch and proves it is correct</b> "
+                   "before optimizing: the 3-D simulator is the foundation a future agent will use to design "
+                   "three-dimensional parts."),
+        setup_rows=[
+            ("Design region", f"A 3-D block, {m['grid'][0]} × {m['grid'][1]} × {m['grid'][2]} cells"),
+            ("How it is held", "One end face fully clamped (a cantilever)"),
+            ("Load", "A downward force at the centre of the opposite (free) face"),
+            ("Material budget", "At most 30% of the block may be solid"),
+            ("Goal", "Minimize compliance (flexibility) = maximize stiffness"),
+            ("Hardware", f"Runs on the GPU ({m['ndof']} unknown displacements solved each step)"),
+        ],
+        bc_png="bc.png",
+        bc_caption="The 3-D design block: the shaded end face is clamped; the red arrow is the load on the "
+                   "far face. The optimizer fills in where material should go.",
+        measured=("Two things. <b>(1) Is the new simulator correct?</b> Its element math is checked "
+                  "algebraically, and a plain uniform block must reproduce textbook beam theory as the mesh "
+                  "is refined. <b>(2) Does optimization work?</b> The resulting 3-D structure should be a "
+                  "sensible load-carrying shape at the target material budget."))
+    body = (intro
+            + "<h2>Result — the optimized 3-D structure</h2>" + scene
+            + "<h2>Is the new simulator correct? (vs textbook beam theory)</h2><div class='card'>"
               "<img class='fig' src='beam_conv.png' alt='beam convergence'>"
-              "<p class='hint'>Uniform-density compliance equals tip deflection; it converges to "
-              "Euler–Bernoulli as the mesh refines through the thickness. The gap at coarse meshes is "
-              "shear locking, not error.</p></div>"
-            + leg + artifact_links(src))
+              "<p class='hint'>For a plain uniform block, the simulator's tip deflection approaches the "
+              "Euler–Bernoulli beam-theory value as the mesh is refined through the thickness. The gap at "
+              "coarse meshes is “shear locking” (a known stiffness artifact of simple elements), not a bug — "
+              "it shrinks with refinement.</p></div>"
+            + leg
+            + qa.terms_block(["topology optimization", "compliance", "differentiable FEM", "SIMP",
+                              "OC", "Euler–Bernoulli", "shear locking", "GPU", "ndof"])
+            + artifact_links(src))
     (out / "index.html").write_text(qa.page(
-        "Trial 4 — 3D differentiable FEM topology",
-        "A hand-rolled 3D differentiable FEM (8-node hex, SIMP) in JAX on the GPU — the loop-2 substrate in 3D.",
+        "Trial 4 — Building &amp; verifying a 3-D simulator, then optimizing",
+        "A from-scratch 3-D differentiable simulator on the GPU, checked against beam theory, then used for "
+        "3-D topology optimization.",
         body, crumb_for(slug)))
     return {"slug": slug, "title": "Trial 4 — 3D differentiable topology",
-            "axis": "differentiate a solver (3D)",
+            "axis": "inventing a structure (3-D)",
             "headline": f"element exact · FEM→EB {bc['finest_err_vs_eb_pct']:+.2f}% · GPU C={m['reference_compliance']:.1f}"}
 
 
@@ -412,15 +556,25 @@ def build_index(cards: list[dict]):
     for c in cards:
         items.append(
             f"<li><a href='{c['slug']}/'><span class='ttl'>{c['title']}</span></a>"
-            f"<div class='axis'>axis: {c['axis']} — {c['headline']}</div></li>")
+            f"<div class='axis'>Tests: {c['axis']} &nbsp;·&nbsp; {c['headline']}</div></li>")
     body = (
-        "<div class='card'><p>Each experiment below is graded on two axes. "
-        "<b>Physics</b>: interactive deformed/stress scenes and design-space plots — rotate and zoom in "
-        "the browser, no plugin. <b>Agentic legitimacy</b>: did the agent genuinely do the work — a leakage "
-        "scan (no reference/grader reads), an independent recompute, turn/eval counts, and pass@k.</p>"
-        "<p class='hint'>Static — generated by <code>_meta/qa/build_qa.py</code>, served from GitHub Pages. "
-        "No running service. Best viewed on a desktop for the 3D scenes.</p></div>"
-        "<h2>Experiments</h2><ul class='exp'>" + "".join(items) + "</ul>")
+        "<div class='card'><p>This project tests whether an <b>AI agent</b> — a large language model that "
+        "does the engineering itself, not a human driving a tool — can carry out structural-mechanics "
+        "simulation and design. Each trial below uses <b>Finite Element Analysis (FEA)</b>, the standard "
+        "numerical method for predicting how a structure deforms and where it is stressed.</p>"
+        "<p>The trials build up three abilities: <b>(1) run a solver</b> (operate the simulation tool "
+        "correctly), <b>(2) design a part</b> (choose dimensions to meet goals and limits), and "
+        "<b>(3) invent a structure</b> (decide the optimal material layout from scratch). Every result is "
+        "graded against physics — analytical formulas, mesh convergence, or published benchmarks — not "
+        "against the agent's own say-so.</p>"
+        "<p>Each page shows: the <b>objective</b> in plain terms, the <b>problem setup and boundary "
+        "conditions</b> (how the structure is held and loaded, with a diagram), an <b>interactive 3-D "
+        "result</b> you can rotate and zoom, and a <b>trustworthiness panel</b> (independent re-checks that "
+        "the agent did the work honestly and the numbers hold up). Unfamiliar terms are defined at the "
+        "bottom of each page.</p>"
+        "<p class='hint'>Static site, generated by <code>_meta/qa/build_qa.py</code>, served from GitHub "
+        "Pages — no running service. Best viewed on a desktop for the 3-D scenes.</p></div>"
+        "<h2>Trials</h2><ul class='exp'>" + "".join(items) + "</ul>")
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "index.html").write_text(qa.page(
         "Agentic Solid Mechanics — QA",

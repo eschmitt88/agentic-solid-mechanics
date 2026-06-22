@@ -42,12 +42,31 @@ git add docs/qa && git commit -m "qa: rebuild" && git push
   deck) to colour the scene by stress. Trial 1 reuses the agent's field-bearing
   `.frd` directly.
 
+## Page structure (write for a newcomer)
+
+Every trial page must be self-contained for a reader with no project context:
+
+1. **Objective** — one plain-language paragraph: what is being tested and why.
+2. **The problem & how it is held** — a boundary-condition diagram
+   (`qa_lib.bc_beam` / `bc_domain_2d` / `bc_domain_3d` / `bc_mbb`) plus a table
+   of structure / material / supports / load / goal.
+3. **What is measured** — the metric and the pass criterion, in plain terms.
+4. Results (interactive scene + plots), then the **"Did the agent really do
+   this?"** checks panel.
+5. A **`terms_block([...])`** glossary footer — every acronym used on the page
+   must have an entry in `qa_lib.GLOSSARY` and be listed here. Spell acronyms out
+   on first use in the prose too (FEA, SIMP, OC, MBB, …). No insider phrases
+   ("loop-2 substrate", "forward-model gold", etc.).
+
+`qa_lib.intro_block(objective, setup_rows, bc_png, bc_caption, measured)` renders
+items 1–3; use it at the top of every builder.
+
 ## Adding an experiment
 
 Add a `build_trialN(slug)` to `build_qa.py` returning
-`{slug, title, axis, headline}`, append it in `main()`. Reuse `qa_lib`
-helpers; degrade gracefully (a failed scene still emits the page + legitimacy
-panel).
+`{slug, title, axis, headline}`, append it in `main()`. Open with the
+`intro_block` + a BC diagram, close with a `terms_block`. Reuse `qa_lib`
+helpers; degrade gracefully (a failed scene still emits the page + checks panel).
 
 ## Gotchas (learned the hard way)
 
