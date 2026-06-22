@@ -26,5 +26,16 @@
     "mass_kg": 8.5251,
     "num_turns": 11,
     "cost_usd_equiv": 0.8744965000000001
+  },
+  "agent_designer_passk": {
+    "runner": "claude -p (subscription, no API key)",
+    "model": "claude-opus-4-8",
+    "n_trials": 10,
+    "feasible_rate": 1.0,
+    "best_pct_above_optimum": 0.027018376833964908,
+    "worst_pct_above_optimum": 0.2573892160251834,
+    "mean_pct_above_optimum": 0.1044,
+    "median_turns": 11.5,
+    "all_found_min_width_corner": true
   }
 }

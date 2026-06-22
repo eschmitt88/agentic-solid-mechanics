@@ -16,3 +16,4 @@
   (defl 2.993mm), mass 8.525kg = +0.07% above optimum, 3 FE evals. Reasoned
   mass∝b^(2/3), self-corrected EB→FE for shear. Clean (no reference reads).
 - Headless agent_design.py (opus, claude -p): feasible 1/1, +0.07% above optimum, b=10mm h=108.6mm, 11 turns. Scriptable design harness validated on subscription (no API key).
+- pass@10 (headless claude -p, opus): feasible 10/10, all found min-width corner, +0.0% to +0.3% above optimum (mean +0.10%), median 11.5 turns. Design loop is reliable.
