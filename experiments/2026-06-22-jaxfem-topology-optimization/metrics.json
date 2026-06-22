@@ -1,0 +1,17 @@
+{
+  "reference": {
+    "compliance": 295.6953094806639,
+    "volume": 0.3999973208184383,
+    "n_iterations": 60
+  },
+  "agent_optimizer_demo": {
+    "runner": "in-session subagent (wrote own OC optimizer via jax autodiff)",
+    "compliance": 296.6048381615488,
+    "recomputed_compliance": 296.6048381615488,
+    "rel_diff_vs_reference": 0.0030758982362023273,
+    "volume": 0.4000000106068796,
+    "pass": true,
+    "n_iterations": 76
+  },
+  "device": "cpu (GPU blocked by NVML/NVRM driver mismatch 580.167 vs 580.159.03 \u2014 needs reboot)"
+}

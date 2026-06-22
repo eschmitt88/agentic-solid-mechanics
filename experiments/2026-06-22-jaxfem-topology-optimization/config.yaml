@@ -1,0 +1,26 @@
+# Trial 3 — differentiable inverse design (loop 2): compliance-minimization
+# topology optimization of a 2D cantilever via SIMP + JAX autodiff sensitivities.
+seed: 42
+
+problem:
+  nelx: 48            # elements along length
+  nely: 16            # elements along height
+  volfrac: 0.40       # volume fraction constraint
+  penal: 3.0          # SIMP penalization
+  rmin: 1.5           # density filter radius (elements)
+  load: tip_mid_right # downward unit load at middle of the right edge; left edge clamped
+
+optim:
+  max_iter: 60
+  move: 0.2           # OC move limit
+  tol_change: 0.01    # stop when max |drho| < tol
+
+# Grading: agent's final compliance vs the reference OC optimum, at the same
+# volume fraction. Lower compliance = stiffer = better.
+grade:
+  compliance_tol_rel: 0.05   # within 5% of reference compliance counts as success
+  volfrac_tol: 0.02          # final volume must be <= volfrac + this
+
+# device: JAX uses GPU automatically when available; CPU fallback otherwise.
+# NOTE 2026-06-22: GPU blocked by a driver/kernel-module version mismatch
+# (NVML 580.167 vs NVRM 580.159.03) — needs a reboot. Runs on CPU until then.

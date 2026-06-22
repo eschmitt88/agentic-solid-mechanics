@@ -96,3 +96,31 @@ SessionEnd hook backstops this if you forget.
 - Harder variants: both constraints active (raise P), or tapered/stepped section (no
   closed form) so FE is genuinely in the loop.
 - Trial 3: differentiable inverse design on JAX-FEM (loop 2, GPU).
+
+## 2026-06-22 — Trial 2b (tapered) + Trial 3 (differentiable, loop 2)
+
+### Did
+- Trial 2b: tapered cantilever design loop (no closed-form deflection → FE
+  genuinely required). Agent ran a 29-design FE search, matched the FE-true
+  optimum (b=10/h_root=148/h_tip=37mm, 7.26kg, 14.8% lighter than prismatic),
+  and explicitly flagged "beam theory unsafe" — discovered the FE-essential point.
+- Trial 3 (first loop-2): differentiable inverse design. Built jaxfem.py (compact
+  differentiable plane-stress FEM, SIMP, autodiff compliance; stands in for
+  JAX-FEM). Agent wrote its OWN OC optimizer from jax.value_and_grad and solved
+  min-compliance topology optimization → +0.31% vs reference, volume-feasible, PASS.
+- Installed jax[cuda12] (GPU-ready; CPU now).
+
+### Findings
+- All three agentic axes now demonstrated: drive a solver (trial 1), design with a
+  solver (trials 2/2b), differentiate a solver (trial 3). Agent reached/within
+  ~0.3% of optimum in every case, authoring its own decks/optimizers, graded
+  against physics — no fabrication (independently recomputed).
+- **GPU is down**: NVIDIA driver package-updated (NVML 580.167) but old kernel
+  module (NVRM 580.159.03) still loaded → nvidia-smi + CUDA fail
+  (CUDA_ERROR_COMPAT_NOT_SUPPORTED_ON_DEVICE). Needs a reboot / sudo module reload.
+  Trial 3 ran on CPU (6s); same code uses GPU once fixed.
+
+### Next
+- After reboot: re-run trial 3 on GPU, scale grid, migrate to JAX-FEM proper (3D).
+- pass@10 batch for trial 2 (prismatic) running in background — record when done.
+- Headless agent_topopt.py harness for loop-2 pass@k.
