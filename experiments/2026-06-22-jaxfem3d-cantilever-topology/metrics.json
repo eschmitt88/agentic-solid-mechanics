@@ -1,0 +1,11 @@
+{
+  "reference_compliance": 49.97729162957325,
+  "reference_volume": 0.30000162476011677,
+  "n_iterations": 60,
+  "grid": [
+    24,
+    8,
+    8
+  ],
+  "ndof": 6075
+}

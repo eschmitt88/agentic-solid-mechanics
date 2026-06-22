@@ -37,14 +37,15 @@ agent's role shifts to *orchestrating gradient-based optimization* through a
 - **Grading:** agent's final compliance within 5% of the reference, volume ≤
   0.42. Compliance is recomputed independently from the agent's saved density.
 
-## ⚠️ GPU status
+## GPU status — RESOLVED (2026-06-22, post-reboot)
 
-JAX is installed CUDA-ready, but the GPU is currently **unusable for CUDA**: the
-NVIDIA driver was package-updated (NVML userspace **580.167**) while the old
-**580.159.03** kernel module is still loaded — `nvidia-smi` and `cuInit` both
-fail (`CUDA_ERROR_COMPAT_NOT_SUPPORTED_ON_DEVICE`). **A reboot** (or `sudo`
-nvidia module reload) fixes it. JAX falls back to CPU meanwhile; this trial ran
-on CPU (the same code uses the GPU automatically once the driver is reconciled).
+The earlier driver/kernel-module mismatch (NVML 580.167 vs NVRM 580.159.03,
+`CUDA_ERROR_COMPAT_NOT_SUPPORTED_ON_DEVICE`) is **fixed by the reboot**.
+`nvidia-smi` is healthy (RTX 5080, 580.167.08) and JAX reports
+`CudaDevice(id=0)`. The GPU re-run is **bit-identical to CPU** (C=295.69531 →
+determinism confirmed) and ~4× faster at 48×16; grid scaling to 120×40
+(ndof 9922) runs on GPU in ~70 s — see the **GPU & grid scaling** and
+**external-gold verification** sections below / on the QA page.
 
 ## Reference optimum (`results/reference.json`, `reference_density.pgm`)
 
@@ -114,8 +115,33 @@ Unless noted, numbers reference `metrics.json`.
     displacements) — a different loop-2 task.
   - Have the agent compare optimizers (OC vs Adam vs MMA) and self-select.
 
+## External-gold verification (`verify_benchmark.py` → `results/verification.json`)
+
+Added to answer "how do we know the reference is right" — checks against targets
+defined **outside** this repo:
+
+1. **Forward-model gold (closed form):** the differentiable FEM, uniform density,
+   reproduces analytical beam theory. compliance(ones) = tip deflection; **max
+   |error vs Timoshenko| = 0.86%** across L/h ∈ {3,10,20}, and the L/h=3 case
+   shows Euler–Bernoulli off by +8.9% (shear) while Timoshenko holds to +0.2% —
+   the same shear correction CalculiX showed in trial 1.
+2. **Optimizer gold (published problem):** reproduces the **canonical MBB beam**
+   [Sigmund 2001; Andreassen et al. 2011] — the textbook topology (top + bottom
+   chords, triangulated web). Our converged compliance ≈ 218.5; the published
+   *scalar* is filter/rmin-dependent (~200–220), so the rigorous match is the
+   reproduced topology, not a single number we can't re-derive offline.
+
+## GPU & grid scaling
+
+GPU re-run is bit-identical to CPU (determinism) and ~4× faster at 48×16. Scaled
+to **120×40 (ndof 9922)** on the GPU: compliance 233.9 in ~70 s — the dense
+direct solve is the wall (ndof grows as resolution³), motivating a sparse / real
+JAX-FEM solver. `results/scaled_density.npy` rendered on the QA page.
+
 ## Follow-up
 
-- Migrate the forward model to JAX-FEM for 3D + richer physics on GPU.
+- **Trial 4 (done):** 3D differentiable FEM —
+  `../2026-06-22-jaxfem3d-cantilever-topology/`.
+- Sparse / matrix-free solve to lift the grid-size cap on GPU.
 - An `agent_topopt.py` headless harness (like trials 1/2's `agent_design.py`)
-  for pass@k once the GPU is back.
+  for loop-2 pass@k.

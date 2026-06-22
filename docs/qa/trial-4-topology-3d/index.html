@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trial 4 — 3D differentiable FEM topology</title><style>
+:root{--fg:#1c2128;--mut:#636c76;--bd:#d0d7de;--ok:#1a7f37;--bad:#cf222e;--accent:#0969da;--bg:#fff;--card:#f6f8fa}
+*{box-sizing:border-box}body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg);margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 22px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:25px;margin:.2em 0 .1em}h2{font-size:18px;margin:1.7em 0 .5em;border-bottom:1px solid var(--bd);padding-bottom:.25em}
+.sub{color:var(--mut);margin:0 0 1.4em}
+.crumb{color:var(--mut);font-size:13px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;margin:14px 0}
+iframe.scene{width:100%;height:480px;border:1px solid var(--bd);border-radius:8px;background:#fff}
+img.fig{max-width:100%;border:1px solid var(--bd);border-radius:8px;display:block}
+.hint{color:var(--mut);font-size:12.5px;margin:.4em 0 0}
+table.leg{border-collapse:collapse;width:100%;font-size:14px}
+table.leg td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
+table.leg td:first-child{color:var(--mut);width:230px;white-space:nowrap}
+.chip{display:inline-block;font-size:12px;font-weight:600;padding:1px 9px;border-radius:20px}
+.chip.ok{background:#dafbe1;color:var(--ok)}.chip.bad{background:#ffebe9;color:var(--bad)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+code{background:#eaeef2;padding:1px 5px;border-radius:5px;font-size:12.5px}
+.metric{font-variant-numeric:tabular-nums}
+ul.exp{list-style:none;padding:0}ul.exp li{border:1px solid var(--bd);border-radius:10px;padding:14px 16px;margin:10px 0;background:var(--card)}
+ul.exp .ttl{font-weight:600;font-size:16px}ul.exp .axis{color:var(--mut);font-size:13px}
+details summary{cursor:pointer;color:var(--accent);font-size:13.5px}
+pre{background:#0d1117;color:#c9d1d9;padding:12px;border-radius:8px;overflow:auto;font-size:12px;max-height:340px}
+</style></head><body><div class="wrap">
+<div class="crumb"><a href="../">QA dashboard</a> · <a href="../../">project</a></div>
+<h1>Trial 4 — 3D differentiable FEM topology</h1><p class="sub">A hand-rolled 3D differentiable FEM (8-node hex, SIMP) in JAX on the GPU — the loop-2 substrate in 3D.</p>
+<h2>Physics — 3D optimised structure</h2><div class='card'><iframe class='scene' src='scene.html' loading='lazy' title='3D topology'></iframe><p class='hint'>Optimised 3D cantilever — drag to rotate, scroll to zoom. Static: <a href='topo3d.png'>PNG</a>. 464/1536 voxels kept (vol 0.302).</p></div><h2>Forward-model verification (→ beam theory)</h2><div class='card'><img class='fig' src='beam_conv.png' alt='beam convergence'><p class='hint'>Uniform-density compliance equals tip deflection; it converges to Euler–Bernoulli as the mesh refines through the thickness. The gap at coarse meshes is shear locking, not error.</p></div><h2>Agentic legitimacy</h2><div class='card'><table class='leg'><tr><td>element stiffness — rigid-body modes</td><td class='metric'>6 zero eigenvalues (expect 6) &nbsp; <span class="chip ok">PASS</span></td></tr><tr><td>element symmetric / PSD</td><td class='metric'>symmetric=True, rigid-translation force 3e-17 (≈0)</td></tr><tr><td>forward model → Euler–Bernoulli</td><td class='metric'>converges monotonically to -0.61% at finest mesh &nbsp; <span class="chip ok">PASS</span></td></tr><tr><td>reference compliance</td><td class='metric'>49.98 at vol 0.30 (grid 24×8×8, ndof 6075, GPU)</td></tr><tr><td>leakage scan</td><td class='metric'><span class="chip ok">CLEAN</span> no reference/grader reads in the agent's files</td></tr></table><p class='hint'>No agent in this experiment yet — this is the verified 3D loop-2 substrate. The element passes exact algebraic checks and the forward model converges to closed-form beam theory; coarse-mesh stiffness is the known shear-locking of fully-integrated trilinear hex.</p></div><h2>Artifacts</h2><div class='card'><p class='hint'><a href='https://github.com/eschmitt88/agentic-solid-mechanics/tree/master/experiments/2026-06-22-jaxfem3d-cantilever-topology'>experiment folder on GitHub</a> — README, config.yaml, results/, agent transcripts &amp; authored code.</p></div>
+</div></body></html>
