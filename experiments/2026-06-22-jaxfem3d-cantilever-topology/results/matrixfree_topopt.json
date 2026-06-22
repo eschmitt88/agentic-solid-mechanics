@@ -1,0 +1,14 @@
+{
+  "grid": [
+    48,
+    16,
+    16
+  ],
+  "ndof": 42483,
+  "dense_matrix_gb": 14.4,
+  "final_compliance": 22.22121535608746,
+  "final_volume": 0.29999901797819556,
+  "n_iterations": 40,
+  "wall_s": 3.3,
+  "solver": "matrix-free CG + Jacobi, conv density filter"
+}

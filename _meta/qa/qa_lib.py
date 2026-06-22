@@ -420,6 +420,10 @@ GLOSSARY = {
            "in the solver.",
     "shear locking": "A numerical artifact where simple elements act too stiff in bending; it shrinks "
                      "as the mesh is refined.",
+    "conjugate gradient": "An iterative method that solves a large system of equations using only "
+                          "matrix-times-vector products — no need to store or factorise the full matrix.",
+    "matrix-free": "Solving without ever building the big matrix: its action on a vector is computed on "
+                   "the fly, so memory grows with the number of unknowns rather than its square.",
 }
 
 

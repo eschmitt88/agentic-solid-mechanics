@@ -1,0 +1,68 @@
+{
+  "device": "cuda:0",
+  "correctness": [
+    {
+      "case": "uniform",
+      "dense": 229.45954551024744,
+      "matrix_free": 229.45954551026972,
+      "rel_diff": 9.710914463761815e-14
+    },
+    {
+      "case": "random",
+      "dense": 71.19448027117187,
+      "matrix_free": 71.19448027113731,
+      "rel_diff": 4.854421092159536e-13
+    }
+  ],
+  "gradient_rel_diff": 8.511661925743e-10,
+  "correctness_pass": true,
+  "scaling": [
+    {
+      "grid": [
+        16,
+        6,
+        6
+      ],
+      "ndof": 2499,
+      "dense_block_gb": 0.05,
+      "matrix_free_s": 0.003,
+      "compliance": 229.45954551023388,
+      "dense_s": 0.02
+    },
+    {
+      "grid": [
+        24,
+        8,
+        8
+      ],
+      "ndof": 6075,
+      "dense_block_gb": 0.3,
+      "matrix_free_s": 0.005,
+      "compliance": 242.61684540201446,
+      "dense_s": 0.185
+    },
+    {
+      "grid": [
+        40,
+        12,
+        12
+      ],
+      "ndof": 20787,
+      "dense_block_gb": 3.46,
+      "matrix_free_s": 0.011,
+      "compliance": 223.38341230260536,
+      "dense_s": 6.567
+    }
+  ],
+  "big_grid": {
+    "grid": [
+      64,
+      24,
+      24
+    ],
+    "ndof": 121875,
+    "dense_block_gb": 118.8,
+    "matrix_free_s": 0.431,
+    "compliance": 76.57457400022757
+  }
+}

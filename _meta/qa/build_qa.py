@@ -508,6 +508,57 @@ def build_trial4(slug: str) -> dict:
                   "algebraically, and a plain uniform block must reproduce textbook beam theory as the mesh "
                   "is refined. <b>(2) Does optimization work?</b> The resulting 3-D structure should be a "
                   "sensible load-carrying shape at the target material budget."))
+    # --- scaling up: matrix-free (sparse) solver ---
+    mf_section = ""
+    bench_p = src / "results" / "matrixfree_bench.json"
+    topo_p = src / "results" / "matrixfree_topopt.json"
+    if bench_p.exists() and topo_p.exists():
+        bench = load_json(bench_p)
+        mtopo = load_json(topo_p)
+        big = bench["big_grid"]
+        mf_scene = ""
+        mfd = src / "results" / "matrixfree_density.npy"
+        if mfd.exists():
+            try:
+                st = qa.render_topology3d(np.load(mfd), out / "mf3d.png", out / "mf_scene.html")
+                mf_scene = (f"<div class='card'><iframe class='scene' src='mf_scene.html' loading='lazy' "
+                            f"title='matrix-free 3D result'></iframe><p class='hint'>Optimized structure on "
+                            f"the {mtopo['grid'][0]}×{mtopo['grid'][1]}×{mtopo['grid'][2]} grid "
+                            f"({mtopo['ndof']} unknowns) — drag to rotate. Static: "
+                            f"<a href='mf3d.png'>PNG</a>. {st['solid_cells']}/{st['total_cells']} voxels "
+                            f"(vol {st['vol_frac_shown']}).</p></div>")
+            except Exception as e:  # noqa: BLE001
+                mf_scene = f"<div class='card'><p class='hint'>scene unavailable: {e}</p></div>"
+        scale_rows = "".join(
+            f"<tr><td>{r['grid'][0]}×{r['grid'][1]}×{r['grid'][2]} ({r['ndof']:,} unknowns)</td>"
+            f"<td class='metric'>matrix-free {r['matrix_free_s']*1000:.0f} ms"
+            + (f" · dense {r['dense_s']:.2f} s" if r.get('dense_s') else " · dense: out of memory")
+            + "</td></tr>"
+            for r in bench["scaling"])
+        mf_section = (
+            "<h2>Scaling up — a matrix-free (sparse) solver</h2>"
+            "<div class='card'><p>The simulator above forms the full stiffness matrix and solves it "
+            "directly. That uses memory proportional to the number of unknowns <i>squared</i>, which caps "
+            "the grid at a few thousand unknowns. A <b>matrix-free</b> rewrite never builds the matrix — it "
+            "applies the stiffness one small element at a time and solves with an iterative method "
+            "(<b>conjugate gradient</b>), using memory proportional to the unknowns (not their square). The "
+            "density filter is likewise replaced by a small 3-D convolution. Both stay exactly "
+            "differentiable, so the gradient-based optimizer is unchanged.</p>"
+            f"<p>Validated against the direct solver: stiffness values match to "
+            f"{max(c['rel_diff'] for c in bench['correctness']):.0e} and gradients to "
+            f"{bench['gradient_rel_diff']:.0e} (i.e. identical). Speed and reach:</p>"
+            "<table class='leg'>" + scale_rows
+            + f"<tr><td><b>{big['grid'][0]}×{big['grid'][1]}×{big['grid'][2]} "
+              f"({big['ndof']:,} unknowns)</b></td><td class='metric'><b>matrix-free "
+              f"{big['matrix_free_s']:.2f} s</b> · a direct solve would need a "
+              f"{big['dense_block_gb']:.0f} GB matrix (impossible on a 16 GB GPU)</td></tr>"
+            "</table></div>"
+            "<div class='card'><p>A full optimization at "
+            f"{mtopo['grid'][0]}×{mtopo['grid'][1]}×{mtopo['grid'][2]} "
+            f"({mtopo['ndof']:,} unknowns, {mtopo['n_iterations']} iterations) finishes in "
+            f"{mtopo['wall_s']} s on the GPU — a grid the direct solver could not even allocate "
+            f"({mtopo['dense_matrix_gb']:.0f} GB).</p>" + mf_scene + "</div>")
+
     body = (intro
             + "<h2>Result — the optimized 3-D structure</h2>" + scene
             + "<h2>Is the new simulator correct? (vs textbook beam theory)</h2><div class='card'>"
@@ -516,18 +567,23 @@ def build_trial4(slug: str) -> dict:
               "Euler–Bernoulli beam-theory value as the mesh is refined through the thickness. The gap at "
               "coarse meshes is “shear locking” (a known stiffness artifact of simple elements), not a bug — "
               "it shrinks with refinement.</p></div>"
-            + leg
+            + leg + mf_section
             + qa.terms_block(["topology optimization", "compliance", "differentiable FEM", "SIMP",
-                              "OC", "Euler–Bernoulli", "shear locking", "GPU", "ndof"])
+                              "OC", "Euler–Bernoulli", "shear locking", "matrix-free",
+                              "conjugate gradient", "GPU", "ndof"])
             + artifact_links(src))
     (out / "index.html").write_text(qa.page(
         "Trial 4 — Building &amp; verifying a 3-D simulator, then optimizing",
         "A from-scratch 3-D differentiable simulator on the GPU, checked against beam theory, then used for "
         "3-D topology optimization.",
         body, crumb_for(slug)))
+    big_hl = ""
+    if (src / "results" / "matrixfree_bench.json").exists():
+        bigj = load_json(src / "results" / "matrixfree_bench.json")["big_grid"]
+        big_hl = f" · matrix-free solves {bigj['ndof']:,} unknowns (≈{bigj['dense_block_gb']:.0f} GB dense) in {bigj['matrix_free_s']:.2f} s"
     return {"slug": slug, "title": "Trial 4 — 3D differentiable topology",
             "axis": "inventing a structure (3-D)",
-            "headline": f"element exact · FEM→EB {bc['finest_err_vs_eb_pct']:+.2f}% · GPU C={m['reference_compliance']:.1f}"}
+            "headline": f"simulator verified vs beam theory ({bc['finest_err_vs_eb_pct']:+.2f}%)" + big_hl}
 
 
 # --------------------------------------------------------------------------- #

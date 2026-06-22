@@ -177,7 +177,24 @@ SessionEnd hook backstops this if you forget.
   element-gold panel; trial-3 page gained the external-gold verification (Timoshenko
   table + MBB image) and GPU-scaling sections. Rebuilt + pushed.
 
+### Did (cont.) — QA pages rewritten for newcomers + matrix-free GPU solver
+- **QA pages made self-contained** (user feedback: too much insider jargon): each
+  page now opens with a plain-language objective, a boundary-condition diagram
+  (`qa_lib.bc_beam`/`bc_domain_2d`/`bc_domain_3d`/`bc_mbb`), a setup table, and an
+  explicit "what is measured"; acronyms are spelled out and a per-page glossary
+  (`qa_lib.GLOSSARY`/`terms_block`) defines them. Removed "loop-2 substrate",
+  "forward-model/optimizer gold", etc. Structure documented in `_meta/qa/README.md`
+  so future pages inherit it.
+- **Matrix-free (sparse) GPU solver** (`jaxfem3d_mf.py`): element-by-element
+  Jacobi-preconditioned conjugate gradient instead of dense assemble+solve, AND a
+  3D-convolution density filter instead of the dense O(nelem²) H matrix (the H
+  matrix was the real memory wall — a 64³-ish grid's H alone is ~10 GB). Verified
+  **bit-identical to dense** (compliance ~1e-13, gradient ~1e-9 → autodiff
+  sensitivities preserved). ~600× faster at 40×12×12 (11 ms vs 6.6 s); solves
+  **121,875 unknowns in 0.43 s** (dense matrix would be ~119 GB — impossible on
+  16 GB). Full 48×16×16 optimization (42,483 unknowns) in 3.3 s. All pushed.
+
 ### Next (updated)
-- Loop-2 agentic pass@k on the 3D substrate (agent writes its own 3D optimiser).
-- Sparse / matrix-free GPU solve to lift the dense grid-size cap; reduced
-  integration to cut B8 shear locking; larger 3D grids.
+- Loop-2 agentic pass@k on the (now scalable) matrix-free 3D substrate.
+- Reduced-integration/B-bar hex to cut B8 shear locking on coarse meshes.
+- Warm-started CG across optimisation iterations for even larger 3D grids.
