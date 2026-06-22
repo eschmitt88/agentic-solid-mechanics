@@ -1,0 +1,26 @@
+{
+  "agent": "general-purpose subagent (tapered designer)",
+  "reported": {
+    "b_m": 0.01,
+    "h_root_m": 0.148,
+    "h_tip_m": 0.037,
+    "achieved_deflection_m": 0.0029926,
+    "n_designs": 29
+  },
+  "grade": {
+    "b": 0.01,
+    "h_root": 0.148,
+    "h_tip": 0.037,
+    "mass_kg": 7.2612499999999995,
+    "within_bounds": true,
+    "check_fe_deflection_m": 0.003011242,
+    "delta_allow_m": 0.003,
+    "deflection_feasible": true,
+    "max_nominal_stress_pa": 73045904.57168835,
+    "sigma_allow_pa": 200000000.0,
+    "stress_feasible": true,
+    "mass_ratio_to_opt": 0.9987399559185359,
+    "pct_above_optimum": -0.12600440814640734,
+    "feasible": true
+  }
+}

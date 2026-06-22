@@ -25,3 +25,5 @@ skills; read by `/lint`.
 2026-06-16 21:20 env: installed CalculiX 2.23 + gmsh via micromamba (solidmech)
 2026-06-21 04:28 new-experiment 2026-06-21-calculix-cantilever-design-loop
 2026-06-21 04:28 trial-2 done: design loop — agent +0.07% above FE-true optimum (PASS), found min-width corner
+2026-06-22 03:09 new-experiment 2026-06-22-calculix-tapered-design-loop
+2026-06-22 03:09 trial-2b done: tapered design loop (FE-essential) — agent matched FE-true optimum, 14.8% lighter than prismatic
