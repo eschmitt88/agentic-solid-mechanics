@@ -194,7 +194,23 @@ SessionEnd hook backstops this if you forget.
   **121,875 unknowns in 0.43 s** (dense matrix would be ~119 GB — impossible on
   16 GB). Full 48×16×16 optimization (42,483 unknowns) in 3.3 s. All pushed.
 
+### Did (cont.) — loop-2 agentic pass@10 in 3D
+- Built `agent_topopt3d.py`: headless `claude -p` harness (subscription, no API
+  key) that hands the agent ONLY the matrix-free differentiable 3D solver in an
+  isolated dir and tasks it to write its OWN optimiser, run it on GPU, and submit
+  a design; each design is independently re-graded (compliance recomputed from the
+  saved density) + leakage-scanned. The 3D analogue of trial 3's 2D loop-2 demo.
+- **pass@10 = 10/10 feasible**, every run volume-exact (0.300) and **−1.2% to
+  −1.3% vs our OC reference** (agents' OC converged a touch further than our
+  60-iter reference — our reference isn't the true optimum, a fair finding),
+  median ~7 turns, **leakage clean on all 10**. All three agentic axes now have a
+  3D / scalable demonstration.
+- Harness bug found+fixed mid-run: a malformed-density trial crashed the per-trial
+  print (`.3f` on None) and aborted the batch before writing the summary; made the
+  loop defensive (one bad trial can't lose the others) and added `-u`.
+
 ### Next (updated)
-- Loop-2 agentic pass@k on the (now scalable) matrix-free 3D substrate.
+- Scale the loop-2 pass@k to larger grids (matrix-free now supports 100k+ dofs)
+  and harder objectives (multiple load cases, stress constraints).
 - Reduced-integration/B-bar hex to cut B8 shear locking on coarse meshes.
 - Warm-started CG across optimisation iterations for even larger 3D grids.
