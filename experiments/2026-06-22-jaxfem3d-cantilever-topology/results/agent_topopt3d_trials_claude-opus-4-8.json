@@ -1,0 +1,296 @@
+{
+  "model": "claude-opus-4-8",
+  "n_trials": 10,
+  "grid": [
+    24,
+    8,
+    8
+  ],
+  "reference_compliance": 49.97729162957325,
+  "feasible_rate": 1.0,
+  "all_leakage_clean": true,
+  "best_pct_above_reference": -1.3199447310179029,
+  "mean_pct_above_reference": -1.2327231268722982,
+  "trials": [
+    {
+      "submitted": true,
+      "answer": {
+        "final_compliance": 49.35183,
+        "final_volume": 0.3,
+        "n_iterations": 200,
+        "optimizer": "Optimality-Criteria update (move-limited power-law step) with bisection on the volume Lagrange multiplier; exact compliance & volume sensitivities via JAX autodiff."
+      },
+      "grade": {
+        "density_saved": true,
+        "recomputed_compliance": 49.35183194669831,
+        "final_volume": 0.2999999915602986,
+        "reference_compliance": 49.97729162957325,
+        "pct_above_reference": -1.2514877506984279,
+        "compliance_pass": true,
+        "volume_pass": true,
+        "feasible": true
+      },
+      "leakage": {
+        "clean": true,
+        "hits": []
+      },
+      "feasible": true,
+      "pct_above_reference": -1.2514877506984279,
+      "num_turns": 8,
+      "cost_usd": 0.4342795,
+      "error": null
+    },
+    {
+      "submitted": true,
+      "answer": {
+        "final_compliance": 49.362512,
+        "final_volume": 0.3,
+        "n_iterations": 143,
+        "optimizer": "Optimality-Criteria: multiplicative density update (eta=0.5, move=0.2) with per-iteration bisection on the volume Lagrange multiplier, using autodiff sensitivities."
+      },
+      "grade": {
+        "density_saved": true,
+        "recomputed_compliance": 49.36251153907445,
+        "final_volume": 0.30000000798757653,
+        "reference_compliance": 49.97729162957325,
+        "pct_above_reference": -1.2301188608928508,
+        "compliance_pass": true,
+        "volume_pass": true,
+        "feasible": true
+      },
+      "leakage": {
+        "clean": true,
+        "hits": []
+      },
+      "feasible": true,
+      "pct_above_reference": -1.2301188608928508,
+      "num_turns": 9,
+      "cost_usd": 0.544102,
+      "error": null
+    },
+    {
+      "submitted": true,
+      "answer": {
+        "final_compliance": 49.31762,
+        "final_volume": 0.3,
+        "n_iterations": 300,
+        "optimizer": "Optimality-Criteria update with Lagrange-multiplier bisection on the volume constraint (move=0.2, eta=0.5), filtered sensitivities."
+      },
+      "grade": {
+        "density_saved": true,
+        "recomputed_compliance": 49.31761900200325,
+        "final_volume": 0.3000000026572037,
+        "reference_compliance": 49.97729162957325,
+        "pct_above_reference": -1.3199447310179029,
+        "compliance_pass": true,
+        "volume_pass": true,
+        "feasible": true
+      },
+      "leakage": {
+        "clean": true,
+        "hits": []
+      },
+      "feasible": true,
+      "pct_above_reference": -1.3199447310179029,
+      "num_turns": 7,
+      "cost_usd": 0.5902919999999999,
+      "error": null
+    },
+    {
+      "submitted": true,
+      "answer": {
+        "final_compliance": 49.37299,
+        "final_volume": 0.3,
+        "n_iterations": 117,
+        "optimizer": "Optimality-Criteria method: multiplicative density update x*(-dc/(\u03bb\u00b7dV))^0.5 with move limit 0.2, \u03bb found by bisection each iteration to hold the volume constraint exactly."
+      },
+      "grade": {
+        "density_saved": true,
+        "recomputed_compliance": 49.3729889534077,
+        "final_volume": 0.2999999975952874,
+        "reference_compliance": 49.97729162957325,
+        "pct_above_reference": -1.2091545109018398,
+        "compliance_pass": true,
+        "volume_pass": true,
+        "feasible": true
+      },
+      "leakage": {
+        "clean": true,
+        "hits": []
+      },
+      "feasible": true,
+      "pct_above_reference": -1.2091545109018398,
+      "num_turns": 6,
+      "cost_usd": 0.46829600000000005,
+      "error": null
+    },
+    {
+      "submitted": true,
+      "answer": {
+        "final_compliance": 49.34945,
+        "final_volume": 0.3,
+        "n_iterations": 200,
+        "optimizer": "Optimality-Criteria (OC) update with JAX-autodiff compliance & volume gradients, move-limited multiplicative step, and bisection on the Lagrange multiplier to enforce volume<=volfrac each iteration."
+      },
+      "grade": {
+        "density_saved": true,
+        "recomputed_compliance": 49.34945469940958,
+        "final_volume": 0.29999998315841014,
+        "reference_compliance": 49.97729162957325,
+        "pct_above_reference": -1.2562444055935236,
+        "compliance_pass": true,
+        "volume_pass": true,
+        "feasible": true
+      },
+      "leakage": {
+        "clean": true,
+        "hits": []
+      },
+      "feasible": true,
+      "pct_above_reference": -1.2562444055935236,
+      "num_turns": 8,
+      "cost_usd": 0.489148,
+      "error": null
+    },
+    {
+      "submitted": true,
+      "answer": {
+        "final_compliance": 49.34776,
+        "final_volume": 0.3,
+        "n_iterations": 200,
+        "optimizer": "Optimality-Criteria update with bisection on the volume Lagrange multiplier (move limit 0.2, damping 0.5), autodiff sensitivities."
+      },
+      "grade": {
+        "density_saved": true,
+        "recomputed_compliance": 49.34776084795468,
+        "final_volume": 0.30000000861629794,
+        "reference_compliance": 49.97729162957325,
+        "pct_above_reference": -1.2596336477866583,
+        "compliance_pass": true,
+        "volume_pass": true,
+        "feasible": true
+      },
+      "leakage": {
+        "clean": true,
+        "hits": []
+      },
+      "feasible": true,
+      "pct_above_reference": -1.2596336477866583,
+      "num_turns": 7,
+      "cost_usd": 0.47567600000000004,
+      "error": null
+    },
+    {
+      "submitted": true,
+      "answer": {
+        "final_compliance": 49.37298,
+        "final_volume": 0.3,
+        "n_iterations": 117,
+        "optimizer": "Optimality-Criteria multiplicative update with move limits and Lagrange-multiplier bisection enforcing the volume constraint each step."
+      },
+      "grade": {
+        "density_saved": true,
+        "recomputed_compliance": 49.37298454409847,
+        "final_volume": 0.30000001579600793,
+        "reference_compliance": 49.97729162957325,
+        "pct_above_reference": -1.209163333527243,
+        "compliance_pass": true,
+        "volume_pass": true,
+        "feasible": true
+      },
+      "leakage": {
+        "clean": true,
+        "hits": []
+      },
+      "feasible": true,
+      "pct_above_reference": -1.209163333527243,
+      "num_turns": 9,
+      "cost_usd": 0.534624,
+      "error": null
+    },
+    {
+      "submitted": true,
+      "answer": {
+        "final_compliance": 49.37299,
+        "final_volume": 0.3,
+        "n_iterations": 117,
+        "optimizer": "Optimality-Criteria: \u03c1\u2190clip(\u03c1\u00b7((-dc)/(\u03bb\u00b7dv))^0.5, move-limited [0,1]), \u03bb bisected to hold filtered volume at volfrac each step."
+      },
+      "grade": {
+        "density_saved": true,
+        "recomputed_compliance": 49.372988952548305,
+        "final_volume": 0.29999999759933654,
+        "reference_compliance": 49.97729162957325,
+        "pct_above_reference": -1.2091545126214094,
+        "compliance_pass": true,
+        "volume_pass": true,
+        "feasible": true
+      },
+      "leakage": {
+        "clean": true,
+        "hits": []
+      },
+      "feasible": true,
+      "pct_above_reference": -1.2091545126214094,
+      "num_turns": 7,
+      "cost_usd": 0.5222039999999999,
+      "error": null
+    },
+    {
+      "submitted": true,
+      "answer": {
+        "final_compliance": 49.37299,
+        "final_volume": 0.3,
+        "n_iterations": 117,
+        "optimizer": "Optimality-Criteria: multiplicative density update \u03c1\u00b7\u221a(\u2212dc/(\u03bb\u00b7dv)) with move-limit 0.2, damping 0.5, and bisection on the volume Lagrange multiplier \u03bb each iteration."
+      },
+      "grade": {
+        "density_saved": true,
+        "recomputed_compliance": 49.37298895459397,
+        "final_volume": 0.29999999759112933,
+        "reference_compliance": 49.97729162957325,
+        "pct_above_reference": -1.209154508528217,
+        "compliance_pass": true,
+        "volume_pass": true,
+        "feasible": true
+      },
+      "leakage": {
+        "clean": true,
+        "hits": []
+      },
+      "feasible": true,
+      "pct_above_reference": -1.209154508528217,
+      "num_turns": 7,
+      "cost_usd": 0.45295,
+      "error": null
+    },
+    {
+      "submitted": true,
+      "answer": {
+        "final_compliance": 49.39097053492003,
+        "final_volume": 0.3000000016748378,
+        "n_iterations": 109,
+        "optimizer": "Optimality-Criteria update with bisection on the volume Lagrange multiplier, move limit 0.2, damping 0.5, autodiff gradients."
+      },
+      "grade": {
+        "density_saved": true,
+        "recomputed_compliance": 49.390970534922175,
+        "final_volume": 0.3000000016748378,
+        "reference_compliance": 49.97729162957325,
+        "pct_above_reference": -1.1731750071549099,
+        "compliance_pass": true,
+        "volume_pass": true,
+        "feasible": true
+      },
+      "leakage": {
+        "clean": true,
+        "hits": []
+      },
+      "feasible": true,
+      "pct_above_reference": -1.1731750071549099,
+      "num_turns": 10,
+      "cost_usd": 0.5033139999999999,
+      "error": null
+    }
+  ]
+}

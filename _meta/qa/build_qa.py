@@ -480,11 +480,47 @@ def build_trial4(slug: str) -> dict:
                 f"{m['reference_compliance']:.2f} using {m['reference_volume']*100:.0f}% material "
                 f"(block {m['grid'][0]}×{m['grid'][1]}×{m['grid'][2]}, {m['ndof']} unknowns, on GPU)"),
     ]
-    leg = legitimacy_card(rows, {"clean": True, "hits": [], "scanned_dir": "n/a (no agent yet)"},
-                          "No AI agent runs in this experiment yet — it builds and verifies the 3-D "
-                          "simulator that a later agent-design trial will use. The element passes exact "
-                          "algebraic checks and the simulator converges to closed-form beam theory; the "
-                          "coarse-mesh stiffness is the known shear-locking artifact of simple elements.")
+    leg = legitimacy_card(rows, {"clean": True, "hits": [], "scanned_dir": "verification only"},
+                          "These rows verify the 3-D simulator itself (built from scratch here). The element "
+                          "passes exact algebraic checks and the simulator converges to closed-form beam "
+                          "theory; coarse-mesh stiffness is the known shear-locking artifact of simple "
+                          "elements. Whether an AI agent can drive this simulator is tested below.")
+
+    # --- loop-2 agentic pass@k: agent writes its own optimizer on this solver ---
+    loop2 = ""
+    pk_files = sorted((src / "results").glob("agent_topopt3d_trials_*.json"))
+    if pk_files:
+        pk = load_json(pk_files[-1])
+        feas = [t for t in pk["trials"] if t.get("feasible")]
+        n = pk["n_trials"]
+        best = pk.get("best_pct_above_reference")
+        mean = pk.get("mean_pct_above_reference")
+        turns = [t.get("num_turns") for t in pk["trials"] if t.get("num_turns")]
+        med_turns = sorted(turns)[len(turns) // 2] if turns else "—"
+        prows = [
+            leg_row("feasible runs",
+                    f"{len(feas)} / {n} &nbsp; " + qa.chip(len(feas) == n, f"{len(feas)}/{n}", f"{len(feas)}/{n}")),
+            leg_row("stiffness vs our reference optimizer",
+                    f"best {best:+.2f}% · mean {mean:+.2f}% (negative = stiffer than our reference)"
+                    if best is not None else "—"),
+            leg_row("independent recompute",
+                    "every reported compliance was recomputed from the agent's saved design (no fabrication)"),
+            leg_row("no peeking at the answer",
+                    qa.chip(pk.get("all_leakage_clean", False), "CLEAN", "FLAG")
+                    + " the agents' code never referenced the reference solution"),
+            leg_row("typical effort", f"median {med_turns} turns per run (agent wrote &amp; ran its own optimizer)"),
+        ]
+        loop2 = (
+            "<h2>Can an AI agent do this itself? (reliability over many runs)</h2>"
+            "<div class='card'><p>The result above used our own optimizer. Here we instead hand the agent "
+            "<i>only</i> the differentiable simulator and let it <b>write its own optimizer</b> from scratch, "
+            "run it on the GPU, and submit a design — repeated as independent runs (a “pass@k” reliability "
+            f"test). Grid {pk['grid'][0]}×{pk['grid'][1]}×{pk['grid'][2]}; each design is independently "
+            "re-scored.</p><table class='leg'>" + "".join(prows) + "</table>"
+            "<p class='hint'>Run headless on a Claude subscription (no API key). A representative "
+            "agent-authored optimizer (a genuine Optimality-Criteria scheme with Lagrangian volume "
+            "bisection and move limits) is committed at "
+            "<code>results/agent_demo/agent_optimizer.py</code>.</p></div>")
 
     qa.bc_domain_3d(out / "bc.png", nx=m["grid"][0], ny=m["grid"][1], nz=m["grid"][2])
     intro = qa.intro_block(
@@ -561,6 +597,7 @@ def build_trial4(slug: str) -> dict:
 
     body = (intro
             + "<h2>Result — the optimized 3-D structure</h2>" + scene
+            + loop2
             + "<h2>Is the new simulator correct? (vs textbook beam theory)</h2><div class='card'>"
               "<img class='fig' src='beam_conv.png' alt='beam convergence'>"
               "<p class='hint'>For a plain uniform block, the simulator's tip deflection approaches the "
@@ -568,22 +605,25 @@ def build_trial4(slug: str) -> dict:
               "coarse meshes is “shear locking” (a known stiffness artifact of simple elements), not a bug — "
               "it shrinks with refinement.</p></div>"
             + leg + mf_section
-            + qa.terms_block(["topology optimization", "compliance", "differentiable FEM", "SIMP",
+            + qa.terms_block(["agent", "topology optimization", "compliance", "differentiable FEM", "SIMP",
                               "OC", "Euler–Bernoulli", "shear locking", "matrix-free",
-                              "conjugate gradient", "GPU", "ndof"])
+                              "conjugate gradient", "GPU", "ndof", "pass@k"])
             + artifact_links(src))
     (out / "index.html").write_text(qa.page(
         "Trial 4 — Building &amp; verifying a 3-D simulator, then optimizing",
         "A from-scratch 3-D differentiable simulator on the GPU, checked against beam theory, then used for "
         "3-D topology optimization.",
         body, crumb_for(slug)))
-    big_hl = ""
-    if (src / "results" / "matrixfree_bench.json").exists():
+    hl = f"simulator verified vs beam theory ({bc['finest_err_vs_eb_pct']:+.2f}%)"
+    if pk_files:
+        pk = load_json(pk_files[-1])
+        feas = sum(1 for t in pk["trials"] if t.get("feasible"))
+        hl += f" · agent writes its own optimizer: {feas}/{pk['n_trials']} feasible"
+    elif (src / "results" / "matrixfree_bench.json").exists():
         bigj = load_json(src / "results" / "matrixfree_bench.json")["big_grid"]
-        big_hl = f" · matrix-free solves {bigj['ndof']:,} unknowns (≈{bigj['dense_block_gb']:.0f} GB dense) in {bigj['matrix_free_s']:.2f} s"
+        hl += f" · matrix-free solves {bigj['ndof']:,} unknowns (≈{bigj['dense_block_gb']:.0f} GB dense) in {bigj['matrix_free_s']:.2f} s"
     return {"slug": slug, "title": "Trial 4 — 3D differentiable topology",
-            "axis": "inventing a structure (3-D)",
-            "headline": f"simulator verified vs beam theory ({bc['finest_err_vs_eb_pct']:+.2f}%)" + big_hl}
+            "axis": "inventing a structure (3-D)", "headline": hl}
 
 
 # --------------------------------------------------------------------------- #

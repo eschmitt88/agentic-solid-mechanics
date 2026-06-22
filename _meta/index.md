@@ -60,7 +60,11 @@ Triage curated → `raw/_candidates/_done/2026-06-16-llm-agents-solid-mechanics-
 - `experiments/2026-06-22-jaxfem3d-cantilever-topology/` — **done** (trial 4):
   3D differentiable FEM (8-node hex, SIMP) in JAX on the GPU. Element exact
   (6 rigid-body modes); forward model converges to Euler–Bernoulli (−0.61%);
-  3D topology opt at compliance 49.98. The loop-2 substrate, now in 3D.
+  3D topology opt at compliance 49.98. Matrix-free (sparse) solver is
+  bit-identical to dense and solves 121,875 unknowns in 0.43 s (dense ≈119 GB).
+  **Loop-2 agentic pass@10**: handed only the differentiable solver, the agent
+  writes its own optimiser — 10/10 feasible, ~1.2% stiffer than our reference,
+  leakage clean.
 
 ## QA review surface
 

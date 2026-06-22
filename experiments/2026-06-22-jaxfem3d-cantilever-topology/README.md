@@ -4,7 +4,7 @@ slug: "jaxfem3d-cantilever-topology"
 date: "2026-06-22"
 status: done        # running | done | abandoned
 hypothesis: "A self-contained 3D differentiable FEM (8-node hex, SIMP, density filter) built in JAX runs on the GPU and is correct — its uniform-density compliance reproduces 3D cantilever beam theory — and gradient-based topology optimisation on it produces a physically sensible 3D load-carrying structure, extending the loop-2 substrate from 2D (trial 3) to 3D."
-result: "Confirmed. The 24x24 B8 hex stiffness is exact (symmetric, 6 rigid-body zero-eigenvalues, zero force under rigid translation). The forward model's uniform-density compliance converges monotonically to Euler-Bernoulli under through-thickness refinement (-12.4% -> -3.4% -> -1.4% -> -0.61%), the residual being the known shear-locking of fully-integrated trilinear hex. OC topology optimisation on the GPU (24x8x8, ndof 6075) gives a sensible 3D cantilever load path at compliance 49.98, vol 0.30. Verified loop-2 substrate in 3D."
+result: "Confirmed. The 24x24 B8 hex stiffness is exact (symmetric, 6 rigid-body zero-eigenvalues, zero force under rigid translation). The forward model's uniform-density compliance converges monotonically to Euler-Bernoulli under through-thickness refinement (-12.4% -> -3.4% -> -1.4% -> -0.61%), the residual being the known shear-locking of fully-integrated trilinear hex. OC topology optimisation on the GPU (24x8x8, ndof 6075) gives a sensible 3D cantilever load path at compliance 49.98, vol 0.30. A matrix-free (sparse) rewrite is bit-identical to dense and solves 121,875 unknowns in 0.43s (a dense matrix would be ~119GB). Loop-2 agentic pass@10: handed only the differentiable solver, the agent writes its own optimiser 10/10 feasible, ~1.2% stiffer than our reference, leakage clean on all."
 related_concepts: ["differentiable-inverse-design", "agentic-design-optimization"]
 related_literature: []
 tags: ["jax", "differentiable-fem", "topology-optimization", "3d", "gpu", "trial-4"]
@@ -60,6 +60,16 @@ Points at `metrics.json` (reference 3D run) and `results/verification3d.json`.
   0.43 s — whose dense stiffness matrix would be ~119 GB, impossible on the 16 GB
   GPU**. A full 48×16×16 optimization (42,483 unknowns, 40 iters) finishes in
   3.3 s. This lifts the grid-size cap noted below.
+- **Loop-2 agentic pass@10** (`agent_topopt3d.py`,
+  `results/agent_topopt3d_trials_*.json`): handed ONLY the differentiable
+  matrix-free solver in an isolated dir, the agent must write its own optimizer,
+  run it on the GPU, and submit a design (headless `claude -p`, subscription, no
+  API key). **10/10 feasible**, every run volume-exact (0.300) and **−1.2% to
+  −1.3% vs our OC reference** (i.e. marginally *stiffer* — our 60-iter reference
+  is not the true optimum; the agents' OC converged a touch further), median ~7
+  turns, **leakage clean on all 10** (no run read the reference). Compliance was
+  independently recomputed from each saved design (anti-fabrication). The 3-D
+  analogue of trial 3's 2-D loop-2 result.
 
 ## Interpretation
 
@@ -76,8 +86,13 @@ Unless noted, numbers reference `metrics.json`.
 
 - intended_effect_confirmed: yes — element exact + forward model → EB to −0.61%
   (`results/verification3d.json:beam_convergence.finest_err_vs_eb_pct`); 3D
-  topology at compliance 49.98 (`metrics.json:reference_compliance`).
-- leakage_check: n/a — no agent in this experiment yet; reference + verification only.
+  topology at compliance 49.98 (`metrics.json:reference_compliance`); loop-2
+  agent pass@10 = 10/10 feasible
+  (`results/agent_topopt3d_trials_claude-opus-4-8.json:feasible_rate`).
+- leakage_check: pass@10 ran each agent in an isolated dir with only the solver
+  files; a token scan of every agent's authored code was clean on all 10
+  (`agent_topopt3d_trials_*.json:all_leakage_clean=true`), and each reported
+  compliance was independently recomputed from the saved density.
 - overfitting_signal: n/a — single deterministic optimisation, no train/val split.
 - delta_from_prior: vs `2026-06-22-jaxfem-topology-optimization` (2D), extends the
   same SIMP/OC/autodiff machinery to 3D B8 hex elements; ndof 6075 vs 1666.
@@ -87,7 +102,8 @@ Unless noted, numbers reference `metrics.json`.
 - next_candidates:
   - Hand the 3D `compliance(rho)` to the agent (as in trial 3) for a loop-2 pass@k.
   - Reduced-integration (or B-bar) hex to cut shear locking on coarse meshes.
-  - Hand the matrix-free 3D `compliance(rho)` to the agent for a loop-2 pass@k.
+  - Scale the loop-2 agent pass@k to a larger grid (the matrix-free solver now
+    supports it) and to harder objectives (multiple load cases, stress limits).
 
 ## Follow-up
 
