@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trial 2 — operator design loop</title><style>
+:root{--fg:#1c2128;--mut:#636c76;--bd:#d0d7de;--ok:#1a7f37;--bad:#cf222e;--accent:#0969da;--bg:#fff;--card:#f6f8fa}
+*{box-sizing:border-box}body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg);margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 22px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:25px;margin:.2em 0 .1em}h2{font-size:18px;margin:1.7em 0 .5em;border-bottom:1px solid var(--bd);padding-bottom:.25em}
+.sub{color:var(--mut);margin:0 0 1.4em}
+.crumb{color:var(--mut);font-size:13px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;margin:14px 0}
+iframe.scene{width:100%;height:480px;border:1px solid var(--bd);border-radius:8px;background:#fff}
+img.fig{max-width:100%;border:1px solid var(--bd);border-radius:8px;display:block}
+.hint{color:var(--mut);font-size:12.5px;margin:.4em 0 0}
+table.leg{border-collapse:collapse;width:100%;font-size:14px}
+table.leg td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
+table.leg td:first-child{color:var(--mut);width:230px;white-space:nowrap}
+.chip{display:inline-block;font-size:12px;font-weight:600;padding:1px 9px;border-radius:20px}
+.chip.ok{background:#dafbe1;color:var(--ok)}.chip.bad{background:#ffebe9;color:var(--bad)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+code{background:#eaeef2;padding:1px 5px;border-radius:5px;font-size:12.5px}
+.metric{font-variant-numeric:tabular-nums}
+ul.exp{list-style:none;padding:0}ul.exp li{border:1px solid var(--bd);border-radius:10px;padding:14px 16px;margin:10px 0;background:var(--card)}
+ul.exp .ttl{font-weight:600;font-size:16px}ul.exp .axis{color:var(--mut);font-size:13px}
+details summary{cursor:pointer;color:var(--accent);font-size:13.5px}
+pre{background:#0d1117;color:#c9d1d9;padding:12px;border-radius:8px;overflow:auto;font-size:12px;max-height:340px}
+</style></head><body><div class="wrap">
+<div class="crumb"><a href="../">QA dashboard</a> · <a href="../../">project</a></div>
+<h1>Trial 2 — operator design loop</h1><p class="sub">Size a cantilever (b,h) to minimise mass under deflection + stress constraints.</p>
+<h2>Physics — final design</h2><div class="card">
+<iframe class="scene" src="scene.html" loading="lazy" title="Agent&#x27;s final section (b=10 mm, h=108.6 mm) — deformed, σ_Mises"></iframe>
+<p class="hint">Agent's final section (b=10 mm, h=108.6 mm) — deformed, σ_Mises — drag to rotate, scroll to zoom. Static fallback:
+<a href="deformed.png">PNG</a>.</p><p class="hint">warp ×50.24 (peak deflection 3.0033 mm) · σ<sub>vM</sub> 2.00–102.22 MPa · 3441 nodes / 640 elems</p></div><h2>Design space</h2><div class='card'><img class='fig' src='design_space.png' alt='design space'><p class='hint'>Mass is monotone in width → optimum pins b at its 10 mm floor (the non-obvious corner solution).</p></div><h2>Agentic legitimacy</h2><div class='card'><table class='leg'><tr><td>mass above FE-true optimum</td><td class='metric'>+0.073% &nbsp; <span class="chip ok">FEASIBLE</span></td></tr><tr><td>found min-width corner</td><td class='metric'><span class="chip ok">YES</span> (b=10.0 mm)</td></tr><tr><td>FE deflection on check mesh</td><td class='metric'>2.993 mm ≤ 3.0 mm</td></tr><tr><td>FE designs evaluated</td><td class='metric'>3</td></tr><tr><td>pass@10 (opus, headless)</td><td class='metric'>100% feasible · best +0.027% · mean +0.104%</td></tr><tr><td>leakage scan</td><td class='metric'><span class="chip ok">CLEAN</span> no reference/grader reads in the agent's files</td></tr></table><p class='hint'>Independently re-graded on a fixed n=8 mesh; the agent derived the min-width corner from a stiffness-per-mass argument and closed the FE loop (shear vs EB).</p></div><h2>Artifacts</h2><div class='card'><p class='hint'><a href='https://github.com/eschmitt88/agentic-solid-mechanics/tree/master/experiments/2026-06-21-calculix-cantilever-design-loop'>experiment folder on GitHub</a> — README, config.yaml, results/, agent transcripts &amp; authored code.</p></div>
+</div></body></html>

@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trial 1 — agent as CalculiX operator</title><style>
+:root{--fg:#1c2128;--mut:#636c76;--bd:#d0d7de;--ok:#1a7f37;--bad:#cf222e;--accent:#0969da;--bg:#fff;--card:#f6f8fa}
+*{box-sizing:border-box}body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg);margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 22px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:25px;margin:.2em 0 .1em}h2{font-size:18px;margin:1.7em 0 .5em;border-bottom:1px solid var(--bd);padding-bottom:.25em}
+.sub{color:var(--mut);margin:0 0 1.4em}
+.crumb{color:var(--mut);font-size:13px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;margin:14px 0}
+iframe.scene{width:100%;height:480px;border:1px solid var(--bd);border-radius:8px;background:#fff}
+img.fig{max-width:100%;border:1px solid var(--bd);border-radius:8px;display:block}
+.hint{color:var(--mut);font-size:12.5px;margin:.4em 0 0}
+table.leg{border-collapse:collapse;width:100%;font-size:14px}
+table.leg td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
+table.leg td:first-child{color:var(--mut);width:230px;white-space:nowrap}
+.chip{display:inline-block;font-size:12px;font-weight:600;padding:1px 9px;border-radius:20px}
+.chip.ok{background:#dafbe1;color:var(--ok)}.chip.bad{background:#ffebe9;color:var(--bad)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+code{background:#eaeef2;padding:1px 5px;border-radius:5px;font-size:12.5px}
+.metric{font-variant-numeric:tabular-nums}
+ul.exp{list-style:none;padding:0}ul.exp li{border:1px solid var(--bd);border-radius:10px;padding:14px 16px;margin:10px 0;background:var(--card)}
+ul.exp .ttl{font-weight:600;font-size:16px}ul.exp .axis{color:var(--mut);font-size:13px}
+details summary{cursor:pointer;color:var(--accent);font-size:13.5px}
+pre{background:#0d1117;color:#c9d1d9;padding:12px;border-radius:8px;overflow:auto;font-size:12px;max-height:340px}
+</style></head><body><div class="wrap">
+<div class="crumb"><a href="../">QA dashboard</a> · <a href="../../">project</a></div>
+<h1>Trial 1 — agent as CalculiX operator</h1><p class="sub">The agent writes the deck, runs ccx, parses results, and validates against beam theory.</p>
+<h2>Physics — deformed shape &amp; stress</h2><div class="card">
+<iframe class="scene" src="scene.html" loading="lazy" title="Agent&#x27;s validated cantilever — deformed, coloured by σ_Mises"></iframe>
+<p class="hint">Agent's validated cantilever — deformed, coloured by σ_Mises — drag to rotate, scroll to zoom. Static fallback:
+<a href="deformed.png">PNG</a>.</p><p class="hint">warp ×394.18 (peak deflection 0.3829 mm) · σ<sub>vM</sub> 0.21–12.06 MPa · 1077 nodes / 160 elems</p></div><h2>Mesh convergence</h2><div class='card'><img class='fig' src='convergence.png' alt='convergence'><p class='hint'>FE settles ~0.3% above Euler–Bernoulli — the shear correction beam theory omits.</p></div><h2>Agentic legitimacy</h2><div class='card'><table class='leg'><tr><td>deflection error vs analytical</td><td class='metric'>0.275% &nbsp; <span class="chip ok">PASS</span></td></tr><tr><td>element type</td><td class='metric'><code>C3D20R</code> (avoids shear locking)</td></tr><tr><td>ccx runs / deck errors</td><td class='metric'>2 runs · 0 deck errors</td></tr><tr><td>pass@k (opus, headless)</td><td class='metric'>100% over 1 trial(s)</td></tr><tr><td>agent authored its own</td><td class='metric'>mesh generator + .inp deck (no template)</td></tr><tr><td>leakage scan</td><td class='metric'><span class="chip ok">CLEAN</span> no reference/grader reads in the agent's files</td></tr></table><p class='hint'>Independently re-graded against Euler–Bernoulli + a deterministic mesh-converged reference sweep; the agent operated ccx unaided.</p></div><h2>Artifacts</h2><div class='card'><p class='hint'><a href='https://github.com/eschmitt88/agentic-solid-mechanics/tree/master/experiments/2026-06-16-calculix-cantilever-baseline'>experiment folder on GitHub</a> — README, config.yaml, results/, agent transcripts &amp; authored code.</p></div>
+</div></body></html>
