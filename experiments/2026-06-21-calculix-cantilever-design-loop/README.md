@@ -74,6 +74,16 @@ isolated in `results/agent_demo/` (verified: never read the reference / harness)
 - 3 FE-evaluated candidates; explicitly reasoned mass ∝ b^(2/3) at the
   deflection limit, and observed FE deflection > EB (shear) → nudged h up.
 
+### pass@10 (`results/agent_trials_claude-opus-4-8.json`, headless `claude -p`)
+
+10 independent headless trials (subscription, no API key):
+
+- **Feasible: 10/10 (100%).** Every run found the min-width corner (b=10 mm).
+- Mass spread **+0.0% to +0.3%** above the FE-true optimum (best +0.03%, mean
+  +0.10%, worst +0.26%); median 11.5 turns.
+- The design loop is **reliable, not a lucky one-off** — the agent reaches the
+  corner solution + near-optimal mass every time.
+
 ## Interpretation
 
 The agent ran a genuine design loop and effectively solved the optimisation: it
