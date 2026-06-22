@@ -1,0 +1,7 @@
+---
+title: "Differentiable topology optimization (trial 3) — notes"
+format: html
+---
+
+```{python}
+```

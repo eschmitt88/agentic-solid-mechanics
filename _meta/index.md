@@ -49,8 +49,12 @@ Triage curated → `raw/_candidates/_done/2026-06-16-llm-agents-solid-mechanics-
 - `experiments/2026-06-22-calculix-tapered-design-loop/` — **done** (trial 2b):
   TAPERED design loop (no closed-form deflection → FE essential). Agent ran a
   29-design FE search → matched the FE-true optimum (b=10/h_root=148/h_tip=37 mm,
-  7.26 kg, 14.8% lighter than prismatic); noted "beam theory unsafe". Next:
-  trial 3 (differentiable inverse design on JAX-FEM).
+  7.26 kg, 14.8% lighter than prismatic); noted "beam theory unsafe".
+- `experiments/2026-06-22-jaxfem-topology-optimization/` — **done** (trial 3,
+  loop 2): differentiable inverse design. Agent wrote its own OC optimizer using
+  JAX autodiff sensitivities → min-compliance topology opt, +0.31% vs reference,
+  PASS. All 3 agentic axes now demonstrated (drive / design / differentiate a
+  solver). GPU blocked by driver/kernel mismatch (needs reboot) — ran CPU.
 
 ## Open questions
 
