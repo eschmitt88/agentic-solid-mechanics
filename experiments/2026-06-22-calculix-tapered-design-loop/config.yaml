@@ -1,0 +1,28 @@
+# Trial 2b — harder design loop: TAPERED cantilever (no closed-form deflection,
+# so FE is genuinely required in the loop, not a small correction to a formula).
+seed: 42
+
+problem:
+  length_m: 1.0
+  youngs_modulus_pa: 2.1e+11
+  poisson_ratio: 0.30
+  density_kg_m3: 7850.0
+  tip_load_n: 2000.0
+
+# Design variables: width b (constant), and a LINEAR height taper from
+# h_root (at the clamp x=0) to h_tip (at the free end x=L).
+design_vars:
+  width_m:   {min: 0.010, max: 0.080}
+  h_root_m:  {min: 0.010, max: 0.250}
+  h_tip_m:   {min: 0.010, max: 0.250}
+
+constraints:
+  max_tip_deflection_m: 3.0e-3          # FE-graded (binding); no closed form for a taper
+  max_nominal_bending_stress_pa: 2.0e+8 # closed-form max over x of 6P(L-x)/(b h(x)^2)
+
+mesh_n_grade: 8
+feasibility_tol_rel: 0.01
+
+solver:
+  micromamba_env: solidmech
+  ccx_bin: ccx

@@ -45,8 +45,12 @@ Triage curated → `raw/_candidates/_done/2026-06-16-llm-agents-solid-mechanics-
 - `experiments/2026-06-21-calculix-cantilever-design-loop/` — **done** (trial 2):
   operator design loop (minimise mass s.t. deflection+stress). Agent found the
   min-width corner + shear correction → feasible, +0.07% above FE-true optimum,
-  3 FE evals. Next: trials with both constraints active / tapered section; trial 3
-  (differentiable inverse design on JAX-FEM).
+  3 FE evals.
+- `experiments/2026-06-22-calculix-tapered-design-loop/` — **done** (trial 2b):
+  TAPERED design loop (no closed-form deflection → FE essential). Agent ran a
+  29-design FE search → matched the FE-true optimum (b=10/h_root=148/h_tip=37 mm,
+  7.26 kg, 14.8% lighter than prismatic); noted "beam theory unsafe". Next:
+  trial 3 (differentiable inverse design on JAX-FEM).
 
 ## Open questions
 

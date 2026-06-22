@@ -1,0 +1,83 @@
+{
+  "tapered_optimum": {
+    "taper_ratio": 0.25,
+    "b": 0.01,
+    "h_root": 0.14818672180175785,
+    "h_tip": 0.03704668045043946,
+    "mass_kg": 7.270411038398745,
+    "max_nominal_stress_pa": 72861938.42801943,
+    "stress_ok": true
+  },
+  "scan": [
+    {
+      "taper_ratio": 1.0,
+      "b": 0.01,
+      "h_root": 0.10852081298828128,
+      "h_tip": 0.10852081298828128,
+      "mass_kg": 8.518883819580081,
+      "max_nominal_stress_pa": 101895538.48840474,
+      "stress_ok": true
+    },
+    {
+      "taper_ratio": 0.7,
+      "b": 0.01,
+      "h_root": 0.11837898254394531,
+      "h_tip": 0.08286528778076171,
+      "mass_kg": 7.898837610244751,
+      "max_nominal_stress_pa": 85631201.99076752,
+      "stress_ok": true
+    },
+    {
+      "taper_ratio": 0.5,
+      "b": 0.01,
+      "h_root": 0.127967300415039,
+      "h_tip": 0.0639836502075195,
+      "mass_kg": 7.5340748119354215,
+      "max_nominal_stress_pa": 73279623.55001973,
+      "stress_ok": true
+    },
+    {
+      "taper_ratio": 0.35,
+      "b": 0.01,
+      "h_root": 0.13832717895507818,
+      "h_tip": 0.04841451263427736,
+      "mass_kg": 7.329611394882205,
+      "max_nominal_stress_pa": 68916698.93283965,
+      "stress_ok": true
+    },
+    {
+      "taper_ratio": 0.25,
+      "b": 0.01,
+      "h_root": 0.14818672180175785,
+      "h_tip": 0.03704668045043946,
+      "mass_kg": 7.270411038398745,
+      "max_nominal_stress_pa": 72861938.42801943,
+      "stress_ok": true
+    },
+    {
+      "taper_ratio": 0.18,
+      "b": 0.01,
+      "h_root": 0.1578075408935547,
+      "h_tip": 0.028405357360839843,
+      "mass_kg": 7.308856256484986,
+      "max_nominal_stress_pa": 81616667.42357643,
+      "stress_ok": true
+    },
+    {
+      "taper_ratio": 0.12,
+      "b": 0.01,
+      "h_root": 0.16956680297851562,
+      "h_tip": 0.020348016357421873,
+      "mass_kg": 7.454156658935546,
+      "max_nominal_stress_pa": 98802559.44954662,
+      "stress_ok": true
+    }
+  ],
+  "prismatic_optimum_kg": 8.519,
+  "b_max_check_mass_kg": 30.03699440002441,
+  "eb_integral_deflection_at_opt_m": 0.002955717355291251,
+  "constraints": {
+    "delta_allow_m": 0.003,
+    "sigma_allow_pa": 200000000.0
+  }
+}

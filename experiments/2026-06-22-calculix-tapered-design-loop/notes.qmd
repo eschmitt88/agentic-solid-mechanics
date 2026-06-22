@@ -1,0 +1,7 @@
+---
+title: "Tapered cantilever design-loop trial — notes"
+format: html
+---
+
+```{python}
+```

@@ -1,0 +1,24 @@
+{
+  "reference": {
+    "tapered_optimum_mass_kg": 7.270411038398745,
+    "tapered_optimum_b_m": 0.01,
+    "tapered_optimum_h_root_m": 0.14818672180175785,
+    "tapered_optimum_h_tip_m": 0.03704668045043946,
+    "prismatic_optimum_mass_kg": 8.519,
+    "taper_mass_saving_pct": 14.656520267651786,
+    "eb_integral_deflection_at_opt_m": 0.002955717355291251
+  },
+  "agent_designer_demo": {
+    "runner": "in-session subagent (general-purpose)",
+    "feasible": true,
+    "mass_kg": 7.2612499999999995,
+    "pct_above_optimum": -0.12600440814640734,
+    "b_m": 0.01,
+    "h_root_m": 0.148,
+    "h_tip_m": 0.037,
+    "check_fe_deflection_m": 0.003011242,
+    "max_nominal_stress_pa": 73045904.57168835,
+    "n_designs_evaluated": 29,
+    "found_min_width_corner": true
+  }
+}
