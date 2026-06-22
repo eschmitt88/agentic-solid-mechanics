@@ -39,3 +39,7 @@ experiments/**/*.cvg
 experiments/**/*.12d
 experiments/**/spooles.out
 experiments/**/*.out
+experiments/**/*.bak
+# Per-trial agent scratch dirs from batch runs (regenerable; keep the summary
+# JSON in results/ and the curated demo, not every trial's scratch decks).
+experiments/**/results/agent_runs/
