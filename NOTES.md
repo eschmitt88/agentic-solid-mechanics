@@ -124,3 +124,32 @@ SessionEnd hook backstops this if you forget.
 - After reboot: re-run trial 3 on GPU, scale grid, migrate to JAX-FEM proper (3D).
 - pass@10 batch for trial 2 (prismatic) running in background — record when done.
 - Headless agent_topopt.py harness for loop-2 pass@k.
+
+### Did (cont.) — QA review surface + GPU back
+- Built a static, interactive **QA review site** at `docs/qa/` (Pages, linked from
+  the landing page → "QA review"): one page per trial grading two axes —
+  **physics** (interactive 3D deformed/σ_Mises scenes via pyvista `export_html`,
+  PNG fallback; convergence/design-space/topology plots) and **agentic
+  legitimacy** (leakage scan, independent metric recompute, FE-eval/turn counts,
+  pass@k). Tooling: `_meta/qa/qa_lib.py` + `build_qa.py`, headless via VTK EGL
+  (no X/Xvfb). Design-trial decks only `*NODE PRINT`→.dat, so showcased designs
+  are re-solved with `*NODE FILE`/`*EL FILE` to colour by stress.
+- Chose static-baked over the agentic-CAD project's live FastAPI viewer: FEA
+  experiment results are frozen once run, so no service is warranted.
+- **GPU back up**: reboot reconciled the driver/kernel mismatch. `nvidia-smi` OK
+  (RTX 5080, 580.167.08, 16 GB free); project `.venv` JAX 0.10.2 reports
+  `CudaDevice(id=0)`. Trial-3-on-GPU + JAX-FEM-3D follow-ups are unblocked.
+
+### Findings (cont.)
+- Caught a real QA-viz bug pre-publish: agent saved the **raw flat column-major**
+  topology vector while the reference is saved image-oriented; naive
+  `reshape(nely,nelx)` made a plausible-but-wrong picture. Fixed to
+  `reshape(nelx,nely).T` — agent truss now visibly matches reference. Logged in
+  `_meta/qa/README.md` gotchas. (Reminder: a wrong visualization is worse than none.)
+- Ground-truth provenance is **mixed** and worth stating plainly: trial 1 is
+  anchored to a genuine closed-form benchmark (Euler–Bernoulli) + mesh
+  convergence; trials 2/2b/3 are graded against **self-computed reference
+  optima** (brute scan + FE-bisection; our own OC optimizer) — independent in
+  method and internally consistent, but not externally-published gold answers.
+  Strengthening path: adopt a published benchmark (NAFEMS, the 88-line topopt
+  MBB/cantilever values, or FEM-Bench/EngDesign/ALL-FEM) for an external gold.
