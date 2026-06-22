@@ -1,0 +1,45 @@
+{
+  "element_gold": {
+    "symmetric": true,
+    "n_zero_eigs": 6,
+    "rigid_translation_max_force": 2.7755575615628914e-17,
+    "min_eig": -1.3614323032460304e-16,
+    "pass": true
+  },
+  "beam_convergence": {
+    "rows": [
+      {
+        "ny_through_thickness": 2,
+        "ndof": 567,
+        "fem_tip_deflection": 1752.6144656186927,
+        "euler_bernoulli": 2000.0,
+        "err_vs_eb_pct": -12.369276719065363
+      },
+      {
+        "ny_through_thickness": 4,
+        "ndof": 3075,
+        "fem_tip_deflection": 966.0636890681886,
+        "euler_bernoulli": 1000.0,
+        "err_vs_eb_pct": -3.393631093181136
+      },
+      {
+        "ny_through_thickness": 6,
+        "ndof": 8967,
+        "fem_tip_deflection": 657.3539946273603,
+        "euler_bernoulli": 666.6666666666666,
+        "err_vs_eb_pct": -1.3969008058959504
+      },
+      {
+        "ny_through_thickness": 8,
+        "ndof": 19683,
+        "fem_tip_deflection": 496.9368341261557,
+        "euler_bernoulli": 500.0,
+        "err_vs_eb_pct": -0.6126331747688596
+      }
+    ],
+    "monotone_convergence_to_EB": true,
+    "finest_err_vs_eb_pct": -0.6126331747688596,
+    "note": "residual at coarse meshes = shear locking of fully-integrated trilinear B8; converges to beam theory under refinement.",
+    "pass": true
+  }
+}

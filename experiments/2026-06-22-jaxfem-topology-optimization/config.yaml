@@ -22,5 +22,5 @@ grade:
   volfrac_tol: 0.02          # final volume must be <= volfrac + this
 
 # device: JAX uses GPU automatically when available; CPU fallback otherwise.
-# NOTE 2026-06-22: GPU blocked by a driver/kernel-module version mismatch
-# (NVML 580.167 vs NVRM 580.159.03) — needs a reboot. Runs on CPU until then.
+# NOTE 2026-06-22 (updated, post-reboot): GPU is WORKING (RTX 5080, JAX
+# CudaDevice(id=0)). GPU run is bit-identical to CPU and ~4x faster at this grid.

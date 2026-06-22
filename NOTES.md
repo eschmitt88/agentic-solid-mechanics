@@ -153,3 +153,31 @@ SessionEnd hook backstops this if you forget.
   method and internally consistent, but not externally-published gold answers.
   Strengthening path: adopt a published benchmark (NAFEMS, the 88-line topopt
   MBB/cantilever values, or FEM-Bench/EngDesign/ALL-FEM) for an external gold.
+
+### Did (cont.) — GPU back, external-gold verification, 3D FEM (trial 4)
+- **GPU re-run (trial 3):** confirmed working post-reboot; GPU result is
+  bit-identical to CPU (C=295.69531 → determinism) and ~4× faster at 48×16.
+- **External-gold verification (trial 3, `verify_benchmark.py`):** answers "how do
+  we know the reference is right." (1) Forward-model gold: the differentiable FEM,
+  uniform density, reproduces analytical beam theory — max |err vs Timoshenko|
+  0.86%, and L/h=3 shows EB off +8.9% (shear) while Timoshenko holds to +0.2%.
+  (2) Optimizer gold: reproduces the canonical MBB beam topology [Sigmund 2001 /
+  Andreassen 2011], C≈218.5 (published scalar is filter/rmin-dependent ~200–220 →
+  topology is the rigorous match).
+- **GPU grid scaling (trial 3):** 120×40 (ndof 9922) runs on GPU in ~70 s — dense
+  direct solve is the wall (ndof ∝ resolution³).
+- **Trial 4 — 3D differentiable FEM** (`2026-06-22-jaxfem3d-cantilever-topology/`):
+  hand-rolled 8-node hex (B8) via Gauss quadrature, SIMP, 3D density filter,
+  autodiff compliance, on GPU. Element exact (symmetric, 6 rigid-body zero-eigs,
+  ~0 force under rigid translation). Forward model converges monotonically to
+  Euler–Bernoulli under through-thickness refinement (−12.4%→−3.4%→−1.4%→−0.61%);
+  residual = textbook shear locking of fully-integrated trilinear hex. 3D topology
+  opt (24×8×8, ndof 6075) → C=49.98, vol 0.30, sensible 3D load path.
+- **QA site extended:** trial-4 3D interactive scene + beam-convergence plot +
+  element-gold panel; trial-3 page gained the external-gold verification (Timoshenko
+  table + MBB image) and GPU-scaling sections. Rebuilt + pushed.
+
+### Next (updated)
+- Loop-2 agentic pass@k on the 3D substrate (agent writes its own 3D optimiser).
+- Sparse / matrix-free GPU solve to lift the dense grid-size cap; reduced
+  integration to cut B8 shear locking; larger 3D grids.

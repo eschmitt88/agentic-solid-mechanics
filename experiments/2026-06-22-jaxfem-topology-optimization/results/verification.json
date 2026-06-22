@@ -1,0 +1,51 @@
+{
+  "forward_model_gold": {
+    "rows": [
+      {
+        "L_over_h": 10.0,
+        "fem_tip_deflection": 4004.1582079416835,
+        "euler_bernoulli": 4000.0,
+        "timoshenko": 4031.2,
+        "err_vs_eb_pct": 0.10395519854208715,
+        "err_vs_timoshenko_pct": -0.6708124642368608
+      },
+      {
+        "L_over_h": 20.0,
+        "fem_tip_deflection": 31787.807144413884,
+        "euler_bernoulli": 32000.0,
+        "timoshenko": 32062.4,
+        "err_vs_eb_pct": -0.6631026737066122,
+        "err_vs_timoshenko_pct": -0.8564326300779647
+      },
+      {
+        "L_over_h": 3.0,
+        "fem_tip_deflection": 117.60604773765301,
+        "euler_bernoulli": 108.0,
+        "timoshenko": 117.36,
+        "err_vs_eb_pct": 8.894488645975013,
+        "err_vs_timoshenko_pct": 0.20965212819786555
+      }
+    ],
+    "max_abs_err_vs_timoshenko_pct": 0.8564326300779647,
+    "pass": true
+  },
+  "optimizer_gold_mbb": {
+    "problem": {
+      "nelx": 60,
+      "nely": 20,
+      "volfrac": 0.5,
+      "penal": 3.0,
+      "rmin": 1.5,
+      "filter": "density (88-line ft=2)"
+    },
+    "our_compliance": 218.50944339721568,
+    "our_volume": 0.5000013197859586,
+    "n_iterations": 228,
+    "literature_reference": {
+      "source": "Sigmund 2001 (99-line) / Andreassen et al. 2011 (88-line)",
+      "rigorous_check": "topology",
+      "note": "The unambiguous external gold is the reproduced canonical MBB topology (top + bottom chords with a triangulated diagonal web). The published compliance SCALAR is setup-sensitive (filter type, rmin, penalty continuation) and typically falls in the ~200-220 range for 60x20/vf0.5/p3; we report ours rather than assert a single literature number we cannot re-derive offline."
+    },
+    "ascii": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%=:               \n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%*:              \n#%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%##%%%%@@@%*:             \n-*#%@@@%%###############%#####%%@%*=-+=+%%%%%%*:            \n .:*%%@%#-.............-*:...:+##%%#*+-*%%+*#%%*:           \n   :+#%%%*:           .++.    ..:+#%%%#%%+..:*%%#=.         \n    .-*%@%*:          :+:        .-#%@@%*:   :*%%#+:        \n      :*%@%*:        .++.        :*%%@%#-     :*%%%*:       \n       :*%@%*:       :+:       .:*%@%%#*=      :*%%%*:      \n        :*%@%#=.    .++.      :+#%@%#+::+:      :*#%%*:     \n         :*%@%%*:.  =*:     .:*%%%#*:.  =+.      .:*%%*:.   \n          :*%%%%#*::+=     :+#%%%*:.    .+-        :*%%#=.  \n           :#%#%%%##*.   .:*%%%#*:       -+.        :*%%#=  \n           .**-*%%@%#:  :+#%@%*:.        .+-         -#@%*: \n            +*--*%%%%*::*%%%#*:           :+:      .-*##%%*.\n...........:*%##%%%*#%##%@%*:.            .+=    .-***::*%#=\n############%%@@@@%%%%@@%%*:               :+: .:***:.  :#%#\n@@@@@@@@@@@@@@@@@@@@@@@@%*-................:++-+##=:....:#%@\n@@@@@@@@@@@@@@@@@@@@@@@@%%##################%%#%%#*******#%@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%%%%%%%%%%@"
+  }
+}

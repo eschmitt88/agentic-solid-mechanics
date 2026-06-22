@@ -1,0 +1,21 @@
+# Trial 4 — 3D differentiable FEM topology optimization (JAX, GPU).
+seed: 42
+
+problem:
+  nelx: 24            # elements along length (load direction span)
+  nely: 8             # elements along height
+  nelz: 8             # elements along width (thickness)
+  volfrac: 0.30       # volume fraction constraint
+  penal: 3.0          # SIMP penalization
+  rmin: 1.5           # density filter radius (elements)
+  load: tip_face_center # downward unit load at centre of the free-end face;
+                        # the root face (x=0) is fully clamped (cantilever)
+
+optim:
+  max_iter: 60
+  move: 0.2
+  tol_change: 0.01
+
+# device: JAX uses the GPU automatically when available (CudaDevice). Dense
+# direct solve => ndof = 3*(nelx+1)*(nely+1)*(nelz+1) caps the grid; this grid
+# is ndof = 3*25*9*9 = 6075.

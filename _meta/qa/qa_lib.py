@@ -217,25 +217,73 @@ def plot_taper_scan(scan: list[dict], opt: dict, png_out: Path):
     plt.close(fig)
 
 
+def render_topology3d(rho3d: np.ndarray, png_out: Path, html_out: Path,
+                      *, thresh: float = 0.5, window=(1000, 520)) -> dict:
+    """Render a 3D density field (nelx,nely,nelz) as thresholded voxels coloured
+    by density: static PNG + interactive HTML (rotate/zoom)."""
+    import pyvista as pv
+
+    pv.OFF_SCREEN = True
+    nx, ny, nz = rho3d.shape
+    grid = pv.ImageData(dimensions=(nx + 1, ny + 1, nz + 1))
+    grid.cell_data["rho"] = rho3d.flatten(order="F")  # VTK: x fastest
+    solid = grid.threshold(thresh, scalars="rho")
+
+    def _draw(pl):
+        pl.add_mesh(solid, scalars="rho", cmap="viridis", show_edges=True,
+                    edge_color="#333333", clim=[thresh, 1.0],
+                    scalar_bar_args={"title": "density", "color": "black"})
+        pl.add_mesh(grid.outline(), color="#888888")
+        pl.set_background("white")
+        pl.view_isometric()
+        pl.camera.zoom(1.2)
+
+    png_out.parent.mkdir(parents=True, exist_ok=True)
+    pl = pv.Plotter(off_screen=True, window_size=list(window)); _draw(pl)
+    pl.screenshot(str(png_out)); pl.close()
+    pl2 = pv.Plotter(off_screen=True, window_size=list(window)); _draw(pl2)
+    pl2.export_html(str(html_out)); pl2.close()
+    return {"solid_cells": int(solid.n_cells), "total_cells": int(grid.n_cells),
+            "vol_frac_shown": round(solid.n_cells / grid.n_cells, 3)}
+
+
+def plot_xy(rows: list[dict], xkey: str, ykey: str, png_out: Path, *,
+            xlabel: str, ylabel: str, title: str, refline: float | None = None,
+            reflabel: str = "", logx: bool = False):
+    """Generic line plot for convergence-style tables."""
+    plt = _mpl()
+    x = [r[xkey] for r in rows]
+    y = [r[ykey] for r in rows]
+    fig, ax = plt.subplots(figsize=(6.2, 3.6))
+    ax.plot(x, y, "o-", color="#1f6feb", lw=2)
+    if refline is not None:
+        ax.axhline(refline, ls="--", color="#888", label=reflabel)
+        ax.legend(fontsize=8)
+    if logx:
+        ax.set_xscale("log")
+    ax.set_xlabel(xlabel); ax.set_ylabel(ylabel); ax.set_title(title)
+    ax.grid(alpha=0.3)
+    fig.tight_layout(); fig.savefig(png_out, dpi=130); plt.close(fig)
+
+
 def topology_heatmap(ref: np.ndarray, agent: np.ndarray | None, png_out: Path,
-                     comps: tuple[float, float] | None = None):
+                     comps: tuple[float, float] | None = None,
+                     labels: tuple[str, str] = ("reference", "agent"),
+                     suptitle: str = "Topology optimisation — minimum compliance, vol ≤ 0.40",
+                     origin: str = "lower"):
     """Density field(s): reference vs agent side by side (black = solid)."""
     plt = _mpl()
-    fields = [("reference", ref)] + ([("agent", agent)] if agent is not None else [])
+    fields = [(labels[0], ref)] + ([(labels[1], agent)] if agent is not None else [])
     fig, axes = plt.subplots(1, len(fields), figsize=(5.6 * len(fields), 2.6))
     if len(fields) == 1:
         axes = [axes]
-    for ax, (name, fld) in zip(axes, fields):
-        ax.imshow(fld, cmap="gray_r", origin="lower", vmin=0, vmax=1, aspect="equal")
-        c = ""
-        if comps and name == "reference":
-            c = f"  (C={comps[0]:.1f})"
-        if comps and name == "agent":
-            c = f"  (C={comps[1]:.1f})"
+    for i, (ax, (name, fld)) in enumerate(zip(axes, fields)):
+        ax.imshow(fld, cmap="gray_r", origin=origin, vmin=0, vmax=1, aspect="equal")
+        c = f"  (C={comps[i]:.1f})" if comps else ""
         ax.set_title(f"{name} density{c}", fontsize=10)
         ax.set_xticks([])
         ax.set_yticks([])
-    fig.suptitle("Topology optimisation — minimum compliance, vol ≤ 0.40", fontsize=11)
+    fig.suptitle(suptitle, fontsize=11)
     fig.tight_layout()
     fig.savefig(png_out, dpi=130)
     plt.close(fig)
