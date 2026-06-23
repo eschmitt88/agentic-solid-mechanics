@@ -43,3 +43,7 @@ experiments/**/*.bak
 # Per-trial agent scratch dirs from batch runs (regenerable; keep the summary
 # JSON in results/ and the curated demo, not every trial's scratch decks).
 experiments/**/results/agent_runs/
+
+# transient high-res scratch (stable copies are highres_showcase_*)
+experiments/**/results/highres_density.npy
+experiments/**/results/highres_topopt.json
