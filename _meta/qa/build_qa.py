@@ -12,6 +12,7 @@ GitHub Pages. No running service. See _meta/qa/README.md.
 """
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
 import shutil
@@ -31,6 +32,15 @@ OUT = REPO / "docs" / "qa"
 
 def load_json(p: Path) -> dict:
     return json.loads(Path(p).read_text())
+
+
+def cb(path: Path) -> str:
+    """Content-hash cache-buster for iframe src — forces browsers to refetch a
+    scene file whenever it changes (GitHub Pages caches assets ~10 min)."""
+    try:
+        return f"?v={hashlib.md5(path.read_bytes()).hexdigest()[:8]}"
+    except Exception:  # noqa: BLE001
+        return ""
 
 
 def import_module_from(path: Path, name: str):
@@ -80,7 +90,7 @@ def build_trial1(slug: str) -> dict:
             shutil.copy(frd, tmp)
             vtu = qa.frd_to_vtu(tmp)
             stats = qa.render_deformed(vtu, out / "deformed.png", out / "scene.html")
-        scene = qa.scene_block("scene.html", "deformed.png",
+        scene = qa.scene_block("scene.html" + cb(out / "scene.html"), "deformed.png",
                                "Agent's validated cantilever — deformed, coloured by σ_Mises", stats)
     except Exception as e:  # noqa: BLE001
         scene = f"<div class='card'><p class='hint'>scene unavailable: {e}</p></div>"
@@ -155,7 +165,7 @@ def resolve_scene(fea_mod, beam, n_grade: int, out: Path, caption: str) -> str:
             frd = qa.solve_deck(inp_text, wd, "viz")
             vtu = qa.frd_to_vtu(frd)
             stats = qa.render_deformed(vtu, out / "deformed.png", out / "scene.html")
-        return qa.scene_block("scene.html", "deformed.png", caption, stats)
+        return qa.scene_block("scene.html" + cb(out / "scene.html"), "deformed.png", caption, stats)
     except Exception as e:  # noqa: BLE001
         return f"<div class='card'><p class='hint'>scene unavailable: {e}</p></div>"
 
@@ -452,7 +462,7 @@ def build_trial4(slug: str) -> dict:
             rho3d = np.load(rho3d_p)
             qa.render_topology3d(rho3d, out / "topo3d.png")          # static PNG fallback
             qa.write_threshold_scene_3d(rho3d, out / "scene.html")   # interactive + slider
-            scene = ("<div class='card'><iframe class='scene' src='scene.html' loading='lazy' "
+            scene = (f"<div class='card'><iframe class='scene' src='scene.html{cb(out / 'scene.html')}' loading='lazy' "
                      "title='3D topology'></iframe><p class='hint'>Optimised 3D cantilever — drag to "
                      "rotate, scroll to zoom, and use the <b>density &ge; slider</b> (top-left) to peel "
                      "away low-density material. Static fallback: <a href='topo3d.png'>PNG</a>.</p></div>")
@@ -560,7 +570,7 @@ def build_trial4(slug: str) -> dict:
                 mfrho = np.load(mfd)
                 qa.render_topology3d(mfrho, out / "mf3d.png")
                 qa.write_threshold_scene_3d(mfrho, out / "mf_scene.html")
-                mf_scene = (f"<div class='card'><iframe class='scene' src='mf_scene.html' loading='lazy' "
+                mf_scene = (f"<div class='card'><iframe class='scene' src='mf_scene.html{cb(out / 'mf_scene.html')}' loading='lazy' "
                             f"title='matrix-free 3D result'></iframe><p class='hint'>Optimized structure on "
                             f"the {mtopo['grid'][0]}×{mtopo['grid'][1]}×{mtopo['grid'][2]} grid "
                             f"({mtopo['ndof']:,} unknowns) — drag to rotate; use the <b>density &ge; "
