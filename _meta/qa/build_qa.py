@@ -449,12 +449,13 @@ def build_trial4(slug: str) -> dict:
     rho3d_p = src / "results" / "reference3d_density.npy"
     if rho3d_p.exists():
         try:
-            stats = qa.render_topology3d(np.load(rho3d_p), out / "topo3d.png", out / "scene.html")
-            scene = (f"<div class='card'><iframe class='scene' src='scene.html' loading='lazy' "
-                     f"title='3D topology'></iframe><p class='hint'>Optimised 3D cantilever — drag to "
-                     f"rotate, scroll to zoom. Static: <a href='topo3d.png'>PNG</a>. "
-                     f"{stats['solid_cells']}/{stats['total_cells']} voxels kept "
-                     f"(vol {stats['vol_frac_shown']}).</p></div>")
+            rho3d = np.load(rho3d_p)
+            qa.render_topology3d(rho3d, out / "topo3d.png")          # static PNG fallback
+            qa.write_threshold_scene_3d(rho3d, out / "scene.html")   # interactive + slider
+            scene = ("<div class='card'><iframe class='scene' src='scene.html' loading='lazy' "
+                     "title='3D topology'></iframe><p class='hint'>Optimised 3D cantilever — drag to "
+                     "rotate, scroll to zoom, and use the <b>density &ge; slider</b> (top-left) to peel "
+                     "away low-density material. Static fallback: <a href='topo3d.png'>PNG</a>.</p></div>")
         except Exception as e:  # noqa: BLE001
             scene = f"<div class='card'><p class='hint'>scene unavailable: {e}</p></div>"
 
@@ -556,13 +557,15 @@ def build_trial4(slug: str) -> dict:
         mfd = src / "results" / "matrixfree_density.npy"
         if mfd.exists():
             try:
-                st = qa.render_topology3d(np.load(mfd), out / "mf3d.png", out / "mf_scene.html")
+                mfrho = np.load(mfd)
+                qa.render_topology3d(mfrho, out / "mf3d.png")
+                qa.write_threshold_scene_3d(mfrho, out / "mf_scene.html")
                 mf_scene = (f"<div class='card'><iframe class='scene' src='mf_scene.html' loading='lazy' "
                             f"title='matrix-free 3D result'></iframe><p class='hint'>Optimized structure on "
                             f"the {mtopo['grid'][0]}×{mtopo['grid'][1]}×{mtopo['grid'][2]} grid "
-                            f"({mtopo['ndof']} unknowns) — drag to rotate. Static: "
-                            f"<a href='mf3d.png'>PNG</a>. {st['solid_cells']}/{st['total_cells']} voxels "
-                            f"(vol {st['vol_frac_shown']}).</p></div>")
+                            f"({mtopo['ndof']:,} unknowns) — drag to rotate; use the <b>density &ge; "
+                            f"slider</b> to peel away low-density material. Static: "
+                            f"<a href='mf3d.png'>PNG</a>.</p></div>")
             except Exception as e:  # noqa: BLE001
                 mf_scene = f"<div class='card'><p class='hint'>scene unavailable: {e}</p></div>"
         scale_rows = "".join(

@@ -217,10 +217,12 @@ def plot_taper_scan(scan: list[dict], opt: dict, png_out: Path):
     plt.close(fig)
 
 
-def render_topology3d(rho3d: np.ndarray, png_out: Path, html_out: Path,
+def render_topology3d(rho3d: np.ndarray, png_out: Path, html_out: Path | None = None,
                       *, thresh: float = 0.5, window=(1000, 520)) -> dict:
-    """Render a 3D density field (nelx,nely,nelz) as thresholded voxels coloured
-    by density: static PNG + interactive HTML (rotate/zoom)."""
+    """Render a 3D density field (nelx,nely,nelz) as thresholded voxels coloured by
+    density: static PNG (always) + optional pyvista interactive HTML. The
+    user-facing interactive scene with a live threshold slider is written
+    separately by write_threshold_scene_3d()."""
     import pyvista as pv
 
     pv.OFF_SCREEN = True
@@ -241,10 +243,103 @@ def render_topology3d(rho3d: np.ndarray, png_out: Path, html_out: Path,
     png_out.parent.mkdir(parents=True, exist_ok=True)
     pl = pv.Plotter(off_screen=True, window_size=list(window)); _draw(pl)
     pl.screenshot(str(png_out)); pl.close()
-    pl2 = pv.Plotter(off_screen=True, window_size=list(window)); _draw(pl2)
-    pl2.export_html(str(html_out)); pl2.close()
+    if html_out is not None:
+        pl2 = pv.Plotter(off_screen=True, window_size=list(window)); _draw(pl2)
+        pl2.export_html(str(html_out)); pl2.close()
     return {"solid_cells": int(solid.n_cells), "total_cells": int(grid.n_cells),
             "vol_frac_shown": round(solid.n_cells / grid.n_cells, 3)}
+
+
+def write_threshold_scene_3d(rho3d: np.ndarray, html_out: Path, *,
+                             floor: float = 0.1, clim=(0.3, 1.0)) -> dict:
+    """Self-contained interactive 3D scene with a LIVE density-threshold slider.
+
+    Every cell with density >= floor is embedded once (sorted by density) and
+    drawn as a cube via a Three.js InstancedMesh. Because instances are
+    density-sorted, 'show density >= t' is just 'render the first K instances',
+    so the slider re-thresholds instantly client-side — no server, no re-export.
+    Rotate/zoom via OrbitControls. Static, hostable on GitHub Pages."""
+    nx, ny, nz = rho3d.shape
+    flat = rho3d.flatten(order="F")  # x fastest, matches VTK cell order
+    cells = []
+    for e, r in enumerate(flat):
+        if r >= floor:
+            ix = e % nx
+            iy = (e // nx) % ny
+            iz = e // (nx * ny)
+            cells.append((round(ix + 0.5, 1), round(iy + 0.5, 1), round(iz + 0.5, 1), float(r)))
+    cells.sort(key=lambda c: -c[3])  # density descending
+    pos = [v for c in cells for v in c[:3]]
+    rho = [round(c[3], 3) for c in cells]
+
+    data = json.dumps({"dims": [nx, ny, nz], "pos": pos, "rho": rho,
+                       "floor": floor, "clim": list(clim)})
+    html_out.parent.mkdir(parents=True, exist_ok=True)
+    html_out.write_text(_THRESHOLD_TEMPLATE.replace("__DATA__", data))
+    return {"cells": len(cells), "total": int(nx * ny * nz)}
+
+
+_THRESHOLD_TEMPLATE = """<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+ html,body{margin:0;height:100%;font:13px -apple-system,Segoe UI,Roboto,sans-serif;background:#fff}
+ #wrap{position:relative;width:100%;height:480px}
+ #c{width:100%;height:480px;display:block}
+ #ui{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.92);border:1px solid #d0d7de;
+     border-radius:8px;padding:9px 12px;user-select:none}
+ #ui input{width:170px;vertical-align:middle}
+ #n{color:#636c76;font-size:12px;margin-top:4px}
+ #err{position:absolute;left:12px;bottom:12px;color:#cf222e;font-size:12px}
+</style></head><body>
+<div id="wrap"><canvas id="c"></canvas>
+ <div id="ui">density &ge; <b id="v">0.50</b>
+  <br><input id="t" type="range" min="0.1" max="1" step="0.01" value="0.5">
+  <div id="n"></div></div>
+ <div id="err"></div></div>
+<script type="importmap">{"imports":{
+ "three":"https://unpkg.com/three@0.160.0/build/three.module.js",
+ "three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+const D = __DATA__;
+const dims=D.dims, POS=D.pos, RHO=D.rho, N=RHO.length, clim=D.clim;
+const slider=document.getElementById('t'); slider.min=D.floor;
+function viridis(t){const s=[[68,1,84],[59,82,139],[33,145,140],[94,201,98],[253,231,37]];
+ t=Math.max(0,Math.min(1,t));const x=t*4,i=Math.min(3,Math.floor(x)),f=x-i,a=s[i],b=s[i+1];
+ return [(a[0]+(b[0]-a[0])*f)/255,(a[1]+(b[1]-a[1])*f)/255,(a[2]+(b[2]-a[2])*f)/255];}
+try{
+ const canvas=document.getElementById('c');
+ const W=()=>canvas.clientWidth||800, H=()=>480;
+ const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+ renderer.setPixelRatio(window.devicePixelRatio); renderer.setSize(W(),H(),false);
+ renderer.setClearColor(0xffffff,1);
+ const scene=new THREE.Scene();
+ const cam=new THREE.PerspectiveCamera(45,W()/H(),0.1,5000);
+ const geo=new THREE.BoxGeometry(0.92,0.92,0.92);
+ const mesh=new THREE.InstancedMesh(geo,new THREE.MeshLambertMaterial(),N);
+ const o=new THREE.Object3D(), col=new THREE.Color();
+ const cx=dims[0]/2, cy=dims[1]/2, cz=dims[2]/2;
+ for(let i=0;i<N;i++){o.position.set(POS[3*i]-cx,POS[3*i+1]-cy,POS[3*i+2]-cz);o.updateMatrix();
+  mesh.setMatrixAt(i,o.matrix);
+  const c=viridis((RHO[i]-clim[0])/(clim[1]-clim[0]));col.setRGB(c[0],c[1],c[2]);mesh.setColorAt(i,col);}
+ mesh.instanceMatrix.needsUpdate=true; mesh.instanceColor.needsUpdate=true; scene.add(mesh);
+ scene.add(new THREE.AmbientLight(0xffffff,0.75));
+ const dl=new THREE.DirectionalLight(0xffffff,0.55); dl.position.set(1,1.2,1.6); scene.add(dl);
+ const box=new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.BoxGeometry(dims[0],dims[1],dims[2])),
+  new THREE.LineBasicMaterial({color:0xbbbbbb})); scene.add(box);
+ const R=Math.max(dims[0],dims[1],dims[2]);
+ cam.position.set(dims[0]*0.9,dims[1]*1.1+R*0.5,R*1.7);
+ const ctr=new OrbitControls(cam,renderer.domElement); ctr.target.set(0,0,0); ctr.update();
+ function K(t){let lo=0,hi=N;while(lo<hi){const m=(lo+hi)>>1;if(RHO[m]>=t)lo=m+1;else hi=m;}return lo;}
+ function apply(){const t=+slider.value;document.getElementById('v').textContent=t.toFixed(2);
+  const k=K(t);mesh.count=k;document.getElementById('n').textContent=k+' of '+N+' cells shown';}
+ slider.addEventListener('input',apply); apply();
+ (function loop(){requestAnimationFrame(loop);ctr.update();renderer.render(scene,cam);})();
+ window.addEventListener('resize',()=>{renderer.setSize(W(),H(),false);cam.aspect=W()/H();cam.updateProjectionMatrix();});
+}catch(e){document.getElementById('err').textContent='3D view failed to load ('+e.message+'). See the PNG fallback.';}
+</script></body></html>"""
 
 
 def plot_xy(rows: list[dict], xkey: str, ykey: str, png_out: Path, *,
