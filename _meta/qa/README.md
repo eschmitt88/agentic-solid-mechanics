@@ -30,6 +30,21 @@ cd ~/projects/research/agentic-solid-mechanics
 git add docs/qa && git commit -m "qa: rebuild" && git push
 ```
 
+## Interactive 3-D scenes with a live density-threshold slider
+
+The 3-D topology scenes (trial 4) are NOT pyvista `export_html` snapshots —
+those bake the threshold server-side, so the hidden material isn't in the file
+and can't be revealed. Instead `qa_lib.write_threshold_scene_3d()` writes a
+self-contained Three.js page: every cell (density ≥ floor) is embedded once,
+sorted by density, and drawn as a cube via an `InstancedMesh`. Because instances
+are density-sorted, "show density ≥ t" is just "render the first K instances"
+(`mesh.count = K`, K from a binary search), so the slider re-thresholds instantly
+client-side — no server, no re-export. Three.js loads from a CDN (`unpkg`); a
+static PNG (still rendered by pyvista) is the fallback behind a try/catch.
+
+The pure-JS logic (data embedding, K(t), viridis) and the Three.js API calls are
+node-checkable headlessly; only the final WebGL paint needs a browser.
+
 ## How it works
 
 - `qa_lib.py` — `.frd → .vtu` (ccx2paraview), warp-by-displacement + colour-by-σ
