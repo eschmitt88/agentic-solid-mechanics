@@ -608,6 +608,38 @@ def build_trial4(slug: str) -> dict:
             f"{mtopo['wall_s']} s on the GPU — a grid the direct solver could not even allocate "
             f"({mtopo['dense_matrix_gb']:.0f} GB).</p>" + mf_scene + "</div>")
 
+    # --- high-resolution showcase (how dense in ~a couple GPU-minutes) ---
+    highres = ""
+    hr_json = src / "results" / "highres_showcase.json"
+    hr_npy = src / "results" / "highres_showcase_density.npy"
+    if hr_json.exists() and hr_npy.exists():
+        hr = load_json(hr_json)
+        hr_scene = ""
+        try:
+            rho = np.load(hr_npy)
+            qa.render_topology3d(rho, out / "highres.png", thresh=0.4)
+            qa.write_threshold_scene_3d(rho, out / "highres_scene.html", floor=0.12)
+            hr_scene = (f"<div class='card'><iframe class='scene' src='highres_scene.html"
+                        f"{cb(out / 'highres_scene.html')}' loading='lazy' title='high-res 3D'></iframe>"
+                        f"<p class='hint'>A slender high-resolution cantilever — the classic optimal "
+                        f"hollow box-girder (solid top/bottom flanges, diagonally-trussed webs, opening to a "
+                        f"truss at the free tip). Drag to rotate; use the <b>density &ge; slider</b> to peel "
+                        f"into the internal web. Static: <a href='highres.png'>PNG</a>.</p></div>")
+        except Exception as e:  # noqa: BLE001
+            hr_scene = f"<div class='card'><p class='hint'>scene unavailable: {e}</p></div>"
+        g0, g1, g2 = hr["grid"]
+        highres = (
+            "<h2>How dense can it go? (a few GPU-minutes)</h2>"
+            f"<div class='card'><p>Pushing the matrix-free solver: a <b>{g0}×{g1}×{g2}</b> grid — "
+            f"<b>{hr['nelem']:,} cells, {hr['ndof']:,} unknowns</b> — optimized in {hr['n_iterations']} "
+            f"iterations ({hr['wall_s']:.0f} s on the GPU, {hr['sec_per_iter']:.1f} s/iter). A direct solver "
+            f"would need to store and factorise a <b>{hr['dense_matrix_gb']:,.0f} GB</b> "
+            f"({hr['dense_matrix_gb']/1000:.1f} TB) stiffness matrix — impossible on a 16 GB card; the "
+            f"matrix-free solver never forms it.</p>"
+            "<p class='hint'>The density ceiling in ~2 min is higher still (~200,000 cells, a 128×40×40 grid "
+            "whose dense matrix would be ~3.4 TB); a slenderer domain like this one is shown because its "
+            "optimum is a visibly open truss rather than a solid block.</p></div>" + hr_scene)
+
     body = (intro
             + "<h2>Result — the optimized 3-D structure</h2>" + scene
             + loop2
@@ -617,7 +649,7 @@ def build_trial4(slug: str) -> dict:
               "Euler–Bernoulli beam-theory value as the mesh is refined through the thickness. The gap at "
               "coarse meshes is “shear locking” (a known stiffness artifact of simple elements), not a bug — "
               "it shrinks with refinement.</p></div>"
-            + leg + mf_section
+            + leg + mf_section + highres
             + qa.terms_block(["agent", "topology optimization", "compliance", "differentiable FEM", "SIMP",
                               "OC", "Euler–Bernoulli", "shear locking", "matrix-free",
                               "conjugate gradient", "GPU", "ndof", "pass@k"])

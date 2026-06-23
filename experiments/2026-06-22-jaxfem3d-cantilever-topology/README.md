@@ -60,6 +60,13 @@ Points at `metrics.json` (reference 3D run) and `results/verification3d.json`.
   0.43 s — whose dense stiffness matrix would be ~119 GB, impossible on the 16 GB
   GPU**. A full 48×16×16 optimization (42,483 unknowns, 40 iters) finishes in
   3.3 s. This lifts the grid-size cap noted below.
+- **High-resolution showcase** (`highres_topopt.py`, `results/highres_showcase*`):
+  in ~a couple GPU-minutes the matrix-free solver optimizes a slender
+  **192×24×24 = 110,592-cell** cantilever (ndof 361,875) into the classic optimal
+  hollow box-girder (solid flanges, diagonally-trussed webs); a dense matrix would
+  be **~1 TB**. The ~2-min density ceiling is ~200,000 cells (128×40×40, ~3.4 TB
+  dense) — per-iteration timing: 64³≈0.19 s, 96×32×32≈0.44 s, 128×40×40≈1.4–2.1 s.
+  Rendered with an interactive density-threshold slider on the QA page.
 - **Loop-2 agentic pass@10** (`agent_topopt3d.py`,
   `results/agent_topopt3d_trials_*.json`): handed ONLY the differentiable
   matrix-free solver in an isolated dir, the agent must write its own optimizer,

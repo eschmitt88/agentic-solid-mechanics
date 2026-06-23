@@ -1,0 +1,16 @@
+{
+  "grid": [
+    192,
+    24,
+    24
+  ],
+  "nelem": 110592,
+  "ndof": 361875,
+  "rmin": 1.5,
+  "dense_matrix_gb": 1047.6,
+  "final_compliance": 242.0382757691856,
+  "final_volume": 0.19999934555792429,
+  "n_iterations": 150,
+  "wall_s": 329.1,
+  "sec_per_iter": 2.194
+}
