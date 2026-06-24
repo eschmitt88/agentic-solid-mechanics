@@ -214,3 +214,40 @@ SessionEnd hook backstops this if you forget.
   and harder objectives (multiple load cases, stress constraints).
 - Reduced-integration/B-bar hex to cut B8 shear locking on coarse meshes.
 - Warm-started CG across optimisation iterations for even larger 3D grids.
+
+## 2026-06-23 — Trial 5: inverse problem (VHB 4910 material-model calibration)
+
+### Did
+- New use of the differentiable-JAX substrate: **inverse parameter ID / material
+  calibration** (not design). Found real, licensed data — VHB 4910 cyclic
+  loading-unloading at 3 stretch rates × 4 amplitudes (Hossain-Vu-Steinmann 2012,
+  via the iCANN Zenodo archive 10066805, CC-BY-4.0) — staged immutably in
+  `raw/data/vhb4910-hossain2012/` with `SOURCE.md` (citation + license).
+- Built `model.py`: finite-strain viscohyperelastic material-point model —
+  **Ogden N=2 equilibrium + one Bergström–Boyce viscous branch**, incompressible
+  uniaxial, viscous internal variable integrated with a differentiable
+  semi-implicit `lax.scan`. 7 params, nominal stress. Verified it produces correct
+  energy-dissipating hysteresis + rate-stiffening before calibrating.
+- `calibrate.py`: the inverse problem — minimise normalised stress misfit by
+  gradient descent (Adam → jax.scipy BFGS), vmap over curves. ~11 s on CPU.
+
+### Findings
+- Fit to all 11 curves: **R²=0.86** (7 physical params).
+- **Held-out rate (Validation B): R²=0.94** — trained on 0.01 & 0.05/s, predicts
+  the unseen 0.03/s tests. Held-out R² ≥ train R² → the rate-dependent physics was
+  identified, not curve-fit. This is the headline result.
+- **Amplitude extrapolation (Validation A): R²=0.85** — trained on λ≤4, predicts
+  λ→6.25 well (0.82–0.98) and λ→8.9 reasonably (0.73–0.79); degrades only at the
+  extreme large-stretch stiffening upturn (honest extrapolation limit).
+- Added to the QA site as **Trial 5** (objective + loading-history sketch + the
+  three model-vs-data figures + a "how we know it generalised" panel + glossary).
+- Confirms JAX autodiff is as strong for calibration/digital-twin inverse problems
+  as for design optimisation — the project's loop-2 framing generalises.
+
+### Next
+- Loop-2 agentic version: hand the data + model to the agent to write the
+  calibration (inverse-problem pass@k), like trials 3/4.
+- Add the skeletal-muscle compression data (same Zenodo archive) as a second
+  material to demonstrate compression + transfer.
+- Parameter-uncertainty via the JAX Hessian; compare model forms (Ogden N1 vs N2,
+  linear Maxwell vs BB).
