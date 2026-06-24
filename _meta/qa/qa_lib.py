@@ -519,6 +519,28 @@ GLOSSARY = {
                           "matrix-times-vector products — no need to store or factorise the full matrix.",
     "matrix-free": "Solving without ever building the big matrix: its action on a vector is computed on "
                    "the fly, so memory grows with the number of unknowns rather than its square.",
+    "inverse problem": "Working backwards from measured behaviour to the hidden inputs that produced it — "
+                       "here, finding the material parameters that make the simulation match test data.",
+    "calibration": "Tuning a material model's parameters so its predictions match experimental "
+                   "measurements.",
+    "hyperelastic": "An elastic model for large, fully-recoverable deformation (rubber): stress derives "
+                    "from a stored-energy function of the stretch.",
+    "Ogden": "A widely-used hyperelastic model whose energy is a sum of power-law terms in the principal "
+             "stretches; flexible enough to fit rubber from small to very large strain.",
+    "Bergström–Boyce": "A rate-dependent (viscous) model for elastomers: an equilibrium network in "
+                       "parallel with a time-dependent network whose flow follows a power law in the "
+                       "overstress — captures how stiffness rises with loading speed.",
+    "viscoelastic": "Rate- and history-dependent: the response depends on how fast you load and on the "
+                    "past, producing hysteresis (a loading/unloading loop).",
+    "hysteresis": "The gap between the loading and unloading stress–stretch curves; its area is the energy "
+                  "dissipated per cycle.",
+    "stretch": "Deformed length divided by original length (λ); λ=1 is undeformed, λ=2 is doubled.",
+    "nominal stress": "Force divided by the ORIGINAL (undeformed) cross-section area — the engineering "
+                      "stress reported in most tension tests.",
+    "R²": "Coefficient of determination: 1.0 is a perfect match to the data; it measures how much of the "
+          "data's variation the model reproduces.",
+    "VHB 4910": "A very-high-bond acrylic elastomer (3M), a standard, strongly rate-dependent test "
+                "material in the modelling literature.",
 }
 
 

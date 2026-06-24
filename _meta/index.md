@@ -65,6 +65,13 @@ Triage curated → `raw/_candidates/_done/2026-06-16-llm-agents-solid-mechanics-
   **Loop-2 agentic pass@10**: handed only the differentiable solver, the agent
   writes its own optimiser — 10/10 feasible, ~1.2% stiffer than our reference,
   leakage clean.
+- `experiments/2026-06-23-vhb-viscohyperelastic-calibration/` — **done** (trial 5):
+  inverse problem / material-model calibration. Ogden + Bergström–Boyce
+  viscohyperelastic model (differentiable JAX material point) calibrated to real
+  VHB 4910 cyclic data (Hossain 2012, CC-BY-4.0) by gradient descent: fit R²=0.86,
+  predicts a held-out strain rate at R²=0.94 and held-out larger amplitudes at
+  R²=0.85. Shows JAX autodiff is as strong for calibration/inverse problems as for
+  design. Data in `raw/data/vhb4910-hossain2012/`.
 
 ## QA review surface
 

@@ -1,0 +1,330 @@
+{
+  "fit_all": {
+    "train_loss": 0.01917,
+    "params": {
+      "mu1": 8.93541,
+      "alpha1": 0.93127,
+      "mu2": 10.55075,
+      "alpha2": 0.9328,
+      "muV": 11.24891,
+      "eta": 25.44356,
+      "m": 7.80675
+    },
+    "train_files": [
+      "Fig3_1_rate1",
+      "Fig3_1_rate2",
+      "Fig3_1_rate3",
+      "Fig3_2_rate1",
+      "Fig3_2_rate2",
+      "Fig3_2_rate3",
+      "Fig4_1_rate1",
+      "Fig4_1_rate2",
+      "Fig4_1_rate3",
+      "Fig4_2_rate1",
+      "Fig4_2_rate3"
+    ],
+    "heldout_files": [],
+    "train_mean_r2": 0.8637,
+    "heldout_mean_r2": null,
+    "per_curve_train": [
+      {
+        "name": "Fig3_1_rate1",
+        "amp": 2.25,
+        "rate": 0.01,
+        "r2": 0.9497,
+        "nrmse": 0.0619
+      },
+      {
+        "name": "Fig3_1_rate2",
+        "amp": 2.25,
+        "rate": 0.03,
+        "r2": 0.8997,
+        "nrmse": 0.0898
+      },
+      {
+        "name": "Fig3_1_rate3",
+        "amp": 2.25,
+        "rate": 0.05,
+        "r2": 0.7685,
+        "nrmse": 0.1423
+      },
+      {
+        "name": "Fig3_2_rate1",
+        "amp": 4.0,
+        "rate": 0.01,
+        "r2": 0.7703,
+        "nrmse": 0.1309
+      },
+      {
+        "name": "Fig3_2_rate2",
+        "amp": 4.0,
+        "rate": 0.03,
+        "r2": 0.9564,
+        "nrmse": 0.06
+      },
+      {
+        "name": "Fig3_2_rate3",
+        "amp": 4.0,
+        "rate": 0.05,
+        "r2": 0.8256,
+        "nrmse": 0.119
+      },
+      {
+        "name": "Fig4_1_rate1",
+        "amp": 6.25,
+        "rate": 0.01,
+        "r2": 0.7752,
+        "nrmse": 0.137
+      },
+      {
+        "name": "Fig4_1_rate2",
+        "amp": 6.25,
+        "rate": 0.03,
+        "r2": 0.978,
+        "nrmse": 0.0405
+      },
+      {
+        "name": "Fig4_1_rate3",
+        "amp": 6.25,
+        "rate": 0.05,
+        "r2": 0.9689,
+        "nrmse": 0.0471
+      },
+      {
+        "name": "Fig4_2_rate1",
+        "amp": 8.9,
+        "rate": 0.01,
+        "r2": 0.9281,
+        "nrmse": 0.0726
+      },
+      {
+        "name": "Fig4_2_rate3",
+        "amp": 8.9,
+        "rate": 0.05,
+        "r2": 0.6799,
+        "nrmse": 0.1369
+      }
+    ],
+    "per_curve_heldout": []
+  },
+  "study_A_amplitude_extrapolation": {
+    "train_loss": 0.01031,
+    "params": {
+      "mu1": 40.71038,
+      "alpha1": 0.20314,
+      "mu2": 36.61576,
+      "alpha2": 0.34286,
+      "muV": 14.70469,
+      "eta": 56.67257,
+      "m": 2.52006
+    },
+    "train_files": [
+      "Fig3_1_rate1",
+      "Fig3_1_rate2",
+      "Fig3_1_rate3",
+      "Fig3_2_rate1",
+      "Fig3_2_rate2",
+      "Fig3_2_rate3"
+    ],
+    "heldout_files": [
+      "Fig4_1_rate1",
+      "Fig4_1_rate2",
+      "Fig4_1_rate3",
+      "Fig4_2_rate1",
+      "Fig4_2_rate3"
+    ],
+    "train_mean_r2": 0.9313,
+    "heldout_mean_r2": 0.848,
+    "per_curve_train": [
+      {
+        "name": "Fig3_1_rate1",
+        "amp": 2.25,
+        "rate": 0.01,
+        "r2": 0.9504,
+        "nrmse": 0.0615
+      },
+      {
+        "name": "Fig3_1_rate2",
+        "amp": 2.25,
+        "rate": 0.03,
+        "r2": 0.963,
+        "nrmse": 0.0546
+      },
+      {
+        "name": "Fig3_1_rate3",
+        "amp": 2.25,
+        "rate": 0.05,
+        "r2": 0.9047,
+        "nrmse": 0.0913
+      },
+      {
+        "name": "Fig3_2_rate1",
+        "amp": 4.0,
+        "rate": 0.01,
+        "r2": 0.8086,
+        "nrmse": 0.1195
+      },
+      {
+        "name": "Fig3_2_rate2",
+        "amp": 4.0,
+        "rate": 0.03,
+        "r2": 0.9946,
+        "nrmse": 0.0212
+      },
+      {
+        "name": "Fig3_2_rate3",
+        "amp": 4.0,
+        "rate": 0.05,
+        "r2": 0.9667,
+        "nrmse": 0.052
+      }
+    ],
+    "per_curve_heldout": [
+      {
+        "name": "Fig4_1_rate1",
+        "amp": 6.25,
+        "rate": 0.01,
+        "r2": 0.82,
+        "nrmse": 0.1226
+      },
+      {
+        "name": "Fig4_1_rate2",
+        "amp": 6.25,
+        "rate": 0.03,
+        "r2": 0.9254,
+        "nrmse": 0.0745
+      },
+      {
+        "name": "Fig4_1_rate3",
+        "amp": 6.25,
+        "rate": 0.05,
+        "r2": 0.9803,
+        "nrmse": 0.0375
+      },
+      {
+        "name": "Fig4_2_rate1",
+        "amp": 8.9,
+        "rate": 0.01,
+        "r2": 0.7881,
+        "nrmse": 0.1246
+      },
+      {
+        "name": "Fig4_2_rate3",
+        "amp": 8.9,
+        "rate": 0.05,
+        "r2": 0.7262,
+        "nrmse": 0.1266
+      }
+    ]
+  },
+  "study_B_heldout_rate": {
+    "train_loss": 0.01228,
+    "params": {
+      "mu1": 64.15599,
+      "alpha1": 0.17929,
+      "mu2": 65.09458,
+      "alpha2": 0.16998,
+      "muV": 13.73866,
+      "eta": 82.60115,
+      "m": 1.6178
+    },
+    "train_files": [
+      "Fig3_1_rate1",
+      "Fig3_1_rate3",
+      "Fig3_2_rate1",
+      "Fig3_2_rate3",
+      "Fig4_1_rate1",
+      "Fig4_1_rate3",
+      "Fig4_2_rate1",
+      "Fig4_2_rate3"
+    ],
+    "heldout_files": [
+      "Fig3_1_rate2",
+      "Fig3_2_rate2",
+      "Fig4_1_rate2"
+    ],
+    "train_mean_r2": 0.9115,
+    "heldout_mean_r2": 0.9437,
+    "per_curve_train": [
+      {
+        "name": "Fig3_1_rate1",
+        "amp": 2.25,
+        "rate": 0.01,
+        "r2": 0.982,
+        "nrmse": 0.037
+      },
+      {
+        "name": "Fig3_1_rate3",
+        "amp": 2.25,
+        "rate": 0.05,
+        "r2": 0.8512,
+        "nrmse": 0.1141
+      },
+      {
+        "name": "Fig3_2_rate1",
+        "amp": 4.0,
+        "rate": 0.01,
+        "r2": 0.8721,
+        "nrmse": 0.0977
+      },
+      {
+        "name": "Fig3_2_rate3",
+        "amp": 4.0,
+        "rate": 0.05,
+        "r2": 0.94,
+        "nrmse": 0.0698
+      },
+      {
+        "name": "Fig4_1_rate1",
+        "amp": 6.25,
+        "rate": 0.01,
+        "r2": 0.9145,
+        "nrmse": 0.0845
+      },
+      {
+        "name": "Fig4_1_rate3",
+        "amp": 6.25,
+        "rate": 0.05,
+        "r2": 0.955,
+        "nrmse": 0.0567
+      },
+      {
+        "name": "Fig4_2_rate1",
+        "amp": 8.9,
+        "rate": 0.01,
+        "r2": 0.9194,
+        "nrmse": 0.0768
+      },
+      {
+        "name": "Fig4_2_rate3",
+        "amp": 8.9,
+        "rate": 0.05,
+        "r2": 0.8581,
+        "nrmse": 0.0912
+      }
+    ],
+    "per_curve_heldout": [
+      {
+        "name": "Fig3_1_rate2",
+        "amp": 2.25,
+        "rate": 0.03,
+        "r2": 0.9133,
+        "nrmse": 0.0835
+      },
+      {
+        "name": "Fig3_2_rate2",
+        "amp": 4.0,
+        "rate": 0.03,
+        "r2": 0.9833,
+        "nrmse": 0.0371
+      },
+      {
+        "name": "Fig4_1_rate2",
+        "amp": 6.25,
+        "rate": 0.03,
+        "r2": 0.9346,
+        "nrmse": 0.0698
+      }
+    ]
+  }
+}

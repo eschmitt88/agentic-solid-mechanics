@@ -1,0 +1,7 @@
+{
+  "fit_all_mean_r2": 0.8637,
+  "amplitude_extrapolation_heldout_r2": 0.848,
+  "heldout_rate_r2": 0.9437,
+  "n_params": 7,
+  "n_curves": 11
+}

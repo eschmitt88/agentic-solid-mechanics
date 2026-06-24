@@ -671,6 +671,110 @@ def build_trial4(slug: str) -> dict:
             "axis": "inventing a structure (3-D)", "headline": hl}
 
 
+def build_trial5(slug: str) -> dict:
+    src = EXP / "2026-06-23-vhb-viscohyperelastic-calibration"
+    out = OUT / slug
+    out.mkdir(parents=True, exist_ok=True)
+    cal = load_json(src / "results" / "calibration.json")
+    m = load_json(src / "metrics.json")
+
+    # copy the calibration plots
+    for png in ("fit_all.png", "study_A.png", "study_B.png"):
+        p = src / "results" / png
+        if p.exists():
+            shutil.copy2(p, out / png)
+
+    # loading-history sketch (stretch vs time at the 3 rates, one amplitude)
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        ddir = REPO / "raw" / "data" / "vhb4910-hossain2012"
+        fig, ax = plt.subplots(figsize=(6.0, 3.0))
+        for r, c, lab in [("rate1", "#1f6feb", "0.01/s"), ("rate2", "#cf222e", "0.03/s"),
+                          ("rate3", "#2da44e", "0.05/s")]:
+            d = np.loadtxt(ddir / f"Fig3_2_{r}.txt")
+            ax.plot(d[:, 0], d[:, 2], "-", color=c, lw=1.8, label=lab)
+        ax.set_xlabel("time (s)"); ax.set_ylabel("stretch λ")
+        ax.set_title("Cyclic loading histories (λ→4) at three rates")
+        ax.legend(fontsize=8, title="stretch rate"); ax.grid(alpha=0.3)
+        fig.tight_layout(); fig.savefig(out / "loading.png", dpi=130); plt.close(fig)
+    except Exception:  # noqa: BLE001
+        pass
+
+    A = cal["study_A_amplitude_extrapolation"]
+    B = cal["study_B_heldout_rate"]
+    intro = qa.intro_block(
+        objective=("Run the problem <i>backwards</i>. Instead of designing a structure, we take real "
+                   "laboratory measurements of a rubber and recover the hidden <b>material-model "
+                   "parameters</b> that reproduce them — automatically, by gradient descent on a "
+                   "differentiable simulation (an <b>inverse problem</b> / model calibration). Then we "
+                   "check the calibrated model predicts experiments it never saw."),
+        setup_rows=[
+            ("Material", "VHB 4910 — a strongly rate-dependent acrylic rubber (real published test data, "
+                         "CC-BY-4.0; Hossain–Vu–Steinmann 2012 via the iCANN archive)"),
+            ("Test data", "11 cyclic stretch-and-release pulls: 4 maximum stretches (λ up to ~2.25, 4, "
+                          "6.25, 8.9) × 3 loading speeds (0.01 / 0.03 / 0.05 per second)"),
+            ("Model", "Ogden hyperelastic network + one Bergström–Boyce rate-dependent (viscous) branch — "
+                      f"{m.get('n_params', 7)} parameters"),
+            ("Method", "A differentiable material-point simulation in JAX; parameters found by gradient "
+                       "descent (the gradient of the data-misfit is computed automatically)"),
+            ("What we check", "fit quality (R²) and TWO held-out predictions — an unseen loading speed, "
+                              "and stretches beyond the calibration range"),
+        ],
+        bc_png="loading.png",
+        bc_caption="The test is a single material sample pulled and released in cycles; the model is fit to "
+                   "the resulting stress vs. stretch loops. Faster pulls give higher stress (rate-dependence).",
+        measured=("<b>R²</b> (1.0 = perfect): how well the calibrated stress matches the measured stress, on "
+                  "the fitted curves and — the real test — on held-out experiments the calibration never used."))
+
+    trust = (
+        "<h2>How we know it generalised (not just curve-fit)</h2><div class='card'><table class='leg'>"
+        + leg_row("fit to all 11 curves", f"R² = {m.get('fit_all_mean_r2')}")
+        + leg_row("held-out loading speed (0.03/s)",
+                  f"trained on 0.01 &amp; 0.05/s → predicts 0.03/s at R² = {B['heldout_mean_r2']} &nbsp; "
+                  + qa.chip(B['heldout_mean_r2'] and B['heldout_mean_r2'] > 0.85))
+        + leg_row("held-out amplitudes (λ→6.25, 8.9)",
+                  f"trained on λ≤4 → predicts larger stretches at R² = {A['heldout_mean_r2']} &nbsp; "
+                  + qa.chip(A['heldout_mean_r2'] and A['heldout_mean_r2'] > 0.7))
+        + leg_row("over-fit check",
+                  f"held-out R² (rate {B['heldout_mean_r2']}) ≥ training R² ({B['train_mean_r2']}) → "
+                  "generalises, not memorises")
+        + leg_row("data provenance", "real published data, held-out curves excluded from training; "
+                  "see the experiment's <code>raw/.../SOURCE.md</code> for citation + license")
+        + "</table></div>")
+
+    body = (intro
+            + "<h2>Calibrated fit (all 11 curves)</h2><div class='card'>"
+              "<img class='fig' src='fit_all.png' alt='fit'>"
+              "<p class='hint'>Dots = measured, lines = calibrated model. Left: the loops stiffen with "
+              "loading speed (rate-dependence); right: the four stretch amplitudes at one speed.</p></div>"
+            + "<h2>Validation A — predicting unseen stretch amplitudes</h2><div class='card'>"
+              "<img class='fig' src='study_A.png' alt='amplitude extrapolation'>"
+              "<p class='hint'>Calibrated only on λ≤4 (left), the model predicts the much larger λ→6.25 and "
+              "λ→8.9 cyclic tests (right). It nails λ→6.25; at λ→8.9 it captures the loop but under-predicts "
+              "the steep stiffening near the limit — the honest edge of extrapolation.</p></div>"
+            + "<h2>Validation B — predicting an unseen loading speed</h2><div class='card'>"
+              "<img class='fig' src='study_B.png' alt='held-out rate'>"
+              "<p class='hint'>Trained on the slow and fast speeds (grey), the model predicts the "
+              "intermediate 0.03/s tests it never saw (red) — R² = "
+              f"{B['heldout_mean_r2']}. This is the key evidence the rate-dependent physics was identified, "
+              "not just fitted.</p></div>"
+            + trust
+            + qa.terms_block(["inverse problem", "calibration", "hyperelastic", "Ogden", "Bergström–Boyce",
+                              "viscoelastic", "hysteresis", "stretch", "nominal stress", "R²", "VHB 4910"])
+            + artifact_links(src))
+    (out / "index.html").write_text(qa.page(
+        "Trial 5 — Calibrating a material model to real data (inverse problem)",
+        "Recover a rubber's rate-dependent material parameters from lab data by gradient descent, and "
+        "predict held-out experiments.",
+        body, crumb_for(slug)))
+    return {"slug": slug, "title": "Trial 5 — material-model calibration",
+            "axis": "calibrating to data (inverse problem)",
+            "headline": f"fit R²={m.get('fit_all_mean_r2')} · predicts unseen rate R²={B['heldout_mean_r2']} · "
+                        f"unseen amplitudes R²={A['heldout_mean_r2']}"}
+
+
 # --------------------------------------------------------------------------- #
 # shared bits
 # --------------------------------------------------------------------------- #
@@ -703,11 +807,12 @@ def build_index(cards: list[dict]):
         "does the engineering itself, not a human driving a tool — can carry out structural-mechanics "
         "simulation and design. Each trial below uses <b>Finite Element Analysis (FEA)</b>, the standard "
         "numerical method for predicting how a structure deforms and where it is stressed.</p>"
-        "<p>The trials build up three abilities: <b>(1) run a solver</b> (operate the simulation tool "
-        "correctly), <b>(2) design a part</b> (choose dimensions to meet goals and limits), and "
-        "<b>(3) invent a structure</b> (decide the optimal material layout from scratch). Every result is "
-        "graded against physics — analytical formulas, mesh convergence, or published benchmarks — not "
-        "against the agent's own say-so.</p>"
+        "<p>The trials build up four abilities: <b>(1) run a solver</b> (operate the simulation tool "
+        "correctly), <b>(2) design a part</b> (choose dimensions to meet goals and limits), "
+        "<b>(3) invent a structure</b> (decide the optimal material layout from scratch), and "
+        "<b>(4) calibrate to data</b> (recover hidden material parameters from real measurements — an "
+        "inverse problem). Every result is graded against physics — analytical formulas, mesh convergence, "
+        "published benchmarks, or held-out experimental data — not against the agent's own say-so.</p>"
         "<p>Each page shows: the <b>objective</b> in plain terms, the <b>problem setup and boundary "
         "conditions</b> (how the structure is held and loaded, with a diagram), an <b>interactive 3-D "
         "result</b> you can rotate and zoom, and a <b>trustworthiness panel</b> (independent re-checks that "
@@ -731,6 +836,7 @@ def main():
     cards.append(build_trial2b("trial-2b-tapered"))
     cards.append(build_trial3("trial-3-topology"))
     cards.append(build_trial4("trial-4-topology-3d"))
+    cards.append(build_trial5("trial-5-material-calibration"))
     build_index(cards)
     print("QA site written to", OUT)
     for c in cards:
