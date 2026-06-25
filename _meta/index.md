@@ -10,9 +10,12 @@ and `/new-experiment`.
 
 ## Maps of Content
 
-(promote a cluster of ≥5 related concepts into `mocs/<theme>.md`)
+- [[gpu-differentiable-physics-simulation]] — the GPU-accelerated & differentiable
+  physics-sim landscape (2026-06-25 ultracode sweep): DSLs/compilers (Warp, Taichi),
+  the JAX physics stack, GPU lattice-Boltzmann, GPU CFD, diff-physics engines —
+  mapped to our two loops + the window-shade natural-convection recommendation.
 
-## Concepts (seeded 2026-06-16)
+## Concepts (seeded 2026-06-16; +6 on 2026-06-25)
 
 Three agentic design axes:
 - [[agent-as-solver-operator]] — axis 1 / loop 1: drive a solver (write/run/debug CalculiX decks)
@@ -23,6 +26,11 @@ Cross-cutting:
 - [[agentic-design-optimization]] — shared target of both loops' advanced trials
 - [[multi-agent-self-correction]] — role-split agents correcting each other
 - [[physics-grounded-evaluation]] — grade against physics/ground truth, not self-report
+
+GPU / differentiable physics-sim (2026-06-25 sweep):
+- [[gpu-differentiable-physics-simulation]] · [[differentiable-lattice-boltzmann]] ·
+  [[boussinesq-natural-convection]] · [[implicit-differentiation-through-solve]] ·
+  [[weak-form-fem-dsl]] · [[multi-backend-differentiable-physics-framework]]
 
 ## Literature (15 ingested 2026-06-16)
 
@@ -35,6 +43,15 @@ Differentiable/inverse: [[xue2022jaxfem]] (5) · [[xue2025implicit]] (3) ·
 Solver repos: [[calculix]] (5, committed) · [[deepmodeling-jax-fem]] (4) ·
 [[fenics-dolfinx]] (3) · [[nvidia-warp]] (3) · [[sfepy]] (3).
 Triage curated → `raw/_candidates/_done/2026-06-16-llm-agents-solid-mechanics-solvers.md`
+
+### GPU / differentiable physics-sim sweep (2026-06-25, ultracode workflow — 93 found, 18 verified)
+GPU/differentiable solvers: [[xlb]] (4, JAX LBM) · [[phiflow]] (4, multi-backend NS+heat) ·
+[[optimistix]] (4) · [[lineax]] (3.5) · [[pyfr]] (2.5, GPU high-order CFD) ·
+[[mujoco-mjx]] (2) · [[taichi]] (3, stale/maintenance-mode).
+Surveys/papers: [[newbury2024diffsim]] (3) · [[sapienza2024diffprog]] (4) ·
+[[difvm2026]] (3) · [[zheng2022venetianblinds]] (4, natural-convection validation ref).
+Synthesis + window-shade recommendation → [[gpu-differentiable-physics-simulation]].
+Triage archived → `raw/_candidates/_done/2026-06-25-gpu-differentiable-physics-sim.md`
 
 ## Active experiments
 
