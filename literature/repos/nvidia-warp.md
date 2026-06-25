@@ -70,3 +70,13 @@ the core enabler for gradient-based inverse design.
 - Confirm gradient quality / checkpointing behavior for multi-step structural sims (see
   `example_fluid_checkpoint.py` pattern) before relying on it for inverse design.
 - Compare against a turnkey structural solver note to sharpen the loop-2 fallback decision boundary.
+
+## 2026-06-25 re-verification — CFD / loop-2 angle (landscape sweep)
+
+Re-verified active (v1.14.0, 2026-06-01). New CFD-relevant findings for the natural-convection work:
+
+- Ships differentiable 2D Navier-Stokes examples (initial-perturbation optimization, Taylor-Green vortex, Kelvin-Helmholtz) plus convection-diffusion and shallow-water demos — the exact weak-form ingredients for a Boussinesq natural-convection model, though no turnkey buoyancy-coupled example exists yet.
+- v1.13.0 (2026-05) added automatic wp.float64 double precision across spaces and quadrature (important for stiff convection-dominated solves); v1.14.0 (2026-06) added multi-environment batched solves — useful for sweeping many slat angles in parallel.
+- Differentiability is via Warp's own Tape autodiff, not JAX-native; bridging to our JAX stack is through dlpack array exchange, so gradients cross the boundary as arrays rather than composing inside jax.grad.
+- **warp.fem** ships 2D incompressible Navier–Stokes + convection–diffusion (semi-Lagrangian & DG) examples — the building blocks of a Boussinesq natural-convection solve (buoyancy coupling is DIY). v1.14 added batched multi-environment solves → parallel slat-angle sweeps.
+- See the landscape MoC: [[gpu-differentiable-physics-simulation]].

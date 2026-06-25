@@ -110,3 +110,13 @@ timing. Pin the working JAX version once found.
   as a baseline for [[agent-as-solver-operator]].
 - Confirm the licensing posture (GPL-3) is acceptable for how we intend to use
   generated/derived code.
+
+## 2026-06-25 re-verification — CFD / loop-2 angle (landscape sweep)
+
+Re-verified active (commits Jun 2026), peer-reviewed (CPC 2023). For the natural-convection work:
+
+- AD-driven Newton: the user implements get_tensor_map/get_mass_map/get_surface_maps (or get_universal_kernel for arbitrary multiphysics) on a Problem subclass; JAX autodiff produces the tangent stiffness, so no manual sensitivity derivation for either the nonlinear solve or the inverse/design gradient. This is the exact pattern to study before extending our own differentiable FEM.
+- Solver stack is assembled-matrix, not matrix-free: backends are JAX built-in sparse (GPU), UMFPACK (CPU direct), and PETSc KSP (CPU iterative + preconditioning), plus AMGX env support; nonlinear solvers include Newton-Raphson, arc-length, and dynamic relaxation. Contrast with our own matrix-free CG-on-GPU approach.
+- Install is conda env (Python 3.13, NumPy 2.4, petsc4py 3.25, meshio, gmsh, fenics-basix) plus `pip install jax-fem` (or `pip install -e .`), with JAX installed separately per the official JAX hardware instructions -- so the CUDA/Blackwell wheel choice is decoupled from the package. License is GPL-3.0 (commercial use requires contacting the author).
+- Ships Poisson/heat, elasticity, hyperelasticity, plasticity, and **Stokes flow** — but **no Navier–Stokes/Boussinesq**; the `get_universal_kernel` custom-weak-form path is the credible route to a coded Boussinesq convection solve with autodiff h(angle) sensitivities. **License: GPL-3.0** (matters if our code becomes a derivative work).
+- The closest published analog to our own hand-rolled JAX FEM. See [[gpu-differentiable-physics-simulation]].
