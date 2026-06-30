@@ -47,7 +47,8 @@ Triage curated → `raw/_candidates/_done/2026-06-16-llm-agents-solid-mechanics-
 ### GPU / differentiable physics-sim sweep (2026-06-25, ultracode workflow — 93 found, 18 verified)
 GPU/differentiable solvers: [[xlb]] (4, JAX LBM) · [[phiflow]] (4, multi-backend NS+heat) ·
 [[optimistix]] (4) · [[lineax]] (3.5) · [[pyfr]] (2.5, GPU high-order CFD) ·
-[[mujoco-mjx]] (2) · [[taichi]] (3, stale/maintenance-mode).
+[[mujoco-mjx]] (2) · [[taichi]] (3, stale/maintenance-mode) ·
+[[quadrants]] (3, Genesis's GPU kernel compiler — added 2026-06-30).
 Surveys/papers: [[newbury2024diffsim]] (3) · [[sapienza2024diffprog]] (4) ·
 [[difvm2026]] (3) · [[zheng2022venetianblinds]] (4, natural-convection validation ref).
 Synthesis + window-shade recommendation → [[gpu-differentiable-physics-simulation]].
