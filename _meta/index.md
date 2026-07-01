@@ -90,6 +90,7 @@ Triage archived → `raw/_candidates/_done/2026-06-25-gpu-differentiable-physics
   predicts a held-out strain rate at R²=0.94 and held-out larger amplitudes at
   R²=0.85. Shows JAX autodiff is as strong for calibration/inverse problems as for
   design. Data in `raw/data/vhb4910-hossain2012/`.
+- `experiments/2026-07-01-window-shade-natural-convection/` — **running** (trial 6, first fluids/multiphysics): hand-rolled thermal lattice-Boltzmann (Boussinesq) natural-convection solver in JAX/GPU, VALIDATED on de Vahl Davis (Nu +15/+8/+4% at Ra 1e3/1e4/1e5, shrinking with Ra). Next: interior-venetian-blind h(slat-angle) sweep.
 
 ## QA review surface
 

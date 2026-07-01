@@ -1,0 +1,7 @@
+---
+title: "window-shade-natural-convection"
+format: html
+---
+
+```{python}
+```

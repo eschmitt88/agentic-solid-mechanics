@@ -251,3 +251,32 @@ SessionEnd hook backstops this if you forget.
   material to demonstrate compression + transfer.
 - Parameter-uncertainty via the JAX Hessian; compare model forms (Ogden N1 vs N2,
   linear Maxwell vs BB).
+
+## 2026-07-01 — Trial 6: natural-convection CFD solver (window shade), validated
+
+### Did
+- New capability + first fluids/multiphysics trial. User wants effective h(θ) of an
+  INTERIOR venetian blind at a window (2D natural convection). Corrected geometry from
+  the user's sketch: open room + interior blind + window (NOT a sealed cavity); slats
+  2.5" chord, angle −90..+90 from horizontal, ~1/4" overlap at near-vertical → pitch
+  ≈2.25"; h(θ) may be asymmetric (gravity gives the plume a preferred direction).
+- Built `jaxlbm.py`: hand-rolled thermal lattice-Boltzmann (D2Q9 flow + D2Q5 heat,
+  Guo-forced Boussinesq buoyancy) in JAX/GPU; mask-based so angled slats are just
+  solid+adiabatic nodes. `devahl.py` validates it.
+
+### Findings
+- **VALIDATED on de Vahl Davis** (canonical natural-convection benchmark): Nu error
+  +15%/+8%/+4% at Ra 1e3/1e4/1e5 — decreasing as convection dominates (the full-way
+  anti-bounce-back wall placement is an O(1) offset that matters less at high Ra).
+  Velocity matches benchmark; Nu(x) x-flat; Ra-scaling correct; temperature field is
+  textbook (boundary layers + stratified core). Relative h(θ) trends (fixed Ra/BCs)
+  will have the systematic offset cancel. Window operates at high Ra (≥1e4).
+- Debug log: wet-node Dirichlet-T too diffusive (Nu −14%) → anti-bounce-back (+8%);
+  Nu from interior flux-integral not one-cell wall gradient; converge on flow speed
+  not total heat.
+
+### Next
+- Build the tall differentially-heated-cavity + slat geometry (room as ambient
+  boundary — standard fenestration model, reuses the validated solver, no open-BC
+  needed) and sweep θ ∈ (−90,90) at pitch 2.25", chord 2.5" → h(θ).
+- Later: fully-open room (open BCs); tighten benchmark <5% with half-way BB.
