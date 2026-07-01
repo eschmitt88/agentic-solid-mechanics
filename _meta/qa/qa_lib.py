@@ -541,6 +541,23 @@ GLOSSARY = {
           "data's variation the model reproduces.",
     "VHB 4910": "A very-high-bond acrylic elastomer (3M), a standard, strongly rate-dependent test "
                 "material in the modelling literature.",
+    "natural convection": "Fluid motion driven by buoyancy alone — warm fluid rises, cool fluid sinks — "
+                          "with no fan or pump; it carries heat across the air.",
+    "Boussinesq": "The standard approximation for buoyancy: density is taken constant except in the "
+                  "gravity term, where it varies with temperature to drive the flow.",
+    "Rayleigh number": "A dimensionless number (Ra) measuring how strongly buoyancy drives convection "
+                       "relative to damping; higher Ra = stronger, eventually turbulent, convection.",
+    "Nusselt number": "A dimensionless heat-transfer rate (Nu): the ratio of total (convective + "
+                      "conductive) heat transfer to pure conduction. h = Nu·k/L.",
+    "Prandtl number": "A fluid property (Pr = ν/α) comparing how fast momentum vs. heat diffuse; ~0.71 "
+                      "for air.",
+    "lattice-Boltzmann": "A CFD method that evolves particle-distribution populations on a grid (stream + "
+                         "collide) instead of directly discretising the Navier–Stokes equations — simple, "
+                         "parallel, and good at complex/immersed geometry.",
+    "de Vahl Davis": "The canonical natural-convection benchmark: a square cavity with a hot and a cold "
+                     "vertical wall, with published Nusselt numbers used to validate solvers.",
+    "boundary layer": "The thin region of steep velocity/temperature change next to a wall where most of "
+                      "the heat transfer happens.",
 }
 
 
