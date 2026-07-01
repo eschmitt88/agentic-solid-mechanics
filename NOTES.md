@@ -280,3 +280,17 @@ SessionEnd hook backstops this if you forget.
   boundary — standard fenestration model, reuses the validated solver, no open-BC
   needed) and sweep θ ∈ (−90,90) at pitch 2.25", chord 2.5" → h(θ).
 - Later: fully-open room (open BCs); tighten benchmark <5% with half-way BB.
+
+### Did (cont.) — blind h(θ) sweep DONE
+- `blind.py`: tall differentially-heated cavity + interior venetian blind (6 slats,
+  chord 2.5"/40 cells, pitch 2.25"/36 cells), reusing the validated LBM; slats as
+  solid+adiabatic nodes; window(right,hot)/room(left,cold)/adiabatic top-bottom.
+  Swept θ∈[−75,+75]° at Ra_W=1e5.
+- h(θ)/h(0): U-shaped — **min at θ=0 (horizontal slats baffle the window plume most),
+  +~40% toward closed (±75°), ASYMMETRIC ~5% (h(−θ)>h(+θ), gravity/plume direction)**.
+  Robust: measured the through-flux in the CLEAR room-side band (energy-conserved,
+  Nu(x) spread ±0.5–1%) rather than corrupted slat-cutting planes.
+- Added Trial 6 to the QA site (objective + geometry/field montage + de Vahl Davis
+  validation + h(θ) curve + honest-caveats panel + glossary). Dashboard now 6 trials.
+- Caveats logged: moderate laminar Ra (full window higher-Ra); enclosed-cavity room
+  model; thin non-sealing slats. Next: validate trend vs Zheng 2022 experimental data.

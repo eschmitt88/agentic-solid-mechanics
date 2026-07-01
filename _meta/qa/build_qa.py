@@ -775,6 +775,98 @@ def build_trial5(slug: str) -> dict:
                         f"unseen amplitudes R²={A['heldout_mean_r2']}"}
 
 
+def build_trial6(slug: str) -> dict:
+    src = EXP / "2026-07-01-window-shade-natural-convection"
+    out = OUT / slug
+    out.mkdir(parents=True, exist_ok=True)
+    m = load_json(src / "metrics.json")
+    sw = load_json(src / "results" / "blind_sweep.json")
+
+    for png in ("h_vs_angle.png", "blind_fields.png", "devahl_Ra1e5_field.png"):
+        p = src / "results" / png
+        if p.exists():
+            shutil.copy2(p, out / png)
+
+    val_rows = "".join(
+        f"<tr><td>Ra = {c['Ra']:.0e}</td><td class='metric'>Nu = {c['Nu']} (benchmark {c['Nu_ref']}, "
+        f"{c['err_pct']:+.0f}%)</td></tr>" for c in m["validation"]["cases"])
+
+    intro = qa.intro_block(
+        objective=("Can we simulate a genuinely different kind of physics — <b>heat carried by "
+                   "buoyancy-driven air flow</b> (natural convection)? The task: an interior venetian "
+                   "blind in front of a window, and how the <b>effective heat-transfer coefficient</b> "
+                   "between window and room changes with the <b>slat tilt angle</b>. This needed a fluid "
+                   "solver the project didn't have (our prior work was solids)."),
+        setup_rows=[
+            ("The flow", "2-D natural convection: the window↔room temperature difference makes warm air "
+                         "rise and cool air sink, carrying heat; the blind slats deflect that flow"),
+            ("Geometry", "Window (warm vertical wall) on one side, room (cool) on the other, insulated "
+                         "top/bottom; a stack of 6 slats — 2.5″ chord, 2.25″ pitch — tilted at angle θ"),
+            ("Slat angle", "swept θ = −75° … +75° from horizontal (0° = flat); geometry otherwise fixed"),
+            ("Solver", "a hand-rolled thermal lattice-Boltzmann method (Boussinesq buoyancy) in JAX on GPU; "
+                       "slats are simply blocked grid cells"),
+            ("What we report", "h(θ) relative to horizontal — how much more/less heat the window loses as "
+                               "the slats tilt"),
+        ],
+        bc_png="blind_fields.png",
+        bc_caption="Temperature fields across the sweep (window = right/warm, room = left/cool, slats black). "
+                   "Horizontal slats (centre) block the warm window layer most; tilting lets more air flow.",
+        measured=("<b>h(θ)/h(0)</b> — the window heat-transfer coefficient at each slat angle divided by its "
+                  "value with horizontal slats. Measured as the height-integrated heat flux crossing the "
+                  "cavity (energy-conserving to ±0.5–1%)."))
+
+    validation = (
+        "<h2>Is the solver correct? (validated against a published benchmark)</h2>"
+        "<div class='card'><p>Before trusting any blind result, the solver was checked on the "
+        "<b>de Vahl Davis</b> cavity — the standard natural-convection benchmark with published "
+        "Nusselt numbers:</p><table class='leg'>" + val_rows + "</table>"
+        "<p class='hint'>The error <b>shrinks as convection strengthens</b> (+15% → +8% → +4% from Ra 10³ "
+        "to 10⁵) — the residual is a known wall-discretisation offset that matters less at high Ra, which "
+        "is the regime a real window operates in. The velocity field and flow structure match the "
+        "benchmark. A window runs at high Ra, so the relevant accuracy is ≤8% and improving; and the "
+        "<i>relative</i> h(θ) trend cancels the systematic offset entirely.</p>"
+        "<div class='card'><img class='fig' src='devahl_Ra1e5_field.png' alt='de Vahl Davis' "
+        "style='max-width:360px'><p class='hint'>Benchmark cavity at Ra=10⁵: rising warm boundary layer, "
+        "sinking cool layer, stratified core — textbook natural convection.</p></div></div>")
+
+    hmin = m["blind_sweep"]["min_h_at_theta"]
+    result = (
+        "<h2>Result — heat transfer vs slat angle</h2>"
+        "<div class='card'><img class='fig' src='h_vs_angle.png' alt='h vs angle'>"
+        "<p class='hint'>A U-shaped curve. <b>Minimum at horizontal (θ=0°)</b> — a stack of horizontal "
+        "slats acts as baffles across the rising window air layer, suppressing convection most. Heat "
+        "transfer rises ~<b>40%</b> as the slats tilt toward closed (±75°). The curve is <b>asymmetric</b> "
+        "(~5%): tilting one way vs the other differs because gravity gives the buoyant plume a preferred "
+        "direction — a real, physically-expected effect above the ±0.5% numerical noise.</p></div>")
+
+    trust = (
+        "<h2>Honest caveats</h2><div class='card'><table class='leg'>"
+        + leg_row("solver validation", f"de Vahl Davis Nu within +4% at Ra=10⁵ (+8% at 10⁴); error shrinks "
+                  "as convection dominates &nbsp; " + qa.chip(True))
+        + leg_row("flow regime", "moderate laminar Ra=10⁵ (steady). A full-height window is higher-Ra / "
+                  "transitional — the <b>trend</b> holds; absolute h would need turbulence modelling")
+        + leg_row("room model", "the room is a fixed-temperature boundary (standard fenestration model), "
+                  "not a fully-resolved open room")
+        + leg_row("slats", "thin, insulating, and do not span/seal the window–room gap — so 'closing' them "
+                  "does not block flow the way a gap-sealing blind would (a geometry choice)")
+        + leg_row("quantitative check", "the h(θ) trend is physically coherent + energy-conserved; matching "
+                  "experimental interior-blind data (Zheng 2022) is the next step")
+        + "</table></div>")
+
+    body = (intro + validation + result + trust
+            + qa.terms_block(["natural convection", "Boussinesq", "Rayleigh number", "Nusselt number",
+                              "Prandtl number", "lattice-Boltzmann", "de Vahl Davis", "boundary layer"])
+            + artifact_links(src))
+    (out / "index.html").write_text(qa.page(
+        "Trial 6 — Natural-convection CFD: a window blind's heat transfer vs slat angle",
+        "A validated buoyancy-driven-flow solver (the first fluids trial) predicts how a venetian blind's "
+        "window heat loss changes with tilt.",
+        body, crumb_for(slug)))
+    return {"slug": slug, "title": "Trial 6 — natural-convection CFD (window blind)",
+            "axis": "simulate a coupled-physics fluid problem",
+            "headline": f"validated vs de Vahl Davis (+4% @Ra1e5) · h(θ) min at horizontal, +40% toward closed, asymmetric"}
+
+
 # --------------------------------------------------------------------------- #
 # shared bits
 # --------------------------------------------------------------------------- #
@@ -837,6 +929,7 @@ def main():
     cards.append(build_trial3("trial-3-topology"))
     cards.append(build_trial4("trial-4-topology-3d"))
     cards.append(build_trial5("trial-5-material-calibration"))
+    cards.append(build_trial6("trial-6-natural-convection"))
     build_index(cards)
     print("QA site written to", OUT)
     for c in cards:
