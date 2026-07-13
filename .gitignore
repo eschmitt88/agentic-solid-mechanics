@@ -47,3 +47,7 @@ experiments/**/results/agent_runs/
 # transient high-res scratch (stable copies are highres_showcase_*)
 experiments/**/results/highres_density.npy
 experiments/**/results/highres_topopt.json
+
+# Hook telemetry — appended by the Stop hook after every turn, so it can
+# never stay committed-clean. Durable copy lives in ~/.claude/state.db.
+_meta/token_log.ndjson
