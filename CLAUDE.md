@@ -59,3 +59,8 @@ down or explicitly flag the need to raise a ceiling.
 - End sessions with `/wrap`. The SessionEnd hook backstops this.
 - Use `/new-experiment <slug>` — don't hand-roll experiment folders.
 - Run `/lint` weekly.
+
+## Framework rules
+
+@~/claude-system/claude/rules/evaluation.md
+@~/claude-system/claude/rules/agency.md
