@@ -4,11 +4,10 @@
 decks and drive differentiable inverse-design loops — well enough to do useful
 engineering analysis autonomously?**
 
-📂 **[Browse this repo →](https://<owner>.github.io/agentic-solid-mechanics/)** —
+📂 **[Browse this repo →](https://eschmitt88.github.io/agentic-solid-mechanics/)** —
 interactive, always-live view of experiments, concepts, literature, and maps of
 content. Served via GitHub Pages from `docs/index.html`; reads the live file
-tree, no build step. _(Link is live once the repo is public and Pages is enabled
-— `/new-project` does both by default.)_
+tree, no build step.
 
 ## What this is
 
