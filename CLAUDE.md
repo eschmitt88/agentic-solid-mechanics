@@ -62,5 +62,7 @@ down or explicitly flag the need to raise a ceiling.
 
 ## Framework rules
 
-@~/claude-system/claude/rules/evaluation.md
-@~/claude-system/claude/rules/agency.md
+Framework rules in `~/claude-system/claude/rules/` can't be `@`-imported
+(imports resolve only in-tree): read `evaluation.md` before designing or
+judging an evaluation, `agency.md` before an autonomous run. Skills with
+`respects:` do this automatically.
