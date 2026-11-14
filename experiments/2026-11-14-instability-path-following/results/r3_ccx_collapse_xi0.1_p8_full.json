@@ -1,0 +1,16 @@
+{
+ "xi": 0.1,
+ "per": 8,
+ "trigger": 0.01,
+ "n_elements": 6592,
+ "n_nodes": 20188,
+ "rc": 201,
+ "seconds": 1545.7636523246765,
+ "n_increments": 94,
+ "P_max_over_Pcl": 0.5881650402330293,
+ "shortening_at_max": 0.634233375,
+ "last_time": 0.8457856,
+ "max_is_last_increment": false,
+ "completed_step": false,
+ "dinc": 0.01
+}

@@ -1,0 +1,760 @@
+{
+ "params": {
+  "R": 200.0,
+  "t": 1.0,
+  "E": 70000.0,
+  "nu": 0.3,
+  "q0": 25.708140066413446,
+  "ell": 48.88090146504447,
+  "L": 195.52360586017787,
+  "sigma_cl": 211.82963643408087,
+  "N_cl": 211.82963643408087,
+  "P_cl": 266192.9718535621,
+  "nasa_gamma": 0.4712708873700804
+ },
+ "koiter_check": {
+  "xi=1e-6": [
+   0.9984263354193601,
+   0.5001308554538105
+  ],
+  "xi=1": [
+   0.19631615725777515,
+   0.33777535038249973
+  ]
+ },
+ "linear_buckling": [
+  {
+   "el_per_wavelength": 4,
+   "lam_cell": 1.0003209041742613,
+   "n_cell": 13,
+   "lam_ss": 0.99216319846662,
+   "n_ss": 1,
+   "lam_by_n_cell": null,
+   "seconds": 2.9031686782836914
+  },
+  {
+   "el_per_wavelength": 8,
+   "lam_cell": 1.000115621288316,
+   "n_cell": 11,
+   "lam_ss": 0.9884447626120335,
+   "n_ss": 1,
+   "lam_by_n_cell": null,
+   "seconds": 3.19059157371521
+  },
+  {
+   "el_per_wavelength": 16,
+   "lam_cell": 1.000020901190901,
+   "n_cell": 1,
+   "lam_ss": 0.9881898201839917,
+   "n_ss": 1,
+   "lam_by_n_cell": {
+    "1": 1.000020901190901,
+    "2": 1.000089150154249,
+    "3": 1.0003822446433457,
+    "4": 1.0011609518323097,
+    "5": 1.0027747032596963,
+    "6": 1.0056478279781342,
+    "7": 1.0033878883415779,
+    "8": 1.000424025162496,
+    "9": 1.0004546585566543,
+    "10": 1.0043927720652648,
+    "11": 1.0000727528215811,
+    "12": 1.0014317375091568,
+    "13": 1.0002580306727953,
+    "14": 1.0158979903417484,
+    "15": 1.0495467881607843,
+    "16": 1.0974094652218105,
+    "17": 1.1622929354325557,
+    "18": 1.2388921886760906,
+    "19": 1.3214713366800808,
+    "20": 1.4183381554861336,
+    "21": 1.5273020143304503,
+    "22": 1.6359869555913649,
+    "23": 1.757716757638605,
+    "24": 1.8932131198445308,
+    "25": 2.0249069728203866,
+    "26": 2.1681399239360095,
+    "27": 2.3244304861480423,
+    "28": 2.4802782254420888,
+    "29": 2.6432652020405634,
+    "30": 2.8188780972906704,
+    "31": 2.9977983714306227,
+    "32": 3.1795577745202284,
+    "33": 3.3736587606499926,
+    "34": 3.5749778605195974,
+    "35": 3.774925188447126,
+    "36": 3.98701478782666,
+    "37": 4.210297935135305,
+    "38": 4.428068035265663,
+    "39": 4.657833571689951,
+    "40": 4.9000588357713655
+   },
+   "seconds": 4.074817657470703
+  },
+  {
+   "el_per_wavelength": 32,
+   "lam_cell": 1.000005601098058,
+   "n_cell": 1,
+   "lam_ss": 0.988173406925804,
+   "n_ss": 1,
+   "lam_by_n_cell": null,
+   "seconds": 6.2871880531311035
+  }
+ ],
+ "knockdown_cell": [
+  {
+   "xi": 0.05,
+   "koiter_upper_bound": 0.6837094266392617,
+   "koiter_gamma": 0.5121638173340131,
+   "koiter_n": 13.166779152971799,
+   "bh_longwave": 0.574055543684276,
+   "koiter_asymptotic_from_memory": 0.7045256993987041,
+   "by_mesh": [
+    {
+     "xi": 0.05,
+     "bc": "cell",
+     "nel": 32,
+     "n_path": 35,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.6642851500711506,
+     "lam_bracket": [
+      0.6642851500711157,
+      0.6642851500711857
+     ],
+     "end_shortening_c": 0.0020914244296954083,
+     "n_crit": [
+      9
+     ],
+     "lowest_eig_Kn": 2.666238089874723e-12,
+     "seconds": 3.054257392883301
+    },
+    {
+     "xi": 0.05,
+     "bc": "cell",
+     "nel": 64,
+     "n_path": 35,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.6641540111928622,
+     "lam_bracket": [
+      0.6641540111928271,
+      0.6641540111928973
+     ],
+     "end_shortening_c": 0.002091043594648151,
+     "n_crit": [
+      9
+     ],
+     "lowest_eig_Kn": 1.4806920647170755e-12,
+     "seconds": 10.873936176300049
+    },
+    {
+     "xi": 0.05,
+     "bc": "cell",
+     "nel": 128,
+     "n_path": 35,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.6641457033688878,
+     "lam_bracket": [
+      0.6641457033688527,
+      0.6641457033689229
+     ],
+     "end_shortening_c": 0.002091019506391518,
+     "n_crit": [
+      9
+     ],
+     "lowest_eig_Kn": 1.276429112643802e-12,
+     "seconds": 40.29934477806091
+    }
+   ],
+   "rho": 0.6641457033688878,
+   "n_crit": [
+    9
+   ],
+   "kind": "bifurcation into harmonic n",
+   "abs_diff": 0.019563723270373923
+  },
+  {
+   "xi": 0.1,
+   "koiter_upper_bound": 0.576314821101236,
+   "koiter_gamma": 0.5067630560719789,
+   "koiter_n": 13.027935625982165,
+   "bh_longwave": 0.4720023841295558,
+   "koiter_asymptotic_from_memory": 0.6108931210496591,
+   "by_mesh": [
+    {
+     "xi": 0.1,
+     "bc": "cell",
+     "nel": 32,
+     "n_path": 30,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.5525566036319023,
+     "lam_bracket": [
+      0.5525566036318675,
+      0.5525566036319371
+     ],
+     "end_shortening_c": 0.0018369926350596162,
+     "n_crit": [
+      9
+     ],
+     "lowest_eig_Kn": 7.148989137097028e-13,
+     "seconds": 3.42903208732605
+    },
+    {
+     "xi": 0.1,
+     "bc": "cell",
+     "nel": 64,
+     "n_path": 30,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.5524344837131696,
+     "lam_bracket": [
+      0.5524344837131349,
+      0.5524344837132045
+     ],
+     "end_shortening_c": 0.0018366367976880389,
+     "n_crit": [
+      9
+     ],
+     "lowest_eig_Kn": 4.398953746637374e-13,
+     "seconds": 10.140461206436157
+    },
+    {
+     "xi": 0.1,
+     "bc": "cell",
+     "nel": 128,
+     "n_path": 30,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.5524269187451087,
+     "lam_bracket": [
+      0.552426918745074,
+      0.5524269187451436
+     ],
+     "end_shortening_c": 0.0018366148568924627,
+     "n_crit": [
+      9
+     ],
+     "lowest_eig_Kn": -8.579567027454826e-13,
+     "seconds": 37.88586401939392
+    }
+   ],
+   "rho": 0.5524269187451087,
+   "n_crit": [
+    9
+   ],
+   "kind": "bifurcation into harmonic n",
+   "abs_diff": 0.023887902356127255
+  },
+  {
+   "xi": 0.2,
+   "koiter_upper_bound": 0.4501794047069664,
+   "koiter_gamma": 0.48844402698355377,
+   "koiter_n": 12.556987460296229,
+   "bh_longwave": 0.36358741950978374,
+   "koiter_asymptotic_from_memory": 0.5014451030602579,
+   "by_mesh": [
+    {
+     "xi": 0.2,
+     "bc": "cell",
+     "nel": 32,
+     "n_path": 23,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.42005475274441273,
+     "lam_bracket": [
+      0.4200547527443785,
+      0.4200547527444469
+     ],
+     "end_shortening_c": 0.0015969713771257622,
+     "n_crit": [
+      8
+     ],
+     "lowest_eig_Kn": -4.0192267307152054e-13,
+     "seconds": 2.9505741596221924
+    },
+    {
+     "xi": 0.2,
+     "bc": "cell",
+     "nel": 64,
+     "n_path": 23,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.41994124321229287,
+     "lam_bracket": [
+      0.4199412432122586,
+      0.4199412432123271
+     ],
+     "end_shortening_c": 0.0015966239584823837,
+     "n_crit": [
+      8
+     ],
+     "lowest_eig_Kn": -1.0967977468883334e-13,
+     "seconds": 9.552369117736816
+    },
+    {
+     "xi": 0.2,
+     "bc": "cell",
+     "nel": 128,
+     "n_path": 23,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.41993457205088736,
+     "lam_bracket": [
+      0.4199345720508531,
+      0.41993457205092166
+     ],
+     "end_shortening_c": 0.001596603826437509,
+     "n_crit": [
+      8
+     ],
+     "lowest_eig_Kn": -3.448890084590697e-12,
+     "seconds": 34.31133842468262
+    }
+   ],
+   "rho": 0.41993457205088736,
+   "n_crit": [
+    8
+   ],
+   "kind": "bifurcation into harmonic n",
+   "abs_diff": 0.030244832656079024
+  },
+  {
+   "xi": 0.3,
+   "koiter_upper_bound": 0.3736816912499974,
+   "koiter_gamma": 0.4665715316795392,
+   "koiter_n": 11.994686287418652,
+   "bh_longwave": 0.30280053776669397,
+   "koiter_asymptotic_from_memory": 0.4327571387423327,
+   "by_mesh": [
+    {
+     "xi": 0.3,
+     "bc": "cell",
+     "nel": 32,
+     "n_path": 20,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.34640337772294727,
+     "lam_bracket": [
+      0.3464033777229138,
+      0.3464033777229807
+     ],
+     "end_shortening_c": 0.0015464722260289275,
+     "n_crit": [
+      8
+     ],
+     "lowest_eig_Kn": 3.6161462442696624e-13,
+     "seconds": 3.222815990447998
+    },
+    {
+     "xi": 0.3,
+     "bc": "cell",
+     "nel": 64,
+     "n_path": 20,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.3462894803083343,
+     "lam_bracket": [
+      0.34628948030830076,
+      0.34628948030836776
+     ],
+     "end_shortening_c": 0.001546089630540699,
+     "n_crit": [
+      8
+     ],
+     "lowest_eig_Kn": -1.2171952495156413e-12,
+     "seconds": 8.543787717819214
+    },
+    {
+     "xi": 0.3,
+     "bc": "cell",
+     "nel": 128,
+     "n_path": 20,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.34628321212686536,
+     "lam_bracket": [
+      0.34628321212683183,
+      0.3462832121268989
+     ],
+     "end_shortening_c": 0.0015460692041833085,
+     "n_crit": [
+      8
+     ],
+     "lowest_eig_Kn": -9.003154686983096e-13,
+     "seconds": 32.31140756607056
+    }
+   ],
+   "rho": 0.34628321212686536,
+   "n_crit": [
+    8
+   ],
+   "kind": "bifurcation into harmonic n",
+   "abs_diff": 0.027398479123132036
+  },
+  {
+   "xi": 0.5,
+   "koiter_upper_bound": 0.2849686675710097,
+   "koiter_gamma": 0.4223253799657269,
+   "koiter_n": 10.857200021760185,
+   "bh_longwave": 0.23734614819790364,
+   "koiter_asymptotic_from_memory": 0.345588490743453,
+   "by_mesh": [
+    {
+     "xi": 0.5,
+     "bc": "cell",
+     "nel": 32,
+     "n_path": 16,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.2646894535909762,
+     "lam_bracket": [
+      0.26468945359094487,
+      0.26468945359100754
+     ],
+     "end_shortening_c": 0.0016777464355394295,
+     "n_crit": [
+      7
+     ],
+     "lowest_eig_Kn": 1.2029576076871876e-13,
+     "seconds": 2.514662504196167
+    },
+    {
+     "xi": 0.5,
+     "bc": "cell",
+     "nel": 64,
+     "n_path": 16,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.2645588467870571,
+     "lam_bracket": [
+      0.2645588467870257,
+      0.2645588467870885
+     ],
+     "end_shortening_c": 0.0016771574820258872,
+     "n_crit": [
+      7
+     ],
+     "lowest_eig_Kn": -2.7898421215246642e-12,
+     "seconds": 8.118415594100952
+    },
+    {
+     "xi": 0.5,
+     "bc": "cell",
+     "nel": 128,
+     "n_path": 16,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.26455258726239567,
+     "lam_bracket": [
+      0.2645525872623642,
+      0.26455258726242714
+     ],
+     "end_shortening_c": 0.0016771308921939663,
+     "n_crit": [
+      7
+     ],
+     "lowest_eig_Kn": 5.130790842823485e-12,
+     "seconds": 29.293535470962524
+    }
+   ],
+   "rho": 0.26455258726239567,
+   "n_crit": [
+    7
+   ],
+   "kind": "bifurcation into harmonic n",
+   "abs_diff": 0.020416080308614026
+  },
+  {
+   "xi": 0.75,
+   "koiter_upper_bound": 0.22788128829287502,
+   "koiter_gamma": 0.37488214046069196,
+   "koiter_n": 9.637522575360348,
+   "bh_longwave": 0.199740424176497,
+   "koiter_asymptotic_from_memory": 0.27937400821950664,
+   "by_mesh": [
+    {
+     "xi": 0.75,
+     "bc": "cell",
+     "nel": 32,
+     "n_path": 15,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.21867534008089318,
+     "lam_bracket": [
+      0.2186753400808657,
+      0.21867534008092065
+     ],
+     "end_shortening_c": 0.002143288613810642,
+     "n_crit": [
+      6
+     ],
+     "lowest_eig_Kn": -9.315149225749023e-13,
+     "seconds": 2.461566686630249
+    },
+    {
+     "xi": 0.75,
+     "bc": "cell",
+     "nel": 64,
+     "n_path": 15,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.21850247152495267,
+     "lam_bracket": [
+      0.21850247152492505,
+      0.21850247152498029
+     ],
+     "end_shortening_c": 0.0021420867597488616,
+     "n_crit": [
+      6
+     ],
+     "lowest_eig_Kn": -3.3227230011280222e-12,
+     "seconds": 8.198638677597046
+    },
+    {
+     "xi": 0.75,
+     "bc": "cell",
+     "nel": 128,
+     "n_path": 15,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.21849538613322006,
+     "lam_bracket": [
+      0.2184953861331924,
+      0.2184953861332477
+     ],
+     "end_shortening_c": 0.0021420410177648793,
+     "n_crit": [
+      6
+     ],
+     "lowest_eig_Kn": -1.7789335915888501e-12,
+     "seconds": 29.03876233100891
+    }
+   ],
+   "rho": 0.21849538613322006,
+   "n_crit": [
+    6
+   ],
+   "kind": "bifurcation into harmonic n",
+   "abs_diff": 0.009385902159654957
+  },
+  {
+   "xi": 1.0,
+   "koiter_upper_bound": 0.19631615725777515,
+   "koiter_gamma": 0.33777535038249973,
+   "koiter_n": 8.683576018615181,
+   "bh_longwave": 0.18163698659497932,
+   "koiter_asymptotic_from_memory": 0.23569850759031574,
+   "by_mesh": [
+    {
+     "xi": 1.0,
+     "bc": "cell",
+     "nel": 32,
+     "n_path": 15,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.19552439606295582,
+     "lam_bracket": [
+      0.19552439606293287,
+      0.19552439606297878
+     ],
+     "end_shortening_c": 0.0028415276949560146,
+     "n_crit": [
+      8
+     ],
+     "lowest_eig_Kn": -1.7539241358683097e-12,
+     "seconds": 2.5989255905151367
+    },
+    {
+     "xi": 1.0,
+     "bc": "cell",
+     "nel": 64,
+     "n_path": 15,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.19536949487167604,
+     "lam_bracket": [
+      0.19536949487165298,
+      0.19536949487169913
+     ],
+     "end_shortening_c": 0.0028405685446588154,
+     "n_crit": [
+      8
+     ],
+     "lowest_eig_Kn": -5.371396177501599e-12,
+     "seconds": 8.656733512878418
+    },
+    {
+     "xi": 1.0,
+     "bc": "cell",
+     "nel": 128,
+     "n_path": 15,
+     "kind": "bifurcation into harmonic n",
+     "lam_c": 0.19536428536934541,
+     "lam_bracket": [
+      0.19536428536932227,
+      0.19536428536936856
+     ],
+     "end_shortening_c": 0.002840547583178267,
+     "n_crit": [
+      8
+     ],
+     "lowest_eig_Kn": -2.12725708432006e-12,
+     "seconds": 30.496469020843506
+    }
+   ],
+   "rho": 0.19536428536934541,
+   "n_crit": [
+    8
+   ],
+   "kind": "bifurcation into harmonic n",
+   "abs_diff": 0.0009518718884297395
+  }
+ ],
+ "knockdown_long_cell": [
+  {
+   "L_over_ell": 8,
+   "xi": 0.1,
+   "rho": 0.5354942759972836,
+   "n_crit": [
+    6
+   ]
+  },
+  {
+   "L_over_ell": 8,
+   "xi": 0.3,
+   "rho": 0.33665409564748616,
+   "n_crit": [
+    6
+   ]
+  },
+  {
+   "L_over_ell": 8,
+   "xi": 1.0,
+   "rho": 0.1907209871173392,
+   "n_crit": [
+    4
+   ]
+  },
+  {
+   "L_over_ell": 16,
+   "xi": 0.1,
+   "rho": 0.5354942759972581,
+   "n_crit": [
+    6
+   ]
+  },
+  {
+   "L_over_ell": 16,
+   "xi": 0.3,
+   "rho": 0.31987796310262273,
+   "n_crit": [
+    4
+   ]
+  },
+  {
+   "L_over_ell": 16,
+   "xi": 1.0,
+   "rho": 0.19072098721096778,
+   "n_crit": [
+    4
+   ]
+  }
+ ],
+ "knockdown_ss": [
+  {
+   "xi": 0.0,
+   "rho": 0.8651747025174108,
+   "n_crit": [
+    12
+   ],
+   "kind": "bifurcation into harmonic n",
+   "rho_even_n": 0.8651747025174108,
+   "n_crit_even": [
+    12
+   ],
+   "rho_fine_mesh": 0.865170248179808,
+   "end_shortening_c": 0.002717707482256003
+  },
+  {
+   "xi": 0.05,
+   "rho": 0.6944621844896526,
+   "n_crit": [
+    13
+   ],
+   "kind": "bifurcation into harmonic n",
+   "rho_even_n": 0.6949099913139225,
+   "n_crit_even": [
+    12
+   ],
+   "rho_fine_mesh": 0.6944547807926962,
+   "end_shortening_c": 0.002167851378443138
+  },
+  {
+   "xi": 0.1,
+   "rho": 0.5797882798136667,
+   "n_crit": [
+    12
+   ],
+   "kind": "bifurcation into harmonic n",
+   "rho_even_n": 0.5797882798136667,
+   "n_crit_even": [
+    12
+   ],
+   "rho_fine_mesh": 0.5797822343872637,
+   "end_shortening_c": 0.0018771350413531636
+  },
+  {
+   "xi": 0.2,
+   "rho": 0.4490042027153388,
+   "n_crit": [
+    12
+   ],
+   "kind": "bifurcation into harmonic n",
+   "rho_even_n": 0.4490042027153388,
+   "n_crit_even": [
+    12
+   ],
+   "rho_fine_mesh": 0.44899915826014103,
+   "end_shortening_c": 0.0016258142588717903
+  },
+  {
+   "xi": 0.3,
+   "rho": 0.3746823352753328,
+   "n_crit": [
+    11
+   ],
+   "kind": "bifurcation into harmonic n",
+   "rho_even_n": 0.3748543159766471,
+   "n_crit_even": [
+    12
+   ],
+   "rho_fine_mesh": 0.3746776685759481,
+   "end_shortening_c": 0.0015663480808003147
+  },
+  {
+   "xi": 0.5,
+   "rho": 0.2877326624921639,
+   "n_crit": [
+    10
+   ],
+   "kind": "bifurcation into harmonic n",
+   "rho_even_n": 0.2877326624921639,
+   "n_crit_even": [
+    10
+   ],
+   "rho_fine_mesh": 0.2877283381285295,
+   "end_shortening_c": 0.0016642642461585943
+  },
+  {
+   "xi": 0.75,
+   "rho": 0.23289259268356172,
+   "n_crit": [
+    9
+   ],
+   "kind": "bifurcation into harmonic n",
+   "rho_even_n": 0.2516030621916484,
+   "n_crit_even": [
+    10
+   ],
+   "rho_fine_mesh": 0.2328881246656415,
+   "end_shortening_c": 0.002033299457089736
+  },
+  {
+   "xi": 1.0,
+   "rho": 0.2052581119744879,
+   "n_crit": [
+    8
+   ],
+   "kind": "bifurcation into harmonic n",
+   "rho_even_n": 0.2052581119744879,
+   "n_crit_even": [
+    8
+   ],
+   "rho_fine_mesh": 0.20525284948586778,
+   "end_shortening_c": 0.0026244655557775593
+  }
+ ]
+}

@@ -1,2 +1,57 @@
-# Inputs, hyperparameters, seeds for this experiment.
+# Inputs for instability-path-following (trial 7). No randomness anywhere;
+# seed kept for the template's sake.
 seed: 42
+environment:
+  jax: "0.10.2 (float64, CPU: JAX_PLATFORMS=cpu)"
+  calculix: "2.23 via micromamba env solidmech (MAMBA_ROOT_PREFIX=~/projects/.micromamba)"
+  extra_packages: [sympy]
+
+rung1:
+  truss:
+    EA: 1.0
+    shallow: {b: 1.0, h: 0.3}        # limit point only
+    steep: {b: 1.0, h: 2.5}          # h^2 > 3 b^2: bifurcation before the limit point
+    arc_step: 0.02
+  lee_frame:
+    L: 120.0
+    load_offset_from_corner: 24.0
+    E: 720.0
+    A: 6.0
+    I: 2.0
+    nu: 0.3                           # shear stiffness GA = E/(2(1+nu)) * A
+    elements: [10, 20, 40, 80, 160]
+    ccx: {element: B32R, nu: 0.0, control: displacement, elements: [20, 40, 80]}
+  deep_arch:
+    R: 100.0
+    opening_angle_deg: 215.0
+    EI: 1.0e6
+    EA: 1.0e8
+    GA: 5.0e7
+    supports: "left hinged, right clamped, point load at crown"
+    elements: [20, 40, 80, 160, 320]
+
+rung2:
+  material: "incompressible neo-Hookean, plane strain, mu = 1"
+  cell: {W: 1.0, H: 2.0, periodic_x: true, base: frictionless, depth_grading: 3.0}
+  attempt1: {elements: "Taylor-Hood Q2/Q1", meshes: [[4, 6], [8, 12], [16, 24], [32, 48], [64, 96]]}
+  attempt2: {elements: "stream function, bicubic Hermite C1", meshes: [[2, 3], [4, 6], [8, 12], [16, 24], [32, 48], [64, 96]]}
+
+# Fixed 2026-11-14 20:57 UTC, before any shell solver was run.
+rung3:
+  R: 200.0
+  t: 1.0                              # R/t = 200
+  E: 70000.0
+  nu: 0.3
+  length_in_imperfection_wavelengths: 4   # L = 4 * 2*pi*R/q0, q0^4 = 12(1-nu^2)(R/t)^2  (L/R ~ 0.98)
+  imperfection: "w0 = xi * t * cos(q0 x / R), axisymmetric, classical axisymmetric mode shape"
+  xi: [0.05, 0.1, 0.2, 0.3, 0.5, 0.75, 1.0]
+  own_solver:
+    kinematics: "Donnell (DMV) shell, Hermite-cubic 1-D elements in x, Fourier harmonics in theta"
+    graded_bc: "symmetry at both ends (reproduces the infinitely long shell): w,x = 0, u uniform"
+    realistic_bc: "simply supported, rigid platens: w = v = 0, u uniform, rotation free"
+    elements_per_wavelength: [8, 16, 32]
+    harmonics: "n = 0..40"
+  ccx:
+    model: "quarter cylinder (symmetry planes theta = 0, 90 deg -> even n), S8R, realistic_bc, displacement-controlled NLGEOM static"
+    xi: [0.1, 0.3, 1.0]
+    trigger: "1e-3 t non-axisymmetric seed in even harmonics so the bifurcation is not skipped"

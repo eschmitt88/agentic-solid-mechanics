@@ -1,0 +1,4 @@
+{'xi': 1.0, 'per': 8, 'trigger': 0.01, 'n_elements': 6592, 'n_nodes': 20188, 'rc': 0, 'seconds': 1238.0715596675873, 'n_increments': 100, 'P_max_over_Pcl': 0.21120181952410055, 'shortening_at_max': 1.1, 'last_time': 1.0, 'max_is_last_increment': True, 'completed_step': True, 'dinc': 0.01}
+{'xi': 0.3, 'per': 8, 'trigger': 0.01, 'n_elements': 6592, 'n_nodes': 20188, 'rc': 0, 'seconds': 1298.7249193191528, 'n_increments': 104, 'P_max_over_Pcl': 0.38464764598040174, 'shortening_at_max': 0.7000000000000001, 'last_time': 1.0, 'max_is_last_increment': True, 'completed_step': True, 'dinc': 0.01}
+{'xi': 0.1, 'per': 8, 'trigger': 0.01, 'n_elements': 6592, 'n_nodes': 20188, 'rc': 201, 'seconds': 1545.7636523246765, 'n_increments': 94, 'P_max_over_Pcl': 0.5881650402330293, 'shortening_at_max': 0.634233375, 'last_time': 0.8457856, 'max_is_last_increment': False, 'completed_step': False, 'dinc': 0.01}
+ALLDONE

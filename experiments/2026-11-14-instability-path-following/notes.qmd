@@ -3,5 +3,13 @@ title: "instability-path-following"
 format: html
 ---
 
+Running notes live in `log.md`; numbers in `metrics.json`; figures in
+`results/`. This notebook only reloads the headline table.
+
 ```{python}
+import json, pathlib
+m = json.loads(pathlib.Path("metrics.json").read_text())
+for k, v in m.items():
+    if isinstance(v, dict) and "pass" in v:
+        print(f"{k}  {'PASS' if v['pass'] else 'MISS'}  {v['name']}")
 ```

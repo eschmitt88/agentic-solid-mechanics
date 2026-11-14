@@ -1,0 +1,2 @@
+{'xi': 0.0, 'per': 8, 'trigger': 0.01, 'n_elements': 6592, 'n_nodes': 20188, 'rc': 201, 'seconds': 1144.4542968273163, 'n_increments': 88, 'P_max_over_Pcl': 0.8576199379358072, 'shortening_at_max': 0.894565575, 'last_time': 0.7951756, 'max_is_last_increment': False, 'completed_step': False, 'dinc': 0.01}
+ALLDONE

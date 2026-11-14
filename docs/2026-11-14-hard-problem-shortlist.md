@@ -46,8 +46,9 @@ where modelling judgment decides the outcome.
 1. Snap-through: von Mises truss, shallow arch, Lee frame. Needs
    arc-length continuation and branch switching; naive Newton jumps
    branches. Truth: analytical and Crisfield benchmark curves.
-2. Elastomer bifurcations: Biot surface instability (critical strain
-   0.444), creasing (about 0.35), cavitation. Truth: analytical thresholds.
+2. Elastomer bifurcations: Biot surface instability (plane-strain critical
+   strain 0.4563, Cao & Hutchinson 2012; the 0.444 first written here
+   was wrong for plane strain), creasing (about 0.35), cavitation. Truth: analytical thresholds.
 3. Cylindrical shell buckling with imperfection sensitivity: reproduce
    the gap between the classical load and test loads (NASA SP-8007
    knockdown factors). Test-data availability (unverified).

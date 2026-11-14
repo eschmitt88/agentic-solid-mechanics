@@ -1,1 +1,323 @@
-{}
+{
+ "1a": {
+  "name": "von Mises truss limit load / closed form",
+  "value": 0.009132130958686199,
+  "reference": 0.009132130958686199,
+  "error": 0.0,
+  "tolerance": 0.001,
+  "pass": true,
+  "note": ""
+ },
+ "1b": {
+  "name": "von Mises truss bifurcation load / closed form (+ branch switch)",
+  "value": 0.21121144647965373,
+  "reference": 0.2112114464796625,
+  "error": 4.1522341120980855e-14,
+  "tolerance": 0.001,
+  "pass": true,
+  "note": "switched branch follows closed-form circle to 7.8e-14"
+ },
+ "1c": {
+  "name": "Lee frame first limit load P L^2/EI (160 elements)",
+  "value": 18.550369291423227,
+  "reference": 18.552,
+  "error": 8.789934113695441e-05,
+  "tolerance": 0.01,
+  "pass": true,
+  "note": "Richardson 18.5466, order 2.00"
+ },
+ "1d": {
+  "name": "Lee frame load at u_y/L = 0.784",
+  "value": 39.42573973562318,
+  "reference": 31.887,
+  "error": 0.2364204765460276,
+  "tolerance": 0.02,
+  "pass": false,
+  "note": "ill-conditioned criterion (curve nearly vertical); post-hoc: deflection at P = 31.887 is 0.7809 vs 0.784 (-0.40 %)",
+  "posthoc_deflection_at_reference_load": 0.7808614871451878
+ },
+ "1e": {
+  "name": "deep arch maximum load P R^2/EI (320 elements)",
+  "value": 8.974102480886994,
+  "reference": 8.972922,
+  "error": 0.0001315603642819685,
+  "tolerance": 0.01,
+  "pass": true,
+  "note": "Richardson 8.97284, order 2.00"
+ },
+ "1f": {
+  "name": "CalculiX vs own solver, Lee frame limit load",
+  "value": 18.518230644904456,
+  "reference": 18.5465661161308,
+  "error": 0.0015278014835156117,
+  "tolerance": 0.02,
+  "pass": true,
+  "note": "CalculiX B32R, displacement control; by mesh 18.533, 18.519, 18.518"
+ },
+ "2a": {
+  "name": "Biot critical strain, finest mesh (stream-function elements)",
+  "value": 0.45631102285813596,
+  "reference": 0.4563109873079235,
+  "error": 7.79078599411065e-08,
+  "tolerance": 0.01,
+  "pass": true,
+  "note": "first attempt with Taylor-Hood mixed elements failed: detected 0.3216 (shift-invert) / 0.03 (inertia count)",
+  "attempt1_taylor_hood": {
+   "naive": [
+    {
+     "nx": 4,
+     "ny": 6,
+     "eps_c": 0.45857264955550214,
+     "harmonic": 1,
+     "rel_err_vs_biot": 0.004956405413162779
+    },
+    {
+     "nx": 8,
+     "ny": 12,
+     "eps_c": 0.3220861736099011,
+     "harmonic": 7,
+     "rel_err_vs_biot": -0.29415205294508084
+    },
+    {
+     "nx": 16,
+     "ny": 24,
+     "eps_c": 0.32174571123483475,
+     "harmonic": 14,
+     "rel_err_vs_biot": -0.2948981721149806
+    },
+    {
+     "nx": 32,
+     "ny": 48,
+     "eps_c": 0.32160531369793344,
+     "harmonic": 28,
+     "rel_err_vs_biot": -0.29520585161603674
+    }
+   ],
+   "inertia_first_unstable_strain": [
+    0.030000000000000027,
+    0.030000000000000027,
+    0.030000000000000027
+   ]
+  }
+ },
+ "2b": {
+  "name": "Biot threshold mesh convergence monotone (6 levels)",
+  "value": [
+   0.4875340681942183,
+   0.4584058272233239,
+   0.45645216427277824,
+   0.4563200333667924,
+   0.45631155562121484,
+   0.45631102285813596
+  ],
+  "reference": null,
+  "error": [
+   0.06842500346200331,
+   0.004590816293421396,
+   0.00030938760797227793,
+   1.982432840863524e-05,
+   1.2454516922222325e-06,
+   7.79078599411065e-08
+  ],
+  "tolerance": "monotone",
+  "pass": true,
+  "note": "observed order 4.00"
+ },
+ "3a": {
+  "name": "classical load, own linear eigenvalue analysis / formula",
+  "value": 1.000005601098058,
+  "reference": 1.0,
+  "error": 5.601098058027887e-06,
+  "tolerance": 0.03,
+  "pass": true,
+  "note": "simply supported ends: 0.98817"
+ },
+ "3b": {
+  "name": "classical load, CalculiX *BUCKLE (finest mesh) / formula",
+  "value": 0.9883196871045434,
+  "reference": 1.0,
+  "error": 0.011680312895456568,
+  "tolerance": 0.05,
+  "pass": true,
+  "note": "by mesh: 0.9948, 0.9926, 0.9916, 0.9913, 0.9883"
+ },
+ "3c": {
+  "name": "knockdown curve vs Koiter upper bound, max |difference| over 7 amplitudes",
+  "value": [
+   [
+    0.05,
+    0.6641457033688878
+   ],
+   [
+    0.1,
+    0.5524269187451087
+   ],
+   [
+    0.2,
+    0.41993457204860835
+   ],
+   [
+    0.3,
+    0.34628321210639745
+   ],
+   [
+    0.5,
+    0.26455258726099745
+   ],
+   [
+    0.75,
+    0.21849538613322006
+   ],
+   [
+    1.0,
+    0.19497095358374886
+   ]
+  ],
+  "reference": [
+   [
+    0.05,
+    0.6837094266392617
+   ],
+   [
+    0.1,
+    0.576314821101236
+   ],
+   [
+    0.2,
+    0.4501794047069664
+   ],
+   [
+    0.3,
+    0.3736816912499974
+   ],
+   [
+    0.5,
+    0.2849686675710097
+   ],
+   [
+    0.75,
+    0.22788128829287502
+   ],
+   [
+    1.0,
+    0.19631615725777515
+   ]
+  ],
+  "error": 0.030244832658358034,
+  "tolerance": 0.05,
+  "pass": true,
+  "note": "own solver always below the bound, above the Budiansky-Hutchinson long-wave limit"
+ },
+ "3d": {
+  "name": "CalculiX nonlinear buckling load vs own solver (as planned: quarter model, seed 1e-3 t)",
+  "value": [
+   [
+    0.0,
+    0.9297922416079295
+   ],
+   [
+    0.1,
+    0.6447857687783773
+   ],
+   [
+    0.3,
+    0.37266678871812037
+   ],
+   [
+    1.0,
+    0.29370001565258763
+   ]
+  ],
+  "reference": [
+   [
+    0.0,
+    0.8651747025174108
+   ],
+   [
+    0.1,
+    0.5797882798136667
+   ],
+   [
+    0.3,
+    0.3748543159766471
+   ],
+   [
+    1.0,
+    0.2052581119744879
+   ]
+  ],
+  "error": [
+   [
+    0.0,
+    0.07468727287390653
+   ],
+   [
+    0.1,
+    0.11210555857665794
+   ],
+   [
+    0.3,
+    -0.005835673127645102
+   ],
+   [
+    1.0,
+    0.4308814050140557
+   ]
+  ],
+  "tolerance": 0.1,
+  "pass": false,
+  "note": "misses traced to Newton stepping over the bifurcation (small seed) and to rotational symmetry constraints stiffening the quarter model",
+  "corrected_full_model": [
+   {
+    "xi": 0.0,
+    "seed_over_t": 0.01,
+    "ccx": 0.8576199379358072,
+    "own": 0.8651747025174108,
+    "rel_diff": -0.008732068285886574,
+    "how": "collapse (Newton failed, load at last converged increment)"
+   },
+   {
+    "xi": 0.1,
+    "seed_over_t": 0.01,
+    "ccx": 0.5881650402330293,
+    "own": 0.5797882798136667,
+    "rel_diff": 0.014447964388060397,
+    "how": "collapse (Newton failed, load at last converged increment)"
+   },
+   {
+    "xi": 0.3,
+    "seed_over_t": 0.01,
+    "ccx": 0.3724892859100222,
+    "own": 0.3746823352753328,
+    "rel_diff": -0.005853089827944524,
+    "how": "knee (stiffness < 1/4 of initial), load keeps rising"
+   },
+   {
+    "xi": 1.0,
+    "seed_over_t": 0.01,
+    "ccx": 0.20460239660257276,
+    "own": 0.2052581119744879,
+    "rel_diff": -0.0031945893178469964,
+    "how": "knee (stiffness < 1/4 of initial), load keeps rising"
+   }
+  ]
+ },
+ "informational": {
+  "nasa_sp8007_gamma_R_over_t_200": 0.4712708873700804,
+  "imperfection_amplitude_at_nasa_factor_infinite_shell": 0.16125337304269516,
+  "imperfection_amplitude_at_nasa_factor_simply_supported": 0.18297446818544988,
+  "perfect_shell_nonlinear_bifurcation_simply_supported": 0.8651747025174108,
+  "lee_frame_second_limit_load": [
+   -9.403269519838565,
+   0.48519219312242434
+  ]
+ },
+ "summary": {
+  "n_criteria": 12,
+  "n_pass": 10,
+  "failed": [
+   "1d",
+   "3d"
+  ]
+ }
+}

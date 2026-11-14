@@ -1,0 +1,29 @@
+{
+ "lee_b32r_2": {
+  "n_quadratic_elements": 20,
+  "rc": 0,
+  "n_inc": 230,
+  "Pmax": 18.533110284810128,
+  "v_at_max": 0.40599999999999997,
+  "v_last": 0.46,
+  "max_is_interior": true
+ },
+ "lee_b32r_4": {
+  "n_quadratic_elements": 40,
+  "rc": 0,
+  "n_inc": 230,
+  "Pmax": 18.519080506329114,
+  "v_at_max": 0.40599999999999997,
+  "v_last": 0.46,
+  "max_is_interior": true
+ },
+ "lee_b32r_8": {
+  "n_quadratic_elements": 80,
+  "rc": 0,
+  "n_inc": 230,
+  "Pmax": 18.518230644904456,
+  "v_at_max": 0.40599999999999997,
+  "v_last": 0.46,
+  "max_is_interior": true
+ }
+}

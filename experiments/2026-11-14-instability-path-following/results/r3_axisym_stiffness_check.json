@@ -1,0 +1,34 @@
+{
+ "0.0": {
+  "own_donnell_ss": 1.0050901814281872,
+  "own_donnell_cell": 0.9999999999999925,
+  "koiter_infinite_shell_formula": 1.0,
+  "ccx_cax8_16x2_rel_to_perfect": 1.0,
+  "ccx_cax8_32x4_rel_to_perfect": 1.0,
+  "own_donnell_ss_rel_to_perfect": 1.0
+ },
+ "0.1": {
+  "own_donnell_ss": 0.9920580553325401,
+  "own_donnell_cell": 0.9734259116743564,
+  "koiter_infinite_shell_formula": 0.9734254842791783,
+  "ccx_cax8_16x2_rel_to_perfect": 0.9871426051256819,
+  "ccx_cax8_32x4_rel_to_perfect": 0.9871145154497736,
+  "own_donnell_ss_rel_to_perfect": 0.9870338738389335
+ },
+ "0.3": {
+  "own_donnell_ss": 0.8478114736329054,
+  "own_donnell_cell": 0.8027642086239165,
+  "koiter_infinite_shell_formula": 0.8027614995584812,
+  "ccx_cax8_16x2_rel_to_perfect": 0.8444489354784857,
+  "ccx_cax8_32x4_rel_to_perfect": 0.8444808902126107,
+  "own_donnell_ss_rel_to_perfect": 0.8435178149170696
+ },
+ "1.0": {
+  "own_donnell_ss": 0.3024755987733749,
+  "own_donnell_cell": 0.26810118317239723,
+  "koiter_infinite_shell_formula": 0.2680965147453083,
+  "ccx_cax8_16x2_rel_to_perfect": 0.302560677962894,
+  "ccx_cax8_32x4_rel_to_perfect": 0.30261500497119315,
+  "own_donnell_ss_rel_to_perfect": 0.3009437405343776
+ }
+}
