@@ -1,0 +1,699 @@
+um of previous increments=8.500000e-01
+ actual step time=8.600000e-01
+ actual total time=8.600000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002381
+ time avg. forc= 0.001071
+ largest residual force= 0.000000 in node 148 and dof 2
+ largest increment of disp= 1.250595e-01
+ largest correction to disp= 5.780073e-04 in node 507 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002381
+ time avg. forc= 0.001071
+ largest residual force= 0.000000 in node 311 and dof 2
+ largest increment of disp= 1.250595e-01
+ largest correction to disp= 9.911722e-07 in node 2534 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 87 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=8.600000e-01
+ actual step time=8.700000e-01
+ actual total time=8.700000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002422
+ time avg. forc= 0.001087
+ largest residual force= 0.000000 in node 508 and dof 2
+ largest increment of disp= 1.250594e-01
+ largest correction to disp= 5.713892e-04 in node 66 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002422
+ time avg. forc= 0.001087
+ largest residual force= 0.000000 in node 671 and dof 2
+ largest increment of disp= 1.250594e-01
+ largest correction to disp= 9.766816e-07 in node 1147 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 88 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=8.700000e-01
+ actual step time=8.800000e-01
+ actual total time=8.800000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002463
+ time avg. forc= 0.001102
+ largest residual force= 0.000000 in node 508 and dof 2
+ largest increment of disp= 1.250592e-01
+ largest correction to disp= 5.646164e-04 in node 426 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002463
+ time avg. forc= 0.001102
+ largest residual force= 0.000000 in node 311 and dof 2
+ largest increment of disp= 1.250592e-01
+ largest correction to disp= 9.608807e-07 in node 1147 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 89 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=8.800000e-01
+ actual step time=8.900000e-01
+ actual total time=8.900000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002504
+ time avg. forc= 0.001118
+ largest residual force= 0.000000 in node 508 and dof 2
+ largest increment of disp= 1.250590e-01
+ largest correction to disp= 5.575717e-04 in node 148 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002504
+ time avg. forc= 0.001118
+ largest residual force= 0.000000 in node 670 and dof 2
+ largest increment of disp= 1.250590e-01
+ largest correction to disp= 9.440971e-07 in node 2647 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 90 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=8.900000e-01
+ actual step time=9.000000e-01
+ actual total time=9.000000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002546
+ time avg. forc= 0.001134
+ largest residual force= 0.000000 in node 149 and dof 2
+ largest increment of disp= 1.250588e-01
+ largest correction to disp= 5.502911e-04 in node 508 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002546
+ time avg. forc= 0.001134
+ largest residual force= 0.000000 in node 311 and dof 2
+ largest increment of disp= 1.250588e-01
+ largest correction to disp= 9.260931e-07 in node 4471 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 91 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=9.000000e-01
+ actual step time=9.100000e-01
+ actual total time=9.100000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002588
+ time avg. forc= 0.001150
+ largest residual force= 0.000000 in node 149 and dof 2
+ largest increment of disp= 1.250585e-01
+ largest correction to disp= 5.428320e-04 in node 67 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002588
+ time avg. forc= 0.001150
+ largest residual force= 0.000000 in node 670 and dof 2
+ largest increment of disp= 1.250585e-01
+ largest correction to disp= 9.066354e-07 in node 4112 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 92 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=9.100000e-01
+ actual step time=9.200000e-01
+ actual total time=9.200000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002631
+ time avg. forc= 0.001166
+ largest residual force= 0.000000 in node 149 and dof 2
+ largest increment of disp= 1.250582e-01
+ largest correction to disp= 5.350100e-04 in node 427 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002631
+ time avg. forc= 0.001166
+ largest residual force= 0.000000 in node 670 and dof 2
+ largest increment of disp= 1.250582e-01
+ largest correction to disp= 8.866617e-07 in node 2133 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 93 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=9.200000e-01
+ actual step time=9.300000e-01
+ actual total time=9.300000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002675
+ time avg. forc= 0.001182
+ largest residual force= 0.000000 in node 509 and dof 2
+ largest increment of disp= 1.250578e-01
+ largest correction to disp= 5.271257e-04 in node 149 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002675
+ time avg. forc= 0.001182
+ largest residual force= 0.000000 in node 310 and dof 2
+ largest increment of disp= 1.250578e-01
+ largest correction to disp= 8.652254e-07 in node 4032 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 94 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=9.300000e-01
+ actual step time=9.400000e-01
+ actual total time=9.400000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002719
+ time avg. forc= 0.001199
+ largest residual force= 0.000000 in node 149 and dof 2
+ largest increment of disp= 1.250574e-01
+ largest correction to disp= 5.187882e-04 in node 68 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002719
+ time avg. forc= 0.001199
+ largest residual force= 0.000000 in node 309 and dof 2
+ largest increment of disp= 1.250574e-01
+ largest correction to disp= 8.425731e-07 in node 2053 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 95 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=9.400000e-01
+ actual step time=9.500000e-01
+ actual total time=9.500000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002763
+ time avg. forc= 0.001215
+ largest residual force= 0.000000 in node 510 and dof 2
+ largest increment of disp= 1.250572e-01
+ largest correction to disp= 5.104538e-04 in node 428 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002763
+ time avg. forc= 0.001215
+ largest residual force= 0.000000 in node 670 and dof 2
+ largest increment of disp= 1.250572e-01
+ largest correction to disp= 8.192461e-07 in node 4031 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 96 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=9.500000e-01
+ actual step time=9.600000e-01
+ actual total time=9.600000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002809
+ time avg. forc= 0.001232
+ largest residual force= 0.000000 in node 510 and dof 2
+ largest increment of disp= 1.250571e-01
+ largest correction to disp= 5.017238e-04 in node 150 and dof 2
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002809
+ time avg. forc= 0.001232
+ largest residual force= 0.000000 in node 309 and dof 2
+ largest increment of disp= 1.250571e-01
+ largest correction to disp= 7.948881e-07 in node 899 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 97 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=9.600000e-01
+ actual step time=9.700000e-01
+ actual total time=9.700000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002855
+ time avg. forc= 0.001248
+ largest residual force= 0.000000 in node 510 and dof 2
+ largest increment of disp= 1.250569e-01
+ largest correction to disp= 4.992078e-04 in node 140 and dof 1
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002855
+ time avg. forc= 0.001248
+ largest residual force= 0.000000 in node 669 and dof 2
+ largest increment of disp= 1.250569e-01
+ largest correction to disp= 7.693755e-07 in node 2126 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 98 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=9.700000e-01
+ actual step time=9.800000e-01
+ actual total time=9.800000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002902
+ time avg. forc= 0.001265
+ largest residual force= 0.000000 in node 510 and dof 2
+ largest increment of disp= 1.250567e-01
+ largest correction to disp= 4.995794e-04 in node 500 and dof 1
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002902
+ time avg. forc= 0.001265
+ largest residual force= 0.000000 in node 309 and dof 2
+ largest increment of disp= 1.250567e-01
+ largest correction to disp= 7.433226e-07 in node 2126 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 99 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=9.800000e-01
+ actual step time=9.900000e-01
+ actual total time=9.900000e-01
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002949
+ time avg. forc= 0.001282
+ largest residual force= 0.000000 in node 151 and dof 2
+ largest increment of disp= 1.250565e-01
+ largest correction to disp= 4.996829e-04 in node 59 and dof 1
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002949
+ time avg. forc= 0.001282
+ largest residual force= 0.000000 in node 668 and dof 2
+ largest increment of disp= 1.250565e-01
+ largest correction to disp= 7.164622e-07 in node 2843 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ the increment size exceeds the remainder of the step and is decreased to 1.000000e-02
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ increment 100 attempt 1 
+ increment size= 1.000000e-02
+ sum of previous increments=9.900000e-01
+ actual step time=1.000000e+00
+ actual total time=1.000000e+00
+
+ iteration 1
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002997
+ time avg. forc= 0.001300
+ largest residual force= 0.000000 in node 151 and dof 2
+ largest increment of disp= 1.250562e-01
+ largest correction to disp= 4.996764e-04 in node 419 and dof 1
+
+ no convergence
+
+ iteration 2
+
+ Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.
+
+ Factoring the system of equations using the symmetric spooles solver
+ Using 1 cpu for spooles.
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+ average force= 0.002997
+ time avg. forc= 0.001300
+ largest residual force= 0.000000 in node 309 and dof 2
+ largest increment of disp= 1.250562e-01
+ largest correction to disp= 6.890199e-07 in node 4010 and dof 2
+
+ convergence; the increment size is increased to 1.500000e-02
+
+ the increment size exceeds the maximum allowed and is decreased to 1.000000e-02
+
+ the increment size exceeds the remainder of the step and is decreased to 0.000000e+00
+
+ Using up to 4 cpu(s) for the stress calculation.
+
+
+ Job finished
+
+________________________________________
+
+Total CalculiX Time: 42.927990
+________________________________________

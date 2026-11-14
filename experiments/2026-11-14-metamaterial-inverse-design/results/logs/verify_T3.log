@@ -1,0 +1,107 @@
+T3 jax_40x2 {'ndof': 790, 'switched': 0, 'bad': 0}
+T3 jax_80x2 {'ndof': 1590, 'switched': 0, 'bad': 0}
+T3 jax_80x4 {'ndof': 2862, 'switched': 0, 'bad': 0}
+
+T3 ccx_t3 {'nnodes': 3510, 'nelem': 1608, 'nshut': 26, 'nwall': 30, 'lc': 0.4383122524500321, 'tmin': 1.3149367573500963, 'completed': True, 'n_out': 100}
+
+T3 ccx_t6 {'nnodes': 13262, 'nelem': 6340, 'nshut': 46, 'nwall': 58, 'lc': 0.21915612622501604, 'tmin': 1.3149367573500963, 'completed': True, 'n_out': 100}
+
+T3 ccx_t3_latfree {'nnodes': 3510, 'nelem': 1608, 'nshut': 26, 'nwall': 30, 'lc': 0.4383122524500321, 'tmin': 1.3149367573500963, 'completed': True, 'n_out': 100}
+{
+ "name": "T3",
+ "target": "T3",
+ "jax_40x2_info": {
+  "ndof": 790,
+  "switched": 0,
+  "bad": 0
+ },
+ "jax_80x2_info": {
+  "ndof": 1590,
+  "switched": 0,
+  "bad": 0
+ },
+ "jax_80x4_info": {
+  "ndof": 2862,
+  "switched": 0,
+  "bad": 0
+ },
+ "ccx_t3_info": {
+  "nnodes": 3510,
+  "nelem": 1608,
+  "nshut": 26,
+  "nwall": 30,
+  "lc": 0.4383122524500321,
+  "tmin": 1.3149367573500963,
+  "completed": true,
+  "n_out": 100
+ },
+ "ccx_t6_info": {
+  "nnodes": 13262,
+  "nelem": 6340,
+  "nshut": 46,
+  "nwall": 58,
+  "lc": 0.21915612622501604,
+  "tmin": 1.3149367573500963,
+  "completed": true,
+  "n_out": 100
+ },
+ "ccx_t3_latfree_info": {
+  "nnodes": 3510,
+  "nelem": 1608,
+  "nshut": 26,
+  "nwall": 30,
+  "lc": 0.4383122524500321,
+  "tmin": 1.3149367573500963,
+  "completed": true,
+  "n_out": 100
+ },
+ "gap_jax40x2_vs_ccx_t3": 0.002776563215940555,
+ "mesh_conv_jax_40x2_vs_80x4": 0.0024827081628014495,
+ "mesh_conv_jax_80x2_vs_80x4": 0.001217991169370449,
+ "mesh_conv_ccx_t3_vs_t6": 0.0007930972677538757,
+ "lateral_free_vs_fixed": 0.0,
+ "optimizer_nrmse_jax40x2": 0.01979274692707185,
+ "jax80x4_nrmse": 0.019979945869246035,
+ "verdict": {
+  "nrmse": 0.020047857360075482,
+  "has_peak_then_valley": true,
+  "peak": [
+   0.09,
+   0.6045285714285714
+  ],
+  "valley": [
+   0.31,
+   0.16272685714285717
+  ],
+  "pass": true,
+  "tol": 0.08
+ },
+ "verdict_fine_mesh": {
+  "nrmse": 0.02018083010579889,
+  "has_peak_then_valley": true,
+  "peak": [
+   0.09,
+   0.6043341428571429
+  ],
+  "valley": [
+   0.31,
+   0.16248214285714288
+  ],
+  "pass": true,
+  "tol": 0.08
+ },
+ "verdict_lateral_free": {
+  "nrmse": 0.020047857360075482,
+  "has_peak_then_valley": true,
+  "peak": [
+   0.09,
+   0.6045285714285714
+  ],
+  "valley": [
+   0.31,
+   0.16272685714285717
+  ],
+  "pass": true,
+  "tol": 0.08
+ }
+}

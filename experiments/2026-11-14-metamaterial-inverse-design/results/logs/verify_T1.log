@@ -1,0 +1,83 @@
+T1 jax_40x2 {'ndof': 790, 'switched': 0, 'bad': 0}
+T1 jax_80x2 {'ndof': 1590, 'switched': 0, 'bad': 0}
+T1 jax_80x4 {'ndof': 2862, 'switched': 0, 'bad': 0}
+
+T1 ccx_t3 {'nnodes': 4686, 'nelem': 2160, 'nshut': 38, 'nwall': 22, 'lc': 0.3636397728706937, 'tmin': 1.0909193186120811, 'completed': True, 'n_out': 100}
+
+T1 ccx_t6 {'nnodes': 17726, 'nelem': 8500, 'nshut': 70, 'nwall': 42, 'lc': 0.18181988643534686, 'tmin': 1.0909193186120811, 'completed': True, 'n_out': 100}
+
+T1 ccx_t3_latfree {'nnodes': 4686, 'nelem': 2160, 'nshut': 38, 'nwall': 22, 'lc': 0.3636397728706937, 'tmin': 1.0909193186120811, 'completed': True, 'n_out': 100}
+{
+ "name": "T1",
+ "target": "T1",
+ "jax_40x2_info": {
+  "ndof": 790,
+  "switched": 0,
+  "bad": 0
+ },
+ "jax_80x2_info": {
+  "ndof": 1590,
+  "switched": 0,
+  "bad": 0
+ },
+ "jax_80x4_info": {
+  "ndof": 2862,
+  "switched": 0,
+  "bad": 0
+ },
+ "ccx_t3_info": {
+  "nnodes": 4686,
+  "nelem": 2160,
+  "nshut": 38,
+  "nwall": 22,
+  "lc": 0.3636397728706937,
+  "tmin": 1.0909193186120811,
+  "completed": true,
+  "n_out": 100
+ },
+ "ccx_t6_info": {
+  "nnodes": 17726,
+  "nelem": 8500,
+  "nshut": 70,
+  "nwall": 42,
+  "lc": 0.18181988643534686,
+  "tmin": 1.0909193186120811,
+  "completed": true,
+  "n_out": 100
+ },
+ "ccx_t3_latfree_info": {
+  "nnodes": 4686,
+  "nelem": 2160,
+  "nshut": 38,
+  "nwall": 22,
+  "lc": 0.3636397728706937,
+  "tmin": 1.0909193186120811,
+  "completed": true,
+  "n_out": 100
+ },
+ "gap_jax40x2_vs_ccx_t3": 0.0024887424279769477,
+ "mesh_conv_jax_40x2_vs_80x4": 0.0021264942287684456,
+ "mesh_conv_jax_80x2_vs_80x4": 0.0012389551538263728,
+ "mesh_conv_ccx_t3_vs_t6": 0.000498922151959071,
+ "lateral_free_vs_fixed": 0.0,
+ "optimizer_nrmse_jax40x2": 0.00016824833484171007,
+ "jax80x4_nrmse": 0.0021527744452070467,
+ "verdict": {
+  "nrmse": 0.0025141301520769637,
+  "monotonic": true,
+  "pass": true,
+  "tol": 0.05
+ },
+ "verdict_fine_mesh": {
+  "nrmse": 0.0030108909192321396,
+  "monotonic": true,
+  "pass": true,
+  "tol": 0.05
+ },
+ "verdict_lateral_free": {
+  "nrmse": 0.0025141301520769637,
+  "monotonic": true,
+  "pass": true,
+  "tol": 0.05
+ }
+}

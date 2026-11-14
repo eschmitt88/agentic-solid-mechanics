@@ -3,5 +3,11 @@ title: "metamaterial-inverse-design"
 format: html
 ---
 
+Analysis lives in the scripts next to this file (`plots_*.py`, `build_page.py`), which read `results/*.json`
+and write the figures under `results/`. Narrative: `README.md`; chronology: `log.md`.
+
 ```{python}
+import json
+m = json.load(open("metrics.json"))
+{T: (m["rung1"][T]["optimizer_nrmse"], m["rung1"][T]["calculix_nrmse"], m["rung1"][T]["tolerance"]) for T in m["rung1"]}
 ```

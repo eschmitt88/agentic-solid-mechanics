@@ -1,0 +1,17 @@
+kink near 1.8 switched [35]
+a1 (apex height) h 0.001 max rel err far (|d-dc|>0.1): 2.1119751533959775e-05 near: 2.2121939670456834e-08
+a1 (apex height) h 0.0001 max rel err far (|d-dc|>0.1): 3.642764364912946e-05 near: 7.097947684400525e-05
+a1 (apex height) h 1e-05 max rel err far (|d-dc|>0.1): 4.4504097058939657e-08 near: 3.0043739991257874e-07
+a1 (apex height) h 1e-06 max rel err far (|d-dc|>0.1): 5.247005307286238e-07 near: 4.843128433266019e-06
+log t0 (thickness) h 0.001 max rel err far (|d-dc|>0.1): 1.614082271599105e-06 near: 0.1387247736101351
+log t0 (thickness) h 0.0001 max rel err far (|d-dc|>0.1): 8.081471540016719e-08 near: 3.027533832542225e-08
+log t0 (thickness) h 1e-05 max rel err far (|d-dc|>0.1): 5.379893613698044e-06 near: 1.9466257143737753e-05
+log t0 (thickness) h 1e-06 max rel err far (|d-dc|>0.1): 8.051463760195209e-08 near: 2.6414245550844626e-08
+b2 (thickness mode) h 0.001 max rel err far (|d-dc|>0.1): 2.6334916202569266e-06 near: 0.24591149931806364
+b2 (thickness mode) h 0.0001 max rel err far (|d-dc|>0.1): 1.394619813839837e-06 near: 1.6497815379463233e-06
+b2 (thickness mode) h 1e-05 max rel err far (|d-dc|>0.1): 1.5918191498696846e-05 near: 2.1083838989489217e-07
+b2 (thickness mode) h 1e-06 max rel err far (|d-dc|>0.1): 1.6682499960048205e-07 near: 8.986625059157873e-08
+a2 (imperfection mode) h 0.001 max rel err far (|d-dc|>0.1): 4.189864852729001e-05 near: 1.0000000008039762
+a2 (imperfection mode) h 0.0001 max rel err far (|d-dc|>0.1): 4.171195356888023e-07 near: 1.0000000000063882
+a2 (imperfection mode) h 1e-05 max rel err far (|d-dc|>0.1): 4.0715317037083177e-07 near: 0.9999999606255315
+a2 (imperfection mode) h 1e-06 max rel err far (|d-dc|>0.1): 8.641887542165136e-07 near: 0.02224777038730326

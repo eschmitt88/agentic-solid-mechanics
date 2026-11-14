@@ -1,0 +1,6 @@
+
+T1 {'fx_N_per_mm': np.float64(0.0028), 'completed': True, 'max_abs_ux_mm': 0.07119965, 'd_at_max_ux': 1.125, 'nrmse_vs_target': 0.002480603100083549, 'change_vs_fixed': 4.021723309973788e-05, 'd_reached': 12.5}
+
+T2 {'fx_N_per_mm': np.float64(0.0014), 'completed': True, 'max_abs_ux_mm': 0.01620692, 'd_at_max_ux': 5.75, 'nrmse_vs_target': 0.01006002546262839, 'change_vs_fixed': 2.1438427194579706e-05, 'd_reached': 12.5}
+
+T3 {'fx_N_per_mm': np.float64(0.00126), 'completed': True, 'max_abs_ux_mm': 0.03321533, 'd_at_max_ux': 4.5, 'nrmse_vs_target': 0.020034968037713336, 'change_vs_fixed': 8.207409053756148e-05, 'd_reached': 12.5}

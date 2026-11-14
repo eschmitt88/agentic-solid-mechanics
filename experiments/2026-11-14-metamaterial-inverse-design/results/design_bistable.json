@@ -1,0 +1,63 @@
+{
+ "start": "across_ridge (attempt 6)",
+ "p0": [
+  5.876764682726371,
+  0.15581104207383606,
+  0.005431802553525902,
+  -0.16154018575218343,
+  0.6762274562158535,
+  -0.009612355857207287,
+  -0.06392259139902287,
+  -0.037172290463778776,
+  0.2822783431385057
+ ],
+ "p": [
+  5.873573039745658,
+  0.07497914370470647,
+  -0.10046903310378638,
+  -0.06035569826146979,
+  0.693120574725462,
+  -0.01709434853869452,
+  -0.06096170474671517,
+  -0.044714614005375096,
+  0.33495520987078914
+ ],
+ "optimizer_features": [
+  0.03999880416305836,
+  10.001508714726219,
+  0.044998929061048916
+ ],
+ "attempts": [
+  {
+   "n": 1,
+   "what": "perfect cosine starts",
+   "outcome": "no progress (xtol at start)"
+  },
+  {
+   "n": 2,
+   "what": "a2=0.3 starts",
+   "outcome": "solver stall at second instability; stopped"
+  },
+  {
+   "n": 3,
+   "what": "a2=0.3 starts, saddle-free Newton",
+   "outcome": "stalled; best [0.0356,10.37,0.0376]"
+  },
+  {
+   "n": 4,
+   "what": "flexure-hinge starts",
+   "outcome": "stalled; best [0.0132,11.14,0.0269]"
+  },
+  {
+   "n": 5,
+   "what": "adaptive continuation, 4 starts",
+   "outcome": "stalled on non-smooth ridge; best [0.0368,10.50,0.0392]"
+  },
+  {
+   "n": 6,
+   "what": "start = attempt-5 best + its Gauss-Newton step (far side of ridge)",
+   "outcome": "converged [0.0400,10.00,0.0450] in 26 evaluations"
+  }
+ ],
+ "nfev": 26
+}

@@ -1,2 +1,49 @@
-# Inputs, hyperparameters, seeds for this experiment.
-seed: 42
+# Inputs, hyperparameters, seeds for this experiment. Pass criteria: PREREGISTRATION.md.
+seed: 42                       # only used by robustness.py (geometric-tolerance samples)
+unit_cell:
+  span_mm: 60.0                # wall face to wall face
+  shuttle_width_mm: 4.0        # each half-beam is 28 mm long
+  cell_width_W_mm: 70.0
+  cell_height_H_mm: 25.0
+  depth_mm: 1.0                # plane strain, forces are per mm depth
+material:                      # CalculiX *HYPERELASTIC, NEO HOOKE
+  C10_MPa: 0.5
+  D1_per_MPa: 0.428571
+  equivalent: {mu_MPa: 1.0, K_MPa: 4.6667, E_MPa: 2.8, nu: 0.4, E_plane_strain_MPa: 3.3333}
+parameters:                    # p = [a_1..a_4, log t0, b_1..b_4]
+  centreline: "y_c(x) = sum_k a_k (1 - cos(2 pi k x / l)) / 2"
+  thickness: "t(x) = t0 exp(sum_m b_m cos(2 pi m x / l))"
+  bounds: {t_min_mm: 0.4, t_max_mm: 3.0, y_max_mm: 9.0}
+  added_validity_limits: {max_slope: 1.0, max_curvature_times_thickness: 0.8}   # added 21:12 UTC after mesh folding
+design_solver:
+  code: fem.py
+  element: Q9 plane strain, 3x3 Gauss, float64
+  design_mesh: {nx: 40, ny: 2, free_dof: 790}       # half beam
+  newton: {residual_tol: 1.0e-9, max_iter: 60, indefinite: saddle-free (|eigenvalue|) step, line_search: Armijo}
+  stability: Cholesky of the tangent at every converged step; lowest-mode kick +-0.05 mm when not positive definite
+  sensitivities: implicit differentiation per converged state (reverse mode = adjoint)
+  device: CPU (3 cores per run); GPU not used
+loading:
+  strains: "0.01, 0.02, ..., 0.50 (d = 0.25 ... 12.5 mm)"
+  max_substep_mm: 0.3
+optimiser:
+  rung1: {method: scipy.optimize.least_squares trf, max_nfev: 60, xtol: 1.0e-6, ftol: 1.0e-7,
+          starts: {sag3: [h=-3, t=1.2], flat: [h=-0.3, t=1.2], arch3: [h=3, t=1.2], arch6: [h=6, t=1.5]},
+          penalty_weight: 30}
+  rung2: {method: trf, max_nfev: 40, d_grid_mm: "0.125 ... 13.0 step 0.125", residuals: relative error of [F_pk, d_2, E_back]}
+verifier:
+  code: ccx.py
+  solver: CalculiX 2.23, NLGEOM, *STATIC, 100 increments (104 for rung 2)
+  element: CPE6, Gmsh 4.15.2 unstructured, both halves meshed independently
+  element_size: t_min/3 (pre-registered), t_min/6 (mesh convergence)
+  shuttle: vertical displacement prescribed, no rotation, no lateral motion (lateral-free + 2 % side load reported separately)
+targets:
+  T1: "sigma = a (exp(5 eps) - 1), a = 0.17884 kPa"
+  T2: "PCHIP (0,0) (0.05,0.30) (0.10,0.40) (0.35,0.40) (0.42,0.55) (0.50,1.00)"
+  T3: "PCHIP (0,0) (0.07,0.60) (0.32,0.15) (0.50,0.90)"
+  bistable: {F_pk_N_per_mm: 0.040, d_2_mm: 10.0, E_back_Nmm_per_mm: 0.045}
+tolerances: {T1_nrmse: 0.05, T2_nrmse: 0.05, T2_plateau_dev_kPa: 0.06, T3_nrmse: 0.08, bistable_rel: 0.05,
+             rung0_force_rel: 0.05, rung0_position_over_h: 0.05, rung0_jax_vs_ccx_nrmse: 0.02}
+reference:
+  qiu_thesis: https://pergatory.mit.edu/research/jqiu/thesisscreen.pdf   # ch. 2, eqs 2.9-2.48 (opened 2026-11-14)
+  qiu_paper_doi: 10.1109/JMEMS.2004.825308

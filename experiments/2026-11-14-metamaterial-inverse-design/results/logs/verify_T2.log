@@ -1,0 +1,83 @@
+T2 jax_40x2 {'ndof': 790, 'switched': 0, 'bad': 0}
+T2 jax_80x2 {'ndof': 1590, 'switched': 0, 'bad': 0}
+T2 jax_80x4 {'ndof': 2862, 'switched': 0, 'bad': 0}
+
+T2 ccx_t3 {'nnodes': 3570, 'nelem': 1644, 'nshut': 26, 'nwall': 26, 'lc': 0.45726084133817463, 'tmin': 1.3717825240145238, 'completed': True, 'n_out': 100}
+
+T2 ccx_t6 {'nnodes': 13104, 'nelem': 6274, 'nshut': 46, 'nwall': 46, 'lc': 0.22863042066908731, 'tmin': 1.3717825240145238, 'completed': True, 'n_out': 100}
+
+T2 ccx_t3_latfree {'nnodes': 3570, 'nelem': 1644, 'nshut': 26, 'nwall': 26, 'lc': 0.45726084133817463, 'tmin': 1.3717825240145238, 'completed': True, 'n_out': 100}
+{
+ "name": "T2",
+ "target": "T2",
+ "jax_40x2_info": {
+  "ndof": 790,
+  "switched": 0,
+  "bad": 0
+ },
+ "jax_80x2_info": {
+  "ndof": 1590,
+  "switched": 0,
+  "bad": 0
+ },
+ "jax_80x4_info": {
+  "ndof": 2862,
+  "switched": 0,
+  "bad": 0
+ },
+ "ccx_t3_info": {
+  "nnodes": 3570,
+  "nelem": 1644,
+  "nshut": 26,
+  "nwall": 26,
+  "lc": 0.45726084133817463,
+  "tmin": 1.3717825240145238,
+  "completed": true,
+  "n_out": 100
+ },
+ "ccx_t6_info": {
+  "nnodes": 13104,
+  "nelem": 6274,
+  "nshut": 46,
+  "nwall": 46,
+  "lc": 0.22863042066908731,
+  "tmin": 1.3717825240145238,
+  "completed": true,
+  "n_out": 100
+ },
+ "ccx_t3_latfree_info": {
+  "nnodes": 3570,
+  "nelem": 1644,
+  "nshut": 26,
+  "nwall": 26,
+  "lc": 0.45726084133817463,
+  "tmin": 1.3717825240145238,
+  "completed": true,
+  "n_out": 100
+ },
+ "gap_jax40x2_vs_ccx_t3": 0.0030717483815754978,
+ "mesh_conv_jax_40x2_vs_80x4": 0.00290550836289295,
+ "mesh_conv_jax_80x2_vs_80x4": 0.0014986561881176867,
+ "mesh_conv_ccx_t3_vs_t6": 0.0008544134066183957,
+ "lateral_free_vs_fixed": 0.0,
+ "optimizer_nrmse_jax40x2": 0.009564647288969233,
+ "jax80x4_nrmse": 0.01001227063343201,
+ "verdict": {
+  "nrmse": 0.010062759814541787,
+  "plateau_max_dev_kPa": 0.015518428571428544,
+  "pass": true,
+  "tol": 0.05
+ },
+ "verdict_fine_mesh": {
+  "nrmse": 0.010358925919863593,
+  "plateau_max_dev_kPa": 0.015876571428571462,
+  "pass": true,
+  "tol": 0.05
+ },
+ "verdict_lateral_free": {
+  "nrmse": 0.010062759814541787,
+  "plateau_max_dev_kPa": 0.015518428571428544,
+  "pass": true,
+  "tol": 0.05
+ }
+}

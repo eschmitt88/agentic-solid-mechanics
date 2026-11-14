@@ -1,0 +1,125 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trial 9 — Inverse design of a snap-through metamaterial cell</title><style>
+:root{--fg:#1c2128;--mut:#636c76;--bd:#d0d7de;--ok:#1a7f37;--bad:#cf222e;--accent:#0969da;--bg:#fff;--card:#f6f8fa}
+*{box-sizing:border-box}body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg);margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 22px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:25px;margin:.2em 0 .1em}h2{font-size:18px;margin:1.7em 0 .5em;border-bottom:1px solid var(--bd);padding-bottom:.25em}
+.sub{color:var(--mut);margin:0 0 1.4em}
+.crumb{color:var(--mut);font-size:13px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;margin:14px 0;overflow-x:auto}
+img.fig{max-width:100%;border:1px solid var(--bd);border-radius:8px;display:block}
+.hint{color:var(--mut);font-size:12.5px;margin:.4em 0 0}
+table.leg{border-collapse:collapse;width:100%;font-size:14px}
+table.leg td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
+table.leg td:first-child{color:var(--mut);min-width:150px}
+.chip{display:inline-block;font-size:12px;font-weight:600;padding:1px 9px;border-radius:20px;white-space:nowrap}
+.chip.ok{background:#dafbe1;color:var(--ok)}.chip.bad{background:#ffebe9;color:var(--bad)}
+code{background:#eaeef2;padding:1px 5px;border-radius:5px;font-size:12.5px}
+.metric{font-variant-numeric:tabular-nums}
+details summary{cursor:pointer;color:var(--accent);font-size:13.5px}
+ul{padding-left:1.2em}li{margin:.35em 0}
+</style></head><body><div class="wrap">
+<div class="crumb"><a href="../">QA dashboard</a> · <a href="../../">project</a></div>
+<h1>Trial 9 — Inverse design of a snap-through metamaterial cell</h1><p class="sub">Shape a rubber beam by gradient descent so that squeezing the cell follows a prescribed stress–strain curve, including one that buckles and snaps. Every design is graded by a second, independent solver.</p>
+<h2>Result at a glance</h2><div class='card'><table class='leg'><tr><td>Rung 0 — is the solver right?</td><td>Matches CalculiX to 0.12 % and Qiu's theory at the tested geometry to 1.6 % / 3.0 %. Misses two of six pre-registered checks against the rounded textbook constants (snap-back force -10.8 %).</td><td><span class="chip bad">FAIL</span></td></tr>
+<tr><td>T1 stiffening</td><td>CalculiX error 0.25 % (limit 5 %)</td><td><span class="chip ok">PASS</span></td></tr>
+<tr><td>T2 plateau</td><td>CalculiX error 1.01 % (limit 5 %)</td><td><span class="chip ok">PASS</span></td></tr>
+<tr><td>T3 snap-through</td><td>CalculiX error 2.00 % (limit 8 %)</td><td><span class="chip ok">PASS</span></td></tr><tr><td>Stretch — programmed bistability</td><td>CalculiX: peak force -0.2 %, second position +0.0 %, return barrier -0.1 % (limit ± 5 % each). Needed six optimisation attempts; the coarsest verifier mesh aborted at a buckling point and one of five release tests did not converge.</td><td><span class="chip ok">PASS</span></td></tr></table>
+<p class='hint'>Tolerances were written down before any optimisation (<code>PREREGISTRATION.md</code>) and not changed. "Error" is the root-mean-square gap between the CalculiX curve and the target over 50 strain values, as a fraction of the target's stress range.</p></div>
+<h2>Objective</h2><div class='card'><p>A mechanical metamaterial gets its behaviour from geometry. Here one repeating cell is a rubber beam held between two stiff walls and pushed at its middle. Depending on how the beam is curved and how its thickness varies, the cell can stiffen steadily, hold a constant force, or buckle and snap through.</p>
+<p>The task is the <b>inverse</b> problem: given a stress–strain curve we want, find the beam. The search uses gradients computed <i>through</i> a large-deformation finite-element solve, which is delicate because gradients misbehave exactly where structures buckle. The design only counts if a different solver, with a different mesh and element type, reproduces the curve.</p>
+<img class='fig' src='cell_schematic.png' alt='unit cell' style='max-width:640px'>
+<table class='leg' style='margin-top:10px'><tr><td>Material</td><td>soft rubber (neo-Hookean, shear modulus 1 MPa, Poisson ratio 0.4), large-deformation, plane strain</td></tr>
+<tr><td>Design freedom</td><td>9 numbers: 4 for the beam's centre-line, 5 for its thickness profile (0.4–3 mm), mirror-symmetric</td></tr>
+<tr><td>Design solver</td><td>hand-written differentiable finite elements in JAX (9-node quads, float64); gradients by implicit differentiation (adjoint)</td></tr>
+<tr><td>Optimiser</td><td>least-squares trust region on 50 stress residuals, 4 generic starting shapes per target</td></tr>
+<tr><td>Independent verifier</td><td>CalculiX 2.23, 6-node triangles on a finer body-fitted Gmsh mesh, whole beam, no symmetry assumed</td></tr></table></div>
+<h2>Rung 0 — can the solver be trusted?</h2><div class='card'><p>Before designing anything, the solver was tested on a beam with a known answer: the cosine-shaped bistable beam of Qiu, Lang &amp; Slocum (2004), which has closed-form snap-through and snap-back forces.</p>
+<img class='fig' src='rung0_qiu_validation.png' alt='rung 0'>
+<p class='hint'>Blue (design solver), solid orange (CalculiX) and dashed black (Qiu's theory) lie on top of each other. The dotted orange curve is CalculiX on the perfectly symmetric beam: it rides an unstable equilibrium path and then fails. A 1 %-of-thickness bump fixes it.</p>
+<table class='leg' style='margin-top:10px'><tr><td><b>pre-registered check</b></td><td><b>measured</b></td><td><b>tolerance</b></td><td></td></tr><tr><td>snap-through force vs closed form (740 EIh/l³)</td><td class='metric'>-5.0 %</td><td class='metric'>± 5 %</td><td><span class="chip ok">PASS</span></td></tr><tr><td>snap-back force vs closed form (370 EIh/l³)</td><td class='metric'>-10.8 %</td><td class='metric'>± 5 %</td><td><span class="chip bad">FAIL</span></td></tr><tr><td>position of force peak</td><td class='metric'>+0.042 h</td><td class='metric'>± 0.05 h</td><td><span class="chip ok">PASS</span></td></tr><tr><td>position of force minimum</td><td class='metric'>-0.060 h</td><td class='metric'>± 0.05 h</td><td><span class="chip bad">FAIL</span></td></tr><tr><td>second stable position</td><td class='metric'>-0.033 h</td><td class='metric'>± 0.05 h</td><td><span class="chip ok">PASS</span></td></tr><tr><td>whole curve, design solver vs CalculiX</td><td class='metric'>0.12 %</td><td class='metric'>≤ 2 %</td><td><span class="chip ok">PASS</span></td></tr></table>
+<p style='margin-top:10px'><b>Two misses, reported as misses.</b> The constants 740 and 370 are the theory's limit for very slender arches. For the tested beam (height/thickness = 6) the same theory, evaluated in full, gives 714 and 340; against those the solver is off by -1.6 % and -3.0 %. A follow-up run on a twice-as-slender beam (height/thickness = 12) matches the closed form to -0.7 % and -0.9 %. The solver agrees with CalculiX to 0.12 %, and the two codes' material laws agree to 7 digits on a one-element test.</p></div>
+<h2>The three targets</h2><div class='card'><img class='fig' src='targets.png' alt='targets' style='max-width:640px'><p class='hint'>Defined from generic formulas, not from any design in the search space, so whether the cell could reach them was not known in advance.</p></div>
+<h2>T1 — stiffening curve</h2><div class='card'><p>A curve that gets steadily stiffer, like soft tissue (an exponential). The optimiser turned a plain arch into a wavy beam that unfolds and then goes taut.</p><img class='fig' src='curves_T1.png' alt='T1 curves'>
+<p class='hint'>Dashed black = the prescribed target. Blue = the optimised design in the design solver. Orange dots = the same design re-meshed and re-solved in CalculiX — this is the curve that is graded. Grey = where the optimiser started.</p>
+<table class='leg'><tr><td>optimiser's own error</td><td class='metric'>0.02 % of the target range</td></tr>
+<tr><td>CalculiX-verified error</td><td class='metric'><b>0.25 %</b> (tolerance 5 %) &nbsp; <span class="chip ok">PASS</span></td></tr>
+<tr><td>gap between the two solvers</td><td class='metric'>0.25 %</td></tr>
+<tr><td>finer meshes change the curve by</td><td class='metric'>design solver 0.21 %, CalculiX 0.05 %</td></tr>
+<tr><td>if made slightly wrong (±0.05 mm, ±3 % thickness)</td><td class='metric'>typical error 2.9 %, worst of 16 10.2 %; 88 % still inside tolerance</td></tr></table>
+<img class='fig' src='shapes_T1.png' alt='T1 shapes' style='max-width:520px;margin-top:12px'></div>
+<h2>T2 — plateau</h2><div class='card'><p>Rise, then hold a constant 0.40 kPa from 10 % to 35 % strain, then stiffen. The optimiser kept an arch and reshaped its thickness (up to the 3 mm cap) until the push-through force stayed level.</p><img class='fig' src='curves_T2.png' alt='T2 curves'>
+<p class='hint'>Dashed black = the prescribed target. Blue = the optimised design in the design solver. Orange dots = the same design re-meshed and re-solved in CalculiX — this is the curve that is graded. Grey = where the optimiser started.</p>
+<table class='leg'><tr><td>optimiser's own error</td><td class='metric'>0.96 % of the target range</td></tr>
+<tr><td>CalculiX-verified error</td><td class='metric'><b>1.01 %</b> (tolerance 5 %) &nbsp; <span class="chip ok">PASS</span></td></tr>
+<tr><td>gap between the two solvers</td><td class='metric'>0.31 %</td></tr>
+<tr><td>finer meshes change the curve by</td><td class='metric'>design solver 0.29 %, CalculiX 0.09 %</td></tr>
+<tr><td>if made slightly wrong (±0.05 mm, ±3 % thickness)</td><td class='metric'>typical error 3.8 %, worst of 16 13.7 %; 62 % still inside tolerance</td></tr></table>
+<img class='fig' src='shapes_T2.png' alt='T2 shapes' style='max-width:520px;margin-top:12px'></div>
+<h2>T3 — snap-through</h2><div class='card'><p>Rise to a peak, lose three quarters of the load (negative stiffness), then recover. This is snap-through behaviour; under displacement control both solvers can follow it.</p><img class='fig' src='curves_T3.png' alt='T3 curves'>
+<p class='hint'>Dashed black = the prescribed target. Blue = the optimised design in the design solver. Orange dots = the same design re-meshed and re-solved in CalculiX — this is the curve that is graded. Grey = where the optimiser started.</p>
+<table class='leg'><tr><td>optimiser's own error</td><td class='metric'>1.98 % of the target range</td></tr>
+<tr><td>CalculiX-verified error</td><td class='metric'><b>2.00 %</b> (tolerance 8 %) &nbsp; <span class="chip ok">PASS</span></td></tr>
+<tr><td>gap between the two solvers</td><td class='metric'>0.28 %</td></tr>
+<tr><td>finer meshes change the curve by</td><td class='metric'>design solver 0.25 %, CalculiX 0.08 %</td></tr>
+<tr><td>if made slightly wrong (±0.05 mm, ±3 % thickness)</td><td class='metric'>typical error 4.5 %, worst of 16 15.8 %; 75 % still inside tolerance</td></tr></table>
+<img class='fig' src='shapes_T3.png' alt='T3 shapes' style='max-width:520px;margin-top:12px'></div>
+<h2>Pass / fail</h2><div class='card'><table class='leg'><tr><td><b>target</b></td><td><b>optimiser's loss</b></td><td><b>CalculiX error</b></td><td><b>tolerance</b></td><td><b>second criterion</b></td><td></td></tr><tr><td><b>T1 — stiffening curve</b></td><td class='metric'>0.02 %</td><td class='metric'><b>0.25 %</b></td><td class='metric'>≤ 5 %</td><td>monotonic: yes</td><td><span class="chip ok">PASS</span></td></tr><tr><td><b>T2 — plateau</b></td><td class='metric'>0.96 %</td><td class='metric'><b>1.01 %</b></td><td class='metric'>≤ 5 %</td><td>plateau stays within 0.016 kPa of 0.40 (limit 0.06)</td><td><span class="chip ok">PASS</span></td></tr><tr><td><b>T3 — snap-through</b></td><td class='metric'>1.98 %</td><td class='metric'><b>2.00 %</b></td><td class='metric'>≤ 8 %</td><td>peak then valley present</td><td><span class="chip ok">PASS</span></td></tr></table>
+<img class='fig' src='opt_history.png' alt='history' style='margin-top:12px'><p class='hint'>Best error so far against solver evaluations, per starting shape. The starting shape matters: for the plateau and snap-through targets only arch-shaped starts get there; flat or sagging starts stall far above tolerance.</p>
+<img class='fig' src='mesh_convergence.png' alt='mesh convergence' style='margin-top:12px'><p class='hint'>Mesh convergence: every mesh in both solvers stays within about 0.3 % of the finest CalculiX mesh.</p></div>
+<h2>Are the gradients right — and where do they stop meaning anything?</h2><div class='card'><img class='fig' src='gradcheck.png' alt='gradient check'>
+<ul><li><b>Right almost everywhere.</b> Adjoint gradients match finite differences to better than 9e-07 (relative), even 0.02 mm past a buckling point.</li>
+<li><b>They jump at a buckling point.</b> On a perfectly symmetric arch the force curve has a corner where the beam buckles (d = 1.78 mm). The sensitivity to thickness jumps from 0.040 to 0.060 across it, so the loss has a kink whenever that corner crosses a sampled strain.</li>
+<li><b>They are meaningless for symmetry-breaking changes.</b> The sensitivity to a lopsided shape change is zero before buckling, then -0.62 at the buckling point, decaying like one over the square root of the distance (-0.086 at +0.02 mm, -0.0007 at +4 mm). Its sign is whichever way the beam happened to buckle; re-running the simulation gives a finite-difference slope of exactly zero. The gradient describes one branch, not the function the optimiser evaluates.</li>
+<li><b>Consistent with what happened in practice.</b> The first bistability run started on perfectly symmetric arches and made no progress at all.</li></ul></div>
+<h2>Stretch rung — a cell that stays snapped</h2><div class='card'><p>Target: a cell with two resting positions. Pushing it must take a peak force of 40 mN per mm depth, it must come to rest 10 mm lower, and pushing it back must cost 45 µJ per mm depth. Each number must be within 5 % in CalculiX and both resting positions must be shown stable.</p>
+<img class='fig' src='bistable_curves.png' alt='bistable curves'>
+<table class='leg' style='margin-top:10px'><tr><td><b>quantity</b></td><td><b>target</b></td><td><b>design solver</b></td><td><b>CalculiX (t_min/4)</b></td><td><b>error</b></td><td></td></tr>
+<tr><td>snap-through peak force (N/mm)</td><td class='metric'>0.0400 </td><td class='metric'>0.0400</td><td class='metric'><b>0.0399</b></td><td class='metric'>-0.2 %</td><td><span class="chip ok">PASS</span></td></tr><tr><td>second stable position (mm)</td><td class='metric'>10.00 </td><td class='metric'>10.00</td><td class='metric'><b>10.00</b></td><td class='metric'>+0.0 %</td><td><span class="chip ok">PASS</span></td></tr><tr><td>return energy barrier (N·mm/mm)</td><td class='metric'>0.0450 </td><td class='metric'>0.0450</td><td class='metric'><b>0.0449</b></td><td class='metric'>-0.1 %</td><td><span class="chip ok">PASS</span></td></tr></table>
+<table class='leg' style='margin-top:10px'><tr><td>held at 1.00 mm, then let go</td><td class='metric'>settles at 0.000 mm; vibration eigenvalues all positive: yes</td></tr><tr><td>held at 8.30 mm, then let go</td><td class='metric'>settles at 10.004 mm; vibration eigenvalues all positive: yes</td></tr><tr><td>held at 10.15 mm, then let go</td><td class='metric'>settles at 10.004 mm; vibration eigenvalues all positive: yes</td></tr><tr><td>held at 10.30 mm, then let go</td><td class='metric'>settles at 10.004 mm; vibration eigenvalues all positive: yes</td></tr><tr><td>held at 10.60 mm, then let go</td><td class='metric'>CalculiX static solve did not converge (stopped at 5.92 mm) — reported, see note</td></tr><tr><td>push-down vs come-back curves</td><td class='metric'>differ by at most 0.24 mN/mm (0.6 % of the peak force; a small loop near the force corner at 4 mm)</td></tr>
+<tr><td>both resting positions stable in CalculiX</td><td><span class="chip ok">PASS</span></td></tr><tr><td><b>rung 2 overall</b></td><td><span class="chip ok">PASS</span></td></tr></table>
+<img class='fig' src='bistable_shapes.png' alt='bistable shapes' style='max-width:520px;margin-top:12px'>
+<p style='margin-top:14px'><b>It took six attempts, and the reason is the main finding of this rung.</b> Attempts 3–5 all stopped 8–16 % short. At the stalled design no limit was active and the gradient predicted a step that would hit all three targets. Taking that step fixed two of them and made the third worse:</p>
+<img class='fig' src='bistable_stall_diagnostic.png' alt='stall diagnostic'>
+<p class='hint'>Left: the stalled design has a small secondary snap on its negative-force branch (a jump in force at 7.4 mm). Right: the return barrier (orange) moves opposite to the gradient's prediction. The barrier is an area under the curve; when a jump in the curve moves or disappears, that area changes in a way no per-point gradient can see. The optimiser had climbed onto the ridge where the snap appears. Starting attempt 6 one step beyond the ridge converged in 26 evaluations.</p>
+<p class='hint'>Verifier detail: the CalculiX run on the coarsest allowed mesh (element size = thinnest section / 3) stopped at 5.93 mm with "increment size smaller than minimum". The design solver finds its tangent stiffness nearly singular at 5.90 mm (a second, near-singular point just past the tipping point). CalculiX runs at / 4 and / 6, both inside the pre-registered "≤ / 3" rule, complete and agree; so does the / 3 mesh once a 0.01 mm symmetry-breaking bump is added (errors ≤ 0.8 %). The table uses the / 4 run. One release test (let go 0.6 mm beyond the second position) did not converge in CalculiX's static solver: Newton overshot toward the tipping point. Releases from 0.15 and 0.3 mm beyond, and from 1.7 mm short, all settle at 10.004 mm with positive vibration eigenvalues.</p></div>
+<h2>What failed along the way</h2><div class='card'><ul>
+<li><b>CalculiX followed an unstable path</b> on the symmetric validation beam (force peak 27 % too high, then a crash). Its Newton solver has no stability check. Seeding a tiny imperfection is the documented fix; the optimised designs are not symmetric-degenerate and needed none.</li>
+<li><b>The first plateau and snap-through optimisations hung.</b> Weak bound penalties let the optimiser fold the beam onto itself; the solver ground on a nonsense mesh. Fixed with stronger penalties and two added shape-validity limits (slope, curvature × thickness).</li>
+<li><b>Solver round-off flaw.</b> Near convergence the energy line search failed and declared a good step bad, aborting one mesh-convergence run. Fixed by accepting steps that reduce the residual.</li>
+<li><b>Bistability, attempts 1–2.</b> Stalled first on symmetric starts (consistent with the gradient finding above), then on a solver stall at a second instability where parameter changes of 1e-7 decided whether the run "failed". Fixed with a saddle-free Newton step.</li>
+<li><b>Bistability, attempts 3–5.</b> Stalled 8–16 % short of the targets on a non-smooth ridge (see the stretch rung above). An agent-chosen "flexure hinge" start did no better. Only a start placed beyond the ridge converged.</li>
+<li><b>CalculiX aborted on the bistable design</b> at the coarsest allowed mesh, at a near-singular point of the tangent stiffness; finer meshes and an imperfection-seeded run complete. One of five release tests failed to converge (static Newton overshoot).</li>
+<li><b>Fine design-solver mesh for the bistable cell abandoned</b> after 22 minutes without finishing (dense eigen-solves at every instability); an intermediate mesh was used instead.</li>
+</ul></div>
+<h2>Honest caveats</h2><div class='card'><ul>
+<li><b>Simulation only.</b> Nothing was printed or tested. The independent check is a second solver, not an experiment.</li>
+<li><b>The two solvers share modelling assumptions</b>: 2-D plane strain, the same rubber law, perfectly rigid walls and shuttle, no self-contact, no viscoelasticity. CalculiX verifies the numerics and the geometry hand-off, not those assumptions. A compliant frame would change the response; it was not modelled.</li>
+<li><b>The targets turned out easy for this cell.</b> Verified errors are 4–20 times inside tolerance. The tolerances were fixed in advance, so they were not tuned to pass, but they were not a hard test either.</li>
+<li><b>Designs are sensitive to manufacturing error.</b> With ±0.05 mm shape error and ±3 % thickness, only 62–88 % of perturbed copies stay inside tolerance.</li>
+<li><b>Many shapes give the same curve.</b> In a labelled sanity check the optimiser reproduced a known design's curve to better than 0.001 % with parameters up to 1.9 mm away from the true ones.</li>
+<li><b>Rung 0 has two reported misses</b> against the rounded closed-form constants (see above).</li>
+<li><b>The sideways-sway check is light.</b> A 2 % sideways load on a laterally free shuttle moved it by at most 0.07 mm and left the curves unchanged, but shuttle rotation was never released.</li></ul></div>
+<details><summary>Terms used on this page</summary><div class='card'><table class='leg'>
+<tr><td><b>metamaterial</b></td><td>A material whose behaviour comes from the shape of its repeating cells rather than from its chemistry.</td></tr>
+<tr><td><b>unit cell</b></td><td>The single repeating building block; here one curved rubber beam in a stiff frame.</td></tr>
+<tr><td><b>stress–strain curve</b></td><td>How hard the cell pushes back (force per area) against how far it has been squeezed (as a fraction of its height).</td></tr>
+<tr><td><b>inverse design</b></td><td>Starting from the behaviour you want and solving for the shape that produces it.</td></tr>
+<tr><td><b>buckling</b></td><td>A sudden change of deformation pattern when a compressed part gives way sideways.</td></tr>
+<tr><td><b>snap-through</b></td><td>A curved part popping to the other side; the force drops as it travels, which is negative stiffness.</td></tr>
+<tr><td><b>bistable</b></td><td>Having two different rest positions, each stable with no force applied.</td></tr>
+<tr><td><b>energy barrier</b></td><td>The work needed to push the cell out of one rest position over the tipping point.</td></tr>
+<tr><td><b>bifurcation</b></td><td>A point where the equilibrium path splits into branches; the structure must "choose" one.</td></tr>
+<tr><td><b>geometrically nonlinear</b></td><td>Deformations large enough that the changing shape itself alters the stiffness.</td></tr>
+<tr><td><b>neo-Hookean</b></td><td>The simplest large-strain rubber model.</td></tr>
+<tr><td><b>plane strain</b></td><td>A 2-D idealisation of a long extruded part: no strain out of the page.</td></tr>
+<tr><td><b>adjoint / implicit differentiation</b></td><td>A way to get the gradient of a simulation result with respect to all design parameters for about the cost of one extra linear solve.</td></tr>
+<tr><td><b>finite difference</b></td><td>The brute-force gradient check: nudge a parameter, re-solve, divide.</td></tr>
+<tr><td><b>NRMSE</b></td><td>Root-mean-square gap between two curves divided by the target's stress range; 0 is a perfect match.</td></tr>
+<tr><td><b>mesh convergence</b></td><td>Checking that a finer mesh does not change the answer.</td></tr>
+<tr><td><b>CalculiX</b></td><td>An open-source finite-element solver, used here only as the independent referee.</td></tr>
+<tr><td><b>pre-registration</b></td><td>Writing the pass criteria down before running, so they cannot drift toward the result.</td></tr></table></div></details>
+<h2>Artifacts</h2><div class='card'><p class='hint'><a href='https://github.com/eschmitt88/agentic-solid-mechanics/tree/master/experiments/2026-11-14-metamaterial-inverse-design'>experiment folder on GitHub</a> — README, PREREGISTRATION.md, log.md (chronological, including dead ends), config.yaml, metrics.json, code and results/. Reference: J. Qiu, PhD thesis, MIT 2003, ch. 2 (<a href='https://pergatory.mit.edu/research/jqiu/thesisscreen.pdf'>pdf</a>); Qiu, Lang &amp; Slocum, JMEMS 13(2), 2004, doi:10.1109/JMEMS.2004.825308.</p></div>
+</div></body></html>
