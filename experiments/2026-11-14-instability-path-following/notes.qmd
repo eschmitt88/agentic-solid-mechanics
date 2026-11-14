@@ -1,0 +1,7 @@
+---
+title: "instability-path-following"
+format: html
+---
+
+```{python}
+```
