@@ -1,2 +1,45 @@
-# Inputs, hyperparameters, seeds for this experiment.
-seed: 42
+# Inputs, hyperparameters, seeds for dic-plasticity-identification (phase 2, track E).
+seed: 20261115            # only used for the synthetic warm-up noise
+data:
+  dataset: "Sandia 304L DIC + IR, Figshare+ doi:10.25452/figshare.plus.25483534 (CC0)"
+  descriptor: "doi:10.1038/s41597-024-03949-y"
+  raw_dir: raw/sandia-304l-dic
+  calibration_fullfield: [O1-3, O14-3]
+  development: [O5-4]
+  calibration_uniaxial: [BT3, CT3, CT4]
+  heldout_primary: [O15-3, XT10]
+  heldout_orientation_transfer: [XR5]
+  scope: "slow tests only (5e-3 mm/s total extension rate), room temperature"
+specimen:
+  thickness_mm: 1.5         # nominal
+  dogbone_A0_mm2: 19.05     # 12.7 x 1.5
+pipeline:
+  stations: 41              # station j = frame nearest j/40 * 0.9 * extension at max force
+  force_stations: "5..40, drops excluded (force > 1 % F_max below rolling max of the preceding 5 frames)"
+  field_stations: [13, 27, 40]
+  cut_margin_mm: 3.0        # model domain = DIC cloud minus 3 mm at top and bottom
+  bc_band_mm: 0.75          # DIC points within this distance of a cut line, cubic fit in x per station
+  levelling_radius_mm: 1.0  # local affine fit radius for Green-Lagrange strain, same operator on DIC and FE
+forward_model:
+  solver: "fem.py: JAX float64, T6 plane stress, log-strain finite plasticity, pypardiso"
+  elastic: {E_MPa: 193000.0, nu: 0.29}   # handbook values from memory, not graded
+  yield: "phi^2 = a T11^2 - 2 h T11 T22 + T22^2 + c T12^2 (von Mises: 1, 0.5, 3)"
+  hardening: "s0 + Q1 (1 - exp(-b1 a)) + H a + Q2 (1 - exp(-b2 a))"
+  mesh_calibration: {h_far_mm: 2.5, h_feature_mm: 1.0}
+  mesh_fine: {h_far_mm: 1.25, h_feature_mm: 0.5}
+  load_increments: 40       # one per station; 80 for the step-convergence check
+  newton_rel_tol: 1.0e-8
+femu:
+  objective: "mean force residual^2 / (0.02 mean F)^2 + mean strain residual^2 / (0.10 rms E)^2, per specimen, summed"
+  optimiser: "Levenberg-Marquardt, exact forward sensitivities, steps taken in log sigma_y at fixed plastic strains"
+  alpha_nodes: {M1: [0.0, 0.1, 0.5], M2: [0.0, 0.05, 0.2, 0.6], M3: [0.0, 0.02, 0.08, 0.2, 0.4, 0.7]}
+  stop: "relative cost drop < 2e-3 twice in a row, or 40 iterations"
+  forms: {M1: [s0, Q1, b1], M2: [s0, Q1, b1, H], M3: [s0, Q1, b1, H, Q2, b2], M4: [s0, Q1, b1, H, a, h, c], M4b: all nine}
+selection: "S = force NRMSE / 0.05 + mean strain error / 0.15 on O5-4; fewest parameters within 10 % of best"
+tolerances: {force_nrmse: 0.05, force_last: 0.05, strain_relL2: 0.15, hot_spot: 0.15}
+warmup:
+  truth: [280.0, 700.0, 2.5, 600.0, 0.0, 1.0, 1.15, 0.42, 2.7]
+  noise: {displacement_mm: 0.0036, force_N: 2.0}
+  truth_mesh: {h_far_mm: 1.2, h_feature_mm: 0.6}
+calculix: {version: "2.23", element: CPS6, nlgeom: true, steps: 40, model: M2, specimen: O15-3}
+compute: {cpu_cores_max: 12, pinned_cores: "20-31", gpu_mem_peak_mib_per_process: "~850", extra_packages: [h5py]}

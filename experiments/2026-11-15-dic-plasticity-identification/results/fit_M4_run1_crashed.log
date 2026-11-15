@@ -1,0 +1,62 @@
+[M4] start m2+iso: [322.579, 430.426, 5.17, 701.664, 1.0, 0.5, 3.0]
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/concurrent/futures/process.py", line 263, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/experiments/2026-11-15-dic-plasticity-identification/femu.py", line 31, in _eval
+    _S[key] = specimen.Specimen(spec, verbose=False, **kw)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/experiments/2026-11-15-dic-plasticity-identification/specimen.py", line 90, in __init__
+    nodes, elems = mesh_outline(outer, holes, h, h_fine, workdir=os.path.join(HERE, "results", "cache", "mesh"),
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/experiments/2026-11-15-dic-plasticity-identification/meshutil.py", line 137, in mesh_outline
+    msh = meshio.read(mp)
+          ^^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/.venv/lib/python3.12/site-packages/meshio/_helpers.py", line 71, in read
+    return _read_file(Path(filename), file_format)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/.venv/lib/python3.12/site-packages/meshio/_helpers.py", line 103, in _read_file
+    return reader_map[file_format](str(path))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/.venv/lib/python3.12/site-packages/meshio/gmsh/main.py", line 19, in read
+    mesh = read_buffer(f)
+           ^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/.venv/lib/python3.12/site-packages/meshio/gmsh/main.py", line 48, in read_buffer
+    return reader.read_buffer(f, is_ascii, data_size)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/.venv/lib/python3.12/site-packages/meshio/gmsh/_gmsh22.py", line 60, in read_buffer
+    has_additional_tag_data, cell_tags = _read_cells(
+                                         ^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/.venv/lib/python3.12/site-packages/meshio/gmsh/_gmsh22.py", line 129, in _read_cells
+    _read_cells_ascii(f, cells, cell_tags, total_num_cells)
+  File "/mnt/projects/research/agentic-solid-mechanics/.venv/lib/python3.12/site-packages/meshio/gmsh/_gmsh22.py", line 175, in _read_cells_ascii
+    t = _gmsh_to_meshio_type[data[1]]
+                             ~~~~^^^
+IndexError: list index out of range
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/projects/research/agentic-solid-mechanics/experiments/2026-11-15-dic-plasticity-identification/fit_real.py", line 38, in <module>
+    fit = femu.lm_fit(pool, form, p0, max_iter=40)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/experiments/2026-11-15-dic-plasticity-identification/femu.py", line 137, in lm_fit
+    out = ev(x)
+          ^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/experiments/2026-11-15-dic-plasticity-identification/femu.py", line 130, in ev
+    res = pool.evaluate(p, sens_idx=free)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/experiments/2026-11-15-dic-plasticity-identification/femu.py", line 69, in evaluate
+    return [f.result() for f in futs]
+            ^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+IndexError: list index out of range
+
+

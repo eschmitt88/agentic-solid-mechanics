@@ -1,0 +1,9 @@
+start A [400.0, 450.0, 4.0, 900.0, 0.8, 0.6, 3.6]
+  it 0 cost 193.16741 p=[400.0, 450.0, 4.0, 900.0, 0.8, 0.6, 3.6] [F 0.2723 E 0.2745]
+  it 1 cost 2.99673 (rel drop 9.8e-01, |dx|=3.6e-01, lam=2e-03) p=[303.9689, 428.5888, 3.1163, 955.6709, 1.146, 0.4493, 3.0329]
+  it 2 cost 0.04252 (rel drop 9.9e-01, |dx|=1.0e-01, lam=4e-04) p=[281.2786, 435.9905, 3.3699, 908.9934, 1.1602, 0.4216, 2.7349]
+  it 3 cost 0.03165 (rel drop 2.6e-01, |dx|=4.1e-02, lam=8e-05) p=[279.2658, 448.3389, 3.4099, 872.8122, 1.1551, 0.4214, 2.6992]
+  it 4 cost 0.03123 (rel drop 1.3e-02, |dx|=2.4e-02, lam=8e-05) p=[279.2523, 459.381, 3.3561, 857.2182, 1.1551, 0.4214, 2.6989]
+  it 5 cost 0.03112 (rel drop 3.7e-03, |dx|=2.2e-02, lam=8e-05) p=[279.3081, 469.7901, 3.3036, 844.3281, 1.1551, 0.4214, 2.6989]
+/usr/lib/python3.12/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 5 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

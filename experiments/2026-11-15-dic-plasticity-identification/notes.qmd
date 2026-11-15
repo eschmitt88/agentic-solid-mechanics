@@ -3,5 +3,11 @@ title: "dic-plasticity-identification"
 format: html
 ---
 
+Analysis lives in scripts (see README "Setup"); figures are regenerated with
+`uv run python make_figures.py` and the review page with `uv run python build_page.py`.
+
 ```{python}
+import json
+m = json.load(open("metrics.json"))
+m["heldout_verdict"]
 ```

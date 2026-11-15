@@ -1,0 +1,33 @@
+
+
+
+== O5-4  (mesh 7566 nodes, 111571 DIC pts, xF 20.69 mm, Fmax 42.83 kN)
+  M1             F nrmse  0.67%  F last  -0.65%  E relL2  8.95/ 7.55/ 8.39%  hot  +1.87% (0.856 vs 0.841)  PASS
+  M2             F nrmse  0.56%  F last  -0.59%  E relL2  8.24/ 7.35/ 7.62%  hot  +2.88% (0.865 vs 0.841)  PASS
+  M3             F nrmse  0.53%  F last  -0.59%  E relL2  8.28/ 7.38/ 7.63%  hot  +2.73% (0.864 vs 0.841)  PASS
+  M4             F nrmse  0.49%  F last  -0.53%  E relL2  4.95/ 4.38/ 4.71%  hot  +2.67% (0.863 vs 0.841)  PASS
+  M4b            F nrmse  0.46%  F last  -0.54%  E relL2  5.00/ 4.45/ 4.75%  hot  +2.53% (0.862 vs 0.841)  PASS
+  uniaxial-M1    F nrmse  0.76%  F last  +0.59%  E relL2  9.49/ 7.72/ 7.82%  hot  +0.85% (0.848 vs 0.841)  PASS
+  uniaxial-M2    F nrmse  0.96%  F last  +1.03%  E relL2  8.53/ 7.49/ 7.20%  hot  -1.36% (0.829 vs 0.841)  PASS
+  uniaxial-M3    F nrmse  0.97%  F last  +1.03%  E relL2  8.45/ 7.50/ 7.21%  hot  -1.51% (0.828 vs 0.841)  PASS
+  null-elastic   F nrmse 3327.36%  F last +4346.27%  E relL2 49.18/42.83/41.11%  hot -53.77% (0.389 vs 0.841)  miss
+== O1-3  (mesh 8880 nodes, 99065 DIC pts, xF 23.19 mm, Fmax 32.59 kN)
+  M1             F nrmse  1.13%  F last  +1.57%  E relL2  9.04/ 7.61/ 7.53%  hot  +0.80% (0.799 vs 0.793)  PASS
+  M2             F nrmse  1.15%  F last  +1.44%  E relL2  8.44/ 7.45/ 7.53%  hot  +1.64% (0.806 vs 0.793)  PASS
+  M3             F nrmse  1.16%  F last  +1.44%  E relL2  8.39/ 7.50/ 7.54%  hot  +1.63% (0.806 vs 0.793)  PASS
+  M4             F nrmse  1.09%  F last  +1.49%  E relL2  6.47/ 5.72/ 6.07%  hot  +1.97% (0.809 vs 0.793)  PASS
+  M4b            F nrmse  1.10%  F last  +1.49%  E relL2  6.44/ 5.75/ 6.13%  hot  +1.88% (0.808 vs 0.793)  PASS
+  uniaxial-M1    F nrmse  2.49%  F last  +2.88%  E relL2  9.56/ 7.92/ 7.61%  hot  -0.22% (0.791 vs 0.793)  PASS
+  uniaxial-M2    F nrmse  2.67%  F last  +3.24%  E relL2  8.74/ 7.68/ 7.65%  hot  -2.06% (0.777 vs 0.793)  PASS
+  uniaxial-M3    F nrmse  2.64%  F last  +3.23%  E relL2  8.54/ 7.65/ 7.62%  hot  -2.03% (0.777 vs 0.793)  PASS
+  null-elastic   F nrmse 3598.96%  F last +4672.74%  E relL2 50.49/40.81/38.16%  hot -40.82% (0.469 vs 0.793)  miss
+== O14-3  (mesh 9510 nodes, 101556 DIC pts, xF 17.10 mm, Fmax 28.29 kN)
+  M1             F nrmse  1.15%  F last  -0.70%  E relL2  9.33/ 7.63/ 7.42%  hot  +2.28% (0.735 vs 0.719)  PASS
+  M2             F nrmse  1.17%  F last  -0.84%  E relL2  8.42/ 7.50/ 7.12%  hot  +2.53% (0.737 vs 0.719)  PASS
+  M3             F nrmse  1.16%  F last  -0.80%  E relL2  8.22/ 7.57/ 7.13%  hot  +2.44% (0.737 vs 0.719)  PASS
+  M4             F nrmse  1.13%  F last  -0.77%  E relL2  6.33/ 5.83/ 5.53%  hot  +2.01% (0.733 vs 0.719)  PASS
+  M4b            F nrmse  1.10%  F last  -0.71%  E relL2  6.08/ 5.91/ 5.59%  hot  +1.92% (0.733 vs 0.719)  PASS
+  uniaxial-M1    F nrmse  0.49%  F last  +0.69%  E relL2 10.20/ 8.15/ 7.09%  hot  +1.34% (0.729 vs 0.719)  PASS
+  uniaxial-M2    F nrmse  0.57%  F last  +0.98%  E relL2  8.89/ 7.73/ 7.13%  hot  -0.51% (0.715 vs 0.719)  PASS
+  uniaxial-M3    F nrmse  0.57%  F last  +0.98%  E relL2  8.41/ 7.68/ 7.08%  hot  -0.62% (0.715 vs 0.719)  PASS
+  null-elastic   F nrmse 2982.40%  F last +3923.37%  E relL2 56.09/48.68/47.46%  hot -45.97% (0.388 vs 0.719)  miss

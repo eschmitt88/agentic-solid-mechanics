@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trial 11 — material identification from full-field data</title>
+<style>
+:root{--fg:#1c2128;--mut:#636c76;--bd:#d0d7de;--ok:#1a7f37;--bad:#cf222e;--accent:#0969da;--bg:#fff;--card:#f6f8fa;--full:#2a78d6;--base:#eb6834}
+*{box-sizing:border-box}body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg);margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 22px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:25px;margin:.2em 0 .1em}h2{font-size:18px;margin:1.7em 0 .5em;border-bottom:1px solid var(--bd);padding-bottom:.25em}
+h3{font-size:15.5px;margin:1.3em 0 .4em}
+.sub{color:var(--mut);margin:0 0 1.4em}.crumb{color:var(--mut);font-size:13px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;margin:14px 0}
+img.fig{max-width:100%;height:auto;border:1px solid var(--bd);border-radius:8px;display:block;margin:10px 0 4px}
+.hint{color:var(--mut);font-size:12.5px;margin:.3em 0 1em}
+.chip{display:inline-block;font-size:12px;font-weight:600;padding:1px 9px;border-radius:20px;white-space:nowrap}
+.chip.ok{background:#dafbe1;color:var(--ok)}.chip.bad{background:#ffebe9;color:var(--bad)}
+code{background:#eaeef2;padding:1px 5px;border-radius:5px;font-size:12.5px}
+.metric{font-variant-numeric:tabular-nums}.mut{color:var(--mut)}
+ul{padding-left:1.2em}li{margin:.35em 0}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.tile{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
+.tile .n{font-size:24px;font-weight:700;line-height:1.15}.tile .l{color:var(--mut);font-size:12.5px;margin-top:3px}
+.key{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+table.res{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
+table.res th{text-align:left;font-size:12.5px;color:var(--mut);font-weight:600;padding:6px 10px;border-bottom:2px solid var(--bd)}
+table.res td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
+dl.gloss dt{font-weight:600;margin-top:.7em}dl.gloss dd{margin:0;color:var(--fg)}
+@media (max-width:640px){
+ .wrap{padding:18px 14px 60px}h1{font-size:21px}.tiles{grid-template-columns:repeat(2,1fr)}
+ table.res thead{display:none}table.res tr{display:block;border:1px solid var(--bd);border-radius:8px;margin:8px 0;padding:6px 10px;background:var(--bg)}
+ table.res td{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0;text-align:right}
+ table.res td::before{content:attr(data-l);color:var(--mut);font-size:12.5px;text-align:left;flex:0 0 46%}
+ table.res td:first-child{font-weight:600;display:block;text-align:left;padding-bottom:5px}table.res td:first-child::before{content:none}
+}
+</style></head><body><div class="wrap">
+<div class="crumb"><a href="../index.html">QA home</a> · <a href="../phase-2/index.html">Phase 2</a> · Trial 11</div>
+<h1>Trial 11 — learning a steel's behaviour from camera-measured strain maps</h1>
+<p class="sub">15 November 2026 · Phase 2, track E · real test data from Sandia National Laboratories (304L stainless sheet)</p>
+
+<div class="card"><b>The question.</b> A laboratory pulled oddly shaped stainless-steel plates until they tore, while cameras measured how
+every point of the surface stretched. Can an AI agent use those strain maps from <b>two</b> plate shapes to work out how the steel behaves,
+and then correctly predict <b>other shapes it has never seen</b> — both the pulling force and where the plate stretches most? And does all
+that camera data actually beat the old way, a single plain tension test?
+<p style="margin:.7em 0 0"><b>Short answer.</b> Yes, it generalised: on the unseen shapes all 12 of 12 pass marks set in advance were met, by a wide margin, and an independent
+solver agrees. But the plain tension test, fitted in seconds, <b>also passed all 12</b>. The camera data bought one real thing — better strain maps
+(error 6.6 % → 3.9 % on the unseen plate) by revealing that the steel deforms a little differently in different directions — and nothing for the force,
+which the tension-test model predicted slightly better.</p></div>
+
+<div class="tiles">
+<div class="tile"><div class="n">12 / 12</div><div class="l">pass marks met on the two unseen shapes (full-field model)</div></div>
+<div class="tile"><div class="n">0.7 % · 1.5 %</div><div class="l">force error on the two unseen shapes (allowed 5 %)</div></div>
+<div class="tile"><div class="n">3.8 % · 5.9 %</div><div class="l">strain-map error near peak load (allowed 15 %)</div></div>
+<div class="tile"><div class="n">12 / 12</div><div class="l">met by the plain tension-test model too</div></div>
+</div>
+
+<h2>The test pieces</h2>
+<img class="fig" src="fig_specimens.png" alt="Outlines of the five specimen shapes with their roles">
+<p class="hint">Notches and holes force the metal to stretch unevenly, so one test exercises many stress states at once. Two shapes were used to
+learn the material, one to choose between model forms, and two were locked away. The X-shape was tested twice: cut across the sheet's
+rolling direction like all the others, and cut along it.</p>
+<ul>
+<li><b>Data.</b> Jones et al., Scientific Data 11:1101 (2024), <a href="https://doi.org/10.1038/s41597-024-03949-y">doi:10.1038/s41597-024-03949-y</a>; files from Figshare+
+(<a href="https://doi.org/10.25452/figshare.plus.25483534">doi:10.25452/figshare.plus.25483534</a>, CC0, no login). Only the slow tests (about 1.5 hours each, no self-heating) were used.</li>
+<li><b>Split, fixed before any fitting.</b> Learn from plates O1 and O14 · check model choices on O5 · held out: O15 and the X-specimen. The held-out files were
+opened once, at 19:06:13 UTC, after the models were frozen.</li>
+<li><b>Two ways to calibrate.</b> <span class="key" style="background:var(--full)"></span><b>Full-field model</b>: a simulation of each calibration plate is adjusted until its strain maps and force match the measurements.
+<span class="key" style="background:var(--base)"></span><b>Tension-test model</b>: the same hardening formula fitted to three plain tension tests only.</li>
+</ul>
+
+<h2>Warm-up: does the method recover a known answer?</h2>
+<img class="fig" src="fig_warmup.png" alt="Truth, starting guess and recovered hardening curve in the synthetic warm-up">
+<p class="hint">Synthetic strain maps were made with a hidden material on a fine mesh, camera-like noise was added, and the method had to find the material
+again on a different, coarser mesh from a starting guess 30–60 % off.</p>
+<table class="res"><thead><tr><th>Check</th><th>Allowed</th><th>Result</th></tr></thead><tbody>
+<tr><td data-l="Check">Hardening curve recovered</td><td data-l="Allowed" class="metric">within 2 %</td><td data-l="Result" class="metric"><b>0.15 %</b> <span class="chip ok">pass</span></td></tr>
+<tr><td data-l="Check">Direction-dependence numbers a, h, c</td><td data-l="Allowed" class="metric">0.05 / 0.05 / 0.3</td><td data-l="Result" class="metric"><b>+0.005 / +0.0014 / -0.0006</b> <span class="chip ok">pass</span></td></tr>
+<tr><td data-l="Check">Second starting guess reaches the same answer</td><td data-l="Allowed" class="metric">—</td><td data-l="Result" class="metric">identical to 8 digits <span class="chip ok">pass</span></td></tr>
+<tr><td data-l="Check">Computed gradients vs finite differences</td><td data-l="Allowed" class="metric">1e-5</td><td data-l="Result" class="metric"><b>1.1e-6</b> <span class="chip ok">pass</span></td></tr>
+</tbody></table>
+
+<h2>What was identified</h2>
+<table class="res"><thead><tr><th>Model form</th><th>Fit to calibration plates (lower is better)</th><th>Force error on check plate</th><th>Strain map error on check plate</th><th>Selection score</th></tr></thead><tbody><tr><td data-l="Model form">M1: isotropic, simple hardening (3 numbers)</td><td data-l="Fit to calibration plates (lower is better)" class="metric">1.987</td><td data-l="Force error on check plate" class="metric">0.67 %</td><td data-l="Strain map error on check plate" class="metric">8.3 %</td><td data-l="Selection score" class="metric">0.687</td></tr><tr><td data-l="Model form">M2: isotropic, hardening + straight-line term (4)</td><td data-l="Fit to calibration plates (lower is better)" class="metric">1.903</td><td data-l="Force error on check plate" class="metric">0.56 %</td><td data-l="Strain map error on check plate" class="metric">7.7 %</td><td data-l="Selection score" class="metric">0.628</td></tr><tr><td data-l="Model form">M3: isotropic, two-part hardening (6)</td><td data-l="Fit to calibration plates (lower is better)" class="metric">1.894</td><td data-l="Force error on check plate" class="metric">0.53 %</td><td data-l="Strain map error on check plate" class="metric">7.8 %</td><td data-l="Selection score" class="metric">0.624</td></tr><tr><td data-l="Model form">M4: direction-dependent (Hill), as M2 (7) <span class="chip ok">chosen</span></td><td data-l="Fit to calibration plates (lower is better)" class="metric">1.310</td><td data-l="Force error on check plate" class="metric">0.49 %</td><td data-l="Strain map error on check plate" class="metric">4.7 %</td><td data-l="Selection score" class="metric">0.411</td></tr><tr><td data-l="Model form">M4b: direction-dependent, two-part hardening (9)</td><td data-l="Fit to calibration plates (lower is better)" class="metric">1.299</td><td data-l="Force error on check plate" class="metric">0.46 %</td><td data-l="Strain map error on check plate" class="metric">4.7 %</td><td data-l="Selection score" class="metric">0.407</td></tr></tbody></table>
+<p class="hint">Five model forms were fitted to the two calibration plates and compared on the check plate O5 only. The rule fixed in advance — the simplest form within 10 % of the
+best score — picks <b>M4</b>. Allowing the steel to behave differently along and across the sheet (the "Hill" forms) is what cuts the strain-map error from about 8 % to about 5 %;
+extra hardening terms add nothing.</p>
+<img class="fig" src="fig_hardening.png" alt="Hardening curves from the three calibrations and the tension tests">
+<p class="hint">Once direction-dependence is allowed, the hardening curve learned from the plates (solid blue) lands almost on the curve from the plain tension tests (orange).
+The isotropic full-field fit (dashed) bends its curve to make up for the missing direction-dependence. Chosen model: initial yield 331 MPa,
+Voce 380 MPa at rate 5.14, linear slope 842 MPa; Hill a = 1.073, h = 0.446, c = 2.93 (isotropic would be 1, 0.5, 3).</p>
+<img class="fig" src="fig_identifiability.png" alt="Bar charts: how well each parameter is pinned by the data">
+<p class="hint">Which numbers the data really fix. The yield stress at any given strain is pinned to about ±2 % or better, and so are the direction-dependence numbers
+(±1.5–5.5 %). The individual constants of the hardening formula are not: Q, b and H can each move by 20–28 % if the others compensate.
+Different starting guesses still end at the same point (three starts for M4, identical to four digits).</p>
+
+<h2>Predicting the shapes it never saw</h2>
+<img class="fig" src="fig_scores.png" alt="Dot plot of held-out errors relative to tolerance for both models">
+<h3>Plate O15 (slot + notch)</h3>
+<img class="fig" src="fig_force_O15-3.png" alt="Measured and predicted force against extension, O15-3">
+<img class="fig" src="fig_fields_O15-3_Eyy.png" alt="Measured and predicted strain maps, O15-3">
+<table class="res"><thead><tr><th>Check</th><th>Allowed</th><th>Full-field model</th><th>Tension-test model</th><th>No plasticity at all</th></tr></thead><tbody><tr><td data-l="Check">Force curve, average error</td><td data-l="Allowed" class="metric">≤ 5 %</td><td data-l="Full-field model" class="metric"><b>0.7 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">0.5 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">—</td></tr><tr><td data-l="Check">Force at 90 % of the way to peak load</td><td data-l="Allowed" class="metric">±5 %</td><td data-l="Full-field model" class="metric"><b>-1.0 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">+0.4 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">—</td></tr><tr><td data-l="Check">Strain map error at 30 %</td><td data-l="Allowed" class="metric">≤ 15 %</td><td data-l="Full-field model" class="metric"><b>4.0 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">6.7 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">39 %</td></tr><tr><td data-l="Check">Strain map error at 60 %</td><td data-l="Allowed" class="metric">≤ 15 %</td><td data-l="Full-field model" class="metric"><b>3.8 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">6.5 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">32 %</td></tr><tr><td data-l="Check">Strain map error at 90 %</td><td data-l="Allowed" class="metric">≤ 15 %</td><td data-l="Full-field model" class="metric"><b>3.8 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">6.6 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">31 %</td></tr><tr><td data-l="Check">Peak (hot-spot) strain</td><td data-l="Allowed" class="metric">±15 %</td><td data-l="Full-field model" class="metric"><b>+0.8 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">-3.0 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">-47 %</td></tr></tbody></table>
+<img class="fig" src="fig_fields_O15-3_Exx.png" alt="Sideways strain maps and errors, O15-3">
+<p class="hint">The sideways strain shows what the camera data added: the tension-test model (right) shrinks the plate sideways too much almost everywhere; the full-field model does not.</p>
+<h3>X-specimen, same direction as calibration</h3>
+<img class="fig" src="fig_force_XT10.png" alt="Measured and predicted force against extension, XT10">
+<img class="fig" src="fig_fields_XT10_Eyy.png" alt="Measured and predicted strain maps, XT10">
+<table class="res"><thead><tr><th>Check</th><th>Allowed</th><th>Full-field model</th><th>Tension-test model</th><th>No plasticity at all</th></tr></thead><tbody><tr><td data-l="Check">Force curve, average error</td><td data-l="Allowed" class="metric">≤ 5 %</td><td data-l="Full-field model" class="metric"><b>1.5 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">0.3 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">—</td></tr><tr><td data-l="Check">Force at 90 % of the way to peak load</td><td data-l="Allowed" class="metric">±5 %</td><td data-l="Full-field model" class="metric"><b>-1.5 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">-0.1 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">—</td></tr><tr><td data-l="Check">Strain map error at 30 %</td><td data-l="Allowed" class="metric">≤ 15 %</td><td data-l="Full-field model" class="metric"><b>7.2 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">9.6 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">38 %</td></tr><tr><td data-l="Check">Strain map error at 60 %</td><td data-l="Allowed" class="metric">≤ 15 %</td><td data-l="Full-field model" class="metric"><b>6.2 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">8.1 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">31 %</td></tr><tr><td data-l="Check">Strain map error at 90 %</td><td data-l="Allowed" class="metric">≤ 15 %</td><td data-l="Full-field model" class="metric"><b>5.9 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">7.6 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">31 %</td></tr><tr><td data-l="Check">Peak (hot-spot) strain</td><td data-l="Allowed" class="metric">±15 %</td><td data-l="Full-field model" class="metric"><b>-1.0 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">-2.3 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">-31 %</td></tr></tbody></table>
+<h3>X-specimen, pulled along the rolling direction <span class='mut'>(orientation transfer, judged separately)</span></h3>
+<img class="fig" src="fig_force_XR5.png" alt="Measured and predicted force against extension, XR5">
+<img class="fig" src="fig_fields_XR5_Eyy.png" alt="Measured and predicted strain maps, XR5">
+<table class="res"><thead><tr><th>Check</th><th>Allowed</th><th>Full-field model</th><th>Tension-test model</th><th>No plasticity at all</th></tr></thead><tbody><tr><td data-l="Check">Force curve, average error</td><td data-l="Allowed" class="metric">≤ 5 %</td><td data-l="Full-field model" class="metric"><b>2.6 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">1.3 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">—</td></tr><tr><td data-l="Check">Force at 90 % of the way to peak load</td><td data-l="Allowed" class="metric">±5 %</td><td data-l="Full-field model" class="metric"><b>-3.3 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">-1.8 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">—</td></tr><tr><td data-l="Check">Strain map error at 30 %</td><td data-l="Allowed" class="metric">≤ 15 %</td><td data-l="Full-field model" class="metric"><b>7.2 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">8.7 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">38 %</td></tr><tr><td data-l="Check">Strain map error at 60 %</td><td data-l="Allowed" class="metric">≤ 15 %</td><td data-l="Full-field model" class="metric"><b>7.6 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">8.3 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">31 %</td></tr><tr><td data-l="Check">Strain map error at 90 %</td><td data-l="Allowed" class="metric">≤ 15 %</td><td data-l="Full-field model" class="metric"><b>8.6 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">9.2 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">30 %</td></tr><tr><td data-l="Check">Peak (hot-spot) strain</td><td data-l="Allowed" class="metric">±15 %</td><td data-l="Full-field model" class="metric"><b>+3.8 %</b> <span class="chip ok">pass</span></td><td data-l="Tension-test model" class="metric">+2.4 % <span class="chip ok">pass</span></td><td data-l="No plasticity at all" class="metric mut">-29 %</td></tr></tbody></table>
+<p class="hint">"No plasticity at all" is a deliberately wrong model given the same measured edge motion. It shows how much of the strain-map score comes for free from
+imposing that motion: not much — it is off by 30–40 % and misses the hot spot by 30–50 %.</p>
+
+<h2>Did the camera data buy anything?</h2>
+<table class="res"><thead><tr><th>Question</th><th>Full-field model</th><th>Tension-test model</th></tr></thead><tbody>
+<tr><td data-l="Question">Force curve error, plate O15</td><td data-l="Full-field model" class="metric">0.74 %</td><td data-l="Tension-test model" class="metric"><b>0.53 %</b></td></tr>
+<tr><td data-l="Question">Force curve error, X-specimen</td><td data-l="Full-field model" class="metric">1.53 %</td><td data-l="Tension-test model" class="metric"><b>0.32 %</b></td></tr>
+<tr><td data-l="Question">Strain map error (mean of three stages), plate O15</td><td data-l="Full-field model" class="metric"><b>3.9 %</b></td><td data-l="Tension-test model" class="metric">6.6 %</td></tr>
+<tr><td data-l="Question">Strain map error, X-specimen</td><td data-l="Full-field model" class="metric"><b>6.4 %</b></td><td data-l="Tension-test model" class="metric">8.4 %</td></tr>
+<tr><td data-l="Question">Force at the last stage, X pulled along the rolling direction</td><td data-l="Full-field model" class="metric">-3.3 %</td><td data-l="Tension-test model" class="metric"><b>-1.8 %</b></td></tr>
+<tr><td data-l="Question">Work to calibrate</td><td data-l="Full-field model" class="metric">two plate tests with cameras; about 8 minutes of simulation per fit</td><td data-l="Tension-test model" class="metric">three tension tests; under a second</td></tr>
+</tbody></table>
+<p>For this steel the answer is: <b>better strain maps, no better forces.</b> 304L hardens smoothly and almost in a straight line at large strain, so extending the tension-test curve past
+where that test ends (plastic strain 0.47) is harmless, and the direction-dependence is mild. A material with a sharper change in hardening, stronger anisotropy or rate effects would be a harder exam for the baseline.</p>
+
+<h2>Checks on the solver itself</h2>
+<img class="fig" src="fig_ccx.png" alt="Force curve from JAX solver and CalculiX on held-out plate O15">
+<table class="res"><thead><tr><th>Check</th><th>Allowed</th><th>Result</th></tr></thead><tbody>
+<tr><td data-l="Check">CalculiX re-run of the identified isotropic model on unseen plate O15: force curve</td><td data-l="Allowed" class="metric">2 %</td><td data-l="Result" class="metric"><b>0.24 %</b> <span class="chip ok">pass</span></td></tr>
+<tr><td data-l="Check">Same re-run: strain map near peak load</td><td data-l="Allowed" class="metric">3 %</td><td data-l="Result" class="metric"><b>1.18 %</b> <span class="chip ok">pass</span></td></tr>
+<tr><td data-l="Check">Finer mesh (about 4× the nodes): largest change in any held-out score</td><td data-l="Allowed" class="metric">reported</td><td data-l="Result" class="metric">0.07 percentage points</td></tr>
+<tr><td data-l="Check">Twice as many load steps: largest change in any held-out score</td><td data-l="Allowed" class="metric">reported</td><td data-l="Result" class="metric">0.09 percentage points</td></tr>
+</tbody></table>
+<p class="hint">CalculiX has no direction-dependent yield model, so the cross-check covers the isotropic path. The direction-dependent part was checked against hand formulas instead (stress and sideways strain in simple tension, agreement to 9 digits or better).</p>
+
+<h2>Honest caveats</h2>
+<div class="card"><ul>
+<li><b>The pass marks turned out generous.</b> They were set before seeing any result (5 % on force, 15 % on strain maps) and every model beat them several times over. At half the tolerances the full-field model would still pass both primary shapes
+but not the rolling-direction X (2.6 % force, 8.6 % strain); the tension-test model would miss the X-specimen on strain (9.6 % at the first stage).</li>
+<li><b>The exam was not hard enough to separate the two methods.</b> The plain tension-test model passes everything. "Full-field data is worth it" is not shown here for force prediction.</li>
+<li><b>The edge motion is an input.</b> As is standard practice, the measured motion along two lines near the grips drives the simulation, for unseen shapes too. Force and interior strain are predicted; the overall stretch is not.</li>
+<li><b>No tearing.</b> The model has no damage, so nothing past 90 % of the extension at peak load is predicted — not the peak load, not the failure.</li>
+<li><b>One direction learned, the other guessed wrong.</b> All calibration plates were pulled across the rolling direction. The fitted direction-dependence then implies the steel is 3.5 % weaker along the rolling direction; separate tension tests (looked at afterwards, not graded)
+show it is 1–4 % stronger. That is why the full-field model is worse than the baseline on the rolling-direction X (-3.3 % vs -1.8 %), though still inside the limit.</li>
+<li><b>A residual 4–7 % strain-map error remains</b> that no model form removed. Likely contributors, not separated here: camera smoothing near sharp strain peaks, as-cut versus nominal outline, the plane-stress idealisation where the sheet necks, and yield-surface shape beyond Hill's.</li>
+<li><b>Narrow scope.</b> Slow, room-temperature tests of one sheet only. The fast tests (self-heating, rate effects), the D-shaped specimen and the fifth plate (O18, 15 GB) were not used.</li>
+<li><b>One pre-registration amendment</b>, made before any fit: the rule for skipping spurious force drops was written backwards and was corrected. The elastic constants are textbook values from memory (the tension tests give 187–194 GPa against the 193 GPa used); changing them moves no score by more than 0.06 points.</li>
+<li><b>Optimiser trouble along the way</b>: two warm-up runs were stopped because the optimiser crawled along a flat valley; fixed by fitting the curve's values instead of its constants. The six-number isotropic form ended at three different points from three starts.</li>
+</ul></div>
+
+<h2>Glossary</h2>
+<dl class="gloss">
+<dt>DIC (digital image correlation)</dt><dd>Cameras track a speckle pattern painted on the part and compute how every point moved — a strain map instead of a single gauge reading.</dd>
+<dt>Strain</dt><dd>Stretch as a fraction of original length; 0.2 means 20 % longer.</dd>
+<dt>Plasticity, hardening</dt><dd>Permanent deformation of metal, and the way it gets stronger the more it has been deformed. The "hardening curve" is yield stress against plastic strain.</dd>
+<dt>Anisotropy (Hill model)</dt><dd>Rolled sheet behaves slightly differently along and across the rolling direction. Hill's model describes that with three extra numbers.</dd>
+<dt>Finite-element model updating</dt><dd>Run a simulation of the test, compare with the measurement, adjust the material numbers, repeat until they agree.</dd>
+<dt>Held-out data</dt><dd>Measurements kept unopened until the model is final, so the score cannot be tuned.</dd>
+<dt>Identifiability</dt><dd>Whether the data can actually fix a number, or whether very different values fit equally well.</dd>
+<dt>CalculiX</dt><dd>An independent open-source simulation program, used here to make sure a result is not an artefact of the agent's own solver.</dd>
+</dl>
+<p class="hint">Full record: <code>experiments/2026-11-15-dic-plasticity-identification/</code> (README.md, PREREGISTRATION.md, log.md, metrics.json).</p>
+</div></body></html>

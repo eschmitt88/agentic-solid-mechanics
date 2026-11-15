@@ -1,0 +1,39 @@
+
+[O15-3] mesh nn=6902 ne=3338 | DIC pts kept 113192/120645 (valid 120197, inside 114076) | force stations 36
+ccx wall 579s ________________________________________
+{
+ "spec": "O15-3",
+ "model": "M2",
+ "n_steps_ccx": 40,
+ "ccx_wall_s": 619.432779788971,
+ "force_nrmse_jax_vs_ccx": 0.0024151259036178326,
+ "force_max_rel_diff": 0.0030944064688867012,
+ "strain_relL2": {
+  "13": 0.004312613977748313,
+  "27": 0.005853230769033401,
+  "40": 0.011798543624670003
+ },
+ "ccx_metrics_vs_experiment": {
+  "force_nrmse": 0.006281764315654181,
+  "force_last_err": -0.006794611395441014,
+  "force_last_station": 40,
+  "strain_relL2_st13": 0.06555922898255952,
+  "strain_relL2_st27": 0.06313666298324043,
+  "strain_relL2_st40": 0.06346404052907108,
+  "hot_dic": 0.661055925412931,
+  "hot_fe": 0.6548706304584437,
+  "hot_err": -0.009356689376354364
+ },
+ "jax_metrics_vs_experiment": {
+  "force_nrmse": 0.0083363235841102,
+  "force_last_err": -0.00985851162219041,
+  "force_last_station": 40,
+  "strain_relL2_st13": 0.06538529417712054,
+  "strain_relL2_st27": 0.06274725778143761,
+  "strain_relL2_st40": 0.0623519020377028,
+  "hot_dic": 0.661055925412931,
+  "hot_fe": 0.6611892554302721,
+  "hot_err": 0.0002016924925947453
+ },
+ "pass": true
+}

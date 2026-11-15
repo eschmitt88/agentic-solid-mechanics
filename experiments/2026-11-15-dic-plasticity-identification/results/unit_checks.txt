@@ -1,0 +1,14 @@
+uniaxial: max rel err vs closed form 9.77e-14 {'newton_its': 51, 'cuts': 0, 'max_rm_resid': 1.622411609463266e-13, 'steps': 25}
+Hill uniaxial-y: max rel err vs closed form 6.23e-10
+sens solve 27.7s
+s0  dF/dp AD +1.223393e+01 FD +1.223393e+01 rel 2.4e-10 | du/dp rel 7.2e-09
+Q1  dF/dp AD +6.328740e+00 FD +6.328740e+00 rel 1.4e-09 | du/dp rel 1.0e-08
+b1  dF/dp AD +6.390931e+02 FD +6.390931e+02 rel 1.1e-09 | du/dp rel 3.0e-08
+H   dF/dp AD +2.254478e+00 FD +2.254478e+00 rel 4.9e-10 | du/dp rel 1.4e-08
+Q2  dF/dp AD +1.234554e+01 FD +1.234554e+01 rel 9.9e-11 | du/dp rel 3.0e-08
+b2  dF/dp AD +1.075584e-01 FD +1.075584e-01 rel 2.7e-07 | du/dp rel 4.4e-08
+a   dF/dp AD -9.102114e+01 FD -9.102114e+01 rel 6.1e-08 | du/dp rel 1.1e-08
+h   dF/dp AD +1.276387e+03 FD +1.276387e+03 rel 1.9e-09 | du/dp rel 2.0e-09
+c   dF/dp AD +3.282162e+01 FD +3.282162e+01 rel 4.8e-08 | du/dp rel 4.0e-09
+y-tension: stress rel err 2.00e-15 ; lateral log strain FE -0.149323 closed form -0.149323 (rel err 2.95e-14)
+x-tension: stress rel err 7.11e-15 ; lateral log strain FE -0.139223 closed form -0.139223 (rel err 6.57e-10)

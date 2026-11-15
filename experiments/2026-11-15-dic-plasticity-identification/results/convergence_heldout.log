@@ -1,0 +1,24 @@
+
+
+
+== O15-3  (mesh 6902 nodes, 113192 DIC pts, xF 22.32 mm, Fmax 45.67 kN)
+  M4             F nrmse  0.73%  F last  -0.96%  E relL2  4.02/ 3.82/ 3.75%  hot  +0.72% (0.666 vs 0.661)  PASS
+  uniaxial-M2    F nrmse  0.54%  F last  +0.40%  E relL2  6.70/ 6.47/ 6.58%  hot  -3.06% (0.641 vs 0.661)  PASS
+== XT10  (mesh 9396 nodes, 64589 DIC pts, xF 22.95 mm, Fmax 28.53 kN)
+  M4             F nrmse  1.52%  F last  -1.53%  E relL2  7.24/ 6.23/ 5.90%  hot  -1.03% (0.409 vs 0.413)  PASS
+  uniaxial-M2    F nrmse  0.31%  F last  -0.05%  E relL2  9.60/ 8.06/ 7.59%  hot  -2.38% (0.403 vs 0.413)  PASS
+== XR5  (mesh 9579 nodes, 66898 DIC pts, xF 24.87 mm, Fmax 28.70 kN)
+  M4             F nrmse  2.63%  F last  -3.25%  E relL2  7.19/ 7.57/ 8.57%  hot  +3.76% (0.446 vs 0.430)  PASS
+  uniaxial-M2    F nrmse  1.26%  F last  -1.81%  E relL2  8.71/ 8.30/ 9.25%  hot  +2.38% (0.440 vs 0.430)  PASS
+
+
+
+== O15-3  (mesh 26434 nodes, 113192 DIC pts, xF 22.32 mm, Fmax 45.67 kN)
+  M4             F nrmse  0.74%  F last  -0.97%  E relL2  4.01/ 3.82/ 3.78%  hot  +0.87% (0.667 vs 0.661)  PASS
+  uniaxial-M2    F nrmse  0.53%  F last  +0.39%  E relL2  6.70/ 6.47/ 6.55%  hot  -2.98% (0.641 vs 0.661)  PASS
+== XT10  (mesh 35819 nodes, 64589 DIC pts, xF 22.95 mm, Fmax 28.53 kN)
+  M4             F nrmse  1.53%  F last  -1.53%  E relL2  7.21/ 6.21/ 5.87%  hot  -0.97% (0.409 vs 0.413)  PASS
+  uniaxial-M2    F nrmse  0.32%  F last  -0.05%  E relL2  9.57/ 8.05/ 7.57%  hot  -2.33% (0.404 vs 0.413)  PASS
+== XR5  (mesh 36508 nodes, 66898 DIC pts, xF 24.87 mm, Fmax 28.70 kN)
+  M4             F nrmse  2.64%  F last  -3.26%  E relL2  7.17/ 7.55/ 8.54%  hot  +3.81% (0.446 vs 0.430)  PASS
+  uniaxial-M2    F nrmse  1.27%  F last  -1.82%  E relL2  8.68/ 8.29/ 9.22%  hot  +2.41% (0.440 vs 0.430)  PASS
