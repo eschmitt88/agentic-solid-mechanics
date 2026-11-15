@@ -26,58 +26,76 @@ pre{background:#0d1117;color:#c9d1d9;padding:12px;border-radius:8px;overflow:aut
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}@media(max-width:760px){.tiles{grid-template-columns:1fr}}
 .tile{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:12px 14px}.tile .v{font-size:22px;font-weight:650}.tile .l{font-size:13px;color:var(--mut)}
 table.sc{border-collapse:collapse;width:100%;font-size:14px}table.sc th,table.sc td{padding:7px 9px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}table.sc th{color:var(--mut);font-weight:600}
-.tw{overflow-x:auto}.chip.warn{background:#fff8c5;color:#9a6700}figure{margin:12px 0}figcaption{color:var(--mut);font-size:13px;margin-top:5px}@media(max-width:760px){table.leg td{display:block;width:auto!important;white-space:normal!important}table.leg td:first-child{font-weight:600;color:var(--fg);border-bottom:0;padding-bottom:0}table.sc{min-width:600px}}</style></head><body><div class="wrap">
+.tw{overflow-x:auto}.chip.warn{background:#fff8c5;color:#9a6700}figure{margin:12px 0}figcaption{color:var(--mut);font-size:13px;margin-top:5px}@media(max-width:760px){table.leg td{display:block;width:auto!important;white-space:normal!important}table.leg td:first-child{font-weight:600;color:var(--fg);border-bottom:0;padding-bottom:0}table.sc th{display:none}table.sc tr{display:block;border-bottom:1px solid var(--bd);padding:8px 0}table.sc td{display:block;border:0;padding:2px 0}table.sc td:first-child{font-weight:650}table.sc td:first-child:empty{display:none}table.sc td:last-child{color:var(--mut);font-size:13px}table.sc td:last-child::before{content:'Graded against: '}}</style></head><body><div class="wrap">
 <div class="crumb"><a href="../">QA home</a></div>
-<h1>Phase 2 — three hard problems</h1><p class="sub">14–15 November 2026 · instability, fracture, nonlinear inverse design</p>
-<div class='card'><p>Phase 1 showed an AI agent can run routine structural simulations. Phase 2 asks whether it can handle problems where simulations usually go wrong: structures that <b>snap and buckle</b>, materials that <b>crack</b>, and <b>designing</b> a part whose behaviour depends on snapping. Each track ran on its own, set its pass marks before running, and was graded against published references, a second independent solver, or a real experiment.</p>
-<p><b>Short version:</b> the agent got correct answers on all three, but not cleanly. Of 36 pass marks set in advance, 32 were met and 4 were missed. In every track the first attempt at something went wrong in a way that only an independent check exposed.</p></div>
+<h1>Phase 2 — six hard problems</h1><p class="sub">14–15 November 2026 · instability, fracture, inverse design, contact, material identification</p>
+<div class='card'><p>Phase 1 showed an AI agent can run routine structural simulations. Phase 2 asks whether it can handle problems where simulations usually go wrong: structures that <b>snap and buckle</b>, materials that <b>crack</b>, parts that <b>press and rub</b>, <b>designing</b> through a snap, and <b>learning a material</b> from camera data. Each trial ran on its own, set its pass marks before running, and was graded against published references, a second independent solver, or a real experiment.</p>
+<p><b>Short version:</b> on problems with a known answer the agent is usually right, and its misses are recorded. On the two real experiments it predicted blind, it was 9 % low on one and wrong about what breaks first on the other. When the easy inverse-design pass was pushed harder, most of it did not hold up.</p></div>
 <div class="tiles">
-<div class="tile"><div class="v">10 of 12</div><div class="l"><a href="../trial-7-instability/">Trial 7 — instability</a>: checks passed</div></div>
-<div class="tile"><div class="v">12 of 12 · 9 % low</div><div class="l"><a href="../trial-8-fracture/">Trial 8 — fracture</a>: benchmark checks passed · blind challenge peak load error</div></div>
-<div class="tile"><div class="v">10 of 12</div><div class="l"><a href="../trial-9-metamaterial/">Trial 9 — inverse design</a>: checks passed, every design confirmed in a second solver</div></div>
+<div class="tile"><div class="v">10 of 12</div><div class="l"><a href='../trial-7-instability/'>Trial 7 — instability</a>: checks passed</div></div>
+<div class="tile"><div class="v">12 of 12 · 9 % low</div><div class="l"><a href='../trial-8-fracture/'>Trial 8 — fracture</a>: benchmark checks · blind beam prediction</div></div>
+<div class="tile"><div class="v">10 of 12</div><div class="l"><a href='../trial-9-metamaterial/'>Trial 9 — inverse design</a>: checks passed, designs confirmed in a second solver</div></div>
+<div class="tile"><div class="v">22 of 31 · missed</div><div class="l"><a href='../trial-10-contact/'>Trial 10 — contact</a>: benchmark checks · blind bolted-joint prediction</div></div>
+<div class="tile"><div class="v">12 of 12</div><div class="l"><a href='../trial-11-identification/'>Trial 11 — material identification</a>: unseen shapes predicted from real data</div></div>
+<div class="tile"><div class="v">1 of 4</div><div class="l"><a href='../trial-12-inverse-design-hard/'>Trial 12 — inverse design, hard version</a>: targets passed; two negative results</div></div>
 </div>
 
 <h2>Scorecard</h2><div class='card'><div class='tw'><table class='sc'>
-<tr><th>Track</th><th>What was tested</th><th>Result</th><th>Graded against</th></tr>
-<tr><td>7 · Instability</td><td>Following a structure through snap-through</td><td><span class='chip ok'>5 of 6</span> limit loads within 0.02 %</td><td>NAFEMS benchmark, published arch solution, CalculiX</td></tr>
-<tr><td></td><td>Surface wrinkling threshold of compressed rubber</td><td><span class='chip ok'>2 of 2</span> matches theory to 7 digits, on the second method</td><td>Analytical value 0.4563</td></tr>
-<tr><td></td><td>How much a tiny dent weakens a thin cylinder</td><td><span class='chip ok'>3 of 4</span> within 0.03 of theory</td><td>Koiter's theory, CalculiX</td></tr>
-<tr><td>8 · Fracture</td><td>Crack growth in a notched plate, pulled and sheared</td><td><span class='chip ok'>12 of 12</span> peak loads within 1–7 %</td><td>Curves from four published papers</td></tr>
-<tr><td></td><td>Blind prediction of how a 3D-printed beam breaks</td><td><span class='chip warn'>mixed</span> peak load 9 % low; crack path, displacement and failure mode right</td><td>Real experiment (Damage Mechanics Challenge)</td></tr>
-<tr><td>9 · Inverse design</td><td>Trusting the solver first</td><td><span class='chip bad'>4 of 6</span> one force 10.8 % off the textbook formula</td><td>Qiu's bistable-beam formulas</td></tr>
-<tr><td></td><td>Shape a rubber beam to follow three target curves</td><td><span class='chip ok'>3 of 3</span> error 0.25–2.0 %</td><td>CalculiX re-solve of each design</td></tr>
-<tr><td></td><td>Design a two-position (bistable) switch to spec</td><td><span class='chip ok'>3 of 3</span> within 0.2 %, on the sixth attempt</td><td>CalculiX re-solve</td></tr>
+<tr><th>Trial</th><th>What was tested</th><th>Result</th><th>Graded against</th></tr>
+<tr><td>7 · Instability</td><td>Snap-through, rubber wrinkling threshold, dented-cylinder buckling</td><td><span class='chip ok'>10 of 12</span> limit loads within 0.02 %, wrinkling to 7 digits</td><td>NAFEMS benchmark, theory, CalculiX</td></tr>
+<tr><td>8 · Fracture</td><td>Crack growth in a notched plate</td><td><span class='chip ok'>12 of 12</span> peak loads within 1–7 %</td><td>Four published papers</td></tr>
+<tr><td></td><td>Blind: how a 3D-printed beam breaks</td><td><span class='chip warn'>mixed</span> peak load 9 % low; crack path and failure mode right</td><td>Real experiment</td></tr>
+<tr><td>9 · Inverse design</td><td>Shape a rubber beam to three target curves and a two-position switch</td><td><span class='chip ok'>6 of 6</span> designs; solver validation <span class='chip bad'>4 of 6</span></td><td>CalculiX re-solve, textbook formulas</td></tr>
+<tr><td>10 · Contact</td><td>Pressing without friction</td><td><span class='chip ok'>15 of 16</span> within 1–3 % of theory</td><td>Hertz formulas, two solvers</td></tr>
+<tr><td></td><td>Friction: partial slip, sliding die</td><td><span class='chip bad'>4 of 11</span> own solver right on partial slip; CalculiX gave no result in the planned settings</td><td>Exact solution, published band</td></tr>
+<tr><td></td><td>Blind: when a bolted joint loses its screws in a drop test</td><td><span class='chip bad'>missed</span> first break predicted five tests early; missed that the rod cracks</td><td>Real experiment</td></tr>
+<tr><td>11 · Identification</td><td>Learn steel's plasticity from camera strain maps, predict unseen shapes</td><td><span class='chip ok'>12 of 12</span> force within 3 %, strain maps within 9 %</td><td>Held-out real specimens, CalculiX</td></tr>
+<tr><td>12 · Inverse design, hard</td><td>Harder target curves</td><td><span class='chip bad'>0 of 2</span> missed; the impossible target correctly reported as impossible</td><td>CalculiX re-solve</td></tr>
+<tr><td></td><td>Designs that tolerate manufacturing error</td><td><span class='chip bad'>no gain</span> 58 % of imperfect copies pass, same as before</td><td>CalculiX on 24 copies</td></tr>
+<tr><td></td><td>Automatic fix for the optimiser stalling at a snap</td><td><span class='chip bad'>1 of 11</span> starts (bar was 8)</td><td>Yesterday's stalled starts</td></tr>
 </table></div></div>
 
+<h2>The two blind predictions</h2>
+<figure><img class='fig' src='../trial-8-fracture/fig_dmc_grading.png' alt=''><figcaption>Breaking a 3D-printed gypsum beam. The agent predicted a peak load of 298 N; the real beams broke at about 305–345 N. Four expert teams were closer.</figcaption></figure>
+<figure><img class='fig' src='../trial-10-contact/r3_prediction.png' alt=''><figcaption>A bolted joint in a drop test. The agent expected screws to start breaking around 24 m/s (shaded range). In the real tests nothing broke until 31.7 m/s, outside the range, because the aluminium rod cracked first and took the load. The model had no way for the rod to crack.</figcaption></figure>
+
 <h2>Trial 7 — snapping and buckling</h2>
-<figure><img class='fig' src='../trial-7-instability/r1_lee_frame.png' alt=''><figcaption>A frame that snaps through. The blue line is the full path the solver traced, including the stretch where load must fall. An ordinary solver (red circles) jumps the gap and misses it. Stars are the benchmark values.</figcaption></figure>
-<figure><img class='fig' src='../trial-7-instability/r3_knockdown.png' alt=''><figcaption>A thin cylinder loses strength fast as its wall is dented. A dent of one-fifth of the wall thickness halves the buckling load. The computed curve follows the theory line; the open diamonds are the first CalculiX cross-check, which missed.</figcaption></figure>
+<figure><img class='fig' src='../trial-7-instability/r1_lee_frame.png' alt=''><figcaption>A frame that snaps through. The blue line is the full path the solver traced, including the stretch where load must fall. An ordinary solver (red circles) jumps the gap. Stars are the benchmark values.</figcaption></figure>
+<figure><img class='fig' src='../trial-7-instability/r3_knockdown.png' alt=''><figcaption>A thin cylinder loses strength fast as its wall is dented: a dent of one-fifth of the wall thickness halves the buckling load. The computed curve follows the theory line.</figcaption></figure>
 <h2>Trial 8 — cracking</h2>
 <figure><img class='fig' src='../trial-8-fracture/fig_pf_crack_paths.png' alt=''><figcaption>Computed crack paths in the two standard benchmark plates.</figcaption></figure>
-<figure><img class='fig' src='../trial-8-fracture/fig_dmc_grading.png' alt=''><figcaption>The blind challenge. The agent predicted a peak load of 298 N; the real beams broke at about 305–345 N. Four expert teams were closer.</figcaption></figure>
-<h2>Trial 9 — designing through a snap</h2>
-<figure><img class='fig' src='../trial-9-metamaterial/curves_T3.png' alt=''><figcaption>The hardest target curve (dashed). The optimised design matches it in the design solver (blue) and in an independent CalculiX re-solve (dots).</figcaption></figure>
-<figure><img class='fig' src='../trial-9-metamaterial/shapes_T3.png' alt=''><figcaption>The beam shape the optimiser found, and how it deforms as it is compressed.</figcaption></figure>
+<h2>Trials 9 and 12 — designing through a snap</h2>
+<figure><img class='fig' src='../trial-9-metamaterial/curves_T3.png' alt=''><figcaption>Trial 9: the optimised beam matches the target curve (dashed) in the design solver (blue) and in an independent re-solve (dots).</figcaption></figure>
+<figure><img class='fig' src='../trial-12-inverse-design-hard/relaxed.png' alt=''><figcaption>Trial 12: the same designs once two shared assumptions are dropped. A real 10 mm deep part (orange) is about 10 % softer and a flexible frame (dashed) about 17 % softer than the idealised model (blue). That is more than the tolerances the designs were passed on.</figcaption></figure>
+<h2>Trial 10 — pressing and rubbing</h2>
+<figure><img class='fig' src='../trial-10-contact/r1_hertz_pressure.png' alt=''><figcaption>Contact pressure under a pressed cylinder: both solvers against the exact formula.</figcaption></figure>
+<h2>Trial 11 — learning a material from camera data</h2>
+<figure><img class='fig' src='../trial-11-identification/fig_fields_XT10_Eyy.png' alt=''><figcaption>A steel specimen the model never saw. Top: stretch measured by cameras and predicted by the model. Bottom: the error, for the model fitted to camera data and for one fitted to plain tension tests.</figcaption></figure>
+<figure><img class='fig' src='../trial-11-identification/fig_scores.png' alt=''><figcaption>Every check on the three unseen specimens, as a fraction of the allowed error. The camera-data model (blue) gives better strain maps; the tension-test model (orange) gives slightly better forces. Both pass everything.</figcaption></figure>
 
 <h2>What went wrong, and what caught it</h2><div class='card'><table class='leg'>
-<tr><td>A converged wrong answer</td><td>The first wrinkling calculation settled on 0.322 across three meshes. The right value is 0.456. A count of unstable modes exposed a numerical artefact in the element type.</td></tr>
-<tr><td>A badly chosen pass mark</td><td>One frame check compared load where the curve is nearly vertical, so a 0.4 % position error became a 24 % miss. It stays recorded as a miss.</td></tr>
-<tr><td>The second solver was wrong, not the first</td><td>CalculiX stepped over the cylinder's buckling point and its symmetry shortcut made the shell 7 % too stiff. A full model agrees to 1.4 %, but that rerun is outside the grade.</td></tr>
-<tr><td>A pass that leans on a wide tolerance</td><td>The shear fracture result passes at ±10 %, but refining the load step would likely have failed one check.</td></tr>
-<tr><td>Blind prediction too low</td><td>One fracture-energy value fitted to four calibration beams left errors of −9 % to +8 % on those beams, and the unseen beam came out 9 % low.</td></tr>
-<tr><td>Gradients blind at a snap</td><td>Five optimisation attempts on the bistable switch stalled. The gradient is exact along a path but cannot see a snap appear or move. Attempt six worked after a manual diagnosis.</td></tr>
-<tr><td>The planned challenge was unreachable</td><td>The Sandia Fracture Challenge data needs a Globus login, so the blind test used the Damage Mechanics Challenge instead: a brittle beam, an easier exam than ductile steel.</td></tr>
+<tr><td>A converged wrong answer</td><td>The first wrinkling calculation settled on 0.322 across three meshes; the right value is 0.456. A count of unstable modes exposed a numerical artefact.</td></tr>
+<tr><td>Right inside a published range, still wrong</td><td>A coarse CalculiX friction run landed inside the published band while being about 30 % above CalculiX's own refined results.</td></tr>
+<tr><td>The second solver was the wrong one</td><td>CalculiX stepped over the cylinder's buckling point, reported a contact pressure 56 % high at a symmetry axis, and did not finish the friction problems in the planned settings.</td></tr>
+<tr><td>A model missing the real failure</td><td>The bolted-joint model could break screws but not crack the rod, so it broke the screws too early. A national-lab team's blind 3D model was early by about the same amount.</td></tr>
+<tr><td>Blind beam prediction too low</td><td>One fracture-energy value fitted to four calibration beams left errors of −9 % to +8 % on those beams; the unseen beam came out 9 % low.</td></tr>
+<tr><td>A pass that did not survive a harder look</td><td>Trial 9's designs passed in two solvers that shared the same simplifications. With a real depth or a flexible frame, the plateau design and both switch designs fall outside tolerance.</td></tr>
+<tr><td>A wrong diagnosis, corrected</td><td>Trial 9 blamed the stalled optimiser on a snap that moves. Trial 12 showed the design sits exactly where the structure can buckle either way, so no gradient exists there. The automatic fix worked from 1 of 11 starts.</td></tr>
+<tr><td>Extra data that added little</td><td>Camera strain maps improved strain predictions but not force predictions over a plain tension test, and the pass marks were loose enough that both models passed everything.</td></tr>
 </table></div>
 
 <h2>Limits on these results</h2><div class='card'><ul>
-<li>The blind-challenge outcome is read off figures in the results paper by eye (about ±10 N); the exact data sit behind a login.</li>
+<li>Both blind outcomes come from published reports, not raw data: the beam values are read off figures by eye (about ±10 N), and the bolted-joint outcome from one team's report with no per-test table. The full data sets sit behind a login.</li>
+<li>The planned steel fracture challenge could not be run for the same reason; the beam challenge that replaced it is an easier exam.</li>
 <li>The cylinder result depends on the modelled length; a four times longer section lands just outside tolerance.</li>
-<li>The designed beams are sensitive to manufacturing error: with small shape errors only 62–88 % of copies stay within tolerance. Nothing was printed or tested.</li>
-<li>The three design targets turned out easy for this beam; a harder set would be a better test.</li>
+<li>The harder design targets missed with the optimiser out of budget, so they do not show the beam cannot reach them.</li>
+<li>Material identification used slow tests only and stops before peak load; failure was not predicted.</li>
+<li>Nothing was built or tested physically.</li>
 </ul></div>
 <h2>Next</h2><div class='card'><ul>
-<li>Get a Globus account and run the Sandia Fracture Challenge as planned, and re-grade the beam prediction on the exact data.</li>
-<li>Harder design targets, and print and test one design.</li>
-<li>Contact and real-data material identification, the two tracks not yet started.</li>
+<li>With a Globus account: the steel fracture challenge as planned, and re-grading both blind predictions on the raw data.</li>
+<li>Re-do the bolted joint with a model in which the rod can crack.</li>
+<li>Design with a flexible frame and real depth in the loop, since that is where the designs failed.</li>
+<li>Tighter pass marks for material identification, and prediction through peak load.</li>
 </ul></div>
 </div></body></html>

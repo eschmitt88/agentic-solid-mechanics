@@ -96,6 +96,10 @@ Triage archived → `raw/_candidates/_done/2026-06-25-gpu-differentiable-physics
 - `experiments/2026-11-14-phase-field-fracture-sfc3/` — **done** (trial 8): phase-field benchmarks 12 of 12; blind Damage Mechanics Challenge peak load ≈9 % low (SFC3 data unreachable).
 - `experiments/2026-11-14-metamaterial-inverse-design/` — **done** (trial 9): three target curves and a bistable cell verified in CalculiX; solver validation 4 of 6. Summary of trials 7–9: `docs/qa/phase-2/`.
 
+- `experiments/2026-11-15-contact-ladder/` — **done** (trial 10): Hertz/patch/partial slip/ironing in own JAX solver and CalculiX, 22 of 31; blind SMC2023 first-fracture speed outside the predicted band.
+- `experiments/2026-11-15-dic-plasticity-identification/` — **done** (trial 11): Hill-48 + Voce identified from Sandia 304L DIC, held-out geometries 12 of 12; uniaxial baseline also passes.
+- `experiments/2026-11-15-metamaterial-inverse-design-hard/` — **done** (trial 12): harder targets miss, robust design no gain, snap remedy 1 of 11, relaxed idealisations break trial 9's passes.
+
 ## QA review surface
 
 `docs/qa/` (GitHub Pages, linked from the landing page → *QA review*): per-trial

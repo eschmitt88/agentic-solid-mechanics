@@ -330,3 +330,28 @@ SessionEnd hook backstops this if you forget.
 - Tracks C (contact, SMC2023) and E (Sandia 304L DIC identification).
 - Ingest the opened references into `literature/` (Cao & Hutchinson 2012,
   Hutchinson 2010, Qiu 2003, Molnár & Gravouil 2017, Morris et al. 2024).
+
+### Did (cont., 2026-11-15) — trials 10–12
+- No Globus account available, so continued with what needs none: track C
+  (contact, trial 10), track E (DIC plasticity identification, trial 11) and a
+  harder follow-up to trial 9 (trial 12). Graded the SMC2023 blind prediction.
+  Summary page `docs/qa/phase-2/` now covers trials 7–12.
+
+### Findings (cont.)
+- Trial 10: 22/31. Frictionless contact fine in both solvers; CalculiX
+  frictional large sliding is increment-dependent and failed in the registered
+  settings (6 of the 9 misses). Blind SMC2023: first-fracture speed 25.2 m/s
+  (band 18.3–30.1) vs 31.7 measured — outside the band; missed cantilever
+  cracking competing with fastener failure (`results/smc_grading.json`).
+- Trial 11: Sandia 304L data is CC0 on Figshare+, no login. Held-out shapes
+  predicted 12/12, but the uniaxial-only baseline also passes; full-field data
+  only improves strain maps. Tolerances were too loose to discriminate.
+- Trial 12: harder targets miss (budget-limited), robust design no gain
+  (force ~ thickness^2.96), snap remedy 1/11 vs bar 8/11. Trial 9's stall was a
+  pitchfork (branch flip), not a moving snap. Trial 9's passing designs leave
+  tolerance with 3D depth or an elastic frame.
+
+### Next (cont.)
+- SMC2023 redo with a cantilever-fracture-capable model; design with elastic
+  frame + 3D in the loop; tighter identification tolerances and prediction
+  through peak load; Globus-gated items (SFC3, raw DMC/SMC data) when possible.
