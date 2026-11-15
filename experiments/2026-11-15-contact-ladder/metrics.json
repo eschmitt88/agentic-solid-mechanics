@@ -915,5 +915,35 @@
    "3d": true
   },
   "graded_by": "orchestrator (blind)"
+ },
+ "smc_grading": {
+  "source": "Blind/post-blind report of one Sandia team, OSTI 3013870 (text and Figs 2-6, 5-1), read by a separate reader after the prediction was committed in e6173e0; the organisers' own summary and per-test fastener table were not found",
+  "prediction_sha256": "66a14b1b3cbbf1931e4c9ad32619b7a61fff27f2a48bc556ac1b06a6968f3097",
+  "Q1_first_fastener_fracture": {
+   "predicted_nominal_ms": 25.2,
+   "predicted_median_ms": 23.7,
+   "predicted_band_ms": [
+    18.3,
+    30.1
+   ],
+   "measured_ft_s": 103.9,
+   "measured_ms": 31.67,
+   "measured_test": 14,
+   "hit_inside_band": false,
+   "error_nominal_ms": -6.5,
+   "error_test_steps": -5,
+   "note": "the Sandia team's own blind prediction was also early (about tests 8-10, 80-85 ft/s)"
+  },
+  "Q2_all_six": {
+   "predicted_nominal_ms": 30.1,
+   "predicted_median_ms": 31.7,
+   "measured_ms_approx": 31.7,
+   "measured_note": "lowest all-six test about 104 ft/s from a figure read-off; the report's text and figure disagree (text says roughly 110-115 ft/s)",
+   "hit_inside_band": true,
+   "error_test_steps": "-1 (nominal) to about +2, depending on which reading of the report is right"
+  },
+  "Q3_per_test": "not gradable test by test (no per-test table). Qualitatively wrong: predicted progressive loss from test 9 (3, then 5, then 6 fasteners); observed no fastener fracture before test 14, then all-or-nothing and stochastic (three tests all six, three tests one to three, others none)",
+  "Q5_other_failure": "WRONG: predicted no fracture of the cantilever. Observed: the aluminium cantilever cracked in nearly every test, with through-cracks from about test 9, and cantilever failure competed with fastener failure. The agent did flag permanent flange bending in every test, but did not model cracking",
+  "Q6_Q7": "not gradable from this source"
  }
 }
