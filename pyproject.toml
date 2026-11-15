@@ -9,5 +9,7 @@ dependencies = [
     "meshio>=5.3.5",
     "numpy>=2.4.6",
     "optax>=0.2.9",
+    "pypardiso>=0.4.7",
     "pyyaml>=6.0.3",
+    "sympy>=1.14.0",
 ]

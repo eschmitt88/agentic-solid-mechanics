@@ -26,7 +26,9 @@ dependencies = [
     { name = "meshio" },
     { name = "numpy" },
     { name = "optax" },
+    { name = "pypardiso" },
     { name = "pyyaml" },
+    { name = "sympy" },
 ]
 
 [package.metadata]
@@ -37,7 +39,9 @@ requires-dist = [
     { name = "meshio", specifier = ">=5.3.5" },
     { name = "numpy", specifier = ">=2.4.6" },
     { name = "optax", specifier = ">=0.2.9" },
+    { name = "pypardiso", specifier = ">=0.4.7" },
     { name = "pyyaml", specifier = ">=6.0.3" },
+    { name = "sympy", specifier = ">=1.14.0" },
 ]
 
 [[package]]
@@ -201,6 +205,30 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/3d/b4/0d25938ad62ea4db6bcbdecbc77c72d05d8a6a679abe4addcd86167ffd77/gmsh-4.15.2-py2.py3-none-macosx_12_0_arm64.whl", hash = "sha256:f6649b3e59f49272e7ee8ab282ecb4d1a6e0d627e86cf3e3b1a83fd07417e4f8", size = 36427761, upload-time = "2026-03-24T19:33:51.161Z" },
     { url = "https://files.pythonhosted.org/packages/ab/d4/336becb1488ac4fbab205043987128839c8c62d54e2036b7e887bd009040/gmsh-4.15.2-py2.py3-none-manylinux_2_24_x86_64.whl", hash = "sha256:4076a948ce22625330d1413d4982e22b5c69fc2f0f7951f5df64c778cf54108c", size = 40006930, upload-time = "2026-03-24T19:33:55.549Z" },
     { url = "https://files.pythonhosted.org/packages/78/e9/63c763c0d75544680800651d5ea8c7c3203ae4b5e054706f19a54021a7fb/gmsh-4.15.2-py2.py3-none-win_amd64.whl", hash = "sha256:7b36083bb410fa27c5d0e052929d1a9844a5b09169d66017b72b41aabd49d711", size = 42235999, upload-time = "2026-03-24T19:34:00.529Z" },
+]
+
+[[package]]
+name = "intel-cmplr-lib-ur"
+version = "2026.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "umf" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f3/5b/10acaa79feeae68db3ee7e1e712cb007c665b05000c71a7e7afdab1750e6/intel_cmplr_lib_ur-2026.2.0-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:0d0a5099aa2e1e38375b509c2a8182e719ed74aa656b2a800ddf6cfbd3384b80", size = 33070367, upload-time = "2026-10-16T12:35:00.896Z" },
+    { url = "https://files.pythonhosted.org/packages/5e/25/546c8f9d6e4d9501e848d352ecac99dc79e4bf41badc8ef1a2db6402637b/intel_cmplr_lib_ur-2026.2.0-py2.py3-none-win_amd64.whl", hash = "sha256:5bbf5f18ed13c801895d6f5fc40f0ef356344345b84c3bf29cc7b57bd3df9362", size = 672060, upload-time = "2026-10-16T12:32:00.153Z" },
+]
+
+[[package]]
+name = "intel-openmp"
+version = "2026.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "intel-cmplr-lib-ur" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/79/fd/8c80ef4b540e62761bb62b6bde10c17339218f6a25e27aedac816ac5c4c1/intel_openmp-2026.2.0-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:2308a1a3e74718a9cd8cccf218c34d8cd80b43d3b89dfbb01b38dee205c50980", size = 50322489, upload-time = "2026-10-16T12:35:17.817Z" },
+    { url = "https://files.pythonhosted.org/packages/cd/81/3014f8c74e15bbea3de37e12ef43ea8df8fac498378162d1a89f28236398/intel_openmp-2026.2.0-py2.py3-none-win_amd64.whl", hash = "sha256:0fcd60701d6dcf8f17cd40c9733d7046ff3b82921a0a039bea2e6a68fb12c152", size = 23199644, upload-time = "2026-10-16T12:32:13.886Z" },
 ]
 
 [[package]]
@@ -506,6 +534,19 @@ wheels = [
 ]
 
 [[package]]
+name = "mkl"
+version = "2026.2.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "intel-openmp" },
+    { name = "tbb" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e9/31/53bb8fd1098caaf2c634cae75a1abbc1d3c67089a085afa38eeea79f7ea7/mkl-2026.2.1-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:76322a3abf512594ab7b4e82cb72df91e4e5d195498769aa8b292373c1ddd6d1", size = 229090670, upload-time = "2026-11-12T15:02:49.435Z" },
+    { url = "https://files.pythonhosted.org/packages/47/db/8cad265c49b425e51dda3ba2fe7397f51ad0604cae0f5a129dfbc7f2ee92/mkl-2026.2.1-py2.py3-none-win_amd64.whl", hash = "sha256:96f9ee6a5f101801c56225bd6b7a4a82c95d3da1268d7bf952fa07d09992a619", size = 185223117, upload-time = "2026-11-12T15:03:42.019Z" },
+]
+
+[[package]]
 name = "ml-dtypes"
 version = "0.5.4"
 source = { registry = "https://pypi.org/simple" }
@@ -539,6 +580,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/79/2b/a826ba18d2179a56e144aef69e57fb2ab7c464ef0b2111940ee8a3a223a2/ml_dtypes-0.5.4-cp314-cp314t-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:0d2ffd05a2575b1519dc928c0b93c06339eb67173ff53acb00724502cda231cf", size = 5366332, upload-time = "2025-11-17T22:32:21.193Z" },
     { url = "https://files.pythonhosted.org/packages/84/44/f4d18446eacb20ea11e82f133ea8f86e2bf2891785b67d9da8d0ab0ef525/ml_dtypes-0.5.4-cp314-cp314t-win_amd64.whl", hash = "sha256:4381fe2f2452a2d7589689693d3162e876b3ddb0a832cde7a414f8e1adf7eab1", size = 236612, upload-time = "2025-11-17T22:32:22.579Z" },
     { url = "https://files.pythonhosted.org/packages/ad/3f/3d42e9a78fe5edf792a83c074b13b9b770092a4fbf3462872f4303135f09/ml_dtypes-0.5.4-cp314-cp314t-win_arm64.whl", hash = "sha256:11942cbf2cf92157db91e5022633c0d9474d4dfd813a909383bd23ce828a4b7d", size = 168825, upload-time = "2025-11-17T22:32:23.766Z" },
+]
+
+[[package]]
+name = "mpmath"
+version = "1.3.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e0/47/dd32fa426cc72114383ac549964eecb20ecfd886d1e5ccf5340b55b02f57/mpmath-1.3.0.tar.gz", hash = "sha256:7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f", size = 508106, upload-time = "2023-03-07T16:47:11.061Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl", hash = "sha256:a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c", size = 536198, upload-time = "2023-03-07T16:47:09.197Z" },
 ]
 
 [[package]]
@@ -858,6 +908,20 @@ wheels = [
 ]
 
 [[package]]
+name = "pypardiso"
+version = "0.4.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "mkl" },
+    { name = "numpy" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/0a/f8/38f3c9983ffc789fa7ddda88cf2ce388a489698ba73edb9e5355a564966e/pypardiso-0.4.7.tar.gz", hash = "sha256:0f307c749ace576d9de5c63ce39af0e850d8f772697260454f3deb0202a7a92d", size = 13851, upload-time = "2025-11-02T23:11:32.229Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d9/11/80f3b55f77309b1993e68776778510f46195252b5393b967f67d28dbb6b6/pypardiso-0.4.7-py3-none-any.whl", hash = "sha256:157b2d188d884b4bf2cd90a0cb3efae513b8b6215c29ebb4659e9cc38610c839", size = 10070, upload-time = "2025-11-02T23:11:31.127Z" },
+]
+
+[[package]]
 name = "pyparsing"
 version = "3.3.3"
 source = { registry = "https://pypi.org/simple" }
@@ -989,10 +1053,55 @@ wheels = [
 ]
 
 [[package]]
+name = "sympy"
+version = "1.14.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "mpmath" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/83/d3/803453b36afefb7c2bb238361cd4ae6125a569b4db67cd9e79846ba2d68c/sympy-1.14.0.tar.gz", hash = "sha256:d3d3fe8df1e5a0b42f0e7bdf50541697dbe7d23746e894990c030e2b05e72517", size = 7793921, upload-time = "2025-04-27T18:05:01.611Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl", hash = "sha256:e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5", size = 6299353, upload-time = "2025-04-27T18:04:59.103Z" },
+]
+
+[[package]]
+name = "tbb"
+version = "2023.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "tcmlib" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/59/fd/8ca476c7b2513b1e64e08d3f5404c8ed19b34d0213000b5e23b3a91676c2/tbb-2023.2.0-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:7d80615b6e970f11671fa05b6eaa9483ac864fbfe525ac280271a78b37870b7c", size = 6864088, upload-time = "2026-10-16T12:38:06.333Z" },
+    { url = "https://files.pythonhosted.org/packages/d0/41/2aeac799ab57e81898c8cc24f503fe301e12f19758bb1fe34d522764d3bb/tbb-2023.2.0-py3-none-win_amd64.whl", hash = "sha256:b39121cbdaff350fc61a448766cbb26807c523491d66e364838c9feeb3c6a0eb", size = 430857, upload-time = "2026-10-16T12:34:41.635Z" },
+]
+
+[[package]]
+name = "tcmlib"
+version = "1.6.0"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a4/95/d2616129c971d989c1f5ec2ea697a6885165570c69d9fa50bfbde8195d26/tcmlib-1.6.0-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:46c2491988bfd18c4733eeb08aca6a386706a497b92cc51d155f37ddea003c14", size = 2802717, upload-time = "2026-10-16T12:38:19.821Z" },
+    { url = "https://files.pythonhosted.org/packages/d7/a5/996458475dcc65f20ec20c0e3d4bbc175c87750ff9bb703908c373b2497a/tcmlib-1.6.0-py2.py3-none-win_amd64.whl", hash = "sha256:7f65c0a6d56f2b1383b3022e873175f5025db00a5c7d0aaeb019300c25f5d482", size = 371933, upload-time = "2026-10-16T12:34:53.372Z" },
+]
+
+[[package]]
 name = "tzdata"
 version = "2026.6"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/7a/29/6a1391d31cd00ff9e927215a224a880e1e84e826b64ba80a499e51c074d8/tzdata-2026.6.tar.gz", hash = "sha256:85d2cd9c09f81f0bb29db27759fc83af4f1e620efb814f8c5bf8b4cc4feece6d", size = 201017, upload-time = "2026-10-28T09:57:09.137Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/0a/66/9a06c2227fedfd4919f0eaaa8b94377d9730882a7e4f95823c9a331ab5e1/tzdata-2026.6-py2.py3-none-any.whl", hash = "sha256:0a10eec6e13ef16b627fabed9a5f2ba61a62b1c67f327305f4e7e412a70b4aec", size = 348210, upload-time = "2026-10-28T09:57:07.276Z" },
+]
+
+[[package]]
+name = "umf"
+version = "1.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "tcmlib" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e9/98/4df9fdfac2af58f63652936c6f90c4dbf7c237f6aed2c4310c9583e177b0/umf-1.2.0-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:238d186fdd9e9c0fe1489da95b19b0b79045fe26c4aa98bd0a022a2a3603c195", size = 429931, upload-time = "2026-10-16T12:37:02.109Z" },
+    { url = "https://files.pythonhosted.org/packages/8c/7c/f35fe9eaae40a31cb7eafdc5689c90f3ba267391b79d010b4bac9f832a4b/umf-1.2.0-py2.py3-none-win_amd64.whl", hash = "sha256:8aab76eb1404812e753fe916de45299ed3c460b227558a41df768c31a663c11e", size = 296227, upload-time = "2026-10-16T12:33:40.537Z" },
 ]
