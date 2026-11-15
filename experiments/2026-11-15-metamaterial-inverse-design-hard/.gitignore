@@ -1,0 +1,8 @@
+# bulky or transient solver output
+results/ccx/*/job.frd
+results/ccx/*/job.msh
+results/ccx/*/job.inp
+results/ccx/*/job.dat
+results/ccx/*/job.geo
+results/ccx/*/spooles.out
+__pycache__/

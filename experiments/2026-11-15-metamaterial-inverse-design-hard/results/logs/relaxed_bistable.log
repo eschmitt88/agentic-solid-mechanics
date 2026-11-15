@@ -1,0 +1,6 @@
+bistable ps False 4.663841 23s
+bistable 3d True 13.0 396s
+bistable ef True 13.0 83s
+bistable ps {'completed': False, 'd_reached': 4.663841, 'nnodes': 2868, 'sec': 23.430179119110107, 'features': None}
+bistable 3d {'completed': True, 'd_reached': 13.0, 'nnodes': 17492, 'sec': 395.6554043292999, 'features': {'F_pk': 0.03402832944265073, 'd_2': 9.954897944270362, 'E_back': 0.03697943876410187, 'd_u': 5.280352142212259, 'rel_err': [-0.14929176393373178, -0.004510205572963777, -0.17823469413106952], 'within_5pct': False}}
+bistable ef {'completed': True, 'd_reached': 13.0, 'nnodes': 7027, 'sec': 82.6077344417572, 'features': {'F_pk': 0.036765414006227105, 'd_2': 10.07438717672148, 'E_back': 0.0400673294240758, 'd_u': 5.224969946228494, 'rel_err': [-0.0808646498443224, 0.0074387176721479875, -0.10961490168720434], 'within_5pct': False}}

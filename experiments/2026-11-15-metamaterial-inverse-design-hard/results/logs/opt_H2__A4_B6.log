@@ -1,0 +1,4 @@
+[H2] start A4_B6
+  eval   1 nrmse=0.4734 rms_over_copies=0.4734 bad=0 sw=0 jumps=1 253.6s
+  eval   2 nrmse=1237.9689 rms_over_copies=1237.9689 bad=50 sw=0 jumps=50 236.9s
+  eval   3 nrmse=0.3987 rms_over_copies=0.3987 bad=0 sw=0 jumps=2 139.7s

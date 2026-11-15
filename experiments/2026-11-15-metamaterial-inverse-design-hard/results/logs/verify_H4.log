@@ -1,0 +1,8 @@
+H4 jax_40x2 0.46722776442371394
+H4 jax_80x2 None
+H4 3.0 completed False reached 9.25 185s
+H4 4.0 completed False reached 9.250565 363s
+H4 6.0 completed False reached 9.252075 885s
+H4 imperfection 1 False
+H4 imperfection -1 False
+H4 VERDICT FAIL (unverifiable) None graded on None

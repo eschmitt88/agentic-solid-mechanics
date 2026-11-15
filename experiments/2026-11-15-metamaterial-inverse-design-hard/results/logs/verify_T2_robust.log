@@ -1,0 +1,6 @@
+T2_robust jax_40x2 0.011285678819267123
+T2_robust jax_80x2 0.01149001730614702
+T2_robust 3.0 completed True reached 12.5 30s
+T2_robust 4.0 completed True reached 12.5 50s
+T2_robust 6.0 completed True reached 12.5 117s
+T2_robust VERDICT PASS 0.012223712879684842 graded on t6

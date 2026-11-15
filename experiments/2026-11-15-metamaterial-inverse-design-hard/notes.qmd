@@ -3,5 +3,11 @@ title: "metamaterial-inverse-design-hard"
 format: html
 ---
 
+Analysis and plots are scripted (`plots.py`, `build_page.py`, `page_text.py`) and written to `results/` and
+`docs/qa/trial-12-inverse-design-hard/`; see `README.md` for the result and `log.md` for the chronology.
+
 ```{python}
+import json
+m = json.load(open("metrics.json"))
+{k: (v.get("verdict"), v.get("calculix_nrmse")) for k, v in m["targets"].items()}
 ```

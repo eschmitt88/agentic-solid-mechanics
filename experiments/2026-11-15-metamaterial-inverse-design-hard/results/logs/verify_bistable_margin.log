@@ -1,0 +1,5 @@
+bistable_margin jax {'F_pk': 0.03981937557246953, 'd_2': 10.07768951009615, 'E_back': 0.044760183153507924, 'd_u': 5.937170857716558, 'rel_err': [-0.004515610688261784, 0.007768951009615055, -0.005329263255379413], 'within_5pct': True}
+bistable_margin 3.0 completed True reached 13.0 17s
+bistable_margin 4.0 completed True reached 13.0 28s
+bistable_margin 6.0 completed True reached 13.0 63s
+bistable_margin VERDICT {'verdict': 'PASS', 'mesh': 't6', 'features': {'F_pk': 0.039743224169718386, 'd_2': 10.080976025595236, 'E_back': 0.04472220833784467, 'd_u': 5.938513893321016, 'rel_err': [-0.006419395757040425, 0.008097602559523631, -0.00617314804789626], 'within_5pct': True}}

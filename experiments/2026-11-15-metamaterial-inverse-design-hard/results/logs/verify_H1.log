@@ -1,0 +1,6 @@
+H1 jax_40x2 0.07984257207122425
+H1 jax_80x2 0.08007537345846054
+H1 3.0 completed True reached 12.5 62s
+H1 4.0 completed True reached 12.5 103s
+H1 6.0 completed True reached 12.5 214s
+H1 VERDICT MISS 0.08090699044397151 graded on t6

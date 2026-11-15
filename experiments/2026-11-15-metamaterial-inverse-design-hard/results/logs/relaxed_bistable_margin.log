@@ -1,0 +1,6 @@
+bistable_margin ps True 13.0 12s
+bistable_margin 3d True 13.0 171s
+bistable_margin ef True 13.0 28s
+bistable_margin ps {'completed': True, 'd_reached': 13.0, 'nnodes': 2018, 'sec': 11.604052066802979, 'features': {'F_pk': 0.03976833604566706, 'd_2': 10.079573302590873, 'E_back': 0.044737086449607194, 'd_u': 5.937779300333321, 'rel_err': [-0.005791598858323477, 0.007957330259087403, -0.005842523342062367], 'within_5pct': True}}
+bistable_margin 3d {'completed': True, 'd_reached': 13.0, 'nnodes': 12338, 'sec': 170.691086769104, 'features': {'F_pk': 0.034292447546094965, 'd_2': 9.994636641475685, 'E_back': 0.03519372775302042, 'd_u': 5.973552446721517, 'rel_err': [-0.1426888113476259, -0.0005363358524315132, -0.21791716104399073], 'within_5pct': False}, 'feature_change_vs_plane_strain': {'F_pk': -0.13769468486898684, 'd_2': -0.008426612770736641, 'E_back': -0.2133209704511405}}
+bistable_margin ef {'completed': True, 'd_reached': 13.0, 'nnodes': 4959, 'sec': 27.623201847076416, 'features': {'F_pk': 0.03561281610632896, 'd_2': 10.220109020333048, 'E_back': 0.03901944124390266, 'd_u': 6.093904033815989, 'rel_err': [-0.10967959734177601, 0.022010902033304802, -0.13290130569105207], 'within_5pct': False}, 'feature_change_vs_plane_strain': {'F_pk': -0.10449318107164973, 'd_2': 0.01394262569686866, 'E_back': -0.1278054889011383}}

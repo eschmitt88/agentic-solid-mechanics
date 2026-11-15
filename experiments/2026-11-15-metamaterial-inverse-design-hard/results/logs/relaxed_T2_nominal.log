@@ -1,0 +1,6 @@
+T2_nominal ps True 12.5 27s
+T2_nominal 3d True 12.5 325s
+T2_nominal ef True 12.5 36s
+T2_nominal ps {'completed': True, 'd_reached': 12.5, 'nnodes': 2560, 'sec': 27.222100973129272, 'grade': {'nrmse': 0.009939618561155683, 'tol': 0.05, 'bands': [{'lo': 0.12, 'hi': 0.33, 'level': 0.4, 'max_dev': 0.015338571428571424, 'tol': 0.06, 'ok': True}], 'passed': True}}
+T2_nominal 3d {'completed': True, 'd_reached': 12.5, 'nnodes': 15600, 'sec': 325.1104989051819, 'grade': {'nrmse': 0.04975737502242896, 'tol': 0.05, 'bands': [{'lo': 0.12, 'hi': 0.33, 'level': 0.4, 'max_dev': 0.057555428571428535, 'tol': 0.06, 'ok': True}], 'passed': True}, 'shift_nrmse_vs_plane_strain': 0.04629642445691512, 'median_force_ratio': 0.8969048479591764}
+T2_nominal ef {'completed': True, 'd_reached': 12.5, 'nnodes': 5953, 'sec': 36.37145161628723, 'grade': {'nrmse': 0.1176624814475071, 'tol': 0.05, 'bands': [{'lo': 0.12, 'hi': 0.33, 'level': 0.4, 'max_dev': 0.0708347142857143, 'tol': 0.06, 'ok': False}], 'passed': False}, 'shift_nrmse_vs_plane_strain': 0.11455225719122808, 'median_force_ratio': 0.8447089001871194}

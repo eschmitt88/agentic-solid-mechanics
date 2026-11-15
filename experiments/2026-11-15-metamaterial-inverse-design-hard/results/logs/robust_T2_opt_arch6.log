@@ -1,0 +1,57 @@
+[T2] start robust_from_arch6
+  eval   1 nrmse=0.4539 rms_over_copies=0.4516 bad=0 sw=0 jumps=0 41.7s
+  eval   2 nrmse=0.2154 rms_over_copies=0.2204 bad=0 sw=0 jumps=0 13.3s
+  eval   3 nrmse=0.3374 rms_over_copies=0.3371 bad=0 sw=0 jumps=0 13.0s
+  eval   4 nrmse=0.1525 rms_over_copies=0.1564 bad=0 sw=0 jumps=0 10.0s
+  eval   5 nrmse=0.0462 rms_over_copies=0.0626 bad=0 sw=0 jumps=0 11.2s
+  eval   6 nrmse=0.0306 rms_over_copies=0.0503 bad=0 sw=0 jumps=0 10.9s
+  eval   7 nrmse=0.0140 rms_over_copies=0.0399 bad=0 sw=0 jumps=0 10.1s
+  eval   8 nrmse=0.0140 rms_over_copies=0.0406 bad=0 sw=0 jumps=0 10.9s
+  eval   9 nrmse=0.0120 rms_over_copies=0.0394 bad=0 sw=0 jumps=0 10.4s
+  eval  10 nrmse=0.0131 rms_over_copies=0.0402 bad=0 sw=0 jumps=0 10.3s
+  eval  11 nrmse=0.0120 rms_over_copies=0.0396 bad=0 sw=0 jumps=0 10.9s
+  eval  12 nrmse=0.0128 rms_over_copies=0.0401 bad=0 sw=0 jumps=0 10.9s
+  eval  13 nrmse=0.0130 rms_over_copies=0.0402 bad=0 sw=0 jumps=0 9.8s
+  eval  14 nrmse=0.0131 rms_over_copies=0.0402 bad=0 sw=0 jumps=0 10.3s
+  eval  15 nrmse=0.0131 rms_over_copies=0.0402 bad=0 sw=0 jumps=0 10.4s
+  eval  16 nrmse=0.0131 rms_over_copies=0.0402 bad=0 sw=0 jumps=0 10.6s
+  eval  17 nrmse=0.0131 rms_over_copies=0.0402 bad=0 sw=0 jumps=0 11.7s
+  eval  18 nrmse=0.0131 rms_over_copies=0.0402 bad=0 sw=0 jumps=0 11.7s
+  eval  19 nrmse=0.0131 rms_over_copies=0.0402 bad=0 sw=0 jumps=0 11.9s
+  eval  20 nrmse=0.0130 rms_over_copies=0.0401 bad=0 sw=0 jumps=0 14.2s
+  eval  21 nrmse=0.0129 rms_over_copies=0.0401 bad=0 sw=0 jumps=0 13.2s
+  eval  22 nrmse=0.0126 rms_over_copies=0.0399 bad=0 sw=0 jumps=0 14.1s
+  eval  23 nrmse=0.0122 rms_over_copies=0.0396 bad=0 sw=0 jumps=0 15.6s
+  eval  24 nrmse=0.0114 rms_over_copies=0.0391 bad=0 sw=0 jumps=0 15.2s
+  eval  25 nrmse=0.0107 rms_over_copies=0.0387 bad=0 sw=0 jumps=0 14.7s
+  eval  26 nrmse=0.0125 rms_over_copies=0.0388 bad=0 sw=0 jumps=0 12.9s
+  eval  27 nrmse=0.0106 rms_over_copies=0.0386 bad=0 sw=0 jumps=0 13.8s
+  eval  28 nrmse=0.0108 rms_over_copies=0.0385 bad=0 sw=0 jumps=0 14.3s
+  eval  29 nrmse=0.0112 rms_over_copies=0.0385 bad=0 sw=0 jumps=0 13.7s
+  eval  30 nrmse=0.0109 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.2s
+  eval  31 nrmse=0.0110 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.8s
+  eval  32 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 14.0s
+  eval  33 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.3s
+  eval  34 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 13.8s
+  eval  35 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.2s
+  eval  36 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.2s
+  eval  37 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 14.0s
+  eval  38 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 14.5s
+  eval  39 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 14.3s
+  eval  40 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.2s
+  eval  41 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.5s
+  eval  42 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.3s
+  eval  43 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.2s
+  eval  44 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 17.7s
+  eval  45 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 18.0s
+  eval  46 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 18.9s
+  eval  47 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 18.0s
+  eval  48 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 14.8s
+  eval  49 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 17.6s
+  eval  50 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.1s
+  eval  51 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 19.8s
+  eval  52 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 20.4s
+  eval  53 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 16.3s
+[T2] robust_from_arch6: nrmse=0.0112 nfev=53 status=4 Both `ftol` and `xtol` termination conditions are satisfied. |proj grad|=1.04e-05
+nominal: own nrmse 0.009564647308601675 pass fraction 0.46875
+robust : own nrmse 0.011200644489695866 pass fraction 0.4375

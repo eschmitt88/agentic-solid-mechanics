@@ -1,0 +1,26 @@
+[H4] start arch6
+  eval   1 nrmse=0.5716 rms_over_copies=0.5716 bad=0 sw=0 jumps=0 12.3s
+  eval   2 nrmse=0.4849 rms_over_copies=0.4849 bad=0 sw=0 jumps=0 2.2s
+  eval   3 nrmse=0.4854 rms_over_copies=0.4854 bad=0 sw=0 jumps=0 2.9s
+  eval   4 nrmse=0.4781 rms_over_copies=0.4781 bad=0 sw=0 jumps=0 2.6s
+  eval   5 nrmse=0.4739 rms_over_copies=0.4739 bad=0 sw=0 jumps=0 3.5s
+  eval   6 nrmse=0.4741 rms_over_copies=0.4741 bad=0 sw=0 jumps=0 3.5s
+  eval   7 nrmse=0.4715 rms_over_copies=0.4715 bad=0 sw=0 jumps=0 3.9s
+  eval   8 nrmse=0.4721 rms_over_copies=0.4721 bad=0 sw=0 jumps=0 3.8s
+  eval   9 nrmse=0.4702 rms_over_copies=0.4702 bad=0 sw=0 jumps=0 14.5s
+  eval  10 nrmse=0.4696 rms_over_copies=0.4696 bad=0 sw=0 jumps=0 4.2s
+  eval  11 nrmse=0.4710 rms_over_copies=0.4710 bad=0 sw=0 jumps=0 21.3s
+  eval  12 nrmse=0.4694 rms_over_copies=0.4694 bad=0 sw=0 jumps=0 3.2s
+  eval  13 nrmse=0.4711 rms_over_copies=0.4711 bad=0 sw=0 jumps=0 17.3s
+  eval  14 nrmse=1069.3535 rms_over_copies=1069.3535 bad=28 sw=0 jumps=28 14.2s
+  eval  15 nrmse=0.4713 rms_over_copies=0.4713 bad=0 sw=0 jumps=0 17.7s
+  eval  16 nrmse=0.4694 rms_over_copies=0.4694 bad=0 sw=0 jumps=0 4.6s
+  eval  17 nrmse=0.4713 rms_over_copies=0.4713 bad=0 sw=0 jumps=0 19.0s
+  eval  18 nrmse=0.4694 rms_over_copies=0.4694 bad=0 sw=0 jumps=0 4.5s
+  eval  19 nrmse=0.4694 rms_over_copies=0.4694 bad=0 sw=0 jumps=0 4.5s
+  eval  20 nrmse=1069.3535 rms_over_copies=1069.3535 bad=28 sw=0 jumps=28 11.7s
+  eval  21 nrmse=0.4713 rms_over_copies=0.4713 bad=0 sw=0 jumps=0 18.8s
+  eval  22 nrmse=1069.3535 rms_over_copies=1069.3535 bad=28 sw=0 jumps=28 13.3s
+  eval  23 nrmse=0.4713 rms_over_copies=0.4713 bad=0 sw=0 jumps=0 20.6s
+  eval  24 nrmse=0.4694 rms_over_copies=0.4694 bad=0 sw=0 jumps=0 4.6s
+[H4] arch6: nrmse=0.4694 nfev=24 status=3 `xtol` termination condition is satisfied. |proj grad|=1.71e-02

@@ -1,0 +1,6 @@
+H1 ps True 12.5 27s
+H1 3d True 12.5 563s
+H1 ef True 12.5 63s
+H1 ps {'completed': True, 'd_reached': 12.5, 'nnodes': 4168, 'sec': 26.72816491127014, 'grade': {'nrmse': 0.08064811079291721, 'tol': 0.03, 'bands': [{'lo': 0.08, 'hi': 0.5, 'level': 0.4235, 'max_dev': 0.030496714285714266, 'tol': 0.021175, 'ok': False}], 'passed': False}}
+H1 3d {'completed': True, 'd_reached': 12.5, 'nnodes': 25328, 'sec': 562.5830099582672, 'grade': {'nrmse': 0.15017745053557985, 'tol': 0.03, 'bands': [{'lo': 0.08, 'hi': 0.5, 'level': 0.4235, 'max_dev': 0.06666342857142854, 'tol': 0.021175, 'ok': False}], 'passed': False}, 'shift_nrmse_vs_plane_strain': 0.10773223230488896, 'median_force_ratio': 0.9139823729934816}
+H1 ef {'completed': True, 'd_reached': 12.5, 'nnodes': 9687, 'sec': 62.94781279563904, 'grade': {'nrmse': 0.22560554944406608, 'tol': 0.03, 'bands': [{'lo': 0.08, 'hi': 0.5, 'level': 0.4235, 'max_dev': 0.09907342857142859, 'tol': 0.021175, 'ok': False}], 'passed': False}, 'shift_nrmse_vs_plane_strain': 0.1975454815928373, 'median_force_ratio': 0.8297604565178881}

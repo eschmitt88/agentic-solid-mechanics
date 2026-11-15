@@ -1,0 +1,31 @@
+[T2] start robust_from_nominal
+  eval   1 nrmse=0.0096 rms_over_copies=0.0395 bad=0 sw=0 jumps=0 35.6s
+  eval   2 nrmse=0.0122 rms_over_copies=0.0392 bad=0 sw=0 jumps=0 11.4s
+  eval   3 nrmse=0.0112 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.4s
+  eval   4 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 10.6s
+  eval   5 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.8s
+  eval   6 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.8s
+  eval   7 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 10.9s
+  eval   8 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.2s
+  eval   9 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.6s
+  eval  10 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.0s
+  eval  11 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.3s
+  eval  12 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.2s
+  eval  13 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.2s
+  eval  14 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.5s
+  eval  15 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.3s
+  eval  16 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.1s
+  eval  17 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.7s
+  eval  18 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 12.4s
+  eval  19 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.8s
+  eval  20 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 13.2s
+  eval  21 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 11.8s
+  eval  22 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 13.3s
+  eval  23 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 10.2s
+  eval  24 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 12.4s
+  eval  25 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 16.3s
+  eval  26 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 17.0s
+  eval  27 nrmse=0.0113 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.9s
+[T2] robust_from_nominal: nrmse=0.0113 nfev=27 status=4 Both `ftol` and `xtol` termination conditions are satisfied. |proj grad|=1.44e-05
+nominal: own nrmse 0.009564647308595027 pass fraction 0.46875
+robust : own nrmse 0.011285678819261936 pass fraction 0.421875

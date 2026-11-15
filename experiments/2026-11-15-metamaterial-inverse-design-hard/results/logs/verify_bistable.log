@@ -1,0 +1,5 @@
+bistable jax {'F_pk': 0.039999558274707574, 'd_2': 10.00000000001811, 'E_back': 0.04496863251305659, 'd_u': 5.139667322437496, 'rel_err': [-1.1043132310706305e-05, 1.8109957977685553e-12, -0.0006970552654090856], 'within_5pct': True}
+bistable 3.0 completed False reached 4.6645209 32s
+bistable 4.0 completed False reached 4.6667101 41s
+bistable 6.0 completed True reached 13.0 170s
+bistable VERDICT {'verdict': 'PASS', 'mesh': 't6', 'features': {'F_pk': 0.03994848948563886, 'd_2': 10.001315030462733, 'E_back': 0.04487896802835099, 'd_u': 5.136895817694756, 'rel_err': [-0.0012877628590285406, 0.00013150304627318476, -0.002689599369977924], 'within_5pct': True}}

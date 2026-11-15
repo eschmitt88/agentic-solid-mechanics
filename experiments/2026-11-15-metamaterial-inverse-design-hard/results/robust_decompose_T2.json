@@ -1,0 +1,28 @@
+{
+ "centre_line_only (0.05 mm)": {
+  "pass_fraction": 1.0,
+  "median_nrmse": 0.01290050194700415,
+  "p90_nrmse": 0.01999783839203583,
+  "fail_by_nrmse": 0,
+  "fail_by_band": 0
+ },
+ "thickness_scale_only (3 %)": {
+  "pass_fraction": 0.625,
+  "median_nrmse": 0.031376420144552095,
+  "p90_nrmse": 0.08831365244722632,
+  "fail_by_nrmse": 24,
+  "fail_by_band": 19
+ },
+ "thickness_modes_only (0.02)": {
+  "pass_fraction": 0.8125,
+  "median_nrmse": 0.02872860507703698,
+  "p90_nrmse": 0.054310708940667765,
+  "fail_by_nrmse": 10,
+  "fail_by_band": 2
+ },
+ "dlog_sigma_dlog_t0": {
+  "median": 2.9610072236210634,
+  "min": 1.939703696528106,
+  "max": 3.1871158786899123
+ }
+}

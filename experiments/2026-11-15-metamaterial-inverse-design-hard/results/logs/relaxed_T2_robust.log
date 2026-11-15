@@ -1,0 +1,6 @@
+T2_robust ps True 12.5 13s
+T2_robust 3d True 12.5 228s
+T2_robust ef True 12.5 29s
+T2_robust ps {'completed': True, 'd_reached': 12.5, 'nnodes': 2064, 'sec': 13.466724157333374, 'grade': {'nrmse': 0.011744738888337143, 'tol': 0.05, 'bands': [{'lo': 0.12, 'hi': 0.33, 'level': 0.4, 'max_dev': 0.01862057142857143, 'tol': 0.06, 'ok': True}], 'passed': True}}
+T2_robust 3d {'completed': True, 'd_reached': 12.5, 'nnodes': 12600, 'sec': 227.68262219429016, 'grade': {'nrmse': 0.05135296324271942, 'tol': 0.05, 'bands': [{'lo': 0.12, 'hi': 0.33, 'level': 0.4, 'max_dev': 0.059890285714285674, 'tol': 0.06, 'ok': True}], 'passed': False}, 'shift_nrmse_vs_plane_strain': 0.04675063692290041, 'median_force_ratio': 0.9012508686587909}
+T2_robust ef {'completed': True, 'd_reached': 12.5, 'nnodes': 4759, 'sec': 28.729109048843384, 'grade': {'nrmse': 0.11067677677891036, 'tol': 0.05, 'bands': [{'lo': 0.12, 'hi': 0.33, 'level': 0.4, 'max_dev': 0.07074942857142857, 'tol': 0.06, 'ok': False}], 'passed': False}, 'shift_nrmse_vs_plane_strain': 0.10657191545208018, 'median_force_ratio': 0.8301761376810971}

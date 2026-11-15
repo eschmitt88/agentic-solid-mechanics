@@ -1,0 +1,5 @@
+H2 jax_40x2 0.21700110725000404
+H2 3.0 completed True reached 25.0 43s
+H2 4.0 completed True reached 25.0 76s
+H2 6.0 completed True reached 25.0 178s
+H2 VERDICT MISS 0.21724682544002322 graded on t6

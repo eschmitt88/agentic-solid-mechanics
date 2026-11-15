@@ -1,0 +1,31 @@
+[T2] start robust_from_wavy
+  eval   1 nrmse=0.2931 rms_over_copies=0.2935 bad=0 sw=0 jumps=0 37.4s
+  eval   2 nrmse=0.1020 rms_over_copies=0.1067 bad=0 sw=0 jumps=0 13.1s
+  eval   3 nrmse=0.1240 rms_over_copies=0.1270 bad=0 sw=0 jumps=0 13.4s
+  eval   4 nrmse=0.0584 rms_over_copies=0.0691 bad=0 sw=0 jumps=0 13.3s
+  eval   5 nrmse=0.0583 rms_over_copies=0.0676 bad=0 sw=0 jumps=0 13.4s
+  eval   6 nrmse=0.0145 rms_over_copies=0.0397 bad=0 sw=0 jumps=0 12.5s
+  eval   7 nrmse=0.0169 rms_over_copies=0.0400 bad=0 sw=0 jumps=0 12.8s
+  eval   8 nrmse=0.0136 rms_over_copies=0.0391 bad=0 sw=0 jumps=0 13.3s
+  eval   9 nrmse=0.0128 rms_over_copies=0.0387 bad=0 sw=0 jumps=0 13.0s
+  eval  10 nrmse=0.0123 rms_over_copies=0.0385 bad=0 sw=0 jumps=0 13.7s
+  eval  11 nrmse=0.0118 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 12.9s
+  eval  12 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 13.0s
+  eval  13 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 17.5s
+  eval  14 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.0s
+  eval  15 nrmse=0.0116 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 21.7s
+  eval  16 nrmse=0.0116 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 23.6s
+  eval  17 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 12.8s
+  eval  18 nrmse=0.0116 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 16.3s
+  eval  19 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 16.0s
+  eval  20 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 16.3s
+  eval  21 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 24.4s
+  eval  22 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 26.0s
+  eval  23 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 24.5s
+  eval  24 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 22.9s
+  eval  25 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 23.9s
+  eval  26 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 15.6s
+  eval  27 nrmse=0.0117 rms_over_copies=0.0384 bad=0 sw=0 jumps=0 10.8s
+[T2] robust_from_wavy: nrmse=0.0117 nfev=27 status=2 `ftol` termination condition is satisfied. |proj grad|=7.20e-06
+nominal: own nrmse 0.0095646473085878 pass fraction 0.46875
+robust : own nrmse 0.011657789592560705 pass fraction 0.4375

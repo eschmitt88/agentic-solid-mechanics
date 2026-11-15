@@ -1,2 +1,37 @@
-# Inputs, hyperparameters, seeds for this experiment.
-seed: 42
+# Inputs, hyperparameters, seeds for trial 12 (metamaterial inverse design, hard track). Pass criteria: PREREGISTRATION.md.
+seeds:
+  fabrication_optimisation_samples: 1      # 8 copies used by the robust optimiser
+  fabrication_evaluation_samples: 2026     # 64 fresh copies (first 24 also in CalculiX)
+  outer_loop_perturbations: 12             # snap.py restarts
+  fresh_snap_starts: 2027                  # 6 starts for the post-hoc arms
+unit_cell: {span_mm: 60.0, shuttle_width_mm: 4.0, cell_width_W_mm: 70.0, cell_height_H_mm: 25.0, depth_mm: 1.0}
+material: {model: "CalculiX *HYPERELASTIC, NEO HOOKE", C10_MPa: 0.5, D1_per_MPa: 0.428571, E_MPa: 2.8, nu: 0.4}
+design_families:
+  S9: {cells: 1, centreline_modes: 4, thickness_modes: 4}      # trial 9's; used for B (bistable) and R (robust T2)
+  S13: {cells: 1, centreline_modes: 6, thickness_modes: 6}     # H1, H4
+  D26: {cells: 2, centreline_modes: 6, thickness_modes: 6}     # H2 (series stack)
+  validity_limits: {t_min_mm: 0.4, t_max_mm: 3.0, y_max_mm: 9.0, max_slope: 1.0, max_curvature_times_thickness: 0.8, penalty_weight: 30}
+design_solver:
+  code: fem.py                             # trial 9's solver + modes as argument + series stack + dF/dD, energy derivatives
+  element: Q9 plane strain, 3x3 Gauss, float64, design mesh 40x2 per half beam (790 free dof per cell)
+  continuation: tangent predictor; bisect a load step on a large jump OR an indefinite tangent met during the solve (new); legacy=True = trial 9's
+  stack: stack.py (two single-cell solves + one scalar equation; monolithic fem.Solver(ncell=2) is the cross-check)
+  device: CPU, one pinned core per worker; GPU not used
+targets:
+  H1: {source: "Gibson-Ashby open-cell foam, MIT OCW 3.054 L7", E_s_kPa: 2800, relative_density: 0.055, E_star_kPa: 8.47, plateau_kPa: 0.4235, tol_nrmse: 0.03, band: "±5 % on 0.08-0.50"}
+  H2: {pchip: "(0,0) (0.04,0.28) (0.08,0.35) (0.22,0.35) (0.27,0.55) (0.31,0.70) (0.45,0.70) (0.50,0.90)", tol_nrmse: 0.04, bands: "±8 % on 0.10-0.20 and 0.33-0.43"}
+  H4: {pchip: "(0,0) (0.04,0.20) (0.12,-0.40) (0.40,-0.40) (0.50,0.30)", tol_nrmse: 0.05, expected: infeasible}
+  B: {F_pk_N_per_mm: 0.040, d_2_mm: 10.0, E_back_Nmm_per_mm: 0.045, tol_rel: 0.05, snap_test_success_rel: 0.01}
+  R: {target: "trial 9 T2", tol_nrmse: 0.05, band: "±0.06 kPa on 0.12-0.33"}
+optimiser:
+  curves: {method: scipy least_squares trf, exact Jacobian, max_nfev: 80, xtol: 1.0e-6, ftol: 1.0e-7}
+  robust: {method: sample-average approximation, copies: 9, start: nominal optimum}
+  snap_test: {budget_evaluations: 60, trf_xtol: 1.0e-8, plus_O2_xtol: 1.0e-4, gn_damping: 1.0e-2, max_restarts: 4, margin_rho_c: 0.15}
+fabrication_error_model: {centreline_modes_mm: 0.05, log_thickness: 0.03, thickness_modes: 0.02, applies_to: first 4 modes of each kind}
+verifier:
+  code: ccx.py, verify.py
+  solver: CalculiX 2.23, NLGEOM, *STATIC, 100 increments (104 for B), CPE6, Gmsh 4.15.2
+  ladder: [t_min/3, t_min/4, t_min/6]      # graded on the finest that completes; fallback ±0.01 mm a_2 at t_min/4
+  relaxed: {in_plane_size: t_min/2.5, depth3d_mm: 10.0, layers_half_depth: 4, element_3d: C3D15, elastic_frame: "posts 2.5 mm half width + shuttle block, same neo-Hooke"}
+reference:
+  gibson_ocw_L7: https://ocw.mit.edu/courses/3-054-cellular-solids-structure-properties-and-applications-spring-2015/a7c6b7bd4d16424aeeff92f1bb277c59_MIT3_054S15_L7_foams_trans.pdf
