@@ -32,3 +32,4 @@ skills; read by `/lint`.
 
 2026-06-25 19:43 ultracode-sweep gpu-differentiable-physics-sim: 93 found, 18 verified -> 11 new notes + 6 concepts + MoC
 2026-07-02 16:09 session_end session=56aea47b-2522-4658-9d10-a1e7435218c4
+2026-11-15 06:00 phase-2 done: trials 7 (instability 10/12), 8 (fracture 12/12, blind DMC peak load ~9% low), 9 (inverse design 10/12, CalculiX-verified); summary docs/qa/phase-2/

@@ -294,3 +294,39 @@ SessionEnd hook backstops this if you forget.
   validation + h(θ) curve + honest-caveats panel + glossary). Dashboard now 6 trials.
 - Caveats logged: moderate laminar Ra (full window higher-Ra); enclosed-cavity room
   model; thin non-sealing slats. Next: validate trend vs Zheng 2022 experimental data.
+
+## 2026-11-15 — Phase 2: three hard problems (trials 7–9)
+
+### Did
+- Researched where agent benchmarks stop (no physical-correctness grading of
+  contact/plasticity/fracture/buckling) and wrote
+  `docs/2026-11-14-hard-problem-shortlist.md` (tracks A–G). User picked A, B, D.
+- Ran the three tracks as parallel subagents, each pre-registering tolerances;
+  orchestrator spot-checked (truss rerun, independent NRMSE recompute) and
+  graded the blind prediction separately.
+- Trial 7 `experiments/2026-11-14-instability-path-following/`, trial 8
+  `…-phase-field-fracture-sfc3/`, trial 9 `…-metamaterial-inverse-design/`;
+  QA pages `docs/qa/trial-{7,8,9}-*/` and summary `docs/qa/phase-2/`.
+
+### Findings
+- 32 of 36 pre-registered checks met. Trial 7: 10/12 (Lee frame load check
+  ill-posed; CalculiX quarter-model cylinder check missed). Trial 8: 12/12
+  phase-field checks, shear pass leans on the ±10 % tolerance. Trial 9: 10/12
+  (Qiu closed form is a large-Q limit; all designs verified in CalculiX).
+- Blind Damage Mechanics Challenge: peak load 298 N vs ~327 N measured
+  (≈9 % low, below all four expert teams); displacement, failure mode and
+  crack path right. Graded from figure read-offs (`results/dmc_grading.json`).
+- Recurring pattern: first attempts converge to wrong answers that only an
+  independent check exposes (Taylor–Hood spurious surface mode → 0.322 vs
+  0.4563; CalculiX Newton stepping over a bifurcation; gradients blind to a
+  moving snap, 5 stalled bistability attempts).
+- SFC3 data needs a Globus login; DMC was the fallback. Exact DMC outcome data
+  (PURR 10.4231/ZX5A-QJ30) also behind Globus.
+- Biot plane-strain critical strain is 0.4563, not 0.444.
+
+### Next
+- Globus account → run SFC3 as planned; re-grade DMC on exact data.
+- Harder inverse-design targets; print and test one cell.
+- Tracks C (contact, SMC2023) and E (Sandia 304L DIC identification).
+- Ingest the opened references into `literature/` (Cao & Hutchinson 2012,
+  Hutchinson 2010, Qiu 2003, Molnár & Gravouil 2017, Morris et al. 2024).

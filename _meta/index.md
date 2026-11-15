@@ -92,6 +92,10 @@ Triage archived → `raw/_candidates/_done/2026-06-25-gpu-differentiable-physics
   design. Data in `raw/data/vhb4910-hossain2012/`.
 - `experiments/2026-07-01-window-shade-natural-convection/` — **done** (trial 6, first fluids/multiphysics): hand-rolled thermal lattice-Boltzmann (Boussinesq) natural-convection solver in JAX/GPU, VALIDATED on de Vahl Davis (+4% at Ra1e5). Interior-venetian-blind h(slat-angle) sweep: U-shaped, min at horizontal (θ=0), +40% toward closed (±75°), asymmetric ~5% (gravity). Energy-conserved.
 
+- `experiments/2026-11-14-instability-path-following/` — **done** (trial 7): arc-length continuation, Biot surface instability, cylinder imperfection sensitivity; 10 of 12 pre-registered checks.
+- `experiments/2026-11-14-phase-field-fracture-sfc3/` — **done** (trial 8): phase-field benchmarks 12 of 12; blind Damage Mechanics Challenge peak load ≈9 % low (SFC3 data unreachable).
+- `experiments/2026-11-14-metamaterial-inverse-design/` — **done** (trial 9): three target curves and a bistable cell verified in CalculiX; solver validation 4 of 6. Summary of trials 7–9: `docs/qa/phase-2/`.
+
 ## QA review surface
 
 `docs/qa/` (GitHub Pages, linked from the landing page → *QA review*): per-trial

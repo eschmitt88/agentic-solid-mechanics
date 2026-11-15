@@ -42,7 +42,7 @@ ul{padding-left:20px}li{margin:.25em 0}
 <div class="tile"><div class="v">12 / 12</div><div class="l">rung-1 checks passed (tolerances fixed in advance)</div></div>
 <div class="tile"><div class="v">-5 % / +1 %</div><div class="l">tension peak load vs published mean</div></div>
 <div class="tile"><div class="v">-7 %</div><div class="l">shear peak load vs published mean</div></div>
-<div class="tile"><div class="v">298 N</div><div class="l">blind prediction of the challenge peak load <span class="chip wait">awaiting grading</span></div></div>
+<div class="tile"><div class="v">298 N vs ≈327 N</div><div class="l">blind peak-load prediction vs experiment: about 9 % low</div></div>
 </div>
 
 <h2>Rung 1 — the benchmark and how it is held</h2>
@@ -89,14 +89,22 @@ ul{padding-left:20px}li{margin:.25em 0}
 <div class='card'><img class='fig' src='fig_dmc_crack_path_validation.png' alt='crack path validation'><p class='hint'>Left and middle: crack path of the two off-centre calibration beams, model against laser scans. The lower half agrees within about 0.5 mm. Higher up the measured cracks keep drifting towards the loading rod while the model on the prediction mesh (blue) goes straight up along the mesh lines. Finer meshes (other colours) close most of the gap for HB but not for HA. Right: for the rotated notch, the sideways offset between the two sides of the crack dies out over the first ~10 mm in both test and model.</p></div>
 
 <h3>The prediction</h3>
-<div class='card await'><p><b>Awaiting grading.</b> The numbers below were frozen on 2026-11-14 before any outcome data was seen. The orchestrator grades them against the experiment; this section will be replaced by the comparison.</p></div>
+<div class='card'><p><b>Graded 2026-11-15.</b> The prediction was frozen and committed (8a5afd7) before the outcome was read. A separate reader then pulled the outcome from the organisers' results paper (Morris et al., Eng. Fract. Mech. 310 (2024) 110421). That paper tabulates no numbers, so the experimental values are read off its figures by eye (about ±10 N, ±1 mm).</p>
+<img class='fig' src='fig_dmc_grading.png' alt='Predicted peak load against the experiment and the expert teams'>
+<table class='leg'>
+<tr><td>Peak load</td><td>Predicted 298 N; measured curves peak near 305, 330 and 345 N (mean ≈ 327 N). <b>About 9 % low</b>, and below all four expert teams (≈ 320–335 N). The measured mean sits just inside the prediction's own 80 % interval. <span class="chip bad">weakest item</span></td></tr>
+<tr><td>Displacement at peak</td><td>Predicted 0.41 mm; measured ≈ 0.37–0.44 mm. <span class="chip ok">inside range</span></td></tr>
+<tr><td>Failure mode</td><td>Abrupt drop with a low tail, predicted and observed. <span class="chip ok">correct</span></td></tr>
+<tr><td>Crack path</td><td>Start at the notch predicted at −11.6 mm (front) and −7.1 mm (back); observed ≈ −12 and −6 mm. Top exit predicted at −3.8 mm on both faces; observed ≈ −4 mm (front) and ≈ −2 mm (back). <span class="chip ok">within ~2 mm</span></td></tr>
+<tr><td>Not graded</td><td>The organisers' area-based error scores (they need the digital experimental envelope, which sits behind a login). Surface displacement fields and roughness were not predicted.</td></tr>
+</table></div>
 <div class='card'><img class='fig' src='fig_dmc_prediction.png' alt='prediction'><p class='hint'>Left: predicted load–displacement record with the 80 % band for a single specimen. Middle: predicted crack on the front and back faces. Right: the crack surface seen from above — it starts along the skewed notch and twists into a plane across the beam.</p></div>
 <div class='card'><div class='tw'><table class='leg kv'>
-<tr><td>Peak load</td><td class='metric'><b>298 N</b> &nbsp;(1σ ±24 N; 80 % interval 266–329 N for the mean of the test series, 259–337 N for one specimen) <span class="chip wait">awaiting grading</span></td></tr>
-<tr><td>Displacement at peak</td><td class='metric'>0.41 mm (1σ ±0.09 mm) — mostly rod-contact compliance, only 0.16 mm is beam deflection <span class="chip wait">awaiting grading</span></td></tr>
-<tr><td>Loading stiffness</td><td class='metric'>800 N/mm between 30 % and 80 % of peak <span class="chip wait">awaiting grading</span></td></tr>
+<tr><td>Peak load</td><td class='metric'><b>298 N</b> &nbsp;(1σ ±24 N; 80 % interval 266–329 N for the mean of the test series, 259–337 N for one specimen)</td></tr>
+<tr><td>Displacement at peak</td><td class='metric'>0.41 mm (1σ ±0.09 mm) — mostly rod-contact compliance, only 0.16 mm is beam deflection</td></tr>
+<tr><td>Loading stiffness</td><td class='metric'>800 N/mm between 30 % and 80 % of peak</td></tr>
 <tr><td>After the peak</td><td>abrupt (unstable): the structural solution falls to 11 % of peak within one increment of 0.0026 mm; in the measured record this is a vertical drop to about 2 % of peak followed by a low tail</td></tr>
-<tr><td>Crack path</td><td>at the notch root; first on the deep (front, y=-6.35) side of the tapered notch; single crack; twists from the 26.6-degree skewed notch plane towards a plane normal to the beam axis and drifts towards the loading rod (x=0). Near the top surface the crack sits at x ≈ -3.8 mm (front), -3.8 mm (mid), -3.8 mm (back), measured from the loading rod. <span class="chip wait">awaiting grading</span></td></tr>
+<tr><td>Crack path</td><td>at the notch root; first on the deep (front, y=-6.35) side of the tapered notch; single crack; twists from the 26.6-degree skewed notch plane towards a plane normal to the beam axis and drifts towards the loading rod (x=0). Near the top surface the crack sits at x ≈ -3.8 mm (front), -3.8 mm (mid), -3.8 mm (back), measured from the loading rod.</td></tr>
 <tr><td>Not predicted</td><td>surface displacement fields (challenge question 3) and fracture-surface roughness</td></tr>
 </table></div>
 <h3>Sensitivity of the predicted peak load</h3><div class='tw'><table class='leg'><tr><th>Model variant (each re-calibrated)</th><th>Predicted peak</th></tr><tr><td>base l=1.0 h=0.5</td><td class='metric'>295 N</td></tr><tr><td>finer mesh l=1.0 h=0.35</td><td class='metric'>303 N</td></tr><tr><td>smaller l=0.6 h=0.3</td><td class='metric'>295 N</td></tr></table></div>

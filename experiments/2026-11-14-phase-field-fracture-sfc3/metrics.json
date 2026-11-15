@@ -99,5 +99,65 @@
  "rung2_pred_peak_load_1sigma_N": 24.4,
  "rung2_pred_displacement_at_peak_mm": 0.413,
  "rung2_pred_stiffness_N_per_mm": 800.0,
- "rung2_calibration_rms_log_misfit": 0.074
+ "rung2_calibration_rms_log_misfit": 0.074,
+ "dmc_grading": {
+  "source": "Morris et al., Eng. Fract. Mech. 310 (2024) 110421, Figs 3, 4, 9 (graphical read-off by the orchestrator; exact per-specimen data are on PURR doi:10.4231/ZX5A-QJ30 behind Globus and were not obtained)",
+  "prediction_commit": "8a5afd7",
+  "prediction_sha256": "33e0fb4356f7d0e25c4901958a2b7358f1d4380d975e16191b0394ac11f843a2",
+  "peak_load": {
+   "predicted_N": 297.6,
+   "measured_peaks_N_readoff": [
+    305,
+    330,
+    345
+   ],
+   "readoff_uncertainty_N": 10,
+   "measured_mean_N": 326.7,
+   "error_pct": -8.9,
+   "inside_own_80pct_interval_for_mean": true,
+   "expert_teams_range_N_readoff": [
+    320,
+    335
+   ],
+   "verdict": "under-predicted by roughly 9 % (5-12 % allowing for read-off error); below all four expert teams"
+  },
+  "displacement_at_peak": {
+   "predicted_mm": 0.413,
+   "measured_mm_readoff": [
+    0.37,
+    0.385,
+    0.44
+   ],
+   "verdict": "inside the measured range"
+  },
+  "stiffness": {
+   "predicted_N_per_mm": 800,
+   "verdict": "consistent with the measured slope; the measured curves stiffen with load, which the contact law reproduces only on average"
+  },
+  "post_peak": {
+   "predicted": "abrupt drop, low tail",
+   "measured": "abrupt drop, low tail",
+   "verdict": "correct"
+  },
+  "crack_path": {
+   "predicted_top_exit_mm": -3.8,
+   "predicted_range_mm": [
+    -6.4,
+    -2.8
+   ],
+   "measured_top_exit_front_mm_readoff": -4,
+   "measured_top_exit_back_mm_readoff": -2,
+   "readoff_uncertainty_mm": 1,
+   "predicted_start_front_back_mm": [
+    -11.6,
+    -7.1
+   ],
+   "measured_start_front_back_mm_readoff": [
+    -12,
+    -6
+   ],
+   "verdict": "start positions and front exit within about 1 mm; back exit about 2 mm off and just outside the stated range; predicted one exit position for both faces whereas the measured faces differ by about 2 mm"
+  },
+  "not_graded": "organisers' area-based error metrics (need the digital experimental envelope); displacement fields and roughness were not predicted"
+ }
 }
