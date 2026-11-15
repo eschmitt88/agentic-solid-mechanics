@@ -1,0 +1,136 @@
+{
+ "rows": [
+  {
+   "id": "T1",
+   "quantity": "Tension l=0.015 peak load",
+   "value": 0.696,
+   "reference": 0.734,
+   "tolerance": "\u00b110 %",
+   "passed": true,
+   "unit": "kN",
+   "note": "-5.2 % (t_l015_h16)"
+  },
+  {
+   "id": "T2",
+   "quantity": "Tension l=0.015 displacement at peak",
+   "value": 0.005407,
+   "reference": 0.00565,
+   "tolerance": "\u00b110 %",
+   "passed": true,
+   "unit": "mm",
+   "note": "-4.3 % (t_l015_h16)"
+  },
+  {
+   "id": "T3",
+   "quantity": "Tension l=0.0075 peak load",
+   "value": 0.7288,
+   "reference": 0.72,
+   "tolerance": "\u00b110 %",
+   "passed": true,
+   "unit": "kN",
+   "note": "+1.2 % (t_l0075_h8)"
+  },
+  {
+   "id": "T4",
+   "quantity": "Tension l=0.0075 displacement at peak",
+   "value": 0.005419,
+   "reference": 0.00528,
+   "tolerance": "\u00b110 %",
+   "passed": true,
+   "unit": "mm",
+   "note": "+2.6 % (t_l0075_h8)"
+  },
+  {
+   "id": "S1",
+   "quantity": "Shear l=0.0075 peak load",
+   "value": 0.555,
+   "reference": 0.598,
+   "tolerance": "\u00b110 %",
+   "passed": true,
+   "unit": "kN",
+   "note": "-7.2 % (s_l0075_h8)"
+  },
+  {
+   "id": "S2",
+   "quantity": "Shear l=0.0075 displacement at peak",
+   "value": 0.01012,
+   "reference": 0.0109,
+   "tolerance": "\u00b110 %",
+   "passed": true,
+   "unit": "mm",
+   "note": "-7.2 % (s_l0075_h8)"
+  },
+  {
+   "id": "T5",
+   "quantity": "Tension crack path: max deviation from y=0.5",
+   "value": 0.00094,
+   "reference": 0.0,
+   "tolerance": "\u2264 l = 0.0075 mm, reaches right edge",
+   "passed": true,
+   "unit": "mm",
+   "note": "t_l0075_h8"
+  },
+  {
+   "id": "S3",
+   "quantity": "Shear initial crack angle (fit 0.02\u20130.10 mm from tip)",
+   "value": 68.6,
+   "reference": 61.0,
+   "tolerance": "\u00b110\u00b0",
+   "passed": true,
+   "unit": "deg",
+   "note": "s_l0075_h4; other fit windows: 67.0\u00b0, 68.3\u00b0"
+  },
+  {
+   "id": "S4",
+   "quantity": "Shear crack meets bottom edge at x",
+   "value": 0.839,
+   "reference": 0.85,
+   "tolerance": "\u00b10.07 mm, single crack",
+   "passed": true,
+   "unit": "mm",
+   "note": "s_l0075_h4"
+  },
+  {
+   "id": "C1",
+   "quantity": "Mesh convergence t_l015: change of peak load between t_l015_h8 and t_l015_h16",
+   "value": 0.65,
+   "reference": 0.0,
+   "tolerance": "\u2264 3 %",
+   "passed": true,
+   "unit": "%",
+   "note": ""
+  },
+  {
+   "id": "C1",
+   "quantity": "Mesh convergence t_l0075: change of peak load between t_l0075_h4 and t_l0075_h8",
+   "value": 1.72,
+   "reference": 0.0,
+   "tolerance": "\u2264 3 %",
+   "passed": true,
+   "unit": "%",
+   "note": ""
+  },
+  {
+   "id": "C1",
+   "quantity": "Mesh convergence s_l0075: change of peak load between s_l0075_h4 and s_l0075_h8",
+   "value": 2.35,
+   "reference": 0.0,
+   "tolerance": "\u2264 3 %",
+   "passed": true,
+   "unit": "%",
+   "note": ""
+  }
+ ],
+ "secondary": {
+  "s_l015": {
+   "run": "s_l015_h8",
+   "peak": 0.5272678547799765,
+   "u_peak": 0.00868,
+   "refs": [
+    0.54,
+    0.531
+   ]
+  }
+ },
+ "all_pass": true
+}

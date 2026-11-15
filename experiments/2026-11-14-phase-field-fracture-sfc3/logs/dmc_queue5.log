@@ -1,0 +1,16 @@
+[pf3d] grid 93x37x74, elements 240538, dofs 761910, unique element sizes 20
+[r3d_CH_l1.0_h0.35_ny36_full] step 0 delta=0.00257 P=4.90 nstag=1 cg=2616 dmax=0.000 t=4s
+[r3d_CH_l1.0_h0.35_ny36_full] step 10 delta=0.02825 P=53.84 nstag=1 cg=2541 dmax=0.011 t=29s
+[r3d_CH_l1.0_h0.35_ny36_full] step 20 delta=0.05393 P=102.43 nstag=2 cg=4034 dmax=0.043 t=67s
+[r3d_CH_l1.0_h0.35_ny36_full] step 30 delta=0.07961 P=150.38 nstag=2 cg=4226 dmax=0.098 t=109s
+[r3d_CH_l1.0_h0.35_ny36_full] step 40 delta=0.10530 P=197.28 nstag=3 cg=5119 dmax=0.184 t=154s
+[r3d_CH_l1.0_h0.35_ny36_full] step 50 delta=0.13098 P=242.55 nstag=4 cg=7117 dmax=0.325 t=212s
+[r3d_CH_l1.0_h0.35_ny36_full] step 60 delta=0.15666 P=284.27 nstag=12 cg=24487 dmax=0.664 t=331s
+[r3d_CH_l1.0_h0.35_ny36_full] step 61 delta=0.15923 P=287.43 nstag=23 cg=46635 dmax=0.787 t=378s
+[r3d_CH_l1.0_h0.35_ny36_full] step 62 delta=0.16180 P=28.52 nstag=400 cg=567457 dmax=1.011 t=947s
+[r3d_CH_l1.0_h0.35_ny36_full] step 70 delta=0.18234 P=21.18 nstag=13 cg=21421 dmax=1.009 t=1142s
+[r3d_CH_l1.0_h0.35_ny36_full] step 80 delta=0.20803 P=15.68 nstag=11 cg=16679 dmax=1.006 t=1327s
+[r3d_CH_l1.0_h0.35_ny36_full] step 90 delta=0.23371 P=12.36 nstag=9 cg=13961 dmax=1.004 t=1483s
+[r3d_CH_l1.0_h0.35_ny36_full] step 100 delta=0.25939 P=10.31 nstag=7 cg=11363 dmax=1.004 t=1614s
+[r3d_CH_l1.0_h0.35_ny36_full] RESULT k_el=1907.8 N/mm  P_peak=287.43 N at delta_FE=0.15923 mm  wall=1626s
+QUEUE5_DONE

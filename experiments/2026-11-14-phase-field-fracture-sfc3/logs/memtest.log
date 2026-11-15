@@ -1,0 +1,15 @@
+[pf3d] grid 54x27x52, elements 69758, dofs 226638, unique element sizes 18
+[memtest] step 0 delta=0.00173 P=3.06 nstag=1 cg=1745 dmax=0.000 t=1s
+[memtest] step 10 delta=0.01898 P=33.66 nstag=1 cg=1303 dmax=0.007 t=6s
+[memtest] step 20 delta=0.03624 P=64.10 nstag=2 cg=1888 dmax=0.027 t=12s
+[memtest] step 30 delta=0.05349 P=94.26 nstag=2 cg=1924 dmax=0.060 t=18s
+[memtest] step 40 delta=0.07075 P=123.95 nstag=2 cg=2139 dmax=0.110 t=25s
+[memtest] step 50 delta=0.08800 P=152.92 nstag=2 cg=2158 dmax=0.183 t=33s
+[memtest] step 60 delta=0.10526 P=180.70 nstag=3 cg=2851 dmax=0.295 t=42s
+[memtest] step 70 delta=0.12251 P=205.62 nstag=7 cg=5180 dmax=0.510 t=55s
+[memtest] step 74 delta=0.12941 P=63.69 nstag=154 cg=169943 dmax=1.005 t=122s
+[memtest] step 75 delta=0.13114 P=59.79 nstag=30 cg=28693 dmax=1.005 t=133s
+[memtest] step 76 delta=0.13286 P=57.05 nstag=24 cg=22965 dmax=1.005 t=141s
+[memtest] step 77 delta=0.13459 P=54.59 nstag=23 cg=21624 dmax=1.004 t=148s
+[memtest] step 78 delta=0.13631 P=52.45 nstag=21 cg=19804 dmax=1.004 t=155s
+[memtest] RESULT k_el=1774.7 N/mm  P_peak=209.99 N at delta_FE=0.12769 mm  wall=155s

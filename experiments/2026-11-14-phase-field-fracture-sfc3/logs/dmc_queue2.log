@@ -1,0 +1,89 @@
+[pf3d] grid 73x27x52, elements 95020, dofs 306984, unique element sizes 18
+[r3d_CH_l1.0_h0.5_ny26_full] step 0 delta=0.00257 P=5.01 nstag=1 cg=1855 dmax=0.000 t=7s
+[r3d_CH_l1.0_h0.5_ny26_full] step 10 delta=0.02825 P=55.08 nstag=2 cg=2546 dmax=0.012 t=19s
+[r3d_CH_l1.0_h0.5_ny26_full] step 20 delta=0.05393 P=104.80 nstag=2 cg=2879 dmax=0.044 t=36s
+[r3d_CH_l1.0_h0.5_ny26_full] step 30 delta=0.07961 P=153.80 nstag=2 cg=3012 dmax=0.101 t=56s
+[r3d_CH_l1.0_h0.5_ny26_full] step 40 delta=0.10530 P=201.67 nstag=3 cg=3669 dmax=0.189 t=77s
+[r3d_CH_l1.0_h0.5_ny26_full] step 50 delta=0.13098 P=247.77 nstag=4 cg=5093 dmax=0.328 t=110s
+[r3d_CH_l1.0_h0.5_ny26_full] step 60 delta=0.15666 P=289.97 nstag=11 cg=16638 dmax=0.638 t=177s
+[r3d_CH_l1.0_h0.5_ny26_full] step 61 delta=0.15923 P=293.03 nstag=23 cg=33080 dmax=0.761 t=202s
+[r3d_CH_l1.0_h0.5_ny26_full] step 62 delta=0.16180 P=32.86 nstag=400 cg=323182 dmax=1.010 t=459s
+[r3d_CH_l1.0_h0.5_ny26_full] step 70 delta=0.18234 P=23.86 nstag=13 cg=15573 dmax=1.007 t=567s
+[r3d_CH_l1.0_h0.5_ny26_full] step 80 delta=0.20803 P=17.17 nstag=10 cg=11722 dmax=1.006 t=675s
+[r3d_CH_l1.0_h0.5_ny26_full] step 90 delta=0.23371 P=13.16 nstag=8 cg=9394 dmax=1.005 t=760s
+[r3d_CH_l1.0_h0.5_ny26_full] step 100 delta=0.25939 P=10.65 nstag=7 cg=8131 dmax=1.004 t=829s
+[r3d_CH_l1.0_h0.5_ny26_full] step 110 delta=0.28507 P=9.06 nstag=6 cg=7166 dmax=1.003 t=887s
+[r3d_CH_l1.0_h0.5_ny26_full] step 120 delta=0.31075 P=7.97 nstag=5 cg=6219 dmax=1.003 t=938s
+[r3d_CH_l1.0_h0.5_ny26_full] step 130 delta=0.33644 P=7.24 nstag=4 cg=5297 dmax=1.002 t=986s
+[r3d_CH_l1.0_h0.5_ny26_full] step 140 delta=0.36212 P=6.72 nstag=3 cg=4381 dmax=1.002 t=1029s
+[r3d_CH_l1.0_h0.5_ny26_full] step 150 delta=0.38780 P=6.41 nstag=3 cg=4363 dmax=1.002 t=1067s
+[r3d_CH_l1.0_h0.5_ny26_full] step 160 delta=0.41348 P=6.17 nstag=4 cg=5253 dmax=1.002 t=1104s
+[r3d_CH_l1.0_h0.5_ny26_full] step 170 delta=0.43917 P=6.00 nstag=3 cg=4372 dmax=1.001 t=1138s
+[r3d_CH_l1.0_h0.5_ny26_full] step 180 delta=0.46485 P=5.95 nstag=2 cg=3438 dmax=1.001 t=1169s
+[r3d_CH_l1.0_h0.5_ny26_full] step 190 delta=0.49053 P=5.95 nstag=2 cg=3435 dmax=1.001 t=1195s
+[r3d_CH_l1.0_h0.5_ny26_full] step 200 delta=0.51621 P=5.99 nstag=2 cg=3442 dmax=1.001 t=1222s
+[r3d_CH_l1.0_h0.5_ny26_full] step 210 delta=0.54189 P=6.03 nstag=2 cg=3452 dmax=1.001 t=1249s
+[r3d_CH_l1.0_h0.5_ny26_full] step 220 delta=0.56758 P=6.09 nstag=2 cg=3467 dmax=1.001 t=1276s
+[r3d_CH_l1.0_h0.5_ny26_full] step 230 delta=0.59326 P=6.15 nstag=2 cg=3477 dmax=1.001 t=1303s
+[r3d_CH_l1.0_h0.5_ny26_full] step 240 delta=0.61894 P=6.24 nstag=2 cg=3474 dmax=1.001 t=1330s
+[r3d_CH_l1.0_h0.5_ny26_full] step 250 delta=0.64462 P=6.37 nstag=1 cg=1557 dmax=1.001 t=1350s
+[r3d_CH_l1.0_h0.5_ny26_full] step 260 delta=0.67030 P=6.50 nstag=1 cg=1558 dmax=1.001 t=1368s
+[r3d_CH_l1.0_h0.5_ny26_full] step 270 delta=0.69599 P=6.65 nstag=1 cg=1559 dmax=1.001 t=1382s
+[r3d_CH_l1.0_h0.5_ny26_full] step 280 delta=0.72167 P=6.81 nstag=1 cg=1424 dmax=1.001 t=1394s
+[r3d_CH_l1.0_h0.5_ny26_full] step 290 delta=0.74735 P=6.97 nstag=1 cg=1422 dmax=1.001 t=1405s
+[r3d_CH_l1.0_h0.5_ny26_full] step 300 delta=0.77303 P=7.14 nstag=1 cg=1422 dmax=1.000 t=1416s
+[r3d_CH_l1.0_h0.5_ny26_full] step 310 delta=0.79872 P=7.31 nstag=1 cg=1424 dmax=1.000 t=1428s
+[r3d_CH_l1.0_h0.5_ny26_full] step 320 delta=0.82440 P=7.49 nstag=1 cg=1424 dmax=1.000 t=1439s
+[r3d_CH_l1.0_h0.5_ny26_full] step 330 delta=0.85008 P=7.67 nstag=1 cg=1423 dmax=1.000 t=1450s
+[r3d_CH_l1.0_h0.5_ny26_full] step 340 delta=0.87576 P=7.85 nstag=1 cg=1424 dmax=1.000 t=1461s
+[r3d_CH_l1.0_h0.5_ny26_full] step 350 delta=0.90144 P=8.03 nstag=1 cg=1426 dmax=1.000 t=1472s
+[r3d_CH_l1.0_h0.5_ny26_full] step 360 delta=0.92713 P=8.21 nstag=1 cg=1430 dmax=1.000 t=1484s
+[r3d_CH_l1.0_h0.5_ny26_full] step 370 delta=0.95281 P=8.39 nstag=1 cg=1376 dmax=1.000 t=1494s
+[r3d_CH_l1.0_h0.5_ny26_full] step 374 delta=0.96308 P=8.45 nstag=34 cg=3829 dmax=1.000 t=1501s
+[r3d_CH_l1.0_h0.5_ny26_full] step 380 delta=0.97849 P=8.56 nstag=1 cg=1427 dmax=1.000 t=1506s
+[r3d_CH_l1.0_h0.5_ny26_full] step 385 delta=0.99133 P=8.63 nstag=22 cg=3182 dmax=1.000 t=1513s
+[r3d_CH_l1.0_h0.5_ny26_full] step 390 delta=1.00417 P=8.73 nstag=1 cg=1427 dmax=1.000 t=1518s
+[r3d_CH_l1.0_h0.5_ny26_full] step 391 delta=1.00674 P=8.74 nstag=22 cg=4156 dmax=1.000 t=1521s
+[r3d_CH_l1.0_h0.5_ny26_full] step 395 delta=1.01701 P=8.79 nstag=28 cg=5412 dmax=1.000 t=1527s
+[r3d_CH_l1.0_h0.5_ny26_full] step 400 delta=1.02986 P=8.88 nstag=1 cg=1428 dmax=1.000 t=1532s
+[r3d_CH_l1.0_h0.5_ny26_full] step 405 delta=1.04270 P=8.90 nstag=60 cg=8737 dmax=1.000 t=1542s
+[r3d_CH_l1.0_h0.5_ny26_full] step 410 delta=1.05554 P=8.99 nstag=1 cg=1428 dmax=1.000 t=1546s
+[r3d_CH_l1.0_h0.5_ny26_full] step 412 delta=1.06067 P=9.01 nstag=27 cg=4169 dmax=1.000 t=1550s
+[r3d_CH_l1.0_h0.5_ny26_full] step 418 delta=1.07608 P=9.05 nstag=68 cg=8529 dmax=1.000 t=1561s
+[r3d_CH_l1.0_h0.5_ny26_full] RESULT k_el=1952.4 N/mm  P_peak=293.03 N at delta_FE=0.15923 mm  wall=1562s
+[pf3d] grid 62x37x74, elements 159228, dofs 507603, unique element sizes 20
+[r3d_HC_l1.0_h0.35_ny36] step 0 delta=0.00173 P=2.97 nstag=1 cg=2279 dmax=0.000 t=11s
+[r3d_HC_l1.0_h0.35_ny36] step 10 delta=0.01898 P=32.64 nstag=1 cg=1816 dmax=0.007 t=31s
+[r3d_HC_l1.0_h0.35_ny36] step 20 delta=0.03624 P=62.15 nstag=2 cg=2527 dmax=0.027 t=55s
+[r3d_HC_l1.0_h0.35_ny36] step 30 delta=0.05349 P=91.40 nstag=2 cg=2676 dmax=0.060 t=84s
+[r3d_HC_l1.0_h0.35_ny36] step 40 delta=0.07075 P=120.20 nstag=2 cg=2699 dmax=0.110 t=114s
+[r3d_HC_l1.0_h0.35_ny36] step 50 delta=0.08800 P=148.31 nstag=2 cg=3013 dmax=0.183 t=146s
+[r3d_HC_l1.0_h0.35_ny36] step 60 delta=0.10526 P=175.27 nstag=3 cg=3586 dmax=0.295 t=186s
+[r3d_HC_l1.0_h0.35_ny36] step 70 delta=0.12251 P=199.44 nstag=7 cg=7014 dmax=0.516 t=245s
+[r3d_HC_l1.0_h0.35_ny36] step 73 delta=0.12769 P=58.87 nstag=182 cg=259354 dmax=1.004 t=557s
+[r3d_HC_l1.0_h0.35_ny36] step 74 delta=0.12941 P=55.11 nstag=33 cg=39809 dmax=1.004 t=602s
+[r3d_HC_l1.0_h0.35_ny36] step 75 delta=0.13114 P=52.56 nstag=26 cg=31149 dmax=1.004 t=637s
+[r3d_HC_l1.0_h0.35_ny36] step 76 delta=0.13287 P=50.27 nstag=25 cg=29424 dmax=1.004 t=670s
+[r3d_HC_l1.0_h0.35_ny36] RESULT k_el=1720.6 N/mm  P_peak=202.79 N at delta_FE=0.12596 mm  wall=670s
+[pf3d] grid 95x37x74, elements 244812, dofs 776775, unique element sizes 20
+Traceback (most recent call last):
+  File "/mnt/projects/research/agentic-solid-mechanics/experiments/2026-11-14-phase-field-fracture-sfc3/dmc_run3d.py", line 9, in <module>
+    dmc.run(geom, h, ny, l, Gc, ddelta=guess[geom] / 1780.0 / nsteps, tag=f"r3d_{geom}_l{l}_h{h}_ny{ny}{suffix}", verbose=True,
+  File "/mnt/projects/research/agentic-solid-mechanics/experiments/2026-11-14-phase-field-fracture-sfc3/dmc.py", line 79, in run
+    P.step(uD, max_stag=1)
+  File "/mnt/projects/research/agentic-solid-mechanics/experiments/2026-11-14-phase-field-fracture-sfc3/pf3d.py", line 188, in step
+    its_u += int(ku)
+             ^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/.venv/lib/python3.12/site-packages/jax/_src/array.py", line 304, in __int__
+    return self._value.__int__()
+           ^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/.venv/lib/python3.12/site-packages/jax/_src/profiler.py", line 420, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/projects/research/agentic-solid-mechanics/.venv/lib/python3.12/site-packages/jax/_src/array.py", line 623, in _value
+    npy_value, did_copy = self._single_device_array_to_np_array_did_copy()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jax.errors.JaxRuntimeError: RESOURCE_EXHAUSTED: [0] Failed to load in-memory CUBIN (compiled for a different GPU?).: CUDA_ERROR_OUT_OF_MEMORY: out of memory [executable_name='jit_solve_u']
+[pf3d] grid 67x43x86, elements 232764, dofs 736719, unique element sizes 21
+[r3d_HC_l0.6_h0.3_ny42] step 0 delta=0.00173 P=2.94 nstag=1 cg=2843 dmax=0.000 t=15s
+[r3d_HC_l0.6_h0.3_ny42] step 10 delta=0.01898 P=32.35 nstag=1 cg=2121 dmax=0.006 t=55s

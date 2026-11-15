@@ -1,0 +1,9 @@
+{
+ "status": "NOT PRODUCED",
+ "reason": "SFC3 data package requires a Globus login and the open copy of the problem statement was firewall-blocked (HTTP 429); see raw/sfc3/SOURCE.md",
+ "fallback": "Blind prediction made for the Damage Mechanics Challenge instead, as allowed by the brief",
+ "see": [
+  "results/dmc_prediction.json",
+  "results/dmc_prediction.md"
+ ]
+}

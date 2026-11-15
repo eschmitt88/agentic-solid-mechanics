@@ -1,0 +1,18 @@
+[s_l015_h4_coarse_start] case=shear l=0.015 h=0.00375 (l/h=4.00) elems=26244 dofs=53196 split=spectral irrev=True max_stag=1 steps=710
+[s_l015_h4_coarse_start] step     0 u=1.000000e-04 F=0.00634 dmax=0.0000 gamma=0.0000 nstag=1 t=4s
+[s_l015_h4_coarse_start] step    50 u=5.100000e-03 F=0.32071 dmax=0.1257 gamma=0.0014 nstag=1 t=20s
+[s_l015_h4_coarse_start] step   100 u=6.410000e-03 F=0.40055 dmax=0.2196 gamma=0.0037 nstag=1 t=38s
+[s_l015_h4_coarse_start] step   150 u=6.910000e-03 F=0.43056 dmax=0.2684 gamma=0.0052 nstag=1 t=54s
+[s_l015_h4_coarse_start] step   200 u=7.410000e-03 F=0.46017 dmax=0.3295 gamma=0.0072 nstag=1 t=68s
+[s_l015_h4_coarse_start] step   250 u=7.910000e-03 F=0.48919 dmax=0.4120 gamma=0.0100 nstag=1 t=84s
+[s_l015_h4_coarse_start] step   300 u=8.410000e-03 F=0.51701 dmax=0.5483 gamma=0.0146 nstag=1 t=106s
+[s_l015_h4_coarse_start] step   350 u=8.910000e-03 F=0.52669 dmax=0.9949 gamma=0.0471 nstag=1 t=136s
+[s_l015_h4_coarse_start] step   400 u=9.410000e-03 F=0.53323 dmax=1.0029 gamma=0.0842 nstag=1 t=171s
+[s_l015_h4_coarse_start] step   450 u=9.910000e-03 F=0.53675 dmax=1.0057 gamma=0.1273 nstag=1 t=202s
+[s_l015_h4_coarse_start] step   500 u=1.041000e-02 F=0.53059 dmax=1.0057 gamma=0.1873 nstag=1 t=236s
+[s_l015_h4_coarse_start] step   550 u=1.091000e-02 F=0.51381 dmax=1.0048 gamma=0.2658 nstag=1 t=272s
+[s_l015_h4_coarse_start] step   600 u=1.141000e-02 F=0.48727 dmax=1.0045 gamma=0.3619 nstag=1 t=309s
+[s_l015_h4_coarse_start] step   650 u=1.191000e-02 F=0.45433 dmax=1.0036 gamma=0.4697 nstag=1 t=345s
+[s_l015_h4_coarse_start] step   700 u=1.241000e-02 F=0.41995 dmax=1.0035 gamma=0.5807 nstag=1 t=382s
+[s_l015_h4_coarse_start] step   709 u=1.250000e-02 F=0.41393 dmax=1.0035 gamma=0.6004 nstag=1 t=388s
+[s_l015_h4_coarse_start] DONE peak F=0.53681 at u=9.840000e-03; wall 388s; u-solves 1501, d-solves 710

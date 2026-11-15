@@ -1,1 +1,103 @@
-{}
+{
+ "rung1_all_preregistered_checks_pass": true,
+ "rung1_checks_passed": 12,
+ "rung1_checks_total": 12,
+ "rung1_checks": {
+  "T1_0": {
+   "quantity": "Tension l=0.015 peak load",
+   "value": 0.696,
+   "reference": 0.734,
+   "tolerance": "\u00b110 %",
+   "passed": true
+  },
+  "T2_1": {
+   "quantity": "Tension l=0.015 displacement at peak",
+   "value": 0.005407,
+   "reference": 0.00565,
+   "tolerance": "\u00b110 %",
+   "passed": true
+  },
+  "T3_2": {
+   "quantity": "Tension l=0.0075 peak load",
+   "value": 0.7288,
+   "reference": 0.72,
+   "tolerance": "\u00b110 %",
+   "passed": true
+  },
+  "T4_3": {
+   "quantity": "Tension l=0.0075 displacement at peak",
+   "value": 0.005419,
+   "reference": 0.00528,
+   "tolerance": "\u00b110 %",
+   "passed": true
+  },
+  "S1_4": {
+   "quantity": "Shear l=0.0075 peak load",
+   "value": 0.555,
+   "reference": 0.598,
+   "tolerance": "\u00b110 %",
+   "passed": true
+  },
+  "S2_5": {
+   "quantity": "Shear l=0.0075 displacement at peak",
+   "value": 0.01012,
+   "reference": 0.0109,
+   "tolerance": "\u00b110 %",
+   "passed": true
+  },
+  "T5_6": {
+   "quantity": "Tension crack path: max deviation from y=0.5",
+   "value": 0.00094,
+   "reference": 0.0,
+   "tolerance": "\u2264 l = 0.0075 mm, reaches right edge",
+   "passed": true
+  },
+  "S3_7": {
+   "quantity": "Shear initial crack angle (fit 0.02\u20130.10 mm from tip)",
+   "value": 68.6,
+   "reference": 61.0,
+   "tolerance": "\u00b110\u00b0",
+   "passed": true
+  },
+  "S4_8": {
+   "quantity": "Shear crack meets bottom edge at x",
+   "value": 0.839,
+   "reference": 0.85,
+   "tolerance": "\u00b10.07 mm, single crack",
+   "passed": true
+  },
+  "C1_9": {
+   "quantity": "Mesh convergence t_l015: change of peak load between t_l015_h8 and t_l015_h16",
+   "value": 0.65,
+   "reference": 0.0,
+   "tolerance": "\u2264 3 %",
+   "passed": true
+  },
+  "C1_10": {
+   "quantity": "Mesh convergence t_l0075: change of peak load between t_l0075_h4 and t_l0075_h8",
+   "value": 1.72,
+   "reference": 0.0,
+   "tolerance": "\u2264 3 %",
+   "passed": true
+  },
+  "C1_11": {
+   "quantity": "Mesh convergence s_l0075: change of peak load between s_l0075_h4 and s_l0075_h8",
+   "value": 2.35,
+   "reference": 0.0,
+   "tolerance": "\u2264 3 %",
+   "passed": true
+  }
+ },
+ "tension_l015_peak_kN": 0.6960384302309777,
+ "tension_l0075_peak_kN": 0.728787456844837,
+ "shear_l0075_peak_kN": 0.5549809445255616,
+ "shear_l015_peak_kN": 0.5272678547799765,
+ "shear_crack_angle_deg": 68.63079634934371,
+ "rung2_challenge": "Damage Mechanics Challenge (SFC3 data unreachable)",
+ "rung2_status": "frozen blind prediction, awaiting external grading",
+ "rung2_pred_peak_load_N": 297.6,
+ "rung2_pred_peak_load_1sigma_N": 24.4,
+ "rung2_pred_displacement_at_peak_mm": 0.413,
+ "rung2_pred_stiffness_N_per_mm": 800.0,
+ "rung2_calibration_rms_log_misfit": 0.074
+}

@@ -1,0 +1,2 @@
+[s_l0075_h8] case=shear l=0.0075 h=0.0009375 (l/h=8.00) elems=341056 dofs=684552 split=spectral irrev=True max_stag=1 steps=710
+[s_l0075_h8] step     0 u=1.000000e-04 F=0.00634 dmax=0.0000 gamma=0.0000 nstag=1 t=27s

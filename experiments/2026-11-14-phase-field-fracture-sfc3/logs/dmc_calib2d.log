@@ -1,0 +1,12 @@
+[cal2d_HC_l0.5] RESULT k_el=1706.0 N/mm  P_peak=241.53 N at delta_FE=0.14767 mm  wall=43s
+[cal2d_HB_l0.5] RESULT k_el=1785.6 N/mm  P_peak=284.46 N at delta_FE=0.16469 mm  wall=64s
+[cal2d_HA_l0.5] RESULT k_el=1902.4 N/mm  P_peak=462.57 N at delta_FE=0.25281 mm  wall=66s
+[cal2d_HC_l1.0] RESULT k_el=1782.7 N/mm  P_peak=229.78 N at delta_FE=0.13844 mm  wall=17s
+[cal2d_HB_l1.0] RESULT k_el=1868.9 N/mm  P_peak=271.73 N at delta_FE=0.15385 mm  wall=20s
+[cal2d_HA_l1.0] RESULT k_el=1997.9 N/mm  P_peak=445.29 N at delta_FE=0.24270 mm  wall=15s
+[cal2d_HC_l2.0] RESULT k_el=1782.7 N/mm  P_peak=219.59 N at delta_FE=0.13660 mm  wall=14s
+[cal2d_HB_l2.0] RESULT k_el=1868.9 N/mm  P_peak=258.80 N at delta_FE=0.15169 mm  wall=16s
+[cal2d_HA_l2.0] RESULT k_el=1997.9 N/mm  P_peak=362.30 N at delta_FE=0.20562 mm  wall=13s
+[cal2d_HC_l4.0] RESULT k_el=1782.7 N/mm  P_peak=214.77 N at delta_FE=0.14029 mm  wall=13s
+[cal2d_HB_l4.0] RESULT k_el=1868.9 N/mm  P_peak=248.48 N at delta_FE=0.15602 mm  wall=16s
+[cal2d_HA_l4.0] RESULT k_el=1997.9 N/mm  P_peak=292.61 N at delta_FE=0.17528 mm  wall=13s

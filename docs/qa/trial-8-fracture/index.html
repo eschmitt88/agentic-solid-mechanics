@@ -1,0 +1,121 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trial 8 — Fracture: phase-field benchmarks and a blind challenge prediction</title><style>
+:root{--fg:#1c2128;--mut:#636c76;--bd:#d0d7de;--ok:#1a7f37;--bad:#cf222e;--accent:#0969da;--bg:#fff;--card:#f6f8fa;--warn:#9a6700}
+*{box-sizing:border-box}body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg);margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 22px 80px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:25px;margin:.2em 0 .1em}h2{font-size:18px;margin:1.7em 0 .5em;border-bottom:1px solid var(--bd);padding-bottom:.25em}
+h3{font-size:15.5px;margin:1.1em 0 .3em}
+.sub{color:var(--mut);margin:0 0 1.4em}
+.crumb{color:var(--mut);font-size:13px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;margin:14px 0}
+.card.await{background:#fff8c5;border-color:#d4a72c}
+.card.warn{background:#fff1e5;border-color:#f0b37e}
+img.fig{max-width:100%;border:1px solid var(--bd);border-radius:8px;display:block;background:#fff}
+.hint{color:var(--mut);font-size:12.5px;margin:.4em 0 0}
+.tw{overflow-x:auto}
+table.leg{border-collapse:collapse;width:100%;font-size:14px}
+table.leg td,table.leg th{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:top;text-align:left}
+table.leg th{font-size:12.5px;color:var(--mut);font-weight:600}
+table.kv td:first-child{color:var(--mut);width:230px}
+.chip{display:inline-block;font-size:12px;font-weight:600;padding:1px 9px;border-radius:20px;white-space:nowrap}
+.chip.ok{background:#dafbe1;color:var(--ok)}.chip.bad{background:#ffebe9;color:var(--bad)}.chip.wait{background:#fff8c5;color:var(--warn)}
+code{background:#eaeef2;padding:1px 5px;border-radius:5px;font-size:12.5px}
+.metric{font-variant-numeric:tabular-nums}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:760px){.tiles{grid-template-columns:1fr 1fr}}
+.tile{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
+.tile .v{font-size:22px;font-weight:650;font-variant-numeric:tabular-nums}.tile .l{font-size:12.5px;color:var(--mut)}
+details summary{cursor:pointer;color:var(--accent);font-size:13.5px}
+ul{padding-left:20px}li{margin:.25em 0}
+</style></head><body><div class="wrap">
+<div class="crumb"><a href="../">QA dashboard</a> · <a href="../../">project</a></div>
+<h1>Trial 8 — Fracture: phase-field benchmarks, then a blind prediction</h1>
+<p class="sub">Can the agent write a fracture solver that reproduces the standard published benchmarks, and then predict a real experiment it has not seen?</p>
+
+<h2>Objective</h2><div class='card'>
+<p><b>Rung 1.</b> Write a phase-field fracture solver from scratch and reproduce the two standard benchmarks (a notched square plate pulled apart, and the same plate sheared), graded against curves published by other groups, with the pass tolerance fixed before the first run.</p>
+<p><b>Rung 2.</b> Take a real blind challenge: calibrate a model on the organisers' calibration tests only, predict how an unseen specimen breaks, freeze the prediction, and let someone else grade it against the experiment.</p>
+<p class='hint'>The brief named the Third Sandia Fracture Challenge (3D-printed steel). Its data package sits behind a Globus login and the only open copy of the problem statement was firewall-blocked, so the fallback named in the brief was used instead: the <b>Damage Mechanics Challenge</b> (3D-printed gypsum beams, organised by Purdue, LLNL and Sandia). Same protocol: calibration data in, blind prediction out.</p></div>
+
+<div class="tiles">
+<div class="tile"><div class="v">12 / 12</div><div class="l">rung-1 checks passed (tolerances fixed in advance)</div></div>
+<div class="tile"><div class="v">-5 % / +1 %</div><div class="l">tension peak load vs published mean</div></div>
+<div class="tile"><div class="v">-7 %</div><div class="l">shear peak load vs published mean</div></div>
+<div class="tile"><div class="v">298 N</div><div class="l">blind prediction of the challenge peak load <span class="chip wait">awaiting grading</span></div></div>
+</div>
+
+<h2>Rung 1 — the benchmark and how it is held</h2>
+<div class='card'><div class='tw'><table class='leg kv'>
+<tr><td>Specimen</td><td>1 mm × 1 mm plate with a horizontal notch from the left edge to the centre (Miehe, Hofacker &amp; Welschinger 2010)</td></tr>
+<tr><td>Material</td><td>λ = 121.15, μ = 80.77 kN/mm², fracture energy G<sub>c</sub> = 2.7·10⁻³ kN/mm, length scale l = 0.015 and 0.0075 mm</td></tr>
+<tr><td>Tension test</td><td>bottom edge clamped, top edge pulled upward</td></tr>
+<tr><td>Shear test</td><td>bottom edge clamped, top edge pushed sideways with no vertical motion; the side edges are also held vertically (see trap 1 below)</td></tr>
+<tr><td>Solver</td><td>hand-written: bilinear quads, JAX automatic differentiation on the GPU for residual and tangent, sparse direct solves; staggered displacement / phase-field scheme with a history field for irreversibility and the spectral tension–compression split</td></tr>
+<tr><td>Graded configuration</td><td>single-pass staggered scheme with Miehe's load steps on the finest mesh of each series — fixed in <code>PREREGISTRATION.md</code> before the first run</td></tr>
+</table></div></div>
+
+<h2>Crack paths</h2>
+<div class='card'><img class='fig' src='fig_pf_crack_paths.png' alt='crack paths'><p class='hint'>Phase field (dark = broken). Tension: the crack runs straight across. Shear: one crack leaves the notch tip downward and curves to the bottom edge — the pattern every published result shows.</p></div>
+
+<h2>Load–displacement against published results</h2>
+<div class='card'><img class='fig' src='fig_pf_load_displacement.png' alt='load displacement'><p class='hint'>Lines: this work on successively finer meshes (h = element size, l = length scale). Open symbols: peak points read from published figures. Dashed: Miehe's curve as digitized by a third party. The published values themselves scatter by 10–15 %.</p></div>
+
+<h2>Rung 1 — pass / fail</h2>
+<div class='card'><div class='tw'><table class='leg'>
+<tr><th>#</th><th>Quantity</th><th>This work</th><th>Reference</th><th>Tolerance</th><th></th><th>Note</th></tr><tr><td>T1</td><td>Tension l=0.015 peak load</td><td class='metric'>0.696 kN</td><td class='metric'>0.734 kN</td><td>±10 %</td><td><span class="chip ok">PASS</span></td><td class='hint'>-5.2 % (t_l015_h16)</td></tr><tr><td>T2</td><td>Tension l=0.015 displacement at peak</td><td class='metric'>0.00541 mm</td><td class='metric'>0.00565 mm</td><td>±10 %</td><td><span class="chip ok">PASS</span></td><td class='hint'>-4.3 % (t_l015_h16)</td></tr><tr><td>T3</td><td>Tension l=0.0075 peak load</td><td class='metric'>0.729 kN</td><td class='metric'>0.720 kN</td><td>±10 %</td><td><span class="chip ok">PASS</span></td><td class='hint'>+1.2 % (t_l0075_h8)</td></tr><tr><td>T4</td><td>Tension l=0.0075 displacement at peak</td><td class='metric'>0.00542 mm</td><td class='metric'>0.00528 mm</td><td>±10 %</td><td><span class="chip ok">PASS</span></td><td class='hint'>+2.6 % (t_l0075_h8)</td></tr><tr><td>S1</td><td>Shear l=0.0075 peak load</td><td class='metric'>0.555 kN</td><td class='metric'>0.598 kN</td><td>±10 %</td><td><span class="chip ok">PASS</span></td><td class='hint'>-7.2 % (s_l0075_h8)</td></tr><tr><td>S2</td><td>Shear l=0.0075 displacement at peak</td><td class='metric'>0.01012 mm</td><td class='metric'>0.01090 mm</td><td>±10 %</td><td><span class="chip ok">PASS</span></td><td class='hint'>-7.2 % (s_l0075_h8)</td></tr><tr><td>T5</td><td>Tension crack path: max deviation from y=0.5</td><td class='metric'>9.40e-04 mm</td><td class='metric'>straight, y = 0.5</td><td>≤ l = 0.0075 mm, reaches right edge</td><td><span class="chip ok">PASS</span></td><td class='hint'>t_l0075_h8</td></tr><tr><td>S3</td><td>Shear initial crack angle (fit 0.02–0.10 mm from tip)</td><td class='metric'>68.6°</td><td class='metric'>61.0°</td><td>±10°</td><td><span class="chip ok">PASS</span></td><td class='hint'>s_l0075_h4; other fit windows: 67.0°, 68.3°</td></tr><tr><td>S4</td><td>Shear crack meets bottom edge at x</td><td class='metric'>0.839 mm</td><td class='metric'>0.850 mm</td><td>±0.07 mm, single crack</td><td><span class="chip ok">PASS</span></td><td class='hint'>s_l0075_h4</td></tr><tr><td>C1</td><td>Mesh convergence t_l015: change of peak load between t_l015_h8 and t_l015_h16</td><td class='metric'>0.65 %</td><td class='metric'>—</td><td>≤ 3 %</td><td><span class="chip ok">PASS</span></td><td class='hint'></td></tr><tr><td>C1</td><td>Mesh convergence t_l0075: change of peak load between t_l0075_h4 and t_l0075_h8</td><td class='metric'>1.72 %</td><td class='metric'>—</td><td>≤ 3 %</td><td><span class="chip ok">PASS</span></td><td class='hint'></td></tr><tr><td>C1</td><td>Mesh convergence s_l0075: change of peak load between s_l0075_h4 and s_l0075_h8</td><td class='metric'>2.35 %</td><td class='metric'>—</td><td>≤ 3 %</td><td><span class="chip ok">PASS</span></td><td class='hint'></td></tr></table></div>
+<p class='hint'>References are means of values read this session from: Molnár &amp; Gravouil 2017 (HAL hal-02132509), Zhou, Rabczuk &amp; Zhuang (arXiv 1902.05922), Zhang et al. (arXiv 1706.05449, 1805.07357) and Miehe's curve as digitized in the phasefieldx repository. Miehe's own papers are paywalled and were not opened; nothing is graded against memory. The crack-path rows use the finest shear run carried to the end of the loading; the finest mesh (stopped earlier) gives 69°.</p></div>
+
+<h2>How the answer moves with mesh and load step</h2>
+<div class='card'><img class='fig' src='fig_pf_convergence.png' alt='convergence'><p class='hint'>Left: peak load against mesh size — it keeps falling as the mesh is refined; the stars are the published means; the shear ones were computed on coarse meshes (h ≈ l/2). Middle: tension with one staggered pass per step — the standard step (green) is within 0.3 % of the fully iterated answer (dashed). Right: shear is not converged at the standard step: a four-times smaller step, or iterating each step, lowers the peak by 2–3 % and moves it to the first hump.</p></div>
+
+<h2>The known traps, shown rather than avoided</h2>
+<div class='card'><img class='fig' src='fig_pf_traps.png' alt='traps'><p class='hint'>Top: final crack for five set-ups of the same shear test. Bottom: their load–displacement curves with Miehe's digitized curve (dashed), which the reference set-up overlays.</p></div>
+<div class='card'><ul><li><b>Boundary conditions nobody prints.</b> With the side edges free (what most papers describe) the plate is 27 % too soft and the peak 22 % too low. Holding the side edges vertically reproduces the published stiffness to three digits. This was the first run, and it was wrong.</li><li><b>No tension/compression split.</b> The crack grows upward into the compressed half and damage smears along the top edge.</li><li><b>The other common split</b> (volumetric–deviatoric) sends the crack sideways and the plate fails completely — a different answer from a defensible model choice.</li><li><b>Mesh size against length scale.</b> Peak load drops 5–8 % from h = l/2 to h = l/8.</li><li><b>Staggered-scheme stagnation.</b> Iterating the shear problem to convergence with coarse steps took 348 passes at the onset of cracking and then failed to finish a single step in 3000 passes (run abandoned).</li><li><b>Irreversibility.</b> Switching it off changes almost nothing here (+0.4 %): the loading is monotonic, so this benchmark does not test it.</li></ul></div>
+
+<h2>Rung 2 — the blind challenge</h2>
+<div class='card'><div class='tw'><table class='leg kv'>
+<tr><td>Challenge</td><td>Damage Mechanics Challenge: 3D-printed gypsum beams (76.2 × 25.4 × 12.7 mm) broken in three-point bending</td></tr>
+<tr><td>Given</td><td>load–displacement curves and fracture surfaces of 16 calibration beams with four other notch shapes (HC, HB, HA, H45), compression and split-cylinder tests, ultrasonic velocities</td></tr>
+<tr><td>Asked</td><td>for a beam with an off-centre, skewed, tapered notch: the load–displacement curve, and where the crack goes</td></tr>
+<tr><td>Model</td><td>the same phase-field method in 3D (GPU, 95,020 elements): l = 1.0 mm, G<sub>c</sub> = 0.0514 N/mm fitted to the four calibration geometries; plus an empirical contact-compliance law for the loading rods</td></tr>
+<tr><td>Blindness</td><td>only the organisers' information packet and calibration files were read; the outcome paper and all participant papers were not opened. What the agent remembered beforehand is written in <code>log.md</code> (no outcome numbers).</td></tr>
+</table></div></div>
+<div class='card'><img class='fig' src='fig_dmc_geometry.png' alt='geometries'><p class='hint'>The four calibration geometries and the challenge geometry (notch shown in orange; front face, and seen from below).</p></div>
+
+<h3>Calibration (not blind)</h3>
+<div class='card'><img class='fig' src='fig_dmc_calibration.png' alt='calibration'><p class='hint'>Grey: the lab tests. Blue: the model with one fracture energy for all four geometries. Peak loads agree within −9 % to +8 %; the misfit pattern (too strong for the far-offset notch, too weak for the rotated notch) is carried into the uncertainty.</p></div>
+<div class='card'><div class='tw'><table class='leg'><tr><th>Geometry</th><th>Measured mean</th><th>Model</th><th>Error</th></tr><tr><td>HC</td><td class='metric'>216 N</td><td class='metric'>212 N</td><td class='metric'>-2.0 %</td></tr><tr><td>HB</td><td class='metric'>243 N</td><td class='metric'>250 N</td><td class='metric'>+3.1 %</td></tr><tr><td>HA</td><td class='metric'>379 N</td><td class='metric'>411 N</td><td class='metric'>+8.4 %</td></tr><tr><td>H45</td><td class='metric'>270 N</td><td class='metric'>246 N</td><td class='metric'>-8.7 %</td></tr></table></div></div>
+<div class='card'><img class='fig' src='fig_dmc_crack_path_validation.png' alt='crack path validation'><p class='hint'>Left and middle: crack path of the two off-centre calibration beams, model against laser scans. The lower half agrees within about 0.5 mm. Higher up the measured cracks keep drifting towards the loading rod while the model on the prediction mesh (blue) goes straight up along the mesh lines. Finer meshes (other colours) close most of the gap for HB but not for HA. Right: for the rotated notch, the sideways offset between the two sides of the crack dies out over the first ~10 mm in both test and model.</p></div>
+
+<h3>The prediction</h3>
+<div class='card await'><p><b>Awaiting grading.</b> The numbers below were frozen on 2026-11-14 before any outcome data was seen. The orchestrator grades them against the experiment; this section will be replaced by the comparison.</p></div>
+<div class='card'><img class='fig' src='fig_dmc_prediction.png' alt='prediction'><p class='hint'>Left: predicted load–displacement record with the 80 % band for a single specimen. Middle: predicted crack on the front and back faces. Right: the crack surface seen from above — it starts along the skewed notch and twists into a plane across the beam.</p></div>
+<div class='card'><div class='tw'><table class='leg kv'>
+<tr><td>Peak load</td><td class='metric'><b>298 N</b> &nbsp;(1σ ±24 N; 80 % interval 266–329 N for the mean of the test series, 259–337 N for one specimen) <span class="chip wait">awaiting grading</span></td></tr>
+<tr><td>Displacement at peak</td><td class='metric'>0.41 mm (1σ ±0.09 mm) — mostly rod-contact compliance, only 0.16 mm is beam deflection <span class="chip wait">awaiting grading</span></td></tr>
+<tr><td>Loading stiffness</td><td class='metric'>800 N/mm between 30 % and 80 % of peak <span class="chip wait">awaiting grading</span></td></tr>
+<tr><td>After the peak</td><td>abrupt (unstable): the structural solution falls to 11 % of peak within one increment of 0.0026 mm; in the measured record this is a vertical drop to about 2 % of peak followed by a low tail</td></tr>
+<tr><td>Crack path</td><td>at the notch root; first on the deep (front, y=-6.35) side of the tapered notch; single crack; twists from the 26.6-degree skewed notch plane towards a plane normal to the beam axis and drifts towards the loading rod (x=0). Near the top surface the crack sits at x ≈ -3.8 mm (front), -3.8 mm (mid), -3.8 mm (back), measured from the loading rod. <span class="chip wait">awaiting grading</span></td></tr>
+<tr><td>Not predicted</td><td>surface displacement fields (challenge question 3) and fracture-surface roughness</td></tr>
+</table></div>
+<h3>Sensitivity of the predicted peak load</h3><div class='tw'><table class='leg'><tr><th>Model variant (each re-calibrated)</th><th>Predicted peak</th></tr><tr><td>base l=1.0 h=0.5</td><td class='metric'>295 N</td></tr><tr><td>finer mesh l=1.0 h=0.35</td><td class='metric'>303 N</td></tr><tr><td>smaller l=0.6 h=0.3</td><td class='metric'>295 N</td></tr></table></div>
+<p class='hint'>Uncertainty budget (relative, 1σ): model form 7.4 % (scatter of the four calibration geometries about the fit), numerical / length-scale choice 2.0 %, specimen-to-specimen 6.1 %.</p></div>
+
+<h2>Honest caveats</h2><div class='card warn'><ul><li><b>The challenge is not the one in the brief.</b> SFC3 (ductile failure of printed steel) could not be attempted: its data package needs a Globus login and the open copy of the problem statement was firewall-blocked. The fallback is a brittle bending problem — a much better match to the rung-1 solver, and therefore an easier exam than SFC3 would have been.</li><li><b>Rung-1 references are soft.</b> Miehe's own papers are paywalled; the reference numbers were read by eye from figures in four other papers (±3 %) plus a third-party digitization of Miehe's curve. Those papers scatter by 10–15 % and disagree on whether the peak rises or falls with the length scale.</li><li><b>Passing depends on the wide tolerance.</b> The published shear values were computed on coarse meshes (Zhou: h ≈ l/2) with a lagging single-pass scheme. My converged shear answer is 7 % below them on the finest mesh, and a smaller load step would lower it a further ~3 % and move the peak displacement by ~13 % (two humps of nearly equal height) — which would fail the displacement check if the step-converged curve had been the graded one. The graded configuration was fixed in advance to be the literature's own scheme.</li><li><b>One boundary condition was inferred, not read.</b> The side-edge constraint in the shear test comes from matching elastic stiffness, decided after my first run was visibly wrong but before any peak load with the new constraint was seen.</li><li><b>One metric definition changed after first sight.</b> The 'crack meets the bottom edge' position was first computed on the stretch where the crack runs along the clamped edge (0.92); it was redefined as the point where the centreline first comes within 0.02 mm of the edge (0.84). Both are in the metrics file.</li><li><b>The initial crack angle passes with a shrinking margin:</b> 66.6° → 68.6° → 69.2° with mesh refinement, against a published 61° ± 10°.</li><li><b>Blind prediction, model form.</b> One fracture parameter fits four calibration geometries only to ±9 %, with opposite signs for offset and rotated notches; the challenge notch is both. No calibration geometry was held out.</li><li><b>Blind prediction, crack path.</b> The predicted path above mid-height is biased towards vertical (structured mesh for one calibration beam, model form for the other); the quoted top exit includes an empirical 2.3 mm correction from the calibration beams rather than a converged computation. In the finer-mesh 3D run the unstable step hit the 400-pass cap.</li><li><b>Blind prediction, displacement.</b> Two thirds of the predicted displacement is an empirical contact law fitted to the calibration beams; the elastic modulus is an assumption (specimen dimensions of the compression tests are not in the packet).</li><li><b>Prior knowledge.</b> The agent remembered that a phase-field participant paper for this challenge exists and reports good agreement (no numbers). That cannot be un-known; it is recorded in the log.</li></ul></div>
+
+<details><summary>Terms used on this page</summary><div class='card'><div class='tw'><table class='leg kv'>
+<tr><td><b>phase-field fracture</b></td><td>A way to simulate cracks without tracking them explicitly: a smooth field d runs from 0 (intact) to 1 (broken) and the crack is the narrow band where d ≈ 1.</td></tr>
+<tr><td><b>length scale l</b></td><td>The width of that band. In this model it also sets the material's strength, so it is a material parameter, not just a numerical one.</td></tr>
+<tr><td><b>fracture energy G<sub>c</sub></b></td><td>Energy needed to create a unit area of crack.</td></tr>
+<tr><td><b>mesh size h</b></td><td>Element edge length. The band must be resolved (h well below l) or the crack looks tougher than it is.</td></tr>
+<tr><td><b>staggered scheme</b></td><td>Solving for displacements and for the crack field alternately. With one pass per load step the crack lags the load; iterating to convergence removes the lag but can take hundreds of passes when the crack runs.</td></tr>
+<tr><td><b>tension/compression split</b></td><td>Only the tensile part of the strain energy is allowed to drive (and be released by) cracking; without it material also "cracks" in compression.</td></tr>
+<tr><td><b>irreversibility</b></td><td>A crack cannot heal. Enforced here by driving the crack field with the largest tensile energy seen so far (the history field).</td></tr>
+<tr><td><b>three-point bending</b></td><td>A beam resting on two rods and pushed down by a third at mid-span.</td></tr>
+<tr><td><b>mode I / II / III</b></td><td>Opening, in-plane sliding and out-of-plane tearing of a crack. An off-centre notch mixes I and II; a skewed notch adds III.</td></tr>
+<tr><td><b>blind prediction</b></td><td>A prediction frozen before the experimental outcome is seen by the predictor.</td></tr>
+</table></div></div></details>
+
+<h2>Artifacts</h2><div class='card'><p class='hint'><a href='https://github.com/eschmitt88/agentic-solid-mechanics/tree/master/experiments/2026-11-14-phase-field-fracture-sfc3'>experiment folder on GitHub</a> — README, PREREGISTRATION.md, log.md (including dead ends), solver code (<code>pf.py</code>, <code>pf3d.py</code>, <code>dmc.py</code>), <code>results/dmc_prediction.json</code>.</p></div>
+</div></body></html>

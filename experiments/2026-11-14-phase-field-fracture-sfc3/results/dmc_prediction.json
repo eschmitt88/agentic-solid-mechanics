@@ -1,0 +1,145 @@
+{
+ "challenge": "Damage Mechanics Challenge (Purdue/LLNL/Sandia, information packet of 15 Jan 2022) \u2014 fallback for SFC3",
+ "status": "FROZEN blind prediction, made 2026-11-14/15 (UTC) from calibration data only; not graded",
+ "Q1_load_displacement": {
+  "peak_load_N": 297.6,
+  "peak_load_1sigma_N": 24.4,
+  "peak_load_80pct_interval_mean_of_specimens_N": [
+   266.0,
+   329.0
+  ],
+  "peak_load_80pct_interval_single_specimen_N": [
+   259.0,
+   337.0
+  ],
+  "displacement_at_peak_mm": 0.413,
+  "displacement_at_peak_1sigma_mm": 0.09,
+  "loading_stiffness_30_80pct_N_per_mm": 800.0,
+  "structural_only_displacement_at_peak_mm": 0.162,
+  "post_peak": "abrupt (unstable): the structural solution falls to 11 % of peak within one increment of 0.0026 mm; in the measured record this is a vertical drop to about 2 % of peak followed by a low tail",
+  "curve_file": "results/dmc_prediction_Q1.txt"
+ },
+ "Q2_crack_path": {
+  "initiation": "at the notch root; first on the deep (front, y=-6.35) side of the tapered notch",
+  "crack_x_mm_at_heights": {
+   "front (y=-6.35)": {
+    "z=-20.0": -11.6,
+    "z=-17.5": -9.6,
+    "z=-15.0": -8.6,
+    "z=-12.5": -7.6,
+    "z=-10.0": -6.6,
+    "z=-7.5": -6.1,
+    "z=-5.0": -6.1,
+    "z=-2.5": -6.1,
+    "z=-1.0": -6.1
+   },
+   "mid-width (y=0)": {
+    "z=-20.0": -9.6,
+    "z=-17.5": -8.1,
+    "z=-15.0": -7.6,
+    "z=-12.5": -7.1,
+    "z=-10.0": -6.6,
+    "z=-7.5": -6.1,
+    "z=-5.0": -6.1,
+    "z=-2.5": -6.1,
+    "z=-1.0": -6.1
+   },
+   "back (y=+6.35)": {
+    "z=-20.0": -7.1,
+    "z=-17.5": -7.1,
+    "z=-15.0": -7.1,
+    "z=-12.5": -6.6,
+    "z=-10.0": -6.6,
+    "z=-7.5": -6.1,
+    "z=-5.0": -6.1,
+    "z=-2.5": -6.1,
+    "z=-1.0": -6.1
+   }
+  },
+  "crack_x_mm_near_top_surface": {
+   "front (y=-6.35)": -3.8,
+   "mid-width (y=0)": -3.8,
+   "back (y=+6.35)": -3.8
+  },
+  "description": "single crack; twists from the 26.6-degree skewed notch plane towards a plane normal to the beam axis and drifts towards the loading rod (x=0)",
+  "surface_file": "results/dmc_prediction_crack_surface.csv",
+  "crack_x_mm_near_top_surface_raw_model": {
+   "front (y=-6.35)": -6.1,
+   "mid-width (y=0)": -6.1,
+   "back (y=+6.35)": -6.1
+  },
+  "top_exit_bias_correction_mm_towards_load": 2.29,
+  "top_exit_correction_basis": {
+   "HB": {
+    "measured": -5.27,
+    "model": {
+     "l=1.0,h=0.5": -2.5120370370370377,
+     "l=1.0,h=0.25": -3.7643518518518526,
+     "l=1.0,h=0.125": -4.265277777777778,
+     "l=0.5,h=0.125": -4.140046296296297
+    }
+   },
+   "HA": {
+    "measured": -9.35,
+    "model": {
+     "l=1.0,h=0.5": -7.525,
+     "l=1.0,h=0.25": -7.525,
+     "l=1.0,h=0.125": -7.650271739130435,
+     "l=0.5,h=0.125": -7.650271739130435
+    }
+   }
+  },
+  "crack_x_top_range_mm": [
+   -6.4,
+   -2.8
+  ],
+  "crack_x_mm_at_heights_note": "raw model values; reliable up to about z = -12 mm, above that biased towards vertical (see correction)"
+ },
+ "Q3_surface_displacement_fields": "not submitted (the solver output exists but was not post-processed into the requested 100-micron grids)",
+ "model": {
+  "method": "AT2 phase-field fracture, hybrid formulation (isotropic degradation, spectral tensile driving force, history-field irreversibility), staggered to convergence",
+  "solver": "own JAX code pf3d.py, hex8 tensor grid, GPU Jacobi-PCG",
+  "E_MPa": 1400.0,
+  "nu": 0.2,
+  "l_mm": 1.0,
+  "Gc_N_per_mm": 0.0514,
+  "h_mm": 0.5,
+  "elements": 95020,
+  "contact_compliance": "delta = -0.128 + delta_FE + 0.0438 * P^0.379 (mm, N), fitted to the 16 calibration beams"
+ },
+ "calibration_fit": {
+  "HC": {
+   "model_N": 211.5,
+   "measured_mean_N": 215.8,
+   "error_pct": -2.0
+  },
+  "HB": {
+   "model_N": 250.0,
+   "measured_mean_N": 242.6,
+   "error_pct": 3.1
+  },
+  "HA": {
+   "model_N": 410.7,
+   "measured_mean_N": 378.7,
+   "error_pct": 8.4
+  },
+  "H45": {
+   "model_N": 246.0,
+   "measured_mean_N": 269.5,
+   "error_pct": -8.7
+  }
+ },
+ "sensitivity_peak_load_N": {
+  "base l=1.0 h=0.5": 295.2,
+  "finer mesh l=1.0 h=0.35": 302.7,
+  "smaller l=0.6 h=0.3": 294.9
+ },
+ "uncertainty": {
+  "model_form_rel": 0.074,
+  "numerical_rel": 0.02,
+  "calibration_mean_rel": 0.031,
+  "specimen_scatter_cov": 0.061,
+  "total_rel_for_mean": 0.082,
+  "total_rel_single_specimen": 0.102
+ }
+}

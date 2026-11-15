@@ -1,0 +1,96 @@
+[pf3d] grid 108x2x103, elements 10834, dofs 66384, unique element sizes 24
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 0 delta=0.00205 P=3.65 nstag=1 cg=3301 dmax=0.000 t=5s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 10 delta=0.02251 P=40.17 nstag=1 cg=2921 dmax=0.007 t=37s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 20 delta=0.04298 P=76.51 nstag=2 cg=4589 dmax=0.026 t=120s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 30 delta=0.06344 P=112.52 nstag=2 cg=4906 dmax=0.060 t=280s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 40 delta=0.08391 P=148.00 nstag=2 cg=5183 dmax=0.110 t=353s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 50 delta=0.10437 P=182.68 nstag=3 cg=6262 dmax=0.184 t=424s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 60 delta=0.12484 P=216.01 nstag=4 cg=7863 dmax=0.302 t=513s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 70 delta=0.14530 P=33.87 nstag=133 cg=315979 dmax=1.007 t=1069s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 71 delta=0.14735 P=32.16 nstag=22 cg=39926 dmax=1.007 t=1121s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 79 delta=0.16372 P=24.00 nstag=23 cg=41892 dmax=1.006 t=1291s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 80 delta=0.16577 P=23.16 nstag=16 cg=29496 dmax=1.006 t=1330s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 90 delta=0.18624 P=17.76 nstag=11 cg=20706 dmax=1.005 t=1631s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] step 100 delta=0.20670 P=14.34 nstag=9 cg=17003 dmax=1.004 t=1878s
+[r3d_HB_l1.0_h0.25_ny1_slab_full] RESULT k_el=1785.6 N/mm  P_peak=242.29 N at delta_FE=0.14326 mm  wall=2071s
+[pf3d] grid 142x2x103, elements 14302, dofs 87396, unique element sizes 24
+[r3d_HA_l1.0_h0.25_ny1_slab_full] step 0 delta=0.00329 P=6.26 nstag=1 cg=3421 dmax=0.000 t=5s
+[r3d_HA_l1.0_h0.25_ny1_slab_full] step 10 delta=0.03620 P=68.77 nstag=1 cg=3044 dmax=0.008 t=47s
+[r3d_HA_l1.0_h0.25_ny1_slab_full] step 20 delta=0.06910 P=130.71 nstag=2 cg=4771 dmax=0.029 t=101s
+[r3d_HA_l1.0_h0.25_ny1_slab_full] step 30 delta=0.10201 P=191.61 nstag=2 cg=4576 dmax=0.065 t=164s
+[r3d_HA_l1.0_h0.25_ny1_slab_full] step 40 delta=0.13491 P=250.87 nstag=2 cg=5052 dmax=0.119 t=229s
+[r3d_HA_l1.0_h0.25_ny1_slab_full] step 50 delta=0.16782 P=307.79 nstag=3 cg=6083 dmax=0.198 t=302s
+[r3d_HA_l1.0_h0.25_ny1_slab_full] step 60 delta=0.20072 P=361.27 nstag=4 cg=7692 dmax=0.327 t=390s
+[r3d_HA_l1.0_h0.25_ny1_slab_full] step 67 delta=0.22376 P=11.96 nstag=120 cg=258994 dmax=1.006 t=484s
+[r3d_HA_l1.0_h0.25_ny1_slab_full] RESULT k_el=1902.4 N/mm  P_peak=390.57 N at delta_FE=0.22047 mm  wall=495s
+[pf3d] grid 184x2x204, elements 36821, dofs 223494, unique element sizes 30
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 0 delta=0.00205 P=3.48 nstag=1 cg=6594 dmax=0.000 t=3s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 10 delta=0.02251 P=38.29 nstag=1 cg=5650 dmax=0.007 t=25s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 20 delta=0.04298 P=72.94 nstag=2 cg=8786 dmax=0.025 t=50s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 30 delta=0.06344 P=107.31 nstag=2 cg=9529 dmax=0.056 t=85s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 40 delta=0.08391 P=141.22 nstag=2 cg=9858 dmax=0.103 t=116s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 50 delta=0.10437 P=174.43 nstag=2 cg=10704 dmax=0.171 t=156s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 60 delta=0.12484 P=206.53 nstag=3 cg=13395 dmax=0.276 t=205s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 70 delta=0.14530 P=235.51 nstag=11 cg=35721 dmax=0.521 t=283s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 71 delta=0.14735 P=30.33 nstag=157 cg=687602 dmax=1.004 t=529s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 72 delta=0.14940 P=28.92 nstag=23 cg=82508 dmax=1.004 t=553s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 74 delta=0.15349 P=26.64 nstag=24 cg=85637 dmax=1.004 t=611s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 80 delta=0.16577 P=22.52 nstag=19 cg=65757 dmax=1.004 t=723s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 90 delta=0.18624 P=17.87 nstag=16 cg=51736 dmax=1.003 t=1181s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 100 delta=0.20670 P=15.20 nstag=9 cg=31011 dmax=1.003 t=1536s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] step 110 delta=0.22717 P=13.09 nstag=18 cg=51477 dmax=1.003 t=1870s
+[r3d_HB_l1.0_h0.125_ny1_slab_full] RESULT k_el=1701.9 N/mm  P_peak=235.51 N at delta_FE=0.14530 mm  wall=1870s
+[pf3d] grid 256x2x204, elements 51437, dofs 311622, unique element sizes 31
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 0 delta=0.00329 P=5.97 nstag=1 cg=6844 dmax=0.000 t=8s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 10 delta=0.03620 P=65.59 nstag=1 cg=6080 dmax=0.008 t=74s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 20 delta=0.06910 P=124.73 nstag=2 cg=9335 dmax=0.028 t=153s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 30 delta=0.10201 P=182.99 nstag=2 cg=9532 dmax=0.063 t=252s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 40 delta=0.13491 P=239.87 nstag=2 cg=9872 dmax=0.115 t=354s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 50 delta=0.16782 P=294.78 nstag=3 cg=11736 dmax=0.193 t=453s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 60 delta=0.20072 P=346.83 nstag=4 cg=15627 dmax=0.316 t=542s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 68 delta=0.22705 P=13.88 nstag=108 cg=484132 dmax=1.004 t=1465s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 70 delta=0.23363 P=13.63 nstag=15 cg=55103 dmax=1.004 t=1587s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 76 delta=0.25337 P=12.81 nstag=32 cg=85357 dmax=1.004 t=2020s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 78 delta=0.25995 P=12.44 nstag=26 cg=69635 dmax=1.004 t=2175s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 80 delta=0.26653 P=12.34 nstag=5 cg=22892 dmax=1.004 t=2265s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 90 delta=0.29944 P=11.79 nstag=4 cg=18318 dmax=1.003 t=2453s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 96 delta=0.31918 P=11.42 nstag=21 cg=57721 dmax=1.003 t=2502s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 100 delta=0.33234 P=11.51 nstag=3 cg=15896 dmax=1.003 t=2522s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] step 102 delta=0.33892 P=11.13 nstag=30 cg=77933 dmax=1.003 t=2543s
+[r3d_HA_l1.0_h0.125_ny1_slab_full] RESULT k_el=1814.2 N/mm  P_peak=380.25 N at delta_FE=0.22376 mm  wall=2543s
+[pf3d] grid 184x2x204, elements 36821, dofs 223494, unique element sizes 30
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 0 delta=0.00205 P=3.48 nstag=1 cg=6594 dmax=0.000 t=2s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 10 delta=0.02251 P=38.30 nstag=1 cg=5650 dmax=0.006 t=12s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 20 delta=0.04298 P=73.03 nstag=2 cg=8397 dmax=0.023 t=23s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 30 delta=0.06344 P=107.59 nstag=2 cg=9155 dmax=0.052 t=39s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 40 delta=0.08391 P=141.90 nstag=2 cg=9463 dmax=0.095 t=56s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 50 delta=0.10437 P=175.82 nstag=2 cg=10048 dmax=0.157 t=73s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 60 delta=0.12484 P=209.15 nstag=3 cg=11871 dmax=0.248 t=94s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 70 delta=0.14530 P=241.37 nstag=5 cg=17388 dmax=0.407 t=120s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 75 delta=0.15554 P=28.71 nstag=203 cg=884334 dmax=1.007 t=298s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 76 delta=0.15758 P=27.61 nstag=28 cg=93412 dmax=1.007 t=315s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 77 delta=0.15963 P=26.85 nstag=23 cg=76649 dmax=1.007 t=329s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 78 delta=0.16168 P=26.21 nstag=21 cg=69967 dmax=1.007 t=341s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 80 delta=0.16577 P=24.64 nstag=35 cg=104140 dmax=1.007 t=372s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 81 delta=0.16782 P=23.58 nstag=30 cg=98616 dmax=1.006 t=390s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 82 delta=0.16986 P=22.99 nstag=22 cg=71305 dmax=1.006 t=402s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 90 delta=0.18624 P=19.53 nstag=16 cg=51860 dmax=1.005 t=484s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 92 delta=0.19033 P=18.47 nstag=32 cg=92299 dmax=1.005 t=510s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 93 delta=0.19238 P=17.86 nstag=24 cg=74087 dmax=1.004 t=523s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 100 delta=0.20670 P=15.89 nstag=15 cg=46307 dmax=1.004 t=583s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] step 110 delta=0.22717 P=14.07 nstag=12 cg=38011 dmax=1.004 t=655s
+[r3d_HB_l0.5_h0.125_ny1_slab_full] RESULT k_el=1701.9 N/mm  P_peak=253.13 N at delta_FE=0.15349 mm  wall=680s
+[pf3d] grid 256x2x204, elements 51437, dofs 311622, unique element sizes 31
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 0 delta=0.00329 P=5.97 nstag=1 cg=6839 dmax=0.000 t=2s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 10 delta=0.03620 P=65.63 nstag=1 cg=6066 dmax=0.007 t=15s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 20 delta=0.06910 P=125.04 nstag=2 cg=8391 dmax=0.027 t=30s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 30 delta=0.10201 P=184.02 nstag=2 cg=9354 dmax=0.060 t=48s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 40 delta=0.13491 P=242.32 nstag=2 cg=9733 dmax=0.110 t=69s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 50 delta=0.16782 P=299.66 nstag=3 cg=11523 dmax=0.183 t=90s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 60 delta=0.20072 P=355.67 nstag=4 cg=14999 dmax=0.298 t=116s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 70 delta=0.23363 P=16.22 nstag=143 cg=648062 dmax=1.007 t=290s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 80 delta=0.26653 P=16.37 nstag=8 cg=33810 dmax=1.005 t=369s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 90 delta=0.29944 P=17.13 nstag=6 cg=27003 dmax=1.004 t=432s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] step 100 delta=0.33234 P=18.13 nstag=6 cg=22990 dmax=1.003 t=485s
+[r3d_HA_l0.5_h0.125_ny1_slab_full] RESULT k_el=1814.2 N/mm  P_peak=404.12 N at delta_FE=0.23034 mm  wall=529s
+QUEUE4_DONE

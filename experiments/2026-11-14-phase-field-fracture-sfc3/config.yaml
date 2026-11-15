@@ -1,2 +1,37 @@
-# Inputs, hyperparameters, seeds for this experiment.
+# Inputs and hyperparameters. No random numbers are used anywhere (seed kept for template compatibility).
 seed: 42
+
+rung1_phase_field_benchmarks:
+  code: pf.py            # 2D plane strain, Q4, JAX autodiff + PARDISO
+  specimen: {size_mm: [1.0, 1.0], notch: "y=0.5, 0<=x<=0.5, geometric slit (duplicated nodes)"}
+  material: {lambda_kN_mm2: 121.15, mu_kN_mm2: 80.77, Gc_kN_mm: 2.7e-3, residual_stiffness: 1.0e-7}
+  model: {type: AT2, split: spectral (Miehe), irreversibility: history field, scheme: staggered single pass}
+  length_scales_mm: [0.015, 0.0075]
+  mesh: {type: tensor-product graded quads, fine_zone_h_over_l: [1/2, 1/4, 1/8, 1/16], coarse_hmax_mm: 0.04, growth: 1.25}
+  tension:
+    bc: "bottom clamped; top u_y prescribed, u_x = 0"
+    steps: "du = 1e-5 mm to u = 5e-3, then 1e-6 mm; stop when load < 1 % of peak"
+  shear:
+    bc: "bottom clamped; top u_x prescribed, u_y = 0; left and right edges u_y = 0"
+    steps: "du = 1e-5 mm to u = 0.02 (h=l/8 runs: 1e-4 to u=0.006, then 1e-5 to 0.0125 — verified equivalent)"
+  studies:
+    load_step: [1e-5, 1e-6, 2.5e-7, 4e-5, 2.5e-6]
+    staggered_iteration_tolerance_max_delta_d: [1e-3, 1e-4, 1e-5]
+    ablations_shear: [no split, Amor split, no irreversibility, free side edges]
+  pass_criteria: PREREGISTRATION.md
+
+verification_3d: {code: [pf3d.py, verify3d_sent.py], case: "SENT tension as plane-strain slab, l=0.015, h=l/2"}
+
+rung2_blind_challenge:
+  challenge: "Damage Mechanics Challenge (fallback for SFC3, whose data package was unreachable)"
+  data: ../../raw/dmc/   # SOURCE.md there
+  code: [pf3d.py, dmc.py, dmc_run3d.py, dmc_data.py, dmc_post.py, dmc_contact.py, dmc_predict.py]
+  specimen_mm: {L: 76.2, H: 25.4, W: 12.7, span: 60.96, notch_width: 1.0}
+  challenge_notch: {x_front: -12.7, x_back: -6.35, depth_front: 5.08, depth_back: 2.54}
+  model: {type: "AT2 hybrid (isotropic degradation, spectral tensile driving force)", scheme: "staggered to max|delta d| < 2e-3"}
+  material: {E_MPa: 1400, nu: 0.2, l_mm: 1.0, Gc_N_mm: "calibrated, see results/dmc/calibration_fit.json", residual_stiffness: 1.0e-5}
+  mesh: {h_mm: 0.5, elements_through_width: 26, fine_zone: "notch +- 4 mm to load line + 4 mm", coarse_hmax_mm: 2.5}
+  loading: {type: "line displacement at x=0 on top; line supports at x=+-30.48 on the bottom", steps_to_peak: ~70, damage_shield_radius_mm: 2.0}
+  calibration_targets_N: {HC: 215.8, HB: 242.6, HA: 378.7, H45: 269.5}   # smoothed peak means of 4 beams each
+  sensitivity: [{l: 1.0, h: 0.35}, {l: 0.6, h: 0.3}]
+  outputs: [results/dmc_prediction.json, results/dmc_prediction.md, results/dmc_prediction_Q1.txt, results/dmc_prediction_crack_surface.csv]

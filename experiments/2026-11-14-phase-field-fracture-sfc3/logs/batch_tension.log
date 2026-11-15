@@ -1,0 +1,367 @@
+[t_l015_h2] case=tension l=0.015 h=0.0075 (l/h=2.00) elems=4002 dofs=8312 split=spectral irrev=True max_stag=1 steps=2500
+[t_l015_h2] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=2s
+[t_l015_h2] step    50 u=5.100000e-04 F=0.07243 dmax=0.0026 gamma=0.0000 nstag=1 t=3s
+[t_l015_h2] step   100 u=1.010000e-03 F=0.14315 dmax=0.0104 gamma=0.0000 nstag=1 t=5s
+[t_l015_h2] step   150 u=1.510000e-03 F=0.21330 dmax=0.0234 gamma=0.0002 nstag=1 t=6s
+[t_l015_h2] step   200 u=2.010000e-03 F=0.28259 dmax=0.0420 gamma=0.0006 nstag=1 t=7s
+[t_l015_h2] step   250 u=2.510000e-03 F=0.35074 dmax=0.0668 gamma=0.0014 nstag=1 t=8s
+[t_l015_h2] step   300 u=3.010000e-03 F=0.41744 dmax=0.0984 gamma=0.0029 nstag=1 t=10s
+[t_l015_h2] step   350 u=3.510000e-03 F=0.48237 dmax=0.1382 gamma=0.0054 nstag=1 t=11s
+[t_l015_h2] step   400 u=4.010000e-03 F=0.54520 dmax=0.1882 gamma=0.0093 nstag=1 t=12s
+[t_l015_h2] step   450 u=4.510000e-03 F=0.60547 dmax=0.2521 gamma=0.0150 nstag=1 t=13s
+[t_l015_h2] step   500 u=5.001000e-03 F=0.66138 dmax=0.3366 gamma=0.0234 nstag=1 t=15s
+[t_l015_h2] step   550 u=5.051000e-03 F=0.66681 dmax=0.3480 gamma=0.0244 nstag=1 t=16s
+[t_l015_h2] step   600 u=5.101000e-03 F=0.67225 dmax=0.3589 gamma=0.0255 nstag=1 t=18s
+[t_l015_h2] step   650 u=5.151000e-03 F=0.67764 dmax=0.3704 gamma=0.0266 nstag=1 t=19s
+[t_l015_h2] step   700 u=5.201000e-03 F=0.68298 dmax=0.3823 gamma=0.0278 nstag=1 t=21s
+[t_l015_h2] step   750 u=5.251000e-03 F=0.68826 dmax=0.3950 gamma=0.0291 nstag=1 t=22s
+[t_l015_h2] step   800 u=5.301000e-03 F=0.69348 dmax=0.4083 gamma=0.0304 nstag=1 t=23s
+[t_l015_h2] step   850 u=5.351000e-03 F=0.69863 dmax=0.4225 gamma=0.0317 nstag=1 t=24s
+[t_l015_h2] step   900 u=5.401000e-03 F=0.70370 dmax=0.4376 gamma=0.0332 nstag=1 t=26s
+[t_l015_h2] step   950 u=5.451000e-03 F=0.70869 dmax=0.4539 gamma=0.0347 nstag=1 t=27s
+[t_l015_h2] step  1000 u=5.501000e-03 F=0.71359 dmax=0.4716 gamma=0.0363 nstag=1 t=29s
+[t_l015_h2] step  1050 u=5.551000e-03 F=0.71836 dmax=0.4910 gamma=0.0381 nstag=1 t=30s
+[t_l015_h2] step  1100 u=5.601000e-03 F=0.72298 dmax=0.5128 gamma=0.0400 nstag=1 t=32s
+[t_l015_h2] step  1150 u=5.651000e-03 F=0.72740 dmax=0.5377 gamma=0.0421 nstag=1 t=34s
+[t_l015_h2] step  1200 u=5.701000e-03 F=0.73152 dmax=0.5675 gamma=0.0445 nstag=1 t=35s
+[t_l015_h2] step  1250 u=5.751000e-03 F=0.73511 dmax=0.6056 gamma=0.0475 nstag=1 t=37s
+[t_l015_h2] step  1300 u=5.801000e-03 F=0.73742 dmax=0.6643 gamma=0.0519 nstag=1 t=39s
+[t_l015_h2] step  1350 u=5.851000e-03 F=0.72745 dmax=0.8730 gamma=0.0704 nstag=1 t=42s
+[t_l015_h2] step  1400 u=5.901000e-03 F=0.64899 dmax=1.0299 gamma=0.1607 nstag=1 t=45s
+[t_l015_h2] step  1450 u=5.951000e-03 F=0.51236 dmax=1.0162 gamma=0.3010 nstag=1 t=48s
+[t_l015_h2] step  1500 u=6.001000e-03 F=0.38137 dmax=1.0118 gamma=0.4354 nstag=1 t=51s
+[t_l015_h2] step  1550 u=6.051000e-03 F=0.25783 dmax=1.0100 gamma=0.5633 nstag=1 t=54s
+[t_l015_h2] load dropped below 1% of peak at u=6.095000e-03; stop
+[t_l015_h2] DONE peak F=0.73748 at u=5.808000e-03; wall 57s; u-solves 2192, d-solves 1595
+[t_l015_h4] case=tension l=0.015 h=0.00375 (l/h=4.00) elems=11016 dofs=22552 split=spectral irrev=True max_stag=1 steps=2500
+[t_l015_h4] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=3s
+[t_l015_h4] step    50 u=5.100000e-04 F=0.07229 dmax=0.0027 gamma=0.0000 nstag=1 t=7s
+[t_l015_h4] step   100 u=1.010000e-03 F=0.14288 dmax=0.0107 gamma=0.0000 nstag=1 t=13s
+[t_l015_h4] step   150 u=1.510000e-03 F=0.21290 dmax=0.0242 gamma=0.0002 nstag=1 t=19s
+[t_l015_h4] step   200 u=2.010000e-03 F=0.28205 dmax=0.0435 gamma=0.0006 nstag=1 t=26s
+[t_l015_h4] step   250 u=2.510000e-03 F=0.35006 dmax=0.0693 gamma=0.0014 nstag=1 t=31s
+[t_l015_h4] step   300 u=3.010000e-03 F=0.41661 dmax=0.1024 gamma=0.0029 nstag=1 t=37s
+[t_l015_h4] step   350 u=3.510000e-03 F=0.48139 dmax=0.1445 gamma=0.0054 nstag=1 t=42s
+[t_l015_h4] step   400 u=4.010000e-03 F=0.54402 dmax=0.1980 gamma=0.0093 nstag=1 t=47s
+[t_l015_h4] step   450 u=4.510000e-03 F=0.60404 dmax=0.2681 gamma=0.0152 nstag=1 t=53s
+[t_l015_h4] step   500 u=5.001000e-03 F=0.65946 dmax=0.3661 gamma=0.0238 nstag=1 t=59s
+[t_l015_h4] step   550 u=5.051000e-03 F=0.66477 dmax=0.3807 gamma=0.0249 nstag=1 t=63s
+[t_l015_h4] step   600 u=5.101000e-03 F=0.67011 dmax=0.3944 gamma=0.0261 nstag=1 t=67s
+[t_l015_h4] step   650 u=5.151000e-03 F=0.67539 dmax=0.4091 gamma=0.0273 nstag=1 t=72s
+[t_l015_h4] step   700 u=5.201000e-03 F=0.68059 dmax=0.4249 gamma=0.0286 nstag=1 t=78s
+[t_l015_h4] step   750 u=5.251000e-03 F=0.68570 dmax=0.4421 gamma=0.0300 nstag=1 t=84s
+[t_l015_h4] step   800 u=5.301000e-03 F=0.69071 dmax=0.4611 gamma=0.0315 nstag=1 t=90s
+[t_l015_h4] step   850 u=5.351000e-03 F=0.69559 dmax=0.4825 gamma=0.0331 nstag=1 t=95s
+[t_l015_h4] step   900 u=5.401000e-03 F=0.70029 dmax=0.5072 gamma=0.0349 nstag=1 t=98s
+[t_l015_h4] step   950 u=5.451000e-03 F=0.70472 dmax=0.5373 gamma=0.0369 nstag=1 t=101s
+[t_l015_h4] step  1000 u=5.501000e-03 F=0.70865 dmax=0.5778 gamma=0.0395 nstag=1 t=104s
+[t_l015_h4] step  1050 u=5.551000e-03 F=0.71082 dmax=0.6546 gamma=0.0439 nstag=1 t=109s
+[t_l015_h4] step  1100 u=5.601000e-03 F=0.65143 dmax=1.0151 gamma=0.1089 nstag=1 t=115s
+[t_l015_h4] step  1150 u=5.651000e-03 F=0.54197 dmax=1.0150 gamma=0.2185 nstag=1 t=122s
+[t_l015_h4] step  1200 u=5.701000e-03 F=0.42851 dmax=1.0102 gamma=0.3293 nstag=1 t=131s
+[t_l015_h4] step  1250 u=5.751000e-03 F=0.32071 dmax=1.0083 gamma=0.4353 nstag=1 t=139s
+[t_l015_h4] step  1300 u=5.801000e-03 F=0.21110 dmax=1.0073 gamma=0.5431 nstag=1 t=148s
+[t_l015_h4] load dropped below 1% of peak at u=5.834000e-03; stop
+[t_l015_h4] DONE peak F=0.71084 at u=5.548000e-03; wall 154s; u-solves 2147, d-solves 1334
+[t_l015_h8] case=tension l=0.015 h=0.001875 (l/h=8.00) elems=32136 dofs=65184 split=spectral irrev=True max_stag=1 steps=2500
+[t_l015_h8] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=3s
+[t_l015_h8] step    50 u=5.100000e-04 F=0.07224 dmax=0.0027 gamma=0.0000 nstag=1 t=13s
+[t_l015_h8] step   100 u=1.010000e-03 F=0.14278 dmax=0.0108 gamma=0.0000 nstag=1 t=22s
+[t_l015_h8] step   150 u=1.510000e-03 F=0.21274 dmax=0.0244 gamma=0.0002 nstag=1 t=31s
+[t_l015_h8] step   200 u=2.010000e-03 F=0.28185 dmax=0.0439 gamma=0.0006 nstag=1 t=40s
+[t_l015_h8] step   250 u=2.510000e-03 F=0.34980 dmax=0.0700 gamma=0.0014 nstag=1 t=49s
+[t_l015_h8] step   300 u=3.010000e-03 F=0.41630 dmax=0.1037 gamma=0.0029 nstag=1 t=58s
+[t_l015_h8] step   350 u=3.510000e-03 F=0.48102 dmax=0.1465 gamma=0.0054 nstag=1 t=68s
+[t_l015_h8] step   400 u=4.010000e-03 F=0.54358 dmax=0.2015 gamma=0.0093 nstag=1 t=78s
+[t_l015_h8] step   450 u=4.510000e-03 F=0.60350 dmax=0.2742 gamma=0.0152 nstag=1 t=88s
+[t_l015_h8] step   500 u=5.001000e-03 F=0.65871 dmax=0.3788 gamma=0.0240 nstag=1 t=102s
+[t_l015_h8] step   550 u=5.051000e-03 F=0.66395 dmax=0.3955 gamma=0.0252 nstag=1 t=112s
+[t_l015_h8] step   600 u=5.101000e-03 F=0.66924 dmax=0.4110 gamma=0.0264 nstag=1 t=122s
+[t_l015_h8] step   650 u=5.151000e-03 F=0.67445 dmax=0.4278 gamma=0.0276 nstag=1 t=131s
+[t_l015_h8] step   700 u=5.201000e-03 F=0.67956 dmax=0.4464 gamma=0.0290 nstag=1 t=141s
+[t_l015_h8] step   750 u=5.251000e-03 F=0.68455 dmax=0.4676 gamma=0.0305 nstag=1 t=151s
+[t_l015_h8] step   800 u=5.301000e-03 F=0.68937 dmax=0.4924 gamma=0.0321 nstag=1 t=160s
+[t_l015_h8] step   850 u=5.351000e-03 F=0.69396 dmax=0.5228 gamma=0.0340 nstag=1 t=171s
+[t_l015_h8] step   900 u=5.401000e-03 F=0.69809 dmax=0.5642 gamma=0.0364 nstag=1 t=185s
+[t_l015_h8] step   950 u=5.451000e-03 F=0.70052 dmax=0.6475 gamma=0.0405 nstag=1 t=203s
+[t_l015_h8] step  1000 u=5.501000e-03 F=0.62844 dmax=1.0126 gamma=0.1138 nstag=1 t=227s
+[t_l015_h8] step  1050 u=5.551000e-03 F=0.51873 dmax=1.0100 gamma=0.2192 nstag=1 t=260s
+[t_l015_h8] step  1100 u=5.601000e-03 F=0.41262 dmax=1.0070 gamma=0.3206 nstag=1 t=290s
+[t_l015_h8] step  1150 u=5.651000e-03 F=0.31087 dmax=1.0058 gamma=0.4183 nstag=1 t=318s
+[t_l015_h8] step  1200 u=5.701000e-03 F=0.20634 dmax=1.0051 gamma=0.5185 nstag=1 t=348s
+[t_l015_h8] load dropped below 1% of peak at u=5.735000e-03; stop
+[t_l015_h8] DONE peak F=0.70053 at u=5.449000e-03; wall 372s; u-solves 2231, d-solves 1235
+[t_l0075_h2] case=tension l=0.0075 h=0.00375 (l/h=2.00) elems=8216 dofs=16904 split=spectral irrev=True max_stag=1 steps=2500
+[t_l0075_h2] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=2s
+[t_l0075_h2] step    50 u=5.100000e-04 F=0.07233 dmax=0.0026 gamma=0.0000 nstag=1 t=4s
+[t_l0075_h2] step   100 u=1.010000e-03 F=0.14309 dmax=0.0104 gamma=0.0000 nstag=1 t=7s
+[t_l0075_h2] step   150 u=1.510000e-03 F=0.21354 dmax=0.0235 gamma=0.0001 nstag=1 t=10s
+[t_l0075_h2] step   200 u=2.010000e-03 F=0.28354 dmax=0.0423 gamma=0.0003 nstag=1 t=13s
+[t_l0075_h2] step   250 u=2.510000e-03 F=0.35293 dmax=0.0674 gamma=0.0007 nstag=1 t=15s
+[t_l0075_h2] step   300 u=3.010000e-03 F=0.42154 dmax=0.0995 gamma=0.0015 nstag=1 t=18s
+[t_l0075_h2] step   350 u=3.510000e-03 F=0.48920 dmax=0.1402 gamma=0.0029 nstag=1 t=20s
+[t_l0075_h2] step   400 u=4.010000e-03 F=0.55570 dmax=0.1917 gamma=0.0050 nstag=1 t=23s
+[t_l0075_h2] step   450 u=4.510000e-03 F=0.62079 dmax=0.2581 gamma=0.0081 nstag=1 t=25s
+[t_l0075_h2] step   500 u=5.001000e-03 F=0.68287 dmax=0.3475 gamma=0.0127 nstag=1 t=28s
+[t_l0075_h2] step   550 u=5.051000e-03 F=0.68904 dmax=0.3599 gamma=0.0133 nstag=1 t=33s
+[t_l0075_h2] step   600 u=5.101000e-03 F=0.69522 dmax=0.3717 gamma=0.0139 nstag=1 t=36s
+[t_l0075_h2] step   650 u=5.151000e-03 F=0.70137 dmax=0.3841 gamma=0.0145 nstag=1 t=40s
+[t_l0075_h2] step   700 u=5.201000e-03 F=0.70748 dmax=0.3971 gamma=0.0152 nstag=1 t=43s
+[t_l0075_h2] step   750 u=5.251000e-03 F=0.71356 dmax=0.4109 gamma=0.0159 nstag=1 t=47s
+[t_l0075_h2] step   800 u=5.301000e-03 F=0.71961 dmax=0.4256 gamma=0.0166 nstag=1 t=52s
+[t_l0075_h2] step   850 u=5.351000e-03 F=0.72561 dmax=0.4413 gamma=0.0174 nstag=1 t=55s
+[t_l0075_h2] step   900 u=5.401000e-03 F=0.73157 dmax=0.4583 gamma=0.0182 nstag=1 t=57s
+[t_l0075_h2] step   950 u=5.451000e-03 F=0.73747 dmax=0.4768 gamma=0.0191 nstag=1 t=60s
+[t_l0075_h2] step  1000 u=5.501000e-03 F=0.74330 dmax=0.4973 gamma=0.0200 nstag=1 t=62s
+[t_l0075_h2] step  1050 u=5.551000e-03 F=0.74904 dmax=0.5204 gamma=0.0210 nstag=1 t=64s
+[t_l0075_h2] step  1100 u=5.601000e-03 F=0.75467 dmax=0.5472 gamma=0.0222 nstag=1 t=66s
+[t_l0075_h2] step  1150 u=5.651000e-03 F=0.76011 dmax=0.5799 gamma=0.0235 nstag=1 t=69s
+[t_l0075_h2] step  1200 u=5.701000e-03 F=0.76520 dmax=0.6241 gamma=0.0253 nstag=1 t=71s
+[t_l0075_h2] step  1250 u=5.751000e-03 F=0.76914 dmax=0.7047 gamma=0.0282 nstag=1 t=75s
+[t_l0075_h2] step  1300 u=5.801000e-03 F=0.75253 dmax=1.0028 gamma=0.0532 nstag=1 t=79s
+[t_l0075_h2] step  1350 u=5.851000e-03 F=0.70237 dmax=1.0197 gamma=0.1104 nstag=1 t=84s
+[t_l0075_h2] step  1400 u=5.901000e-03 F=0.62776 dmax=1.0093 gamma=0.1874 nstag=1 t=89s
+[t_l0075_h2] step  1450 u=5.951000e-03 F=0.55067 dmax=1.0102 gamma=0.2663 nstag=1 t=95s
+[t_l0075_h2] step  1500 u=6.001000e-03 F=0.47223 dmax=1.0130 gamma=0.3464 nstag=1 t=100s
+[t_l0075_h2] step  1550 u=6.051000e-03 F=0.39341 dmax=1.0139 gamma=0.4268 nstag=1 t=105s
+[t_l0075_h2] step  1600 u=6.101000e-03 F=0.31391 dmax=1.0142 gamma=0.5077 nstag=1 t=110s
+[t_l0075_h2] step  1650 u=6.151000e-03 F=0.22793 dmax=1.0142 gamma=0.5944 nstag=1 t=115s
+[t_l0075_h2] load dropped below 1% of peak at u=6.196000e-03; stop
+[t_l0075_h2] DONE peak F=0.76938 at u=5.761000e-03; wall 120s; u-solves 2722, d-solves 1696
+[t_l0075_h4] case=tension l=0.0075 h=0.001875 (l/h=4.00) elems=22274 dofs=45368 split=spectral irrev=True max_stag=1 steps=2500
+[t_l0075_h4] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=2s
+[t_l0075_h4] step    50 u=5.100000e-04 F=0.07227 dmax=0.0027 gamma=0.0000 nstag=1 t=7s
+[t_l0075_h4] step   100 u=1.010000e-03 F=0.14297 dmax=0.0107 gamma=0.0000 nstag=1 t=13s
+[t_l0075_h4] step   150 u=1.510000e-03 F=0.21336 dmax=0.0241 gamma=0.0001 nstag=1 t=18s
+[t_l0075_h4] step   200 u=2.010000e-03 F=0.28330 dmax=0.0434 gamma=0.0003 nstag=1 t=23s
+[t_l0075_h4] step   250 u=2.510000e-03 F=0.35263 dmax=0.0692 gamma=0.0007 nstag=1 t=28s
+[t_l0075_h4] step   300 u=3.010000e-03 F=0.42117 dmax=0.1025 gamma=0.0016 nstag=1 t=34s
+[t_l0075_h4] step   350 u=3.510000e-03 F=0.48875 dmax=0.1450 gamma=0.0029 nstag=1 t=39s
+[t_l0075_h4] step   400 u=4.010000e-03 F=0.55517 dmax=0.1994 gamma=0.0050 nstag=1 t=44s
+[t_l0075_h4] step   450 u=4.510000e-03 F=0.62015 dmax=0.2712 gamma=0.0082 nstag=1 t=50s
+[t_l0075_h4] step   500 u=5.001000e-03 F=0.68200 dmax=0.3732 gamma=0.0129 nstag=1 t=57s
+[t_l0075_h4] step   550 u=5.051000e-03 F=0.68811 dmax=0.3888 gamma=0.0135 nstag=1 t=62s
+[t_l0075_h4] step   600 u=5.101000e-03 F=0.69423 dmax=0.4034 gamma=0.0142 nstag=1 t=67s
+[t_l0075_h4] step   650 u=5.151000e-03 F=0.70032 dmax=0.4191 gamma=0.0149 nstag=1 t=73s
+[t_l0075_h4] step   700 u=5.201000e-03 F=0.70636 dmax=0.4361 gamma=0.0156 nstag=1 t=78s
+[t_l0075_h4] step   750 u=5.251000e-03 F=0.71235 dmax=0.4548 gamma=0.0164 nstag=1 t=84s
+[t_l0075_h4] step   800 u=5.301000e-03 F=0.71828 dmax=0.4758 gamma=0.0172 nstag=1 t=89s
+[t_l0075_h4] step   850 u=5.351000e-03 F=0.72412 dmax=0.4999 gamma=0.0181 nstag=1 t=94s
+[t_l0075_h4] step   900 u=5.401000e-03 F=0.72983 dmax=0.5289 gamma=0.0192 nstag=1 t=100s
+[t_l0075_h4] step   950 u=5.451000e-03 F=0.73532 dmax=0.5671 gamma=0.0204 nstag=1 t=105s
+[t_l0075_h4] step  1000 u=5.501000e-03 F=0.74018 dmax=0.6315 gamma=0.0223 nstag=1 t=113s
+[t_l0075_h4] step  1050 u=5.551000e-03 F=0.72411 dmax=1.0083 gamma=0.0452 nstag=1 t=123s
+[t_l0075_h4] step  1100 u=5.601000e-03 F=0.66837 dmax=1.0162 gamma=0.1033 nstag=1 t=136s
+[t_l0075_h4] step  1150 u=5.651000e-03 F=0.60509 dmax=1.0084 gamma=0.1662 nstag=1 t=151s
+[t_l0075_h4] step  1200 u=5.701000e-03 F=0.53879 dmax=1.0082 gamma=0.2314 nstag=1 t=167s
+[t_l0075_h4] step  1250 u=5.751000e-03 F=0.47062 dmax=1.0104 gamma=0.2980 nstag=1 t=184s
+[t_l0075_h4] step  1300 u=5.801000e-03 F=0.40131 dmax=1.0109 gamma=0.3655 nstag=1 t=202s
+[t_l0075_h4] step  1350 u=5.851000e-03 F=0.33106 dmax=1.0108 gamma=0.4338 nstag=1 t=220s
+[t_l0075_h4] step  1400 u=5.901000e-03 F=0.25795 dmax=1.0106 gamma=0.5044 nstag=1 t=238s
+[t_l0075_h4] step  1450 u=5.951000e-03 F=0.16752 dmax=1.0102 gamma=0.5890 nstag=1 t=257s
+[t_l0075_h4] load dropped below 1% of peak at u=5.974000e-03; stop
+[t_l0075_h4] DONE peak F=0.74133 at u=5.523000e-03; wall 268s; u-solves 2898, d-solves 1474
+[t_l0075_h8] case=tension l=0.0075 h=0.0009375 (l/h=8.00) elems=65408 dofs=132312 split=spectral irrev=True max_stag=1 steps=2500
+[t_l0075_h8] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=4s
+[t_l0075_h8] step    50 u=5.100000e-04 F=0.07224 dmax=0.0027 gamma=0.0000 nstag=1 t=26s
+[t_l0075_h8] step   100 u=1.010000e-03 F=0.14290 dmax=0.0108 gamma=0.0000 nstag=1 t=49s
+[t_l0075_h8] step   150 u=1.510000e-03 F=0.21327 dmax=0.0244 gamma=0.0001 nstag=1 t=70s
+[t_l0075_h8] step   200 u=2.010000e-03 F=0.28318 dmax=0.0439 gamma=0.0003 nstag=1 t=93s
+[t_l0075_h8] step   250 u=2.510000e-03 F=0.35247 dmax=0.0701 gamma=0.0007 nstag=1 t=113s
+[t_l0075_h8] step   300 u=3.010000e-03 F=0.42098 dmax=0.1041 gamma=0.0016 nstag=1 t=136s
+[t_l0075_h8] step   350 u=3.510000e-03 F=0.48852 dmax=0.1475 gamma=0.0029 nstag=1 t=158s
+[t_l0075_h8] step   400 u=4.010000e-03 F=0.55489 dmax=0.2035 gamma=0.0050 nstag=1 t=181s
+[t_l0075_h8] step   450 u=4.510000e-03 F=0.61981 dmax=0.2784 gamma=0.0082 nstag=1 t=205s
+[t_l0075_h8] step   500 u=5.001000e-03 F=0.68152 dmax=0.3884 gamma=0.0130 nstag=1 t=239s
+[t_l0075_h8] step   550 u=5.051000e-03 F=0.68759 dmax=0.4066 gamma=0.0137 nstag=1 t=262s
+[t_l0075_h8] step   600 u=5.101000e-03 F=0.69368 dmax=0.4233 gamma=0.0144 nstag=1 t=284s
+[t_l0075_h8] step   650 u=5.151000e-03 F=0.69972 dmax=0.4418 gamma=0.0151 nstag=1 t=308s
+[t_l0075_h8] step   700 u=5.201000e-03 F=0.70570 dmax=0.4625 gamma=0.0159 nstag=1 t=330s
+[t_l0075_h8] step   750 u=5.251000e-03 F=0.71160 dmax=0.4865 gamma=0.0167 nstag=1 t=360s
+[t_l0075_h8] step   800 u=5.301000e-03 F=0.71739 dmax=0.5162 gamma=0.0177 nstag=1 t=392s
+[t_l0075_h8] step   850 u=5.351000e-03 F=0.72296 dmax=0.5557 gamma=0.0188 nstag=1 t=429s
+[t_l0075_h8] step   900 u=5.401000e-03 F=0.72788 dmax=0.6273 gamma=0.0207 nstag=1 t=484s
+[t_l0075_h8] step   950 u=5.451000e-03 F=0.70251 dmax=1.0114 gamma=0.0505 nstag=1 t=568s
+[t_l0075_h8] step  1000 u=5.501000e-03 F=0.64622 dmax=1.0093 gamma=0.1066 nstag=1 t=691s
+[t_l0075_h8] step  1050 u=5.551000e-03 F=0.58715 dmax=1.0051 gamma=0.1642 nstag=1 t=816s
+[t_l0075_h8] step  1100 u=5.601000e-03 F=0.52541 dmax=1.0076 gamma=0.2237 nstag=1 t=949s
+[t_l0075_h8] step  1150 u=5.651000e-03 F=0.46170 dmax=1.0076 gamma=0.2848 nstag=1 t=1095s
+[t_l0075_h8] step  1200 u=5.701000e-03 F=0.39667 dmax=1.0067 gamma=0.3468 nstag=1 t=1240s
+[t_l0075_h8] step  1250 u=5.751000e-03 F=0.33053 dmax=1.0059 gamma=0.4098 nstag=1 t=1386s
+[t_l0075_h8] step  1300 u=5.801000e-03 F=0.26186 dmax=1.0053 gamma=0.4747 nstag=1 t=1484s
+[t_l0075_h8] step  1350 u=5.851000e-03 F=0.18101 dmax=1.0048 gamma=0.5494 nstag=1 t=1567s
+[t_l0075_h8] load dropped below 1% of peak at u=5.882000e-03; stop
+[t_l0075_h8] DONE peak F=0.72879 at u=5.419000e-03; wall 1631s; u-solves 3327, d-solves 1382
+[t_l015_h4_du1e-5] case=tension l=0.015 h=0.00375 (l/h=4.00) elems=11016 dofs=22552 split=spectral irrev=True max_stag=1 steps=700
+[t_l015_h4_du1e-5] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=2s
+[t_l015_h4_du1e-5] step    50 u=5.100000e-04 F=0.07229 dmax=0.0027 gamma=0.0000 nstag=1 t=5s
+[t_l015_h4_du1e-5] step   100 u=1.010000e-03 F=0.14288 dmax=0.0107 gamma=0.0000 nstag=1 t=9s
+[t_l015_h4_du1e-5] step   150 u=1.510000e-03 F=0.21290 dmax=0.0242 gamma=0.0002 nstag=1 t=12s
+[t_l015_h4_du1e-5] step   200 u=2.010000e-03 F=0.28205 dmax=0.0435 gamma=0.0006 nstag=1 t=15s
+[t_l015_h4_du1e-5] step   250 u=2.510000e-03 F=0.35006 dmax=0.0693 gamma=0.0014 nstag=1 t=18s
+[t_l015_h4_du1e-5] step   300 u=3.010000e-03 F=0.41661 dmax=0.1024 gamma=0.0029 nstag=1 t=22s
+[t_l015_h4_du1e-5] step   350 u=3.510000e-03 F=0.48139 dmax=0.1445 gamma=0.0054 nstag=1 t=25s
+[t_l015_h4_du1e-5] step   400 u=4.010000e-03 F=0.54402 dmax=0.1980 gamma=0.0093 nstag=1 t=28s
+[t_l015_h4_du1e-5] step   450 u=4.510000e-03 F=0.60404 dmax=0.2681 gamma=0.0152 nstag=1 t=32s
+[t_l015_h4_du1e-5] step   500 u=5.010000e-03 F=0.66064 dmax=0.3670 gamma=0.0239 nstag=1 t=36s
+[t_l015_h4_du1e-5] step   550 u=5.510000e-03 F=0.71109 dmax=0.5499 gamma=0.0386 nstag=1 t=41s
+[t_l015_h4_du1e-5] step   600 u=6.010000e-03 F=0.64017 dmax=1.0211 gamma=0.1665 nstag=1 t=48s
+[t_l015_h4_du1e-5] step   650 u=6.510000e-03 F=0.40899 dmax=1.0091 gamma=0.4216 nstag=1 t=58s
+[t_l015_h4_du1e-5] load dropped below 1% of peak at u=6.940000e-03; stop
+[t_l015_h4_du1e-5] DONE peak F=0.72225 at u=5.690000e-03; wall 67s; u-solves 1214, d-solves 694
+[t_l015_h4_molnar_steps] case=tension l=0.015 h=0.00375 (l/h=4.00) elems=11016 dofs=22552 split=spectral irrev=True max_stag=1 steps=250
+[t_l015_h4_molnar_steps] step     0 u=1.000000e-04 F=0.01418 dmax=0.0001 gamma=0.0000 nstag=1 t=2s
+[t_l015_h4_molnar_steps] step    50 u=5.010000e-03 F=0.66128 dmax=0.3546 gamma=0.0236 nstag=1 t=6s
+[t_l015_h4_molnar_steps] step   100 u=5.510000e-03 F=0.71109 dmax=0.5500 gamma=0.0386 nstag=1 t=10s
+[t_l015_h4_molnar_steps] step   150 u=6.010000e-03 F=0.64017 dmax=1.0211 gamma=0.1665 nstag=1 t=17s
+[t_l015_h4_molnar_steps] step   200 u=6.510000e-03 F=0.40898 dmax=1.0091 gamma=0.4216 nstag=1 t=29s
+[t_l015_h4_molnar_steps] load dropped below 1% of peak at u=6.940000e-03; stop
+[t_l015_h4_molnar_steps] DONE peak F=0.72224 at u=5.690000e-03; wall 44s; u-solves 756, d-solves 244
+[t_l015_h4_du2.5e-7] case=tension l=0.015 h=0.00375 (l/h=4.00) elems=11016 dofs=22552 split=spectral irrev=True max_stag=1 steps=8500
+[t_l015_h4_du2.5e-7] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=3s
+[t_l015_h4_du2.5e-7] step    50 u=5.100000e-04 F=0.07229 dmax=0.0027 gamma=0.0000 nstag=1 t=8s
+[t_l015_h4_du2.5e-7] step   100 u=1.010000e-03 F=0.14288 dmax=0.0107 gamma=0.0000 nstag=1 t=13s
+[t_l015_h4_du2.5e-7] step   150 u=1.510000e-03 F=0.21290 dmax=0.0242 gamma=0.0002 nstag=1 t=17s
+[t_l015_h4_du2.5e-7] step   200 u=2.010000e-03 F=0.28205 dmax=0.0435 gamma=0.0006 nstag=1 t=22s
+[t_l015_h4_du2.5e-7] step   250 u=2.510000e-03 F=0.35006 dmax=0.0693 gamma=0.0014 nstag=1 t=27s
+[t_l015_h4_du2.5e-7] step   300 u=3.010000e-03 F=0.41661 dmax=0.1024 gamma=0.0029 nstag=1 t=32s
+[t_l015_h4_du2.5e-7] step   350 u=3.510000e-03 F=0.48139 dmax=0.1445 gamma=0.0054 nstag=1 t=37s
+[t_l015_h4_du2.5e-7] step   400 u=4.010000e-03 F=0.54402 dmax=0.1980 gamma=0.0093 nstag=1 t=42s
+[t_l015_h4_du2.5e-7] step   450 u=4.510000e-03 F=0.60404 dmax=0.2681 gamma=0.0152 nstag=1 t=48s
+[t_l015_h4_du2.5e-7] step   500 u=5.000250e-03 F=0.65936 dmax=0.3660 gamma=0.0238 nstag=1 t=55s
+[t_l015_h4_du2.5e-7] step   550 u=5.012750e-03 F=0.66062 dmax=0.3711 gamma=0.0241 nstag=1 t=60s
+[t_l015_h4_du2.5e-7] step   600 u=5.025250e-03 F=0.66197 dmax=0.3743 gamma=0.0244 nstag=1 t=66s
+[t_l015_h4_du2.5e-7] step   650 u=5.037750e-03 F=0.66332 dmax=0.3775 gamma=0.0246 nstag=1 t=72s
+[t_l015_h4_du2.5e-7] step   700 u=5.050250e-03 F=0.66466 dmax=0.3808 gamma=0.0249 nstag=1 t=78s
+[t_l015_h4_du2.5e-7] step   750 u=5.062750e-03 F=0.66600 dmax=0.3842 gamma=0.0252 nstag=1 t=83s
+[t_l015_h4_du2.5e-7] step   800 u=5.075250e-03 F=0.66734 dmax=0.3876 gamma=0.0255 nstag=1 t=87s
+[t_l015_h4_du2.5e-7] step   850 u=5.087750e-03 F=0.66867 dmax=0.3911 gamma=0.0258 nstag=1 t=91s
+[t_l015_h4_du2.5e-7] step   900 u=5.100250e-03 F=0.67000 dmax=0.3946 gamma=0.0261 nstag=1 t=96s
+[t_l015_h4_du2.5e-7] step   950 u=5.112750e-03 F=0.67133 dmax=0.3982 gamma=0.0264 nstag=1 t=100s
+[t_l015_h4_du2.5e-7] step  1000 u=5.125250e-03 F=0.67265 dmax=0.4018 gamma=0.0267 nstag=1 t=104s
+[t_l015_h4_du2.5e-7] step  1050 u=5.137750e-03 F=0.67397 dmax=0.4055 gamma=0.0270 nstag=1 t=109s
+[t_l015_h4_du2.5e-7] step  1100 u=5.150250e-03 F=0.67528 dmax=0.4093 gamma=0.0273 nstag=1 t=113s
+[t_l015_h4_du2.5e-7] step  1150 u=5.162750e-03 F=0.67658 dmax=0.4131 gamma=0.0276 nstag=1 t=118s
+[t_l015_h4_du2.5e-7] step  1200 u=5.175250e-03 F=0.67789 dmax=0.4171 gamma=0.0279 nstag=1 t=122s
+[t_l015_h4_du2.5e-7] step  1250 u=5.187750e-03 F=0.67918 dmax=0.4211 gamma=0.0283 nstag=1 t=126s
+[t_l015_h4_du2.5e-7] step  1300 u=5.200250e-03 F=0.68047 dmax=0.4251 gamma=0.0286 nstag=1 t=131s
+[t_l015_h4_du2.5e-7] step  1350 u=5.212750e-03 F=0.68176 dmax=0.4293 gamma=0.0289 nstag=1 t=136s
+[t_l015_h4_du2.5e-7] step  1400 u=5.225250e-03 F=0.68304 dmax=0.4336 gamma=0.0293 nstag=1 t=141s
+[t_l015_h4_du2.5e-7] step  1450 u=5.237750e-03 F=0.68431 dmax=0.4380 gamma=0.0296 nstag=1 t=145s
+[t_l015_h4_du2.5e-7] step  1500 u=5.250250e-03 F=0.68558 dmax=0.4425 gamma=0.0300 nstag=1 t=150s
+[t_l015_h4_du2.5e-7] step  1550 u=5.262750e-03 F=0.68684 dmax=0.4471 gamma=0.0303 nstag=1 t=155s
+[t_l015_h4_du2.5e-7] step  1600 u=5.275250e-03 F=0.68810 dmax=0.4518 gamma=0.0307 nstag=1 t=160s
+[t_l015_h4_du2.5e-7] step  1650 u=5.287750e-03 F=0.68935 dmax=0.4566 gamma=0.0311 nstag=1 t=164s
+[t_l015_h4_du2.5e-7] step  1700 u=5.300250e-03 F=0.69058 dmax=0.4616 gamma=0.0315 nstag=1 t=168s
+[t_l015_h4_du2.5e-7] step  1750 u=5.312750e-03 F=0.69182 dmax=0.4667 gamma=0.0319 nstag=1 t=173s
+[t_l015_h4_du2.5e-7] step  1800 u=5.325250e-03 F=0.69304 dmax=0.4720 gamma=0.0322 nstag=1 t=178s
+[t_l015_h4_du2.5e-7] step  1850 u=5.337750e-03 F=0.69425 dmax=0.4775 gamma=0.0327 nstag=1 t=183s
+[t_l015_h4_du2.5e-7] step  1900 u=5.350250e-03 F=0.69545 dmax=0.4832 gamma=0.0331 nstag=1 t=187s
+[t_l015_h4_du2.5e-7] step  1950 u=5.362750e-03 F=0.69664 dmax=0.4891 gamma=0.0335 nstag=1 t=192s
+[t_l015_h4_du2.5e-7] step  2000 u=5.375250e-03 F=0.69782 dmax=0.4953 gamma=0.0339 nstag=1 t=196s
+[t_l015_h4_du2.5e-7] step  2050 u=5.387750e-03 F=0.69899 dmax=0.5017 gamma=0.0344 nstag=1 t=200s
+[t_l015_h4_du2.5e-7] step  2100 u=5.400250e-03 F=0.70014 dmax=0.5084 gamma=0.0349 nstag=1 t=205s
+[t_l015_h4_du2.5e-7] step  2150 u=5.412750e-03 F=0.70127 dmax=0.5154 gamma=0.0354 nstag=1 t=210s
+[t_l015_h4_du2.5e-7] step  2200 u=5.425250e-03 F=0.70238 dmax=0.5229 gamma=0.0359 nstag=1 t=215s
+[t_l015_h4_du2.5e-7] step  2250 u=5.437750e-03 F=0.70347 dmax=0.5309 gamma=0.0364 nstag=1 t=219s
+[t_l015_h4_du2.5e-7] step  2300 u=5.450250e-03 F=0.70453 dmax=0.5394 gamma=0.0370 nstag=1 t=224s
+[t_l015_h4_du2.5e-7] step  2350 u=5.462750e-03 F=0.70555 dmax=0.5487 gamma=0.0376 nstag=1 t=229s
+[t_l015_h4_du2.5e-7] step  2400 u=5.475250e-03 F=0.70653 dmax=0.5588 gamma=0.0382 nstag=1 t=233s
+[t_l015_h4_du2.5e-7] step  2450 u=5.487750e-03 F=0.70746 dmax=0.5702 gamma=0.0389 nstag=1 t=238s
+[t_l015_h4_du2.5e-7] step  2500 u=5.500250e-03 F=0.70830 dmax=0.5834 gamma=0.0397 nstag=1 t=241s
+[t_l015_h4_du2.5e-7] step  2550 u=5.512750e-03 F=0.70900 dmax=0.5993 gamma=0.0406 nstag=1 t=247s
+[t_l015_h4_du2.5e-7] step  2600 u=5.525250e-03 F=0.70944 dmax=0.6210 gamma=0.0418 nstag=1 t=253s
+[t_l015_h4_du2.5e-7] step  2650 u=5.537750e-03 F=0.70905 dmax=0.6598 gamma=0.0439 nstag=1 t=259s
+[t_l015_h4_du2.5e-7] step  2700 u=5.550250e-03 F=0.68368 dmax=0.9864 gamma=0.0725 nstag=1 t=268s
+[t_l015_h4_du2.5e-7] step  2750 u=5.562750e-03 F=0.58276 dmax=1.0182 gamma=0.1706 nstag=1 t=280s
+[t_l015_h4_du2.5e-7] step  2800 u=5.575250e-03 F=0.48362 dmax=1.0120 gamma=0.2652 nstag=1 t=292s
+[t_l015_h4_du2.5e-7] step  2850 u=5.587750e-03 F=0.39417 dmax=1.0095 gamma=0.3514 nstag=1 t=302s
+[t_l015_h4_du2.5e-7] step  2900 u=5.600250e-03 F=0.31428 dmax=1.0083 gamma=0.4294 nstag=1 t=313s
+[t_l015_h4_du2.5e-7] step  2950 u=5.612750e-03 F=0.23929 dmax=1.0077 gamma=0.5033 nstag=1 t=323s
+[t_l015_h4_du2.5e-7] step  3000 u=5.625250e-03 F=0.14384 dmax=1.0073 gamma=0.5957 nstag=1 t=334s
+[t_l015_h4_du2.5e-7] load dropped below 1% of peak at u=5.628750e-03; stop
+[t_l015_h4_du2.5e-7] DONE peak F=0.70947 at u=5.528500e-03; wall 338s; u-solves 3896, d-solves 3015
+[t_l015_h4_stag_tol1e-3] case=tension l=0.015 h=0.00375 (l/h=4.00) elems=11016 dofs=22552 split=spectral irrev=True max_stag=3000 steps=700
+[t_l015_h4_stag_tol1e-3] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=3s
+[t_l015_h4_stag_tol1e-3] step    50 u=5.100000e-04 F=0.07229 dmax=0.0027 gamma=0.0000 nstag=1 t=7s
+[t_l015_h4_stag_tol1e-3] step   100 u=1.010000e-03 F=0.14287 dmax=0.0107 gamma=0.0000 nstag=1 t=10s
+[t_l015_h4_stag_tol1e-3] step   150 u=1.510000e-03 F=0.21288 dmax=0.0242 gamma=0.0002 nstag=1 t=15s
+[t_l015_h4_stag_tol1e-3] step   200 u=2.010000e-03 F=0.28202 dmax=0.0435 gamma=0.0006 nstag=1 t=18s
+[t_l015_h4_stag_tol1e-3] step   250 u=2.510000e-03 F=0.35001 dmax=0.0693 gamma=0.0014 nstag=1 t=22s
+[t_l015_h4_stag_tol1e-3] step   300 u=3.010000e-03 F=0.41654 dmax=0.1024 gamma=0.0029 nstag=1 t=26s
+[t_l015_h4_stag_tol1e-3] step   350 u=3.510000e-03 F=0.48129 dmax=0.1445 gamma=0.0054 nstag=1 t=30s
+[t_l015_h4_stag_tol1e-3] step   400 u=4.010000e-03 F=0.54388 dmax=0.1984 gamma=0.0093 nstag=2 t=35s
+[t_l015_h4_stag_tol1e-3] step   450 u=4.510000e-03 F=0.60385 dmax=0.2690 gamma=0.0152 nstag=2 t=41s
+[t_l015_h4_stag_tol1e-3] step   500 u=5.010000e-03 F=0.66035 dmax=0.3691 gamma=0.0240 nstag=2 t=47s
+[t_l015_h4_stag_tol1e-3] step   550 u=5.510000e-03 F=0.70909 dmax=0.5894 gamma=0.0402 nstag=9 t=62s
+[t_l015_h4_stag_tol1e-3] load dropped below 1% of peak at u=5.540000e-03; stop
+[t_l015_h4_stag_tol1e-3] DONE peak F=0.70973 at u=5.530000e-03; wall 134s; u-solves 2192, d-solves 1219
+[t_l015_h4_stag_tol1e-4] case=tension l=0.015 h=0.00375 (l/h=4.00) elems=11016 dofs=22552 split=spectral irrev=True max_stag=3000 steps=700
+[t_l015_h4_stag_tol1e-4] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=2s
+[t_l015_h4_stag_tol1e-4] step    50 u=5.100000e-04 F=0.07229 dmax=0.0027 gamma=0.0000 nstag=2 t=6s
+[t_l015_h4_stag_tol1e-4] step   100 u=1.010000e-03 F=0.14287 dmax=0.0107 gamma=0.0000 nstag=2 t=13s
+[t_l015_h4_stag_tol1e-4] step   150 u=1.510000e-03 F=0.21288 dmax=0.0242 gamma=0.0002 nstag=2 t=20s
+[t_l015_h4_stag_tol1e-4] step   200 u=2.010000e-03 F=0.28202 dmax=0.0435 gamma=0.0006 nstag=2 t=27s
+[t_l015_h4_stag_tol1e-4] step   250 u=2.510000e-03 F=0.35001 dmax=0.0693 gamma=0.0014 nstag=2 t=33s
+[t_l015_h4_stag_tol1e-4] step   300 u=3.010000e-03 F=0.41654 dmax=0.1026 gamma=0.0029 nstag=3 t=41s
+[t_l015_h4_stag_tol1e-4] step   350 u=3.510000e-03 F=0.48129 dmax=0.1447 gamma=0.0054 nstag=3 t=52s
+[t_l015_h4_stag_tol1e-4] step   400 u=4.010000e-03 F=0.54388 dmax=0.1986 gamma=0.0093 nstag=3 t=62s
+[t_l015_h4_stag_tol1e-4] step   450 u=4.510000e-03 F=0.60384 dmax=0.2693 gamma=0.0152 nstag=4 t=75s
+[t_l015_h4_stag_tol1e-4] step   500 u=5.010000e-03 F=0.66032 dmax=0.3704 gamma=0.0240 nstag=6 t=92s
+[t_l015_h4_stag_tol1e-4] step   550 u=5.510000e-03 F=0.70871 dmax=0.5986 gamma=0.0405 nstag=33 t=130s
+[t_l015_h4_stag_tol1e-4] load dropped below 1% of peak at u=5.530000e-03; stop
+[t_l015_h4_stag_tol1e-4] DONE peak F=0.70900 at u=5.520000e-03; wall 220s; u-solves 3308, d-solves 2399
+[t_l015_h4_stag_tol1e-5] case=tension l=0.015 h=0.00375 (l/h=4.00) elems=11016 dofs=22552 split=spectral irrev=True max_stag=5000 steps=700
+[t_l015_h4_stag_tol1e-5] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=2s
+[t_l015_h4_stag_tol1e-5] step    50 u=5.100000e-04 F=0.07229 dmax=0.0027 gamma=0.0000 nstag=2 t=8s
+[t_l015_h4_stag_tol1e-5] step   100 u=1.010000e-03 F=0.14287 dmax=0.0107 gamma=0.0000 nstag=2 t=17s
+[t_l015_h4_stag_tol1e-5] step   150 u=1.510000e-03 F=0.21288 dmax=0.0242 gamma=0.0002 nstag=3 t=37s
+[t_l015_h4_stag_tol1e-5] step   200 u=2.010000e-03 F=0.28202 dmax=0.0435 gamma=0.0006 nstag=3 t=83s
+[t_l015_h4_stag_tol1e-5] step   250 u=2.510000e-03 F=0.35001 dmax=0.0693 gamma=0.0014 nstag=3 t=132s
+[t_l015_h4_stag_tol1e-5] step   300 u=3.010000e-03 F=0.41654 dmax=0.1026 gamma=0.0029 nstag=4 t=176s
+[t_l015_h4_stag_tol1e-5] step   350 u=3.510000e-03 F=0.48129 dmax=0.1448 gamma=0.0054 nstag=4 t=226s
+[t_l015_h4_stag_tol1e-5] step   400 u=4.010000e-03 F=0.54388 dmax=0.1986 gamma=0.0093 nstag=5 t=270s
+[t_l015_h4_stag_tol1e-5] step   450 u=4.510000e-03 F=0.60384 dmax=0.2694 gamma=0.0152 nstag=7 t=317s
+[t_l015_h4_stag_tol1e-5] step   500 u=5.010000e-03 F=0.66031 dmax=0.3705 gamma=0.0240 nstag=10 t=388s
+[t_l015_h4_stag_tol1e-5] step   550 u=5.510000e-03 F=0.70867 dmax=0.5996 gamma=0.0406 nstag=63 t=474s
+[t_l015_h4_stag_tol1e-5] load dropped below 1% of peak at u=5.530000e-03; stop
+[t_l015_h4_stag_tol1e-5] DONE peak F=0.70893 at u=5.520000e-03; wall 565s; u-solves 4380, d-solves 3525
+[t_l015_h16] case=tension l=0.015 h=0.0009375 (l/h=16.00) elems=104400 dofs=210484 split=spectral irrev=True max_stag=1 steps=2500
+[t_l015_h16] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=8s
+[t_l015_h16] step    50 u=5.100000e-04 F=0.07221 dmax=0.0027 gamma=0.0000 nstag=1 t=45s
+[t_l015_h16] step   100 u=1.010000e-03 F=0.14272 dmax=0.0109 gamma=0.0000 nstag=1 t=82s
+[t_l015_h16] step   150 u=1.510000e-03 F=0.21265 dmax=0.0245 gamma=0.0002 nstag=1 t=119s
+[t_l015_h16] step   200 u=2.010000e-03 F=0.28173 dmax=0.0442 gamma=0.0006 nstag=1 t=178s
+[t_l015_h16] step   250 u=2.510000e-03 F=0.34965 dmax=0.0705 gamma=0.0014 nstag=1 t=227s
+[t_l015_h16] step   300 u=3.010000e-03 F=0.41611 dmax=0.1045 gamma=0.0029 nstag=1 t=271s
+[t_l015_h16] step   350 u=3.510000e-03 F=0.48080 dmax=0.1479 gamma=0.0054 nstag=1 t=318s
+[t_l015_h16] step   400 u=4.010000e-03 F=0.54332 dmax=0.2037 gamma=0.0093 nstag=1 t=368s
+[t_l015_h16] step   450 u=4.510000e-03 F=0.60319 dmax=0.2784 gamma=0.0153 nstag=1 t=417s
+[t_l015_h16] step   500 u=5.001000e-03 F=0.65829 dmax=0.3879 gamma=0.0240 nstag=1 t=487s
+[t_l015_h16] step   550 u=5.051000e-03 F=0.66351 dmax=0.4061 gamma=0.0253 nstag=1 t=520s
+[t_l015_h16] step   600 u=5.101000e-03 F=0.66876 dmax=0.4229 gamma=0.0265 nstag=1 t=555s
+[t_l015_h16] step   650 u=5.151000e-03 F=0.67393 dmax=0.4414 gamma=0.0278 nstag=1 t=588s
+[t_l015_h16] step   700 u=5.201000e-03 F=0.67898 dmax=0.4621 gamma=0.0292 nstag=1 t=623s
+[t_l015_h16] step   750 u=5.251000e-03 F=0.68389 dmax=0.4861 gamma=0.0308 nstag=1 t=660s
+[t_l015_h16] step   800 u=5.301000e-03 F=0.68858 dmax=0.5151 gamma=0.0326 nstag=1 t=697s
+[t_l015_h16] step   850 u=5.351000e-03 F=0.69289 dmax=0.5539 gamma=0.0347 nstag=1 t=745s
+[t_l015_h16] step   900 u=5.401000e-03 F=0.69596 dmax=0.6243 gamma=0.0381 nstag=1 t=800s
+[t_l015_h16] step   950 u=5.451000e-03 F=0.63774 dmax=1.0067 gamma=0.0975 nstag=1 t=885s
+[t_l015_h16] step  1000 u=5.501000e-03 F=0.52843 dmax=1.0066 gamma=0.2004 nstag=1 t=1125s
+[t_l015_h16] step  1050 u=5.551000e-03 F=0.42491 dmax=1.0045 gamma=0.2983 nstag=1 t=1282s
+[t_l015_h16] step  1100 u=5.601000e-03 F=0.32561 dmax=1.0036 gamma=0.3927 nstag=1 t=1420s
+[t_l015_h16] step  1150 u=5.651000e-03 F=0.22615 dmax=1.0040 gamma=0.4873 nstag=1 t=1550s
+[t_l015_h16] load dropped below 1% of peak at u=5.696000e-03; stop
+[t_l015_h16] DONE peak F=0.69604 at u=5.407000e-03; wall 1670s; u-solves 2826, d-solves 1196
+[t_l0075_h16] case=tension l=0.0075 h=0.00046875 (l/h=16.00) elems=208754 dofs=420328 split=spectral irrev=True max_stag=1 steps=2500
+[t_l0075_h16] step     0 u=1.000000e-05 F=0.00142 dmax=0.0000 gamma=0.0000 nstag=1 t=10s
+[t_l0075_h16] step    50 u=5.100000e-04 F=0.07222 dmax=0.0027 gamma=0.0000 nstag=1 t=87s
+[t_l0075_h16] step   100 u=1.010000e-03 F=0.14287 dmax=0.0108 gamma=0.0000 nstag=1 t=170s
+[t_l0075_h16] step   150 u=1.510000e-03 F=0.21322 dmax=0.0245 gamma=0.0001 nstag=1 t=243s
+[t_l0075_h16] step   200 u=2.010000e-03 F=0.28312 dmax=0.0441 gamma=0.0003 nstag=1 t=330s
+[t_l0075_h16] step   250 u=2.510000e-03 F=0.35239 dmax=0.0705 gamma=0.0007 nstag=1 t=414s
+[t_l0075_h16] step   300 u=3.010000e-03 F=0.42089 dmax=0.1047 gamma=0.0016 nstag=1 t=489s
+[t_l0075_h16] step   350 u=3.510000e-03 F=0.48842 dmax=0.1487 gamma=0.0029 nstag=1 t=569s
+[t_l0075_h16] step   400 u=4.010000e-03 F=0.55477 dmax=0.2056 gamma=0.0050 nstag=1 t=655s
+[t_l0075_h16] step   450 u=4.510000e-03 F=0.61966 dmax=0.2824 gamma=0.0082 nstag=1 t=743s
+[t_l0075_h16] step   500 u=5.001000e-03 F=0.68132 dmax=0.3975 gamma=0.0131 nstag=1 t=871s
