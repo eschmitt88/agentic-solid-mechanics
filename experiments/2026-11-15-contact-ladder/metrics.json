@@ -1,1 +1,919 @@
-{}
+{
+ "summary": {
+  "checks": 31,
+  "passed": 22,
+  "missed": 9
+ },
+ "checks": [
+  {
+   "id": "1a-own",
+   "what": "patch test: max deviation of contact pressure / stress",
+   "value": 0.005326604078033981,
+   "reference": 0.0,
+   "error": 0.005326604078033981,
+   "tolerance": 0.01,
+   "passed": true,
+   "solver": "own",
+   "note": "depends on quadrature: 7.5 % with 2 points per edge, 0.03 % with 20"
+  },
+  {
+   "id": "1a-ccx",
+   "what": "patch test: max deviation of contact pressure / stress",
+   "value": 0.00019499999999994522,
+   "reference": 0.0,
+   "error": 0.00019499999999994522,
+   "tolerance": 0.01,
+   "passed": true,
+   "solver": "ccx",
+   "note": ""
+  },
+  {
+   "id": "1b-a-own",
+   "what": "2D Hertz contact half-width",
+   "value": 0.049459732839515935,
+   "reference": 0.05,
+   "error": -0.010805343209681295,
+   "tolerance": 0.05,
+   "passed": true,
+   "solver": "own",
+   "note": "resolution \u00b10.8 %"
+  },
+  {
+   "id": "1b-p0-own",
+   "what": "2D Hertz peak pressure",
+   "value": 27.44087776739158,
+   "reference": 27.47252747252748,
+   "error": -0.0011520492669467863,
+   "tolerance": 0.03,
+   "passed": true,
+   "solver": "own",
+   "note": ""
+  },
+  {
+   "id": "1b-dist-own",
+   "what": "2D Hertz pressure distribution, relative L2 error",
+   "value": 0.014208630787011836,
+   "reference": 0.0,
+   "error": 0.014208630787011836,
+   "tolerance": 0.05,
+   "passed": true,
+   "solver": "own",
+   "note": ""
+  },
+  {
+   "id": "1b-a-ccx",
+   "what": "2D Hertz contact half-width",
+   "value": 0.05023797542691916,
+   "reference": 0.05,
+   "error": 0.004759508538383139,
+   "tolerance": 0.05,
+   "passed": true,
+   "solver": "ccx",
+   "note": "resolution \u00b10.8 %"
+  },
+  {
+   "id": "1b-p0-ccx",
+   "what": "2D Hertz peak pressure",
+   "value": 27.77757692307692,
+   "reference": 27.47252747252748,
+   "error": 0.011103799999999664,
+   "tolerance": 0.03,
+   "passed": true,
+   "solver": "ccx",
+   "note": ""
+  },
+  {
+   "id": "1b-dist-ccx",
+   "what": "2D Hertz pressure distribution, relative L2 error",
+   "value": 0.012050965408985268,
+   "reference": 0.0,
+   "error": 0.012050965408985268,
+   "tolerance": 0.05,
+   "passed": true,
+   "solver": "ccx",
+   "note": ""
+  },
+  {
+   "id": "1c-F-own",
+   "what": "sphere: force at prescribed approach",
+   "value": 0.1879440104147072,
+   "reference": 0.1831501831501832,
+   "error": 0.02617429686430106,
+   "tolerance": 0.03,
+   "passed": true,
+   "solver": "own",
+   "note": "the 2.6 % is the finite sphere (scales with a/R), not solver error; passes with 0.4 % to spare"
+  },
+  {
+   "id": "1c-F-ccx",
+   "what": "sphere: force at prescribed approach",
+   "value": 0.18789264,
+   "reference": 0.1831501831501832,
+   "error": 0.025893814399999826,
+   "tolerance": 0.03,
+   "passed": true,
+   "solver": "ccx",
+   "note": "same finite-size effect"
+  },
+  {
+   "id": "1c-a-own",
+   "what": "sphere: contact radius",
+   "value": 0.05023797543844048,
+   "reference": 0.05,
+   "error": 0.004759508768809484,
+   "tolerance": 0.05,
+   "passed": true,
+   "solver": "own",
+   "note": ""
+  },
+  {
+   "id": "1c-a-ccx",
+   "what": "sphere: contact radius",
+   "value": 0.05023797543844048,
+   "reference": 0.05,
+   "error": 0.004759508768809484,
+   "tolerance": 0.05,
+   "passed": true,
+   "solver": "ccx",
+   "note": ""
+  },
+  {
+   "id": "1c-p0-own",
+   "what": "sphere: peak pressure",
+   "value": 35.1193219842206,
+   "reference": 34.979108371845136,
+   "error": 0.004008495896605568,
+   "tolerance": 0.03,
+   "passed": true,
+   "solver": "own",
+   "note": ""
+  },
+  {
+   "id": "1c-p0-ccx",
+   "what": "sphere: peak pressure",
+   "value": 54.55952833333333,
+   "reference": 34.979108371845136,
+   "error": 0.5597747018974497,
+   "tolerance": 0.03,
+   "passed": false,
+   "solver": "ccx",
+   "note": "CalculiX contact output is wrong on the nodes next to the symmetry axis (max 171 vs Hertz 35.0); away from the axis it is within 1.5 %"
+  },
+  {
+   "id": "1d",
+   "what": "mesh convergence over 4 levels (own): 2D peak-pressure error and sphere force error, coarsest -> finest",
+   "value": [
+    0.0026458495712369245,
+    0.0011520492669467863,
+    0.026761658064591742,
+    0.02617429686430106
+   ],
+   "reference": null,
+   "error": null,
+   "tolerance": "finest < coarsest and in tolerance",
+   "passed": true,
+   "solver": "own",
+   "note": "sphere force error barely moves (2.68 -> 2.62 %) because it is not a mesh error"
+  },
+  {
+   "id": "1e",
+   "what": "own vs CalculiX on the same mesh: 2D peak pressure, sphere force",
+   "value": [
+    0.012269984894049069,
+    -0.00027332828853576796
+   ],
+   "reference": null,
+   "error": 0.012269984894049069,
+   "tolerance": 0.02,
+   "passed": true,
+   "solver": "both",
+   "note": ""
+  },
+  {
+   "id": "2a-own",
+   "what": "stick-zone half-width at Q/(fP) = 0.25, 0.5, 0.75 (error / a)",
+   "value": [
+    0.8568700563231498,
+    0.7011464567738612,
+    0.49864324436611596
+   ],
+   "reference": [
+    0.8660329092119251,
+    0.707106013243553,
+    0.5000009606757674
+   ],
+   "error": [
+    -0.00916285288877522,
+    -0.005959556469691818,
+    -0.00135771630965148
+   ],
+   "tolerance": "0.05 a",
+   "passed": true,
+   "solver": "own",
+   "note": "mesh level 3 (h = a/64)"
+  },
+  {
+   "id": "2b-own",
+   "what": "tangential traction at the centre, three loads",
+   "value": [
+    0.5534903465604699,
+    1.2093597118715818,
+    2.0641985695788834
+   ],
+   "reference": [
+    0.5520621873134957,
+    1.2069807146556883,
+    2.0604356016108496
+   ],
+   "error": [
+    0.0025869535711622316,
+    0.0019710316718457577,
+    0.001826297296111612
+   ],
+   "tolerance": 0.05,
+   "passed": true,
+   "solver": "own",
+   "note": "mesh level 3 (h = a/64)"
+  },
+  {
+   "id": "2c-own",
+   "what": "traction distribution, relative L2 error at Q/(fP) = 0.5",
+   "value": 0.05279481890263403,
+   "reference": 0.0,
+   "error": 0.05279481890263403,
+   "tolerance": 0.08,
+   "passed": true,
+   "solver": "own",
+   "note": "mesh level 3 (h = a/64)"
+  },
+  {
+   "id": "2a-ccx",
+   "what": "stick-zone half-width at Q/(fP) = 0.25, 0.5, 0.75",
+   "value": null,
+   "reference": null,
+   "error": null,
+   "tolerance": "0.05 a",
+   "passed": false,
+   "solver": "ccx",
+   "note": "registered configuration (level 3) did not complete: 61 min, 8 increments, 62 divergence messages, stopped by me"
+  },
+  {
+   "id": "2b-ccx",
+   "what": "tangential traction at the centre",
+   "value": null,
+   "reference": null,
+   "error": null,
+   "tolerance": 0.05,
+   "passed": false,
+   "solver": "ccx",
+   "note": "registered configuration (level 3) did not complete: 61 min, 8 increments, 62 divergence messages, stopped by me"
+  },
+  {
+   "id": "2c-ccx",
+   "what": "traction distribution L2 at Q/(fP) = 0.5",
+   "value": null,
+   "reference": null,
+   "error": null,
+   "tolerance": 0.08,
+   "passed": false,
+   "solver": "ccx",
+   "note": "registered configuration (level 3) did not complete: 61 min, 8 increments, 62 divergence messages, stopped by me"
+  },
+  {
+   "id": "2d",
+   "what": "own vs CalculiX: centre traction at Q/(fP) = 0.5",
+   "value": null,
+   "reference": null,
+   "error": null,
+   "tolerance": 0.05,
+   "passed": false,
+   "solver": "both",
+   "note": "no CalculiX result at the registered level; at level 2 the two differ by n/a"
+  },
+  {
+   "id": "2e-own",
+   "what": "ironing forces inside the published band (r2_ironing_own_h0.05.json)",
+   "value": {
+    "Fv_t1": 331098555.9019165,
+    "Fv_mid": 421271450.6479703,
+    "Ft_t1": 71055426.81346083,
+    "Ft_mid": 130711801.22030893
+   },
+   "reference": {
+    "Fv_t1": [
+     285000000.0,
+     335000000.0
+    ],
+    "Fv_mid": [
+     355000000.0,
+     423000000.0
+    ],
+    "Ft_t1": [
+     55000000.0,
+     74000000.0
+    ],
+    "Ft_mid": [
+     140000000.0,
+     200000000.0
+    ]
+   },
+   "error": {
+    "Fv_t1": true,
+    "Fv_mid": true,
+    "Ft_t1": true,
+    "Ft_mid": false
+   },
+   "tolerance": "in band (4 numbers)",
+   "passed": false,
+   "solver": "own",
+   "note": "tangential force during sliding is below the lowest published curve"
+  },
+  {
+   "id": "2e-ccx",
+   "what": "ironing forces inside the published band (registered CalculiX configuration)",
+   "value": null,
+   "reference": {
+    "Fv_t1": [
+     285000000.0,
+     335000000.0
+    ],
+    "Fv_mid": [
+     355000000.0,
+     423000000.0
+    ],
+    "Ft_t1": [
+     55000000.0,
+     74000000.0
+    ],
+    "Ft_mid": [
+     140000000.0,
+     200000000.0
+    ]
+   },
+   "error": null,
+   "tolerance": "in band (4 numbers)",
+   "passed": false,
+   "solver": "ccx",
+   "note": "registered configuration fails at t = 1.040 ('too many cutbacks')"
+  },
+  {
+   "id": "2f",
+   "what": "ironing, own vs CalculiX (registered configuration)",
+   "value": null,
+   "reference": null,
+   "error": null,
+   "tolerance": 0.05,
+   "passed": false,
+   "solver": "both",
+   "note": "no CalculiX result in the registered configuration; with 0.0005 increments at h = 0.1 CalculiX gives Fv_t1 +0.0%, Fv_mid +0.1%, Ft_t1 -3.6%, Ft_mid +3.7% relative to own"
+  },
+  {
+   "id": "2g",
+   "what": "ironing, own solver: change under step halving (h = 0.1) and under mesh refinement h = 0.1 -> 0.05",
+   "value": {
+    "step_halving": {
+     "Fv_t1": 0.00030823351197817317,
+     "Fv_mid": 0.0010145656513476098,
+     "Ft_t1": 0.007469512038929205,
+     "Ft_mid": 0.01281975568477245
+    },
+    "mesh_0p1_to_0p05": {
+     "Fv_t1": 0.0018294032967351992,
+     "Fv_mid": -0.00022544640395283366,
+     "Ft_t1": -0.00582082590334998,
+     "Ft_mid": -0.004479479050369051
+    },
+    "mesh_0p2_to_0p1": {
+     "Fv_t1": -0.005301299086261757,
+     "Fv_mid": 0.002116911947591893,
+     "Ft_t1": -0.006241460560196921,
+     "Ft_mid": 0.04371439117310971
+    }
+   },
+   "reference": null,
+   "error": 0.01281975568477245,
+   "tolerance": 0.03,
+   "passed": true,
+   "solver": "own",
+   "note": "the coarser pair (0.2 -> 0.1) changes the sliding tangential force by more than 3 %"
+  },
+  {
+   "id": "3a",
+   "what": "reduced model vs CalculiX 3D: first bending frequency of the rod (Hz)",
+   "value": 1144.528584387244,
+   "reference": 1195.47,
+   "error": -0.042612040128782724,
+   "tolerance": 0.05,
+   "passed": true,
+   "solver": "both",
+   "note": ""
+  },
+  {
+   "id": "3b",
+   "what": "reduced model as registered (rigid flange) vs CalculiX 3D, static elastic joint: tip deflection, top-fastener force",
+   "value": [
+    0.015177679780661037,
+    801.3517551141741
+   ],
+   "reference": [
+    0.02697212,
+    1034.16579775
+   ],
+   "error": [
+    -0.4372826540642324,
+    -0.2251225510864424
+   ],
+   "tolerance": 0.15,
+   "passed": false,
+   "solver": "both",
+   "note": "model rebuilt with a flange hinge and an effective bearing radius: +0.2%, +1.3%"
+  },
+  {
+   "id": "3c",
+   "what": "energy balance of the explicit integration, worst of the 19 nominal tests",
+   "value": 0.00031665275305932925,
+   "reference": 0.0,
+   "error": 0.00031665275305932925,
+   "tolerance": 0.02,
+   "passed": true,
+   "solver": "own",
+   "note": ""
+  },
+  {
+   "id": "3d",
+   "what": "time-step halving, peak plastic elongation of fastener 1, test 8",
+   "value": 0.017940294683818792,
+   "reference": 0.017930186447973603,
+   "error": 0.0005637551998982637,
+   "tolerance": 0.02,
+   "passed": true,
+   "solver": "own",
+   "note": ""
+  }
+ ],
+ "ironing_summaries": {
+  "r2_ironing_own_probe.json": {
+   "Fv_t1": 332152953.4093567,
+   "Ft_t1": 71387110.74674876,
+   "Fv_mid": 420050166.35052747,
+   "Ft_mid": 124208336.94104925,
+   "Ft_osc": 0.027425563024344006,
+   "ratio_mid": 0.2956988162156772
+  },
+  "r2_ironing_own_h0.1.json": {
+   "Fv_t1": 330392111.26094854,
+   "Ft_t1": 70941550.91051652,
+   "Fv_mid": 420939375.56626284,
+   "Ft_mid": 129638028.7690517,
+   "Ft_osc": 0.01227293679066107,
+   "ratio_mid": 0.30797315787970164
+  },
+  "r2_ironing_own_h0.1_half.json": {
+   "Fv_t1": 330493949.1817324,
+   "Ft_t1": 71471449.67910293,
+   "Fv_mid": 421366446.19801205,
+   "Ft_mid": 131299956.62532644,
+   "Ft_osc": 0.03757416436576989,
+   "ratio_mid": 0.31160515463451227
+  },
+  "r2_ironing_own_h0.05.json": {
+   "Fv_t1": 331098555.9019165,
+   "Ft_t1": 71055426.81346083,
+   "Fv_mid": 421271450.6479703,
+   "Ft_mid": 130711801.22030893,
+   "Ft_osc": 0.0259795336743433,
+   "ratio_mid": 0.31027927721961024
+  }
+ },
+ "ironing_supplementary": {
+  "ccx_Ft_mid_inc_0p001": 139754971.64179105,
+  "ccx_Ft_mid_inc_0p0005": 135497703.99002492,
+  "ccx_Ft_mid_linear_extrapolation_to_zero_increment": 131240436.3382588,
+  "own_Ft_mid_h0p1": 131299956.62532644,
+  "own_Ft_mid_finest": 130711801.22030893,
+  "ccx_inc0p0005_vs_own_h0p1": {
+   "Fv_t1": 0.0019197047928969369,
+   "Fv_mid": 0.0008506665253023016,
+   "Ft_t1": -0.04150929766253708,
+   "Ft_mid": 0.031970668327614415
+  },
+  "own_h0p1_textbook_neo_hookean": {
+   "Fv_t1": 320755305.894336,
+   "Ft_t1": 69794046.66799875,
+   "Fv_mid": 409293722.6202327,
+   "Ft_mid": 138662883.00278038,
+   "Ft_osc": 0.020440427845813867,
+   "ratio_mid": 0.3387857554107668
+  },
+  "own_h0p2_textbook_neo_hookean": {
+   "Fv_t1": 322671151.469147,
+   "Ft_t1": 69971777.13640645,
+   "Fv_mid": 410443343.34964645,
+   "Ft_mid": 144755194.1282484,
+   "Ft_osc": 0.03943251326812493,
+   "ratio_mid": 0.35268008721226857
+  },
+  "own_h0p2_penalty_x4": {
+   "Fv_t1": 332163509.7190895,
+   "Ft_t1": 71384587.93577892,
+   "Fv_mid": 421249634.01615655,
+   "Ft_mid": 128612288.07320178,
+   "Ft_osc": 0.037756665461831714,
+   "ratio_mid": 0.30531133486579837
+  },
+  "own_h0p2_12_gauss_points": {
+   "Fv_t1": 332203491.85665226,
+   "Ft_t1": 71119833.36656167,
+   "Fv_mid": 420094914.3728485,
+   "Ft_mid": 123874971.16906974,
+   "Ft_osc": 0.02609186786316627,
+   "ratio_mid": 0.2948737700240915
+  },
+  "own_h0p2_steps_halved": {
+   "Fv_t1": 332443457.9792253,
+   "Ft_t1": 72811071.93814798,
+   "Fv_mid": 420990459.50923455,
+   "Ft_mid": 128089426.22145012,
+   "Ft_osc": 0.07542107231248389,
+   "ratio_mid": 0.3042573135048455
+  }
+ },
+ "calculix_characterisation": {
+  "ironing": [
+   {
+    "file": "r2_ironing_ccx_iron_NODETOSURFACE_h0.1.json",
+    "h": 0.1,
+    "contact": "NODE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.1,
+    "max_increment_slide": 0.005,
+    "finished": false,
+    "t_reached": 0.7019316,
+    "increments": 74,
+    "iterations": 224,
+    "divergence_messages": 14,
+    "seconds": 68.84306001663208,
+    "summary": null
+   },
+   {
+    "file": "r2_ironing_ccx_iron_SURFACETOSURFACE_h0.05_dm0.001_partial.json",
+    "h": 0.05,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.1,
+    "max_increment_slide": 0.001,
+    "finished": false,
+    "t_reached": 1.162,
+    "increments": 212,
+    "iterations": null,
+    "divergence_messages": null,
+    "seconds": 1500.0,
+    "summary": null
+   },
+   {
+    "file": "r2_ironing_ccx_iron_SURFACETOSURFACE_h0.05_graded.json",
+    "h": 0.05,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.1,
+    "max_increment_slide": 0.005,
+    "finished": false,
+    "t_reached": 1.04,
+    "increments": 64,
+    "iterations": 346,
+    "divergence_messages": 36,
+    "seconds": 434.410612821579,
+    "summary": null
+   },
+   {
+    "file": "r2_ironing_ccx_iron_SURFACETOSURFACE_h0.1.json",
+    "h": 0.1,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.1,
+    "max_increment_slide": 0.005,
+    "finished": false,
+    "t_reached": 1.045,
+    "increments": 65,
+    "iterations": 296,
+    "divergence_messages": 34,
+    "seconds": 91.03296160697937,
+    "summary": null
+   },
+   {
+    "file": "r2_ironing_ccx_iron_SURFACETOSURFACE_h0.1_dm0.0005.json",
+    "h": 0.1,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.1,
+    "max_increment_slide": 0.0005,
+    "finished": true,
+    "t_reached": 2.0,
+    "increments": 2050,
+    "iterations": 7938,
+    "divergence_messages": 7,
+    "seconds": 2388.0963950157166,
+    "summary": {
+     "Fv_t1": 331128400.0,
+     "Ft_t1": 68504720.0,
+     "Fv_mid": 421724888.5286783,
+     "Ft_mid": 135497703.99002492,
+     "Ft_osc": 0.028122985761297688,
+     "ratio_mid": 0.3212940655761434
+    }
+   },
+   {
+    "file": "r2_ironing_ccx_iron_SURFACETOSURFACE_h0.1_dm0.001.json",
+    "h": 0.1,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.1,
+    "max_increment_slide": 0.001,
+    "finished": true,
+    "t_reached": 2.0,
+    "increments": 1050,
+    "iterations": 4933,
+    "divergence_messages": 29,
+    "seconds": 1567.7576982975006,
+    "summary": {
+     "Fv_t1": 331128400.0,
+     "Ft_t1": 68504720.0,
+     "Fv_mid": 421869511.4427861,
+     "Ft_mid": 139754971.64179105,
+     "Ft_osc": 0.03131981602213794,
+     "ratio_mid": 0.3312753537553154
+    }
+   },
+   {
+    "file": "r2_ironing_ccx_iron_SURFACETOSURFACE_h0.1_k5.json",
+    "h": 0.1,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 5.0,
+    "stick_over_K": 0.1,
+    "max_increment_slide": 0.005,
+    "finished": true,
+    "t_reached": 2.0,
+    "increments": 250,
+    "iterations": 1074,
+    "divergence_messages": 1,
+    "seconds": 376.4241421222687,
+    "summary": {
+     "Fv_t1": 325815800.0,
+     "Ft_t1": 65210530.0,
+     "Fv_mid": 415298785.36585367,
+     "Ft_mid": 162110073.1707317,
+     "Ft_osc": 0.06534819084834409,
+     "ratio_mid": 0.3903456472378611
+    }
+   },
+   {
+    "file": "r2_ironing_ccx_iron_SURFACETOSURFACE_h0.1_k5s1.json",
+    "h": 0.1,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 5.0,
+    "stick_over_K": 1.0,
+    "max_increment_slide": 0.005,
+    "finished": true,
+    "t_reached": 2.0,
+    "increments": 250,
+    "iterations": 1133,
+    "divergence_messages": 18,
+    "seconds": 350.7752215862274,
+    "summary": {
+     "Fv_t1": 325961000.0,
+     "Ft_t1": 68261830.0,
+     "Fv_mid": 415574195.1219512,
+     "Ft_mid": 162095009.75609756,
+     "Ft_osc": 0.06549060341816394,
+     "ratio_mid": 0.39005070973795763
+    }
+   },
+   {
+    "file": "r2_ironing_ccx_iron_SURFACETOSURFACE_h0.2_k5.json",
+    "h": 0.2,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 5.0,
+    "stick_over_K": 0.1,
+    "max_increment_slide": 0.005,
+    "finished": true,
+    "t_reached": 2.0,
+    "increments": 250,
+    "iterations": 1002,
+    "divergence_messages": 0,
+    "seconds": 79.52831816673279,
+    "summary": {
+     "Fv_t1": 320286200.0,
+     "Ft_t1": 61598170.0,
+     "Fv_mid": 408684707.31707317,
+     "Ft_mid": 162648724.3902439,
+     "Ft_osc": 0.055536863469811654,
+     "ratio_mid": 0.39798094099971987
+    }
+   },
+   {
+    "file": "r2_ironing_ccx_iron_SURFACETOSURFACE_h0.2_k500.json",
+    "h": 0.2,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 500.0,
+    "stick_over_K": 0.1,
+    "max_increment_slide": 0.005,
+    "finished": false,
+    "t_reached": 1.055,
+    "increments": 70,
+    "iterations": 568,
+    "divergence_messages": 174,
+    "seconds": 38.24555826187134,
+    "summary": null
+   },
+   {
+    "file": "r2_ironing_ccx_iron_SURFACETOSURFACE_h0.2_probe.json",
+    "h": 0.2,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.1,
+    "max_increment_slide": 0.005,
+    "finished": true,
+    "t_reached": 2.0,
+    "increments": 251,
+    "iterations": 1921,
+    "divergence_messages": 90,
+    "seconds": 158.70195770263672,
+    "summary": {
+     "Fv_t1": 330127900.0,
+     "Ft_t1": 66525170.0,
+     "Fv_mid": 426292136.58536583,
+     "Ft_mid": 177876807.31707317,
+     "Ft_osc": 0.04271551819825536,
+     "ratio_mid": 0.41726504444083967
+    }
+   }
+  ],
+  "mindlin": [
+   {
+    "level": 1,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.1,
+    "increments_per_step": 10,
+    "finished": true,
+    "seconds": 52.25338292121887,
+    "iterations": 122,
+    "divergence_messages": 0,
+    "q_max_after_normal": 2.31006,
+    "loads": [
+     {
+      "c_err_over_a": -0.00927612305512096,
+      "q0_err": -0.002367564880616735,
+      "l2": 0.5539153430684529
+     },
+     {
+      "c_err_over_a": -0.033867790403694226,
+      "q0_err": 0.0056276522659859385,
+      "l2": 0.26085844314412937
+     },
+     {
+      "c_err_over_a": 0.020270340776413764,
+      "q0_err": 0.012085013333333006,
+      "l2": 0.12516254899293772
+     }
+    ]
+   },
+   {
+    "level": 2,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.1,
+    "increments_per_step": 10,
+    "finished": true,
+    "seconds": 652.3843128681183,
+    "iterations": 165,
+    "divergence_messages": 3,
+    "q_max_after_normal": 2.20532,
+    "loads": [
+     {
+      "c_err_over_a": 0.0005725569520345641,
+      "q0_err": 0.020722742939302208,
+      "l2": 0.34666082903887585
+     },
+     {
+      "c_err_over_a": 0.02028318136533161,
+      "q0_err": 0.018701631976109967,
+      "l2": 0.19277663314845073
+     },
+     {
+      "c_err_over_a": -0.004696723262173769,
+      "q0_err": 0.020029919999999812,
+      "l2": 0.07177585012963299
+     }
+    ]
+   },
+   {
+    "level": 2,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 1.0,
+    "increments_per_step": 10,
+    "finished": false,
+    "seconds": 2699.187157392502,
+    "iterations": 688,
+    "divergence_messages": 403,
+    "q_max_after_normal": null,
+    "loads": []
+   },
+   {
+    "level": 2,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.01,
+    "increments_per_step": 10,
+    "finished": true,
+    "seconds": 502.64545249938965,
+    "iterations": 142,
+    "divergence_messages": 1,
+    "q_max_after_normal": 1.03731,
+    "loads": [
+     {
+      "c_err_over_a": 0.04696517365071928,
+      "q0_err": 0.03484717189911768,
+      "l2": 0.27128610406822584
+     },
+     {
+      "c_err_over_a": 0.051221407123374224,
+      "q0_err": 0.030325708993413025,
+      "l2": 0.1106468963169775
+     },
+     {
+      "c_err_over_a": 0.026252795505477683,
+      "q0_err": 0.03071210666666646,
+      "l2": 0.0675460658661737
+     }
+    ]
+   },
+   {
+    "level": 2,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 5.0,
+    "stick_over_K": 0.1,
+    "increments_per_step": 10,
+    "finished": true,
+    "seconds": 346.00273990631104,
+    "iterations": 102,
+    "divergence_messages": 0,
+    "q_max_after_normal": 1.30649,
+    "loads": [
+     {
+      "c_err_over_a": 0.01603677487127156,
+      "q0_err": 0.03545033102243367,
+      "l2": 0.32535836567538773
+     },
+     {
+      "c_err_over_a": 0.004814049950572635,
+      "q0_err": 0.028196423324527098,
+      "l2": 0.10481297815583329
+     },
+     {
+      "c_err_over_a": 0.026252795505477683,
+      "q0_err": 0.02885813333333287,
+      "l2": 0.039852065681973727
+     }
+    ]
+   },
+   {
+    "level": 3,
+    "contact": "SURFACE TO SURFACE",
+    "K_over_E_h": 50.0,
+    "stick_over_K": 0.1,
+    "increments_per_step": 10,
+    "finished": false,
+    "seconds": 3646.7332162857056,
+    "iterations": 190,
+    "divergence_messages": 62,
+    "q_max_after_normal": null,
+    "loads": []
+   }
+  ]
+ },
+ "rung3": {
+  "Q1": {
+   "nominal": 25.176479999999998,
+   "p5": 18.288,
+   "p50": 23.743920000000003,
+   "p95": 30.114240000000002,
+   "fraction_of_samples_with_no_fracture_in_any_test": 0.0
+  },
+  "Q2": {
+   "nominal": 30.114240000000002,
+   "p5": 23.743920000000003,
+   "p50": 31.668720000000004,
+   "p95": 1000.0,
+   "fraction_of_samples_never_all_six": 0.4025
+  },
+  "selfchecks": {
+   "3a": true,
+   "3b": false,
+   "3c": true,
+   "3d": true
+  },
+  "graded_by": "orchestrator (blind)"
+ }
+}

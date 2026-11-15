@@ -1,0 +1,58 @@
+[
+ {
+  "ctype": "SURFACE TO SURFACE",
+  "kfac": 50.0,
+  "seconds": 0.036235809326171875,
+  "increments": 2,
+  "iterations": 4,
+  "divergence": 0,
+  "errors": [],
+  "finished": true,
+  "syy_dev": 0.0,
+  "p_dev": 0.00019499999999994522,
+  "p_nodes": [
+   0.9998,
+   0.9998,
+   0.9998,
+   0.9998,
+   0.9998,
+   0.9998
+  ]
+ },
+ {
+  "ctype": "NODE TO SURFACE",
+  "kfac": 50.0,
+  "seconds": 0.030503034591674805,
+  "increments": 2,
+  "iterations": 4,
+  "divergence": 0,
+  "errors": [],
+  "finished": true,
+  "syy_dev": 0.219306,
+  "p_dev": 0.13455300000000003,
+  "p_nodes": [
+   0.8654,
+   0.8654,
+   0.8654,
+   0.8654,
+   0.8654,
+   0.8654
+  ]
+ },
+ {
+  "ctype": "MORTAR",
+  "kfac": 50.0,
+  "seconds": 0.020299673080444336,
+  "increments": 0,
+  "iterations": 0,
+  "divergence": 0,
+  "errors": [
+   "*ERROR in spcmpcmortar: slave node         185 ,is connected als dependent node in",
+   "*ERROR in spcmpcmortar: slave node         185 ,is connected als dependent node in",
+   "*ERROR in spcmpcmortar: slave node         185 ,is connected als dependent node in",
+   "*ERROR in spcmpcmortar: slave node         187 ,is connected als dependent node in",
+   "*ERROR in spcmpcmortar: slave node         187 ,is connected als dependent node in"
+  ],
+  "finished": false
+ }
+]

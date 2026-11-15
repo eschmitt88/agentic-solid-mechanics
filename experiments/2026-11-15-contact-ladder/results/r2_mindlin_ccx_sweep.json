@@ -1,0 +1,176 @@
+[
+ {
+  "ctype": "SURFACE TO SURFACE",
+  "kfac": 50.0,
+  "stickfac": 0.1,
+  "level": 2,
+  "ninc": 10,
+  "seconds": 652.3843128681183,
+  "increments": 25,
+  "iterations": 165,
+  "divergence": 3,
+  "errors": [],
+  "finished": true,
+  "loads": [
+   {
+    "Q_over_fP": 0.25,
+    "c": 0.04332989803682366,
+    "c_ref": 0.04330127018922193,
+    "c_err_over_a": 0.0005725569520345641,
+    "q0": 0.563534,
+    "q0_ref": 0.552093116272918,
+    "q0_err": 0.020722742939302208,
+    "l2": 0.34666082903887585,
+    "target": 0.25
+   },
+   {
+    "Q_over_fP": 0.5,
+    "c": 0.03636949812759396,
+    "c_ref": 0.03535533905932738,
+    "c_err_over_a": 0.02028318136533161,
+    "q0": 1.22955,
+    "q0_ref": 1.2069775500554363,
+    "q0_err": 0.018701631976109967,
+    "l2": 0.19277663314845073,
+    "target": 0.5
+   },
+   {
+    "Q_over_fP": 0.75,
+    "c": 0.024765163836891313,
+    "c_ref": 0.025,
+    "c_err_over_a": -0.004696723262173769,
+    "q0": 2.10171,
+    "q0_ref": 2.060439560439561,
+    "q0_err": 0.020029919999999812,
+    "l2": 0.07177585012963299,
+    "target": 0.75
+   }
+  ],
+  "q_max_after_normal": 2.20532,
+  "RF_bottom_last": [
+   -0.2427398,
+   1.078844
+  ]
+ },
+ {
+  "ctype": "SURFACE TO SURFACE",
+  "kfac": 50.0,
+  "stickfac": 1.0,
+  "level": 2,
+  "ninc": 10,
+  "seconds": 2699.187157392502,
+  "increments": 23,
+  "iterations": 688,
+  "divergence": 403,
+  "errors": [],
+  "finished": false,
+  "loads": [],
+  "tail": "lculation.\n\n Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.\n\n Using up to 4 cpu(s) for the asymmetric stiffness/mass contributions.\n\n Factoring the system of equations using the unsymmetric spooles solver\n Using 1 cpu for spooles.\n\n Using up to 4 cpu(s) for the stress calculation.\n\nline search factor=0.401607\n\n Using up to 4 cpu(s) for the stress calculation.\n\n average force= 0.000301\n time avg. forc= 0.000234\n largest residual force= 0.001360 in node 119 and dof 1\n largest increment of disp= 9.359461e-05\n largest correction to disp= 1.705463e-06 in node 17992 and dof 1\n\n"
+ },
+ {
+  "ctype": "SURFACE TO SURFACE",
+  "kfac": 50.0,
+  "stickfac": 0.01,
+  "level": 2,
+  "ninc": 10,
+  "seconds": 502.64545249938965,
+  "increments": 25,
+  "iterations": 142,
+  "divergence": 1,
+  "errors": [],
+  "finished": true,
+  "loads": [
+   {
+    "Q_over_fP": 0.25,
+    "c": 0.0456495288717579,
+    "c_ref": 0.04330127018922193,
+    "c_err_over_a": 0.04696517365071928,
+    "q0": 0.571332,
+    "q0_ref": 0.552093116272918,
+    "q0_err": 0.03484717189911768,
+    "l2": 0.27128610406822584,
+    "target": 0.25
+   },
+   {
+    "Q_over_fP": 0.5,
+    "c": 0.037916409415496094,
+    "c_ref": 0.03535533905932738,
+    "c_err_over_a": 0.051221407123374224,
+    "q0": 1.24358,
+    "q0_ref": 1.2069775500554363,
+    "q0_err": 0.030325708993413025,
+    "l2": 0.1106468963169775,
+    "target": 0.5
+   },
+   {
+    "Q_over_fP": 0.75,
+    "c": 0.026312639775273886,
+    "c_ref": 0.025,
+    "c_err_over_a": 0.026252795505477683,
+    "q0": 2.12372,
+    "q0_ref": 2.060439560439561,
+    "q0_err": 0.03071210666666646,
+    "l2": 0.0675460658661737,
+    "target": 0.75
+   }
+  ],
+  "q_max_after_normal": 1.03731,
+  "RF_bottom_last": [
+   -0.2427398,
+   1.078844
+  ]
+ },
+ {
+  "ctype": "SURFACE TO SURFACE",
+  "kfac": 5.0,
+  "stickfac": 0.1,
+  "level": 2,
+  "ninc": 10,
+  "seconds": 346.00273990631104,
+  "increments": 24,
+  "iterations": 102,
+  "divergence": 0,
+  "errors": [],
+  "finished": true,
+  "loads": [
+   {
+    "Q_over_fP": 0.25,
+    "c": 0.04410310893278551,
+    "c_ref": 0.04330127018922193,
+    "c_err_over_a": 0.01603677487127156,
+    "q0": 0.571665,
+    "q0_ref": 0.552093116272918,
+    "q0_err": 0.03545033102243367,
+    "l2": 0.32535836567538773,
+    "target": 0.25
+   },
+   {
+    "Q_over_fP": 0.5,
+    "c": 0.035596041556856015,
+    "c_ref": 0.03535533905932738,
+    "c_err_over_a": 0.004814049950572635,
+    "q0": 1.24101,
+    "q0_ref": 1.2069775500554363,
+    "q0_err": 0.028196423324527098,
+    "l2": 0.10481297815583329,
+    "target": 0.5
+   },
+   {
+    "Q_over_fP": 0.75,
+    "c": 0.026312639775273886,
+    "c_ref": 0.025,
+    "c_err_over_a": 0.026252795505477683,
+    "q0": 2.1199,
+    "q0_ref": 2.060439560439561,
+    "q0_err": 0.02885813333333287,
+    "l2": 0.039852065681973727,
+    "target": 0.75
+   }
+  ],
+  "q_max_after_normal": 1.30649,
+  "RF_bottom_last": [
+   -0.2427398,
+   1.078844
+  ]
+ }
+]

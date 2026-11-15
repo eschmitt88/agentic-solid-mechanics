@@ -1,2 +1,62 @@
-# Inputs, hyperparameters, seeds for this experiment.
-seed: 42
+# Inputs for contact-ladder (trial 10).  Deterministic except the rung-3
+# Monte Carlo, which uses the seed below.
+seed: 20261115
+environment:
+  jax: "0.10.2, float64, CPU (JAX_PLATFORMS=cpu, XLA single-threaded: see log 17:25)"
+  sparse_solver: "pypardiso (MKL), 3-4 threads"
+  calculix: "2.23 via micromamba env solidmech (MAMBA_ROOT_PREFIX=~/projects/.micromamba), spooles"
+  gmsh: "CLI from the same env; all-quad 2D meshes (Blossom + subdivision), C3D10 tets for rung 3"
+  extra_packages: []
+
+own_solver:        # contact2d.py
+  elements: "4-node quads, plane strain or axisymmetric, 2x2 Gauss"
+  contact: "nodal multipliers on the slave surface (mortar-like), tractions integrated at fixed slave Gauss points, augmented Lagrangian (Uzawa), Coulomb friction with return map"
+  gauss_points_per_slave_edge: 6
+  tangent: "jax.hessian of the strain energy; jax.jacfwd of the contact force vector"
+
+rung1:
+  material: {E: 1000.0, nu: 0.3}
+  R: 1.0
+  hertz_half_width_target: 0.05
+  patch: {lower_mesh: [7, 4], upper_mesh: [5, 3], pressure: 1.0, penalty_own: "10 E/h", pen_tol: 1.0e-10}
+  hertz_2d: {load: "P = pi E* a^2 / (4R) = 2.1577, top face tied, force control", levels_h_over_a: [1/8, 1/16, 1/32, 1/64], penalty_own: "20 E/h", pen_tol: "1e-7 a^2/R"}
+  hertz_sphere: {approach: 0.0025, levels: "as 2D", scaling_a_over_R: [0.0125, 0.025, 0.05, 0.1]}
+  ccx_graded: {contact: "SURFACE TO SURFACE", overclosure: "LINEAR", K: "50 E/h_c", elements: "CPE4 / CAX4", level: 3, flat: "clamped strip, E x 1e6, mesh 1.37 h_c"}
+  ccx_characterisation: {K_factors: [0.5, 5, 50, 500, 5000], types: ["SURFACE TO SURFACE", "NODE TO SURFACE", "MORTAR"]}
+
+rung2:
+  mindlin:
+    material: {E: 1000.0, nu: 0.3}
+    friction: 0.3
+    geometry: {R: 1.0, block: [3.0, 1.5], a_target: 0.05}
+    loads_Q_over_fP: [0.25, 0.5, 0.75]
+    own: {penalty: "2 E/h_c", tol: "1e-5 a^2/R (gap and stick slip)", master_mesh: "0.6 h_c (block)", tangential: "displacement control, secant search to each target", steps: 15, normal_steps: "8 x 2^(level-1)"}
+    ccx_graded: {contact: "SURFACE TO SURFACE", K: "50 E/h_c", stick_slope: "K/10", level: 3}
+  ironing:      # Code_Aster SSNP153
+    indenter: {width: 1.2, arc_radius: 0.75, arc_height: 0.3, total_height: 0.95, offset_from_left_edge: 0.2, initial_gap: 0.2, E: 68.96e8, nu: 0.32}
+    slab: {length: 12.0, height: 4.0, E: 6.896e8, nu: 0.32, base: clamped}
+    friction: 0.3
+    path: "indenter top down 1.0 over t in [0,1], then right 10.0 over t in [1,2]"
+    material_model: "neo-Hookean, CalculiX form C10 (I1bar - 3) + (J-1)^2 / D1 in both solvers"
+    assumption: "h1 = 0.95 read as the total indenter height (the figure is ambiguous)"
+    own: {slave: "slab top", master: "indenter walls + arc, 2x finer", penalty: "5 E_slab/h", tol: "2e-4 h", meshes_h: [0.2, 0.1, 0.05], steps: {h0.2: [20, 50], h0.1: [40, 100], h0.1_half: [80, 200], h0.05: [40, 200]}}
+    ccx_graded: {contact: "SURFACE TO SURFACE", K: "50 E_slab/h", stick_slope: "K/10", max_increment: [0.02, 0.005], NLGEOM: true}
+
+rung3:          # Sandia Mechanics Challenge 2023, units inch-lbf-s
+  source: "raw/smc2023/ (SAND2023-06848, OSTI 2430623)"
+  geometry: {rod_length: 6.25, rod_diameter: 1.675, flange_diameter: 3.0, flange_thickness: 0.25, bolt_circle_diameter: 2.52, hole_diameter: 0.221, n_fasteners: 6}
+  aluminium: {E: 10.0e6, nu: 0.33, weight_density: 0.0975, plastic_true_stress_strain_psi: [[48000, 0], [51500, 0.01], [56000, 0.04], [60000, 0.08], [64000, 0.15], [70000, 0.5]]}
+  fastener_readoffs:          # from packet figures 3-5, 3-6(c), 3-7; read-off uncertainty in brackets
+    tension_force_vs_damage_lbf: {kappa: [0, 0.1, 0.5, 0.8, 0.95, 1.0], force: [4000, 4200, 4100, 3600, 3200, 3000], uncertainty: "+-150 lbf; the 4900-5100 lbf initial spike of the Hopkinson-bar tests is not used (possible inertia artefact) but covered by the scale range"}
+    plastic_elongation_at_fracture_in: {nominal: 0.036, range: [0.030, 0.040]}
+    single_shear_force_vs_damage_lbf: {kappa: [0, 0.3, 0.7, 1.0], force: [1300, 1800, 2100, 2150], note: "half of the double-shear force, +-100 lbf"}
+    plastic_shear_displacement_at_fracture_in: {nominal: 0.018, range: [0.014, 0.022]}
+    interaction: "ellipse in (T/Ty, V/Vy), common damage variable; ASSUMED, the packet has no combined-loading test"
+  nominal: {k_axial: 1.0e6, k_shear: 1.5e5, preload_lbf: 1600, friction: 0.4, radial_clearance: 0.0155, contact_bed_lbf_per_in3: 2.0e7, flange_hinge_in_lbf_per_rad: 2.5e6, bearing_radius_in: 1.10}
+  monte_carlo:
+    samples: 400
+    ranges: {tension_scale: [0.90, 1.15], d_tf: [0.030, 0.040], shear_scale: [0.9, 1.1], d_sf: [0.014, 0.022], k_axial: [0.6e6, 1.6e6], k_shear: [1.0e5, 3.0e5],
+             preload: [1200, 2200], friction: [0.2, 0.6], clearance_each_bolt: [0.0, 0.031], contact_bed: [1.0e7, 4.0e7], pulse_scale: [0.95, 1.05],
+             hinge_stiffness_scale: [0.8, 1.25], bearing_radius: [1.0, 1.25], hinge_moment_scale: [0.85, 1.15]}
+  pulse: "a(t) = A hav(t/W)^n, peak and dV exact, n in [0.5, 4] fitted to the 10 % duration"
+  integration: {scheme: "explicit central differences", dt: 2.5e-7, t_end: 2.6e-3, beam_elements: 13}

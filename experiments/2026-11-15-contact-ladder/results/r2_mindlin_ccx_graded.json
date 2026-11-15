@@ -1,0 +1,17 @@
+[
+ {
+  "ctype": "SURFACE TO SURFACE",
+  "kfac": 50.0,
+  "stickfac": 0.1,
+  "level": 3,
+  "ninc": 10,
+  "seconds": 3646.7332162857056,
+  "increments": 8,
+  "iterations": 190,
+  "divergence": 62,
+  "errors": [],
+  "finished": false,
+  "loads": [],
+  "tail": "lculation.\n\n Using up to 4 cpu(s) for the symmetric stiffness/mass contributions.\n\n Using up to 4 cpu(s) for the asymmetric stiffness/mass contributions.\n\n Factoring the system of equations using the unsymmetric spooles solver\n Using 1 cpu for spooles.\n\n Using up to 4 cpu(s) for the stress calculation.\n\nline search factor=0.381700\n\n Using up to 4 cpu(s) for the stress calculation.\n\n average force= 0.000223\n time avg. forc= 0.000125\n largest residual force= 0.003204 in node 63620 and dof 1\n largest increment of disp= 8.884198e-04\n largest correction to disp= 7.471053e-05 in node 280 and dof 1\n\n"
+ }
+]

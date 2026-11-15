@@ -1,7 +1,19 @@
 ---
-title: "contact-ladder"
+title: "contact-ladder (trial 10) — notes"
 format: html
 ---
 
+Running notes are in `log.md` (chronological, with dead ends). Pass marks:
+`PREREGISTRATION.md`. Graded numbers: `metrics.json`. Frozen rung-3
+prediction: `results/prediction.json`.
+
+Figures are produced by `fig_rung1.py`, `fig_rung2.py`, `fig_rung3.py` and
+written to `results/`; the review page by `make_review_page.py`.
+
 ```{python}
+#| eval: false
+import json
+m = json.load(open("metrics.json"))
+for c in m["checks"]:
+    print(c["id"], "PASS" if c["passed"] else "MISS", c["what"])
 ```
