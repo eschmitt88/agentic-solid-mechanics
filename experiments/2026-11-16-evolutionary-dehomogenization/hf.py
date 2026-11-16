@@ -171,36 +171,42 @@ class Problem:
         fr = self.free
         Kff = K[fr][:, fr].tocsr()
         solver = pypardiso.PyPardisoSolver()
-        solver.set_matrix_type(2)                         # real SPD: upper triangle only
-        Kup = sp.triu(Kff, format="csr"); Kup.sort_indices()
-        uf = solver.solve(Kup, self.F[fr])
-        u = np.zeros(self.ndof); u[fr] = uf
-        out["compliance"] = float(self.F @ u)
-        uy = u[1::2]; ux = u[0::2]
-        out["umax"] = float(np.sqrt(ux ** 2 + uy ** 2).max())
-        if buckling:
-            ue = u[self.edof]                                  # (nel, 8)
-            sig = (Ee[:, None] * (ue @ (self.D @ (self.Bc / self.h)).T))   # (nel, 3)
-            solid = s.ravel()
-            rf = self.cfg.get("kg_filter_r", 0.0)
-            if rf > 0:
-                # Stress regularisation for the geometric stiffness: average the
-                # element stress over a disc of physical radius rf, solid pixels
-                # only (normalised convolution). Kills corner-singularity modes,
-                # keeps the section-mean axial stress that drives member buckling.
-                sig = self._filter_stress(sig, s, rf)
-            sx, sy, txy = (sig[:, k] * solid for k in range(3))
-            kg = (sx[:, None] * self.Mxx.ravel()[None] + sy[:, None] * self.Myy.ravel()[None]
-                  + txy[:, None] * self.Mxy.ravel()[None]).ravel()
-            KG = sp.csr_matrix((kg, (self.iK, self.jK)), shape=(self.ndof, self.ndof))[fr][:, fr].tocsr()
-            # (K + lam KG) psi = 0  <=>  (-KG) psi = (1/lam) K psi ; largest mu = 1/lam1
-            Minv = sla.LinearOperator(Kff.shape, matvec=lambda x: solver.solve(Kup, x), dtype=float)
-            mu = sla.eigsh(-KG, k=nev, M=Kff, Minv=Minv, which="LA", return_eigenvectors=False,
-                           tol=self.cfg.get("eig_tol", 1e-6), ncv=self.cfg.get("eig_ncv", None), maxiter=5000)
-            mu = np.sort(mu)[::-1]
-            pos = mu[mu > 0]
-            out["blf"] = float(1.0 / pos[0]) if len(pos) else np.inf
-            out["blf_modes"] = [float(1 / m) for m in pos]
+        try:
+            solver.set_matrix_type(2)                         # real SPD: upper triangle only
+            Kup = sp.triu(Kff, format="csr"); Kup.sort_indices()
+            uf = solver.solve(Kup, self.F[fr])
+            u = np.zeros(self.ndof); u[fr] = uf
+            out["compliance"] = float(self.F @ u)
+            uy = u[1::2]; ux = u[0::2]
+            out["umax"] = float(np.sqrt(ux ** 2 + uy ** 2).max())
+            if buckling:
+                ue = u[self.edof]                                  # (nel, 8)
+                sig = (Ee[:, None] * (ue @ (self.D @ (self.Bc / self.h)).T))   # (nel, 3)
+                solid = s.ravel()
+                rf = self.cfg.get("kg_filter_r", 0.0)
+                if rf > 0:
+                    # Stress regularisation for the geometric stiffness: average the
+                    # element stress over a disc of physical radius rf, solid pixels
+                    # only (normalised convolution). Kills corner-singularity modes,
+                    # keeps the section-mean axial stress that drives member buckling.
+                    sig = self._filter_stress(sig, s, rf)
+                sx, sy, txy = (sig[:, k] * solid for k in range(3))
+                kg = (sx[:, None] * self.Mxx.ravel()[None] + sy[:, None] * self.Myy.ravel()[None]
+                      + txy[:, None] * self.Mxy.ravel()[None]).ravel()
+                KG = sp.csr_matrix((kg, (self.iK, self.jK)), shape=(self.ndof, self.ndof))[fr][:, fr].tocsr()
+                # (K + lam KG) psi = 0  <=>  (-KG) psi = (1/lam) K psi ; largest mu = 1/lam1
+                Minv = sla.LinearOperator(Kff.shape, matvec=lambda x: solver.solve(Kup, x), dtype=float)
+                mu = sla.eigsh(-KG, k=nev, M=Kff, Minv=Minv, which="LA", return_eigenvectors=False,
+                               tol=self.cfg.get("eig_tol", 1e-6), ncv=self.cfg.get("eig_ncv", None), maxiter=5000)
+                mu = np.sort(mu)[::-1]
+                pos = mu[mu > 0]
+                out["blf"] = float(1.0 / pos[0]) if len(pos) else np.inf
+                out["blf_modes"] = [float(1 / m) for m in pos]
+
+        finally:
+            # MKL keeps the factorisation until phase -1: without this each call leaked
+            # ~190 MB and 16 workers OOM-killed the box (log 15:03 UTC).
+            solver.free_memory(everything=True)
         out["u"] = u
         out["s"] = s
         return out

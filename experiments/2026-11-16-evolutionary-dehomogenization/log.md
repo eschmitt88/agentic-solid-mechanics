@@ -66,3 +66,11 @@
 ## 15:00 UTC — container restart
 - Restart killed the gen-0 evaluation and the CalculiX builder (resumed from its transcript).
   ~9.5 h lost. Gen-0 stiffness evaluation restarted.
+
+## 15:10 UTC — OOM root cause (second restart)
+- Both container restarts were global OOM kills caused by this trial: hf.evaluate created a new
+  PyPardisoSolver per call and never released MKL's factorisation (~190 MB/call leaked; a worker
+  reached 5.8 GB, 16 workers > 91 GB). The OOM killer took claude-rc-server, i.e. this session.
+  Fix: solver.free_memory(everything=True) in a finally block; RSS now flat at ~0.7 GB/worker.
+- All trial-13 batch jobs now run under `systemd-run --user --scope -p MemoryMax=… -p MemorySwapMax=0`
+  so a future leak kills only the job.
