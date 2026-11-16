@@ -59,7 +59,7 @@ def final_hv(obj, arm):
 
 def morelf_hv(obj, n_eval_match, kind="raw"):
     f = RES / "morelf" / f"eval_{obj}.npz"
-    if not f.exists():
+    if not f.exists() or f"{kind}_vf" not in np.load(f).files:
         return None
     F0, cv0, norm, hv = setup(obj)
     base = gen0_objs(obj, "raw" if kind == "raw" else "rec")

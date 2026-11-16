@@ -108,3 +108,9 @@
   still waiting at the gate (none had started) and launched campaign2.sh: same jobs, same
   pre-registered order, `--no-gate` (box forecast clear of heavy jobs until 09:40 UTC tomorrow),
   concurrency capped at 3 × 10 cores by the driver, each still attributed and memory-capped.
+
+## 17:00 UTC — Addendum A (B arms 30 generations)
+- B evaluations measured 27–28 s under full load (~350 s/generation); 60-generation B arms would
+  exceed the 24 h ceiling. PREREGISTRATION.md Addendum A: all B arms 30 generations (running s0/s1
+  stopped after their gen-30 snapshot by campaign3.sh's watcher), MORELF-B 3 300 raw designs.
+- Stiffness FULL final (100 gens): s0 HV(1.1) 1.185 → 1.4795, s1 → 1.426.

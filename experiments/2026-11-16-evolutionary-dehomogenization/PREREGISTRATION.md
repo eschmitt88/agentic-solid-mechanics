@@ -83,3 +83,16 @@ re-projection, VAE loss and mean σ, and for H6/H7 the HF/LF compliance ratio of
 The in-loop evaluator is `hf.py` + `dehom.py` + `ea.hv2d`/`ea.Normaliser`; their sha256 are
 recorded in `log.md` before the first arm. CalculiX (`verify_ccx.py`) is never called in the loop.
 Known-bad check already passed: an empty design is rejected (connected = False, C = ∞).
+
+## Addendum A — 2026-11-16 17:00 UTC (deviation, declared before any B result was graded)
+
+Measured buckling cost under full load is 27–28 s per evaluation (≈ 350 s per generation at 10
+workers), twice the planning estimate; 60 generations × 4 B arms (+ MORELF-B) would exceed the
+project's 24 h wall ceiling (`budget.yaml`). Changes:
+1. **All B arms run 30 generations** (FULL-B s0–s2, NOSEL-B s0). FULL-B s0/s1, already running with
+   `--gens 60`, are stopped after their generation-30 archive snapshot (gen ≤ 30 only). At the time of
+   this addendum they were at generation 8.
+2. **MORELF-B = 3 300 extra raw LF designs** (matched to 480 + 30 × 110), raw only; the secondary
+   (PCA-projected) MORELF-B evaluation is dropped. MORELF-S unchanged (raw + projected).
+3. H1-B / H2-B / H5 / H6-B / H7-B are graded on the 30-generation results. Pass rules unchanged.
+   The paper's +19.4 % was at 300 generations; a miss at 30 is reported with that caveat.

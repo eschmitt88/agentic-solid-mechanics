@@ -47,7 +47,7 @@ def generate(n, workers, seed=12345):
     print(f"generated {n} in {time.time() - t:.0f}s", flush=True)
 
 
-def evaluate(obj, n, workers):
+def evaluate(obj, n, workers, kinds=("raw", "proj")):
     import run_arm as ra
     d = np.load(OUT / "lf_extra.npz")
     F = ra.features(d["w1"][:n], d["w2"][:n], d["theta"][:n])
@@ -55,11 +55,14 @@ def evaluate(obj, n, workers):
     Fp = pca.inverse(pca.transform(F))
     buck = obj == "buck"
     t = time.time()
+    res = {}
     with ra.make_pool(workers) as pool:
-        raw = ra.evaluate_many(pool, list(F), buck)
-        proj = ra.evaluate_many(pool, list(Fp), buck)
-    np.savez_compressed(OUT / f"eval_{obj}.npz", **{f"raw_{k}": np.array([r[k] for r in raw]) for k in raw[0]},
-                        **{f"proj_{k}": np.array([r[k] for r in proj]) for k in proj[0]})
+        if "raw" in kinds:
+            res["raw"] = ra.evaluate_many(pool, list(F), buck)
+        if "proj" in kinds:
+            res["proj"] = ra.evaluate_many(pool, list(Fp), buck)
+    np.savez_compressed(OUT / f"eval_{obj}.npz", **{f"{kind}_{k}": np.array([r[k] for r in recs])
+                                                     for kind, recs in res.items() for k in recs[0]})
     print(f"evaluated {n} x2 ({obj}) in {time.time() - t:.0f}s", flush=True)
 
 
@@ -69,5 +72,6 @@ if __name__ == "__main__":
     ap.add_argument("--obj", choices=["stiff", "buck"])
     ap.add_argument("--n", type=int, required=True)
     ap.add_argument("--workers", type=int, default=16)
+    ap.add_argument("--kinds", default="raw,proj")
     a = ap.parse_args()
-    generate(a.n, a.workers) if a.cmd == "generate" else evaluate(a.obj, a.n, a.workers)
+    generate(a.n, a.workers) if a.cmd == "generate" else evaluate(a.obj, a.n, a.workers, tuple(a.kinds.split(",")))
