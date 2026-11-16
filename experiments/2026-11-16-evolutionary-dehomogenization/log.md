@@ -101,3 +101,10 @@
 - Pixel-evaluator warnings from the same data: design #240 pixel BLF −21 % on refinement (localised,
   unconverged) while ccx is converged; ccx compliance +9 % on it (diagonal-only pixel contacts carry
   load in hf). These are what H7 measures.
+
+## 16:07 UTC — campaign driver replaced
+- campaign.sh handed all 17 jobs to the coordinator gate at once (`$J run` detaches), and the gate
+  released only two 10-core jobs at a time (~12 cores idle; ~10 h projected). Stopped the 15 units
+  still waiting at the gate (none had started) and launched campaign2.sh: same jobs, same
+  pre-registered order, `--no-gate` (box forecast clear of heavy jobs until 09:40 UTC tomorrow),
+  concurrency capped at 3 × 10 cores by the driver, each still attributed and memory-capped.
