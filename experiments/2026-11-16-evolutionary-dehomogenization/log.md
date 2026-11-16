@@ -132,3 +132,11 @@
 - H1-S provisional (all 3 seeds final): gains +24.8 / +20.3 / +13.5 % (mean +19.5 %).
 - H6-S final: retained 67 / 94 / 98 % (mean 86 %) → PASS.
 - B s0/s1 stopped at gen 31 by the watcher; archives hold gens ≤ 30 (3 780 designs).
+
+## 19:55 UTC — H5 graded → MISS
+- Best FULL-B s0 (30 gens) archive design within ±0.01 vf vs SIMP (pixel evaluator, as registered):
+  BLF 0.225/0.261/0.296/0.594 vs SIMP 0.249/0.319/0.423/0.564 at vf 0.30/0.35/0.40/0.45 → 1 of 4
+  wins (bar 3). Compliance 17–42 % worse than SIMP.
+- Supplementary CalculiX check (not the grade): SIMP ccx C/BLF 5.71/0.257, 4.93/0.328, 4.37/0.433,
+  3.95/0.576; FULL-B s0 front designs ccx 8.15/0.220, 7.39/0.250, 5.69/0.371, 4.92/0.479. SIMP
+  ahead in both objectives at every matched volume — the miss is not an evaluator artefact.
