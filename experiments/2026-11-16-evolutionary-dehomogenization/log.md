@@ -34,3 +34,16 @@
 - deHomTop808 cross-check under Octave was planned (installed `octave` micromamba env) but
   running the downloaded MATLAB was blocked by the session's permission classifier; the port is
   instead validated against analytic uniform-field tests (see dehom builder report).
+
+## 05:20 UTC — dehom.py (builder report, orchestrator checks)
+- Port of Xu Eqs. 8–11 from the deHomTop808 source (read, not executed). 0.11 s/call, 1 core.
+  Uniform fields: spacing 7.500 mm, direction exact, thickness within ~1 %, volume vs cross formula
+  within 1 % except one quantisation case. Branch closure/boundary layer not ported (not in Xu).
+  Deviations listed in the module docstring (flood-ordered first alignment sweep, w1/w2 swap at
+  layer jumps, direct cubic interpolation to the fine grid).
+- Orchestrator fix: default global phase 0 put axis-aligned w = 0.2 bar edges on pixel centres
+  (−15 % thickness); set a deterministic 0.3 rad offset → (0.2, 0.2) at 0°/90° now 0.360 = formula.
+  Residual pixel quantisation: a 4.5-px bar renders as 4 px (w = 0.15 cross: 0.249 vs 0.2775).
+  Inherent to h = 0.25 mm; covered by the CalculiX calibration (it meshes the continuous `level`).
+- Builder finding to carry into the pre-registration: re-realising one design with 4 phase seeds
+  moves its compliance 10.35–14.19 (±15 %). Winner's-curse control needed.
