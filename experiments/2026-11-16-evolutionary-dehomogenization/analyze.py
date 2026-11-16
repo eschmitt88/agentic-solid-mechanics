@@ -104,7 +104,10 @@ def h6(obj, runs):
         else:
             blf = d["blf"].mean(1)
             F = np.stack([vf, np.where(np.isfinite(C), -blf, 1e30)], 1)
-            cv = np.where(np.isfinite(C), np.maximum(0, C / cr(vf) - 1), 1e3)
+            # Post-hoc (log 20:45 UTC): the stiffness constraint is NOT applied to phase-averaged
+            # objectives. Its reference is the best gen-0 compliance at each vf, so re-realised gen-0
+            # front designs regress above it (1 of 15 stays feasible) and the baseline HV collapses.
+            cv = np.where(np.isfinite(C), 0.0, 1e3)
         return F, cv, d["Fnom"]
 
     g0 = RES / "rereal" / f"{obj}_gen0.npz"

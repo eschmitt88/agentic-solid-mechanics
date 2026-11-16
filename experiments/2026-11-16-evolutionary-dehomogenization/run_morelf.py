@@ -5,7 +5,8 @@ designs with varied LF parameters, evaluate them in the same HF pipeline.
   python -u run_morelf.py evaluate --obj stiff|buck --n N --workers 16
 
 Diversity sources (OURS, from the Fable review): V0 ~ U(0.25, 0.50), Lmin in
-{0.10, 0.15, 0.20}, rmin ~ U(1.5, 3.0) coarse elements, theta_jitter ~ U(0, 0.3) rad,
+{0.10, 0.15, 0.20}, rmin in {1.5, 2.0, 2.5, 3.0} coarse elements (quantised: each new
+rmin JIT-compiles new filter functions and a continuous draw OOM-killed the first run), theta_jitter ~ U(0, 0.3) rad,
 init_jitter ~ U(0, 0.1), MMA seed. All other LF settings = lf.GEN0_SETTINGS.
 Each design is evaluated raw (primary: the practical alternative to the EA) and
 PCA-projected (secondary: same representation as the EA's designs).
@@ -36,12 +37,12 @@ def generate(n, workers, seed=12345):
     import multiprocessing as mp
     rng = np.random.default_rng(seed)
     ps = [dict(V0=float(rng.uniform(0.25, 0.50)), Lmin=float(rng.choice([0.10, 0.15, 0.20])),
-               rmin=float(rng.uniform(1.5, 3.0)), theta_jitter=float(rng.uniform(0, 0.3)),
+               rmin=float(rng.choice([1.5, 2.0, 2.5, 3.0])), theta_jitter=float(rng.uniform(0, 0.3)),
                init_jitter=float(rng.uniform(0, 0.1)), seed=int(i)) for i in range(n)]
     OUT.mkdir(parents=True, exist_ok=True)
     t = time.time()
-    with mp.get_context("spawn").Pool(workers) as pool:
-        res = pool.map(_gen_one, ps, chunksize=4)
+    with mp.get_context("spawn").Pool(workers, maxtasksperchild=25) as pool:
+        res = pool.map(_gen_one, ps, chunksize=1)
     np.savez_compressed(OUT / "lf_extra.npz", **{k: np.stack([r[k] for r in res]) for k in res[0]},
                         params=json.dumps(ps))
     print(f"generated {n} in {time.time() - t:.0f}s", flush=True)

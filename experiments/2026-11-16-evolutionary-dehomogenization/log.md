@@ -140,3 +140,17 @@
 - Supplementary CalculiX check (not the grade): SIMP ccx C/BLF 5.71/0.257, 4.93/0.328, 4.37/0.433,
   3.95/0.576; FULL-B s0 front designs ccx 8.15/0.220, 7.39/0.250, 5.69/0.371, 4.92/0.479. SIMP
   ahead in both objectives at every matched volume — the miss is not an evaluator artefact.
+
+## 20:45 UTC — MORELF OOM (capped), H6-B, H2b-S s0
+- MORELF generation was killed by its 20 GB scope cap at 19:16 (the cap worked; box unaffected): a
+  continuous rmin draw JIT-compiles new filter functions per design, so each worker's compile cache
+  grew without bound. Fix: rmin ∈ {1.5, 2.0, 2.5, 3.0}, maxtasksperchild = 25; relaunched 20:30 as
+  t13-morelf-gen (36 GB cap). Evaluations will run as separate jobs.
+- B FULL HV(1.1) gains at 30 gens: +12.7 / +13.7 / +18.4 % (gen-0 HV 0.5946).
+- H6-B as first implemented applied the stiffness constraint to phase-averaged objectives: only 1 of
+  15 gen-0 front designs stays feasible (its reference is the gen-0 best-compliance envelope, which
+  re-realised designs regress above), the baseline HV collapses and "retained" reads 590–850 %.
+  Post-hoc choice (the pre-registration did not say how the constraint enters H6): grade H6-B with
+  the constraint dropped. Then retained 52.5 % (s0), 104 % (s1). Per design, re-realised evolved
+  fronts keep 67 % of nominal BLF vs 82 % for the gen-0 front (winner's curse, as in S).
+- H2b-S seed 0: FULL 1.4795 vs NOSEL 1.2204 (NOSEL gain +3.0 %).
