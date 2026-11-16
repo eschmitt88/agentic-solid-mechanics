@@ -47,3 +47,22 @@
   Inherent to h = 0.25 mm; covered by the CalculiX calibration (it meshes the continuous `level`).
 - Builder finding to carry into the pre-registration: re-realising one design with 4 phase seeds
   moves its compliance 10.35–14.19 (±15 %). Winner's-curse control needed.
+
+## 05:40 UTC — LF half (builder report) + orchestrator decisions
+- homog.py: periodic 200² cross cell; C^H jumps at w = 1 (a slit cuts the other bar), so the paper's
+  Eq. 4 polynomial cannot fit (degree 5: 60–1745 % error). Used a tensor-product cubic spline on
+  [0, 0.95]² + linear ramp to C_iso over [0.95, 1]: off-grid error ≤ 0.65 %, exact solid at w = 1,
+  PD after projection. Deviation from the paper (Eq. 4).
+- lf.py: paper Eq. 3 as printed is the stress transform; the engineering-shear strain transform of
+  deHomTop808 is used (rotated single bar matches analytic to 2.4e-6). Own Svanberg MMA. Solid LF
+  compliance 2.426 vs HF 2.531 (−4.2 %, coarse mesh + snapped duct).
+- Decision: gen 0 uses deHomTop808's robust projection (three-field left ρ̄ 49–68 % grey, so Lmin
+  was not a minimum width) and a width filter rmin_mu = 1.5 (checkerboard widths). Regenerated:
+  `results/gen0/lf_designs.npz`, 242 s on 12 processes. Older sets kept as *_threefield / *_robust.
+- simp.py: 88-line-style SIMP on the fine grid, 6 volumes; HF numbers in results/simp/simp_eval.json.
+- Gen-0 look (scratch/ea/gen0_look.png): tied A-frames; HF/LF compliance ratio ≈ 1.1–1.25 at
+  V0 = 0.5 but 3.7–11 at V0 = 0.25 (thin regions fragment without branch closure).
+
+## 15:00 UTC — container restart
+- Restart killed the gen-0 evaluation and the CalculiX builder (resumed from its transcript).
+  ~9.5 h lost. Gen-0 stiffness evaluation restarted.
