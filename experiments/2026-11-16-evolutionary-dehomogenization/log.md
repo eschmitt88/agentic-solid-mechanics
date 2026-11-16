@@ -114,3 +114,11 @@
   exceed the 24 h ceiling. PREREGISTRATION.md Addendum A: all B arms 30 generations (running s0/s1
   stopped after their gen-30 snapshot by campaign3.sh's watcher), MORELF-B 3 300 raw designs.
 - Stiffness FULL final (100 gens): s0 HV(1.1) 1.185 → 1.4795, s1 → 1.426.
+
+## 17:45 UTC — first grading passes (stiffness)
+- H7-S CalculiX (12 designs so far: gen-0, FULL s0, s1 fronts at vf 0.30–0.45): pixel vs ccx
+  compliance within ~1–3 % everywhere; pixel BLF 0–30 % below ccx (pixel is conservative).
+- H6-S (5 phase seeds per front design): front HV gain retained 67 % (s0) / 94 % (s1) on
+  phase-averaged objectives → mean 80 % (bar 50 %). But per design, re-rolling the phase makes
+  gen-0 front designs ~10 % worse (median) and evolved front designs 23–29 % worse, with a tail
+  (p90 5–20×) that disconnects: the EA does partly select lucky realisations.
