@@ -122,3 +122,13 @@
   phase-averaged objectives → mean 80 % (bar 50 %). But per design, re-rolling the phase makes
   gen-0 front designs ~10 % worse (median) and evolved front designs 23–29 % worse, with a tail
   (p90 5–20×) that disconnects: the EA does partly select lucky realisations.
+
+## 19:40 UTC — H7 graded (24 designs) → MISS
+- Spearman pixel vs ccx: compliance 0.992, BLF 0.903 (≥ 0.9: pass). Front-vs-gen-0 dominance agrees
+  in all 4 objective×seed cases (pass). Ratio CV: compliance 12.7 % (> 10 %), BLF 25.7 % (> 20 %) → MISS.
+- The CV is dominated by one evolved design (buck FULL s1, vf 0.35): pixel C 22.0 vs ccx 56.2, BLF
+  0.220 vs 0.111 — the EA kept a design whose load path the pixel grid treats as connected but the
+  body-fitted contour does not (evaluator exploitation). Other 23 designs: C within ~1–4 %.
+- H1-S provisional (all 3 seeds final): gains +24.8 / +20.3 / +13.5 % (mean +19.5 %).
+- H6-S final: retained 67 / 94 / 98 % (mean 86 %) → PASS.
+- B s0/s1 stopped at gen 31 by the watcher; archives hold gens ≤ 30 (3 780 designs).
