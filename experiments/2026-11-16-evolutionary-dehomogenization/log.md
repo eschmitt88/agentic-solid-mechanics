@@ -84,3 +84,20 @@
 - sha256 ea.py: affb8183d23ff40e
 - sha256 run_arm.py: 90edbb411fe05081
 - sha256 run_morelf.py: 795775f7bce194cd
+
+## 16:00 UTC — verify_ccx.py (builder report); grading settings fixed before any front is graded
+- Body-fitted oracle: marching-squares contour → piecewise equal-arc-length resampling (paper
+  Eqs. 15–20) → gmsh triangles → one layer of C3D15 wedges with in-plane *EQUATION ties
+  (plane-stress kinematics), because CPS6 + *BUCKLE in ccx 2.23 gives wrong factors (Euler
+  column 731×); wedge model: 1.0012× Euler. SPRING1 bearings, consistent edge loads. *BUCKLE only
+  reports factors > 1 → load scaled 1e-3.
+- Calibration: solid girder compliance ccx vs hf within 0.1 %; its BLF drifts ~20 %/halving at the
+  roller-spring end (traction-step singularity; rounding cannot fix it; irrelevant to lattices).
+  Synthetic 45° lattices: support-adjacent notch/ligament modes, no r_c converges them.
+  Real gen-0 designs: ccx r_c = 0 converged (mesh 0.5 → 0.25: BLF −2.0/−0.1/−1.1 %, C ≤ 0.8 %).
+  Corner rounding is not neutral: fillets r_c = 0.5/1.0 raise BLF 9–14 %/21–35 % and lower C 3–17 %.
+- **Grading settings for H7: r_c = 0, mesh = Δs = 0.5 mm** (the paper's own geometry treatment).
+  r_c = 0.5 as a sensitivity check on final fronts only.
+- Pixel-evaluator warnings from the same data: design #240 pixel BLF −21 % on refinement (localised,
+  unconverged) while ccx is converged; ccx compliance +9 % on it (diagonal-only pixel contacts carry
+  load in hf). These are what H7 measures.
