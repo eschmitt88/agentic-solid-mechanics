@@ -1,0 +1,7 @@
+---
+title: "evolutionary-dehomogenization notes"
+format: html
+---
+
+```{python}
+```
