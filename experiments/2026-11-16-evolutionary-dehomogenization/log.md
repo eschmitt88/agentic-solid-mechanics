@@ -74,3 +74,13 @@
   Fix: solver.free_memory(everything=True) in a finally block; RSS now flat at ~0.7 GB/worker.
 - All trial-13 batch jobs now run under `systemd-run --user --scope -p MemoryMax=… -p MemorySwapMax=0`
   so a future leak kills only the job.
+
+## 15:15 UTC — pre-registration frozen; evaluator hashes (HCE clause 4)
+- PCA cap raised 64 → 128 before freezing (cap 64 left 18.8 % RMS reconstruction error, orientation
+  channels; per-design rec/raw compliance ratio p10–p90 0.46–1.80 but gen-0 HV 1.168 vs 1.189).
+- Smoke test (seed 99, 2 gens, deleted): HV(1.1) 1.185 → 1.206, all children connected, VAE σ≈0.09.
+- sha256 hf.py: 5f5c74704f63d4cb
+- sha256 dehom.py: a37f2bfc21a6eb03
+- sha256 ea.py: affb8183d23ff40e
+- sha256 run_arm.py: 90edbb411fe05081
+- sha256 run_morelf.py: 795775f7bce194cd

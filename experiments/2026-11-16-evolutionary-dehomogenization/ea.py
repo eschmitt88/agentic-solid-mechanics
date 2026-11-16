@@ -57,7 +57,7 @@ def decode(E, fallback_theta=None):
 # standardised = OURS, the paper shares one spatial basis across channels).
 # ----------------------------------------------------------------------------
 class ChannelPCA:
-    def __init__(self, var=0.99, cap=64):
+    def __init__(self, var=0.99, cap=128):
         self.var, self.cap = var, cap
 
     def fit(self, F):
