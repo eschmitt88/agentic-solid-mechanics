@@ -1,21 +1,25 @@
-"""Run one arm of trial 13 (evolutionary de-homogenisation, Xu et al. 2026).
+"""Run one arm of trial 14 (follow-ups to trial 13; evolutionary de-homogenisation, Xu et al. 2026).
 
-  python -u run_arm.py --obj stiff|buck --arm FULL|NOMUT|NOVAE|NOSEL --seed S --gens G --workers W
-  python -u run_arm.py --obj stiff|buck --gen0-only          # shared gen-0 evaluation cache
+  python -u run_arm.py --obj stiff|buck --arm ARM --seed S --gens G --workers W
+  python -u run_arm.py --obj stiff|buck --gen0-only [--enc inv5|raw3]   # gen-0 evaluation cache
 
-Arms (identical HF budget: 110 evaluations per generation):
-  FULL   NSGA-II selection + VAE latent crossover (100) + image mutation (10)   [paper]
-  NOMUT  NSGA-II + VAE crossover (110), no mutation                              [paper Case 2]
-  NOVAE  NSGA-II + the same BLX crossover in whitened PCA space (100) + mutation (10)
-  NOSEL  FULL's operators, no selection pressure: uniform parents, random survivors
-MORELF (more LF designs at matched budget) is run by run_morelf.py.
+Arms (110 HF evaluations per generation unless stated):
+  FULL     NSGA-II + VAE latent crossover (latent 8) (100) + image mutation (10)        [paper]
+  VAE32    FULL with VAE latent 32;  VAE64: latent 64                                  [latent sweep]
+  RAWTH    FULL with the paper's raw-theta encoding (w1, w2, theta), PCA per channel   [faithful enc.]
+  PCA      NSGA-II + BLX-0.25 crossover in whitened PCA space (100) + image mutation (10)
+  PCANOV   PCA + novelty as a third survival objective (mean distance to 15 nearest archive
+           designs on the first 4 PCs of each channel); HV still on the 2 real objectives
+  ROB3     PCA, but every child is evaluated under 3 random phasor seeds and scored on
+           (mean vf, geometric-mean compliance | geometric-mean BLF): 330 evaluations/generation
+  LOTTERY  no selection, no recombination: each child = a random gen-0 front design + N(0, 0.1^2)
+           in whitened PCA space (noise-mining null)
 
-Objectives (minimised): stiff = (vf, compliance); buck = (vf, -BLF) subject to
-compliance <= gen-0 front compliance at the same vf (paper Sec. 4.1.3).
+Objectives (minimised): stiff = (vf, C); buck = (vf, -BLF) s.t. C <= gen-0 envelope at the same vf.
 """
 from __future__ import annotations
 
-import argparse, json, os, sys, time
+import argparse, json, os, sys, time, zlib
 from pathlib import Path
 
 for v in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):
@@ -38,34 +42,44 @@ DES = MASKS["design"]
 SOLID_C, VOID_C = MASKS["solid_fixed"], MASKS["void_fixed"]
 _THETA_ND = np.load(HERE / "results" / "gen0" / "lf_designs.npz")["theta"][0]   # non-design entries only
 
+ARM_ENC = {"RAWTH": "raw3"}
 
-# ---------------------------------------------------------------------------- fields
-def features(w1, w2, th):
-    """(n, 20, 40) fields -> (n, Nd, 5) encoded design-element features."""
+
+# ---------------------------------------------------------------------------- encodings
+def features(w1, w2, th, enc="inv5"):
+    """(n, 20, 40) fields -> (n, Nd, C) design-element features."""
+    if enc == "raw3":
+        return np.stack([w1, w2, th], -1)[:, DES, :]
     return ea.encode(w1, w2, th)[:, DES, :]
 
 
-def fields_from_features(Fd):
-    """(Nd, 5) -> w1, w2, theta images (20, 40) with fixed non-design values."""
-    img = np.zeros(DES.shape + (ea.NCH,))
-    img[DES] = Fd
-    w1, w2, th = ea.decode(img)
-    # Trial 14 fix: non-design elements carry no encoded orientation (channels = 0), so decode
-    # returned a direction from rounding noise there; the de-homogeniser's orientation clean-up
-    # propagated it into the lattice (1e-12 input changes moved compliance by ~9 %, scratch/chaos.py).
-    # Use the LF optimiser's fixed non-design angle (principal-stress start, identical in all designs).
-    th[~DES] = _THETA_ND[~DES]
+def fields_from_features(Fd, enc="inv5"):
+    """(Nd, C) -> w1, w2, theta images (20, 40) with fixed non-design values."""
+    if enc == "raw3":
+        w1 = np.zeros(DES.shape); w2 = np.zeros(DES.shape); th = _THETA_ND.copy()
+        w1[DES] = np.clip(Fd[:, 0], 0, 1); w2[DES] = np.clip(Fd[:, 1], 0, 1); th[DES] = Fd[:, 2]
+    else:
+        img = np.zeros(DES.shape + (ea.NCH,))
+        img[DES] = Fd
+        w1, w2, th = ea.decode(img)
+        # non-design elements carry no encoded orientation: use the LF optimiser's fixed angle
+        th[~DES] = _THETA_ND[~DES]
     w1[SOLID_C], w2[SOLID_C] = 1.0, 1.0
     w1[VOID_C], w2[VOID_C] = 0.0, 0.0
     return w1, w2, th
 
 
-def image_from_features(Fd):
-    img = np.zeros(DES.shape + (ea.NCH,))
-    img[DES] = Fd
-    w1, w2, th = fields_from_features(Fd)
-    img[~DES] = ea.encode(w1, w2, th)[~DES]
-    return img
+def image_from_features(Fd, enc="inv5"):
+    w1, w2, th = fields_from_features(Fd, enc)
+    if enc == "raw3":
+        return np.stack([w1, w2, th], -1)
+    return ea.encode(w1, w2, th)
+
+
+def features_from_image(img, enc="inv5"):
+    if enc == "raw3":
+        return img[DES]
+    return img[DES]
 
 
 # ---------------------------------------------------------------------------- workers
@@ -79,18 +93,39 @@ def _winit():
 
 
 def _evaluate(task):
-    Fd, buck, phase_seed = task
+    """task = (Fd, enc, buck, seeds): evaluate one design under each phase seed in `seeds`
+    (None = the deterministic default realisation)."""
+    Fd, enc, buck, seeds = task
     t0 = time.time()
-    w1, w2, th = fields_from_features(Fd)
-    d = _W["dehom"].dehomogenise(w1, w2, th, phase_seed=phase_seed)
-    r = _W["prob"].evaluate(d["phi"], buckling=buck, nev=1)
-    return dict(vf=r["vf"], connected=r["connected"], compliance=r["compliance"], umax=r["umax"],
-                blf=r.get("blf", np.nan), t=time.time() - t0)
+    w1, w2, th = fields_from_features(Fd, enc)
+    out = []
+    for s in seeds:
+        d = _W["dehom"].dehomogenise(w1, w2, th, phase_seed=s)
+        r = _W["prob"].evaluate(d["phi"], buckling=buck, nev=1)
+        out.append(dict(vf=r["vf"], connected=r["connected"], compliance=r["compliance"], umax=r["umax"],
+                        blf=r.get("blf", np.nan)))
+    return dict(evals=out, t=time.time() - t0)
 
 
-def evaluate_many(pool, Fds, buck, phase_seeds=None):
-    phase_seeds = phase_seeds if phase_seeds is not None else [None] * len(Fds)
-    return pool.map(_evaluate, [(F, buck, s) for F, s in zip(Fds, phase_seeds)], chunksize=1)
+def aggregate(res):
+    """Mean vf, geometric-mean C and BLF over the realisations of one design (any disconnected
+    realisation makes the design disconnected)."""
+    ev = res["evals"]
+    conn = all(e["connected"] for e in ev)
+    if len(ev) == 1:
+        return dict(ev[0], t=res["t"], n_real=1)
+    C = np.array([e["compliance"] for e in ev]); B = np.array([e["blf"] for e in ev])
+    return dict(vf=float(np.mean([e["vf"] for e in ev])), connected=conn,
+                compliance=float(np.exp(np.mean(np.log(C)))) if conn else np.inf,
+                umax=float(np.mean([e["umax"] for e in ev])),
+                blf=float(np.exp(np.mean(np.log(np.maximum(B, 1e-12))))) if conn and np.isfinite(B).all() else np.nan,
+                t=res["t"], n_real=len(ev))
+
+
+def evaluate_many(pool, Fds, enc, buck, seeds_list=None):
+    seeds_list = seeds_list if seeds_list is not None else [[None]] * len(Fds)
+    res = pool.map(_evaluate, [(F, enc, buck, s) for F, s in zip(Fds, seeds_list)], chunksize=1)
+    return [aggregate(r) for r in res]
 
 
 def make_pool(workers):
@@ -101,21 +136,19 @@ def make_pool(workers):
 # ---------------------------------------------------------------------------- objectives
 def objectives(recs, obj, cref=None):
     vf = np.array([r["vf"] for r in recs]); C = np.array([r["compliance"] for r in recs])
-    ok = np.array([r["connected"] and np.isfinite(r["compliance"]) for r in recs])
+    ok = np.array([bool(r["connected"]) and np.isfinite(r["compliance"]) for r in recs])
     if obj == "stiff":
         F = np.stack([vf, np.where(ok, C, 1e30)], 1)
         cv = np.where(ok, 0.0, BAD_CV)
     else:
         blf = np.array([r["blf"] for r in recs])
+        ok = ok & np.isfinite(blf)
         F = np.stack([vf, np.where(ok, -blf, 1e30)], 1)
         cv = np.where(ok, np.maximum(0.0, C / cref(vf) - 1.0), BAD_CV)
     return F, cv
 
 
 def compliance_reference(vf0, C0):
-    """Lower envelope of gen-0 compliance vs vf (non-dominated set), interpolated
-    in log C; flat extrapolation. Paper: 'stiffness not lower than that of the
-    initial design with the same volume'; envelope + interpolation = OURS."""
     F = np.stack([vf0, C0], 1)
     r = ea.nondominated_sort(F)
     P = F[r == 0]; P = P[np.argsort(P[:, 0])]
@@ -124,53 +157,81 @@ def compliance_reference(vf0, C0):
 
 
 # ---------------------------------------------------------------------------- gen 0
-def gen0(obj, workers):
-    out = RES / "gen0" / f"eval_{obj}.npz"
+def pca_path(enc):
+    return RES / "gen0" / ("pca.npz" if enc == "inv5" else f"pca_{enc}.npz")
+
+
+def gen0_path(obj, enc, robust=False):
+    tag = "" if enc == "inv5" else f"_{enc}"
+    return RES / "gen0" / f"eval14_{obj}{tag}{'_rob3' if robust else ''}.npz"
+
+
+def gen0(obj, workers, enc="inv5", robust=False):
     lf = np.load(RES / "gen0" / "lf_designs.npz")
-    F0 = features(lf["w1"], lf["w2"], lf["theta"])
-    pca_path = RES / "gen0" / "pca.npz"
-    pca = ea.ChannelPCA().fit(F0)
-    np.savez(pca_path, **{f"Phi{c}": pca.Phi[c] for c in range(ea.NCH)}, **{f"ev{c}": pca.ev[c] for c in range(ea.NCH)},
-             mean=pca.mean, sd=pca.sd, nc=np.array(pca.nc))
+    F0 = features(lf["w1"], lf["w2"], lf["theta"], enc)
+    if enc == "inv5" and pca_path(enc).exists():
+        pca = load_pca(enc)                              # trial-13 PCA (identical fit), kept for comparability
+    else:
+        pca = ea.ChannelPCA().fit(F0)
+        np.savez(pca_path(enc), **{f"Phi{c}": pca.Phi[c] for c in range(len(pca.nc))},
+                 **{f"ev{c}": pca.ev[c] for c in range(len(pca.nc))}, mean=pca.mean, sd=pca.sd, nc=np.array(pca.nc))
     Z0 = pca.transform(F0)
     F0r = pca.inverse(Z0)
     buck = obj == "buck"
+    rng = np.random.default_rng(14_000 + (1 if buck else 0))
+    seeds = [list(rng.integers(1, 2**31, 3)) for _ in range(len(F0r))] if robust else None
     with make_pool(workers) as pool:
         t = time.time()
-        rec_raw = evaluate_many(pool, list(F0), buck)
-        rec_rec = evaluate_many(pool, list(F0r), buck)
+        rec = evaluate_many(pool, list(F0r), enc, buck, seeds)
         dt = time.time() - t
-    np.savez(out, Z0=Z0, **{f"raw_{k}": np.array([r[k] for r in rec_raw]) for k in rec_raw[0]},
-             **{f"rec_{k}": np.array([r[k] for r in rec_rec]) for k in rec_rec[0]})
-    info = dict(obj=obj, n=len(F0), pca_nc=pca.nc, pca_dim=pca.dim, pca_recon_err=pca.recon_error(F0),
-                wall_s=dt, mean_eval_s=float(np.mean([r["t"] for r in rec_rec])))
-    (RES / "gen0" / f"eval_{obj}.json").write_text(json.dumps(info, indent=1))
+    np.savez(gen0_path(obj, enc, robust), Z0=Z0, **{f"rec_{k}": np.array([r[k] for r in rec]) for k in rec[0]})
+    info = dict(obj=obj, enc=enc, robust=robust, n=len(F0), pca_nc=list(map(int, pca.nc)), pca_dim=pca.dim,
+                pca_recon_err=pca.recon_error(F0), wall_s=dt, mean_eval_s=float(np.mean([r["t"] for r in rec])))
+    gen0_path(obj, enc, robust).with_suffix(".json").write_text(json.dumps(info, indent=1))
     print(json.dumps(info), flush=True)
 
 
-def load_pca():
-    d = np.load(RES / "gen0" / "pca.npz")
+def load_pca(enc="inv5"):
+    d = np.load(pca_path(enc))
+    nc = [int(x) for x in d["nc"]]
     p = ea.ChannelPCA()
-    p.Phi = [d[f"Phi{c}"] for c in range(ea.NCH)]; p.ev = [d[f"ev{c}"] for c in range(ea.NCH)]
-    p.mean, p.sd, p.nc = d["mean"], d["sd"], [int(x) for x in d["nc"]]
+    p.Phi = [d[f"Phi{c}"] for c in range(len(nc))]; p.ev = [d[f"ev{c}"] for c in range(len(nc))]
+    p.mean, p.sd, p.nc = d["mean"], d["sd"], nc
     return p
 
 
-def load_gen0(obj):
-    d = np.load(RES / "gen0" / f"eval_{obj}.npz")
-    recs = [dict(vf=d["rec_vf"][i], connected=bool(d["rec_connected"][i]), compliance=d["rec_compliance"][i],
-                 umax=d["rec_umax"][i], blf=d["rec_blf"][i]) for i in range(len(d["Z0"]))]
+def load_gen0(obj, enc="inv5", robust=False):
+    d = np.load(gen0_path(obj, enc, robust))
+    keys = [k[4:] for k in d.files if k.startswith("rec_")]
+    recs = [{k: d[f"rec_{k}"][i] for k in keys} for i in range(len(d["Z0"]))]
+    for r in recs:
+        r["connected"] = bool(r["connected"])
     return d["Z0"], recs
 
 
+def cref_for(obj):
+    """Buckling constraint reference: gen-0 (inv5, nominal) compliance envelope — shared by all arms."""
+    if obj != "buck":
+        return None
+    d = np.load(gen0_path("buck", "inv5"))
+    ok = d["rec_connected"].astype(bool)
+    return compliance_reference(d["rec_vf"][ok], d["rec_compliance"][ok])
+
+
+def shared_normaliser(obj):
+    """HV normalisation from the inv5 nominal gen-0 feasible set — identical for every arm."""
+    _, rec = load_gen0(obj, "inv5")
+    F0, cv0 = objectives(rec, obj, cref_for(obj))
+    return ea.Normaliser(F0[cv0 <= 0])
+
+
 # ---------------------------------------------------------------------------- operators
-def latent_children(rng, Z, rank, crowd, n, vae_seed, use_vae=True, noise=0.1):
-    """BLX-0.25 blend of two tournament-selected parents (+ noise), in VAE latent
-    space (paper: VAE crossover; operator = OURS) or directly in PCA space (NOVAE)."""
-    a = tournament_or_uniform(rng, rank, crowd, n); b = tournament_or_uniform(rng, rank, crowd, n)
+def latent_children(rng, Z, rank, crowd, n, vae_seed, mode="vae", latent=8, noise=0.1):
+    a = ea.tournament(rng, rank, crowd, n) if rank is not None else rng.integers(0, len(Z), n)
+    b = ea.tournament(rng, rank, crowd, n) if rank is not None else rng.integers(0, len(Z), n)
     t = rng.uniform(-0.25, 1.25, (n, 1))
-    if use_vae:
-        vae = ea.VAE(Z.shape[1], seed=vae_seed).fit(Z)
+    if mode == "vae":
+        vae = ea.VAE(Z.shape[1], latent=latent, seed=vae_seed).fit(Z)
         mu, sd = vae.encode(Z)
         L = (1 - t) * mu[a] + t * mu[b] + rng.normal(size=(n, mu.shape[1])) * sd.mean(0)
         return vae.decode(L), dict(vae_loss=vae.final_loss, vae_sigma=float(sd.mean()))
@@ -178,51 +239,55 @@ def latent_children(rng, Z, rank, crowd, n, vae_seed, use_vae=True, noise=0.1):
     return Zc, {}
 
 
-def tournament_or_uniform(rng, rank, crowd, n):
-    if rank is None:
-        return rng.integers(0, len(crowd), n)
-    return ea.tournament(rng, rank, crowd, n)
-
-
-def mutants(rng, pca, Zpar, n):
+def mutants(rng, pca, Zpar, n, enc):
     import lf
     out, kept = [], []
     for i in rng.choice(len(Zpar), n, replace=False):
         Fd = pca.inverse(Zpar[i])
-        w1, w2, th = fields_from_features(Fd)
+        w1, w2, th = fields_from_features(Fd, enc)
         ux, uy = lf.lf_displacement(w1, w2, th)
-        img = image_from_features(Fd)
-        m = ea.mutate_image(img, np.asarray(ux), np.asarray(uy), rng)
-        z = pca.transform(m[DES][None])[0]
-        dz = np.linalg.norm(z - Zpar[i])
-        dimg = np.linalg.norm(m[DES] - Fd)
+        img = image_from_features(Fd, enc)
+        if enc == "raw3":
+            m = ea.mutate_image(img, np.asarray(ux), np.asarray(uy), rng)
+        else:
+            m = ea.mutate_image(img, np.asarray(ux), np.asarray(uy), rng)
+        z = pca.transform(features_from_image(m, enc)[None])[0]
+        dimg = np.linalg.norm(features_from_image(m, enc) - Fd)
         dimg_proj = np.linalg.norm(pca.inverse(z) - Fd)
         out.append(z); kept.append(dimg_proj / max(dimg, 1e-12))
     return np.array(out), dict(mut_kept_frac=float(np.mean(kept)))
 
 
+def novelty(Zc, Zarch, pca, k=15, per_ch=4):
+    """Mean distance to the k nearest archive designs on the first `per_ch` PCs of each channel."""
+    idx = np.concatenate([np.arange(per_ch) + int(sum(pca.nc[:c])) for c in range(len(pca.nc))])
+    from scipy.spatial import cKDTree
+    d, _ = cKDTree(Zarch[:, idx]).query(Zc[:, idx], k=k + 1)
+    return d[:, 1:].mean(1)                  # skip self (distance 0): candidates are in the archive
+
+
 # ---------------------------------------------------------------------------- run
 def run(args):
+    enc = ARM_ENC.get(args.arm, "inv5")
     rng = np.random.default_rng(args.seed)
-    pca = load_pca()
-    Z0, rec0 = load_gen0(args.obj)
-    cref = None
-    if args.obj == "buck":
-        d = np.load(RES / "gen0" / "eval_buck.npz")
-        ok = d["rec_connected"].astype(bool)
-        cref = compliance_reference(d["rec_vf"][ok], d["rec_compliance"][ok])
+    pca = load_pca(enc)
+    robust = args.arm == "ROB3"
+    Z0, rec0 = load_gen0(args.obj, enc, robust)
+    cref = cref_for(args.obj)
     F0, cv0 = objectives(rec0, args.obj, cref)
-    feas0 = cv0 <= 0
-    norm = ea.Normaliser(F0[feas0])
+    norm = shared_normaliser(args.obj)
     out = RES / "arms" / f"{args.obj}_{args.arm}_s{args.seed}"
     out.mkdir(parents=True, exist_ok=True)
     (out / "args.json").write_text(json.dumps(vars(args)))
 
-    AZ, AF, ACV, AG, AOP, AREC = [Z0], [F0], [cv0], [np.zeros(len(Z0), int)], [np.array(["gen0"] * len(Z0))], list(rec0)
-    P, rank, crowd = None, None, None
-    sel, rk, cr = ea.nsga2_select(F0, N_ELITE, cv0)
+    AZ, AF, ACV, AG, AOP = [Z0], [F0], [cv0], [np.zeros(len(Z0), int)], [np.array(["gen0"] * len(Z0))]
+    AREC = list(rec0)
+    sel, _, _ = ea.nsga2_select(F0, N_ELITE, cv0)
     P = sel
-    hist = []
+    front0 = np.where(cv0 <= 0)[0][ea.nondominated_sort(F0[cv0 <= 0]) == 0]
+    hist_f = out / "history.jsonl"
+    if hist_f.exists():
+        hist_f.unlink()
 
     def archive():
         return np.concatenate(AZ), np.concatenate(AF), np.concatenate(ACV)
@@ -230,64 +295,75 @@ def run(args):
     def log_gen(g, extra):
         Z, F, CV = archive()
         Fn = norm(F[CV <= 0])
-        h = dict(gen=g, n_eval=len(F), hv11=ea.hv2d(Fn, np.array([1.1, 1.1])), hv20=ea.hv2d(Fn, np.array([2.0, 2.0])),
+        h = dict(gen=g, n_eval=int(sum(r.get("n_real", 1) for r in AREC)), n_designs=len(F),
+                 hv11=ea.hv2d(Fn, np.array([1.1, 1.1])), hv20=ea.hv2d(Fn, np.array([2.0, 2.0])),
                  pop_div=float(np.mean(np.linalg.norm(Z[P][:, None] - Z[P][None], axis=-1))), **extra)
-        hist.append(h)
         print(json.dumps(h), flush=True)
-        with open(out / "history.jsonl", "a") as f:
-            f.write(json.dumps(h) + "\n")
+        with open(hist_f, "a") as f:
+            f.write(json.dumps(h, default=float) + "\n")
 
-    if (out / "history.jsonl").exists():
-        (out / "history.jsonl").unlink()
+    def save(name="archive.npz"):
+        Z, F, CV = archive()
+        np.savez_compressed(out / name, Z=Z, F=F, CV=CV, gen=np.concatenate(AG), op=np.concatenate(AOP), P=P,
+                            compliance=np.array([r["compliance"] for r in AREC]), blf=np.array([r["blf"] for r in AREC]),
+                            vf=np.array([r["vf"] for r in AREC]))
+
     log_gen(0, {})
+    buck = args.obj == "buck"
+    lat = {"VAE32": 32, "VAE64": 64}.get(args.arm, 8)
+    mode = "vae" if args.arm in ("FULL", "VAE32", "VAE64", "RAWTH") else "pca"
     with make_pool(args.workers) as pool:
         for g in range(1, args.gens + 1):
             t0 = time.time()
             Z, F, CV = archive()
-            ZP = Z[P]
-            if args.arm == "NOSEL":
-                rk_p, cr_p = None, np.zeros(len(P))
+            info = {}
+            if args.arm == "LOTTERY":
+                par = rng.choice(front0, N_CHILD + N_MUT)
+                Zc = Z0[par] + rng.normal(size=(len(par), Z0.shape[1])) * 0.1
+                ops = ["lottery"] * len(Zc)
             else:
-                _, rk_full, cr_full = ea.nsga2_select(F[P], len(P), CV[P])
-                rk_p, cr_p = rk_full, cr_full
-            n_child = N_CHILD + (N_MUT if args.arm == "NOMUT" else 0)
-            Zc, info = latent_children(rng, ZP, rk_p, cr_p, n_child, vae_seed=args.seed * 100003 + g,
-                                       use_vae=args.arm != "NOVAE")
-            ops = ["cross"] * len(Zc)
-            if args.arm != "NOMUT":
-                Zm, minfo = mutants(rng, pca, ZP, N_MUT); info.update(minfo)
+                _, rk, cr = ea.nsga2_select(F[P], len(P), CV[P])
+                Zc, info = latent_children(rng, Z[P], rk, cr, N_CHILD, vae_seed=args.seed * 100003 + g, mode=mode, latent=lat)
+                ops = ["cross"] * len(Zc)
+                Zm, minfo = mutants(rng, pca, Z[P], N_MUT, enc); info.update(minfo)
                 Zc = np.concatenate([Zc, Zm]); ops += ["mut"] * len(Zm)
-            recs = evaluate_many(pool, list(pca.inverse(Zc)), args.obj == "buck")
+            seeds = [list(rng.integers(1, 2**31, 3)) for _ in range(len(Zc))] if robust else None
+            recs = evaluate_many(pool, list(pca.inverse(Zc)), enc, buck, seeds)
             Fc, cvc = objectives(recs, args.obj, cref)
             idx0 = len(F)
             AZ.append(Zc); AF.append(Fc); ACV.append(cvc); AG.append(np.full(len(Zc), g)); AOP.append(np.array(ops)); AREC += recs
             cand = np.concatenate([P, idx0 + np.arange(len(Zc))])
             Z, F, CV = archive()
-            if args.arm == "NOSEL":
-                P = rng.choice(cand, N_ELITE, replace=False)
+            if args.arm == "LOTTERY":
+                P = cand[:N_ELITE]                               # unused
+            elif args.arm == "PCANOV":
+                nov = novelty(Z[cand], Z, pca)
+                F3 = np.concatenate([F[cand], -nov[:, None]], 1)
+                s, _, _ = ea.nsga2_select(F3, N_ELITE, CV[cand]); P = cand[s]
             else:
                 s, _, _ = ea.nsga2_select(F[cand], N_ELITE, CV[cand]); P = cand[s]
             info.update(t_gen=time.time() - t0, frac_conn=float(np.mean([r["connected"] for r in recs])),
                         mean_eval_s=float(np.mean([r["t"] for r in recs])),
                         frac_mut_in_P=float(np.mean(np.concatenate(AOP)[P] == "mut")))
             log_gen(g, info)
-            if g % 10 == 0 or g == args.gens:
-                Z, F, CV = archive()
-                np.savez_compressed(out / "archive.npz", Z=Z, F=F, CV=CV, gen=np.concatenate(AG), op=np.concatenate(AOP),
-                                    P=P, compliance=np.array([r["compliance"] for r in AREC]),
-                                    blf=np.array([r["blf"] for r in AREC]), vf=np.array([r["vf"] for r in AREC]))
+            if g % 25 == 0 or g == args.gens:
+                save()
+            if g in (100,) and g != args.gens:
+                save(f"archive_g{g}.npz")                       # snapshot for gen-100 held-out comparisons
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--obj", choices=["stiff", "buck"], required=True)
-    ap.add_argument("--arm", choices=["FULL", "NOMUT", "NOVAE", "NOSEL"], default="FULL")
+    ap.add_argument("--arm", choices=["FULL", "VAE32", "VAE64", "RAWTH", "PCA", "PCANOV", "ROB3", "LOTTERY"], default="FULL")
     ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--gens", type=int, default=100)
-    ap.add_argument("--workers", type=int, default=12)
+    ap.add_argument("--gens", type=int, default=300)
+    ap.add_argument("--workers", type=int, default=10)
     ap.add_argument("--gen0-only", action="store_true")
+    ap.add_argument("--enc", default="inv5")
+    ap.add_argument("--robust", action="store_true")
     a = ap.parse_args()
     if a.gen0_only:
-        gen0(a.obj, a.workers)
+        gen0(a.obj, a.workers, a.enc, a.robust)
     else:
         run(a)

@@ -165,11 +165,22 @@ class Problem:
         if not connected:
             out.update(compliance=np.inf, umax=np.inf, blf=0.0)
             return out
-        Ee = np.where(s.ravel(), 1.0, E_VOID)
+        # Trial 14: solid-only system. Islands are removed, so the solid (with the bearing
+        # springs) is well posed; dropping the E = 1e-6 ersatz void removes half or more of the
+        # unknowns: 2.3x faster; C +1e-5..+8e-4, BLF -1e-4..-1.4e-3 relative vs the ersatz-void
+        # system (the 1e-6 void added a little stiffness; eigsh tol 1e-3). Box is bandwidth bound.
+        solid = s.ravel()
+        Ee = np.where(solid, 1.0, E_VOID)
         Ee[self.pad_mask.ravel()] = self.cfg.get("pad_E", 1.0)
-        K = self.assemble(Ee)
-        fr = self.free
-        Kff = K[fr][:, fr].tocsr()
+        ed = self.edof[solid]
+        act = np.unique(ed)
+        loc = np.full(self.ndof, -1); loc[act] = np.arange(len(act))
+        edl = loc[ed]
+        iKs = np.repeat(edl, 8, axis=1).ravel(); jKs = np.tile(edl, (1, 8)).ravel()
+        na = len(act)
+        Kff = (sp.csr_matrix(((self.KE.ravel()[None, :] * Ee[solid][:, None]).ravel(), (iKs, jKs)), shape=(na, na))
+               + sp.diags(self.kdiag[act])).tocsr()
+        fr = act
         solver = pypardiso.PyPardisoSolver()
         try:
             solver.set_matrix_type(2)                         # real SPD: upper triangle only
@@ -202,7 +213,8 @@ class Problem:
                 sx, sy, txy = (sig[:, k] * solid for k in range(3))
                 kg = (sx[:, None] * self.Mxx.ravel()[None] + sy[:, None] * self.Myy.ravel()[None]
                       + txy[:, None] * self.Mxy.ravel()[None]).ravel()
-                KG = sp.csr_matrix((kg, (self.iK, self.jK)), shape=(self.ndof, self.ndof))[fr][:, fr].tocsr()
+                kg = kg.reshape(-1, 64)[solid].ravel()
+                KG = sp.csr_matrix((kg, (iKs, jKs)), shape=(na, na)).tocsr()
                 # (K + lam KG) psi = 0  <=>  (-KG) psi = (1/lam) K psi ; largest mu = 1/lam1
                 Minv = sla.LinearOperator(Kff.shape, matvec=fsolve, dtype=float)
                 mu = sla.eigsh(-KG, k=nev, M=Kff, Minv=Minv, which="LA", return_eigenvectors=False,

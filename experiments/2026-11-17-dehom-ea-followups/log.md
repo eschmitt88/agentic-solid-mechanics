@@ -29,3 +29,15 @@
 - Consequence for trial 13: its evaluator had ~9 % per-design noise from this bug (all arms equally);
   relative conclusions plausible but the EA partly mined noise (consistent with H6). Trial 14 reruns
   the headline arms with the fixed decoder; trial 13 results are not reused for claims.
+
+## 17:47 UTC — pre-registration frozen; evaluator hashes
+- Solid-only evaluator: 2.3x faster; gen-0 caches rebuilt (S 22 evals/s, B 4.8 evals/s box-wide).
+- Box is memory-bandwidth bound (Ryzen 9950X, dual-channel): throughput flat from 4 to 24 workers (scratch/scaling.py).
+- sha256 hf.py: c74a5d2c24e535b1
+- sha256 dehom.py: d6ffd1ca10d4c24e
+- sha256 ea.py: 3d67b954cce9a25b
+- sha256 run_arm.py: fd657705e92bff92
+- sha256 heldout.py: a87d9d1a6aca0bf1
+- sha256 run_pg.py: cbe24dbc17d705e2
+- sha256 pg_ops.py: d9a0ceb290c15590
+- sha256 lf_passive.py: 19fe973f60b05dab
