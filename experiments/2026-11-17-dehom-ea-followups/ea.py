@@ -43,10 +43,15 @@ def decode(E, fallback_theta=None):
         qx, qy = np.where(bad, qxs, qx), np.where(bad, qys, qy)
     tq = np.arctan2(qy, qx) / 4.0                         # theta mod pi/2
     td = np.arctan2(dy, dx) / 2.0                         # thicker-bar direction mod pi
-    cand = tq[..., None] + np.arange(4) * (np.pi / 2)
+    # Trial 14 fix: candidates k = 0..3 (quarter turns) were compared to td mod pi, so k and k+2
+    # always tied exactly and rounding chose theta or theta + pi. A pi flip is the same bar but
+    # flips the phasor's sign convention -> a different realisation (1e-12 input changes moved
+    # compliance ~9 %, scratch/diag2x2.py). Two candidates, then canonicalise to (-pi/2, pi/2].
+    cand = tq[..., None] + np.arange(2) * (np.pi / 2)
     diff = np.angle(np.exp(2j * (cand - td[..., None])))  # distance mod pi
     th = np.take_along_axis(cand, np.abs(diff).argmin(-1)[..., None], -1)[..., 0]
     th = np.where(dn > 1e-6, th, tq)
+    th = th - np.pi * np.round(th / np.pi)
     if fallback_theta is not None:
         th = np.where(np.hypot(qx, qy) < 1e-3, fallback_theta, th)
     return w1, w2, th

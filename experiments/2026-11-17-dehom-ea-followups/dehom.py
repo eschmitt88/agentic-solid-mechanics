@@ -493,7 +493,7 @@ def _sample_layer(nx, ny, act, pshift, inx, iny, unsampled, g):
 
 # --------------------------------------------------------------------------- main entry
 def dehomogenise(w1, w2, theta, phase_seed=None, *, apply_masks=True, return_fields=False,
-                 first_sweep="flood"):
+                 first_sweep="flood", faithful=False):
     """De-homogenise a coarse rank-2 design into a fine binary field.
 
     Parameters
@@ -539,13 +539,25 @@ def dehomogenise(w1, w2, theta, phase_seed=None, *, apply_masks=True, return_fie
     # --- orientations (808 l. 120) and frame clean-up (choice 2)
     n1x, n1y = np.cos(th + np.pi / 2), np.sin(th + np.pi / 2)
     act = (w >= wmin * 0.95) & (w < 1 - 1e-3)                  # 808 l. 359
-    c1x, c1y, f_it = _clean_frame(n1x, n1y, act[0] | act[1], g)
-    nrm = np.hypot(c1x, c1y); c1x /= nrm; c1y /= nrm
-    swap = np.abs(c1x * n1x + c1y * n1y) < 0.5                 # a +-90 deg layer jump was chosen
-    if swap.any():
-        w[:, swap] = w[::-1][:, swap]
-        act = (w >= wmin * 0.95) & (w < 1 - 1e-3)
-    N = np.stack([np.stack([c1x, c1y]), np.stack([c1y, -c1x])])   # (layer, comp, NYC, NXC)
+    if faithful:
+        # Trial 14 "808-faithful" mode: each layer's normal field cleaned on its own
+        # (808 l. 663-687), no width swap, plain first alignment sweep.
+        N = np.empty((2, 2, NYC, NXC)); f_it = 0
+        for k, (nx0, ny0) in enumerate(((n1x, n1y), (n1y, -n1x))):
+            ox, oy, it_k = _filter_frame(nx0.ravel(), ny0.ravel(), act[k].ravel(), g["nb3"], g["mat_order"])
+            nr = np.hypot(ox, oy)
+            N[k, 0], N[k, 1] = (ox / nr).reshape(NYC, NXC), (oy / nr).reshape(NYC, NXC)
+            f_it = max(f_it, it_k)
+        swap = np.zeros((NYC, NXC), bool)
+        first_sweep = "808"
+    else:
+        c1x, c1y, f_it = _clean_frame(n1x, n1y, act[0] | act[1], g)
+        nrm = np.hypot(c1x, c1y); c1x /= nrm; c1y /= nrm
+        swap = np.abs(c1x * n1x + c1y * n1y) < 0.5             # a +-90 deg layer jump was chosen
+        if swap.any():
+            w[:, swap] = w[::-1][:, swap]
+            act = (w >= wmin * 0.95) & (w < 1 - 1e-3)
+        N = np.stack([np.stack([c1x, c1y]), np.stack([c1y, -c1x])])   # (layer, comp, NYC, NXC)
     tm["filter"] = time.perf_counter() - T0
 
     # --- indicators, orientation and thickness interpolation (808 l. 612-656)
