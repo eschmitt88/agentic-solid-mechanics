@@ -112,5 +112,5 @@ constraint), L-bracket stress +107 % (w/ mutation) vs +55 % (w/o).
 
 32 cores, 91 GB, RTX 5080. HF static ≈ 1 s, buckling ≈ 5 s at 250 k DOF
 (to measure). 100 children × 100 gens = 1e4 evals per arm. Shared box:
-chemrage-drift 08:10–08:26 UTC takes 25 cores, so use ≤ 16 workers and
+a scheduled job at 08:10–08:26 UTC takes 25 cores, so use ≤ 16 workers and
 launch via `claude-coordinator-jobs run`.
