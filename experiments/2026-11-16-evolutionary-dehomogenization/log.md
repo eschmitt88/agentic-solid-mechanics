@@ -154,3 +154,14 @@
   the constraint dropped. Then retained 52.5 % (s0), 104 % (s1). Per design, re-realised evolved
   fronts keep 67 % of nominal BLF vs 82 % for the gen-0 front (winner's curse, as in S).
 - H2b-S seed 0: FULL 1.4795 vs NOSEL 1.2204 (NOSEL gain +3.0 %).
+
+## 00:45 UTC (11-17) — all EA arms final; H1–H7 except H2a graded
+- H1-S PASS (+24.8/+20.3/+13.5 %, mean +19.5 %); H1-B PASS (+12.7/+13.7/+18.4 %, mean +14.9 %, 30 gens).
+- H2b PASS: NOSEL-S +3.0/+0.1/+3.6 %; NOSEL-B +6.0 %.
+- H3 MISS: NOMUT-S +13.8/+28.9/+21.1 % → FULL − NOMUT = −1.7 pp. Mutants are 1–2 % of survivors,
+  ≤ 2 of ~110 front designs; PCA re-projection keeps only ~62 % of a mutation. Mutation is inert here.
+- H4 MISS: NOVAE-S (crossover in whitened PCA space) +28.2/+31.9/+29.2 % → FULL − NOVAE = −10.2 pp.
+  Population diversity (mean pairwise PCA distance) shrinks 31 → 18–25 with the VAE and grows to
+  46–57 without it: the VAE acts as a diversity attractor.
+- H5 MISS (1/4), H6 PASS (S 86 %, B 68 % unconstrained), H7 MISS (rank OK, ratio CV high).
+- MORELF generation: 11 000 LF designs in 15 212 s; evaluations running.
