@@ -41,3 +41,10 @@
 - sha256 run_pg.py: cbe24dbc17d705e2
 - sha256 pg_ops.py: d9a0ceb290c15590
 - sha256 lf_passive.py: 19fe973f60b05dab
+
+## 19:10 UTC — first held-out numbers (interim, not grades)
+- Stiffness: FULL s0/s1 gen 100: held-out 16.5 / 12.5 % vs nominal 28.7 / 23.9 %; PCA s0 gen 100 17.8 vs
+  38.8 %, gen 300 22.4 vs 40.7 %. About half of every nominal gain is realisation-specific (the
+  search fits the default phasor realisation). PCA's nominal lead over FULL (~10 pp) shrinks to ~1 pp
+  held-out at gen 100 — the trial-13 "VAE hurts" result may be mostly PCA mining realisation luck.
+- heldout_daemon.sh grades finished arms (both trials) automatically.
