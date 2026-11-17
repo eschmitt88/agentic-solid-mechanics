@@ -101,6 +101,7 @@ Triage archived → `raw/_candidates/_done/2026-06-25-gpu-differentiable-physics
 - `experiments/2026-11-15-metamaterial-inverse-design-hard/` — **done** (trial 12): harder targets miss, robust design no gain, snap remedy 1 of 11, relaxed idealisations break trial 9's passes.
 - `experiments/2026-11-16-evolutionary-dehomogenization/` — **done** (trial 13): reproduction of Xu et al. 2026 (evolutionary phasor de-homogenisation) on a new girder; EA gain replicates (+19.5 % / +14.9 % HV) and beats a matched budget of extra LF designs; mutation inert, VAE hurts (diversity collapse); SIMP still wins on buckling; pixel evaluator ranks right but one artefact was selected.
 - `experiments/2026-11-17-dehom-ea-followups/` — **running** (trial 14): three follow-ups to trial 13 — diversity-preserving recombination at 300 generations, an adversarial re-realisation archive, and problem-grain mutation by an LLM vs a random operator.
+- `experiments/2026-11-17-dehom-dcbeam/` — **running** (trial 14b): the paper's own double-clamped beam (vf, umax) for H8 of trial 14.
 
 ## QA review surface
 
