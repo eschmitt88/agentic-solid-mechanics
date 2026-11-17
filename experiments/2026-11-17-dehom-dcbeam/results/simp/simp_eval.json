@@ -1,0 +1,96 @@
+{
+ "settings": {
+  "penal": 3.0,
+  "Emin": 1e-09,
+  "rmin_mm": 1.5,
+  "filter": "density (ft=2), linear hat",
+  "update": "OC move 0.2",
+  "stop": "max|dx|<0.01 or 300 it",
+  "grid": [
+   600,
+   160
+  ],
+  "threshold": "volume-preserving top-k on design region"
+ },
+ "designs": [
+  {
+   "vf_target": 0.25,
+   "vf": 0.25,
+   "connected": 1.0,
+   "compliance": 23.166704577470977,
+   "umax": 23.57011298135563,
+   "compliance_grey_simp": 25.293330044137786,
+   "n_iter": 300,
+   "greyness_before_threshold": 0.10955156950672645,
+   "threshold": 0.47388850635101193,
+   "wall_opt_s": 403.5382318496704,
+   "wall_eval_s": 1.8573353290557861
+  },
+  {
+   "vf_target": 0.3,
+   "vf": 0.3,
+   "connected": 1.0,
+   "compliance": 19.64230558602038,
+   "umax": 20.060032771604618,
+   "compliance_grey_simp": 21.59318104327052,
+   "n_iter": 300,
+   "greyness_before_threshold": 0.1508968609865471,
+   "threshold": 0.4924113959195052,
+   "wall_opt_s": 408.31060767173767,
+   "wall_eval_s": 1.826267957687378
+  },
+  {
+   "vf_target": 0.35,
+   "vf": 0.35,
+   "connected": 1.0,
+   "compliance": 17.317053706647886,
+   "umax": 17.584450827836527,
+   "compliance_grey_simp": 18.752112355197184,
+   "n_iter": 300,
+   "greyness_before_threshold": 0.148542600896861,
+   "threshold": 0.5035286889241574,
+   "wall_opt_s": 402.1140806674957,
+   "wall_eval_s": 1.7696363925933838
+  },
+  {
+   "vf_target": 0.4,
+   "vf": 0.4,
+   "connected": 1.0,
+   "compliance": 15.4910067488752,
+   "umax": 15.711441549136186,
+   "compliance_grey_simp": 16.572442524023014,
+   "n_iter": 300,
+   "greyness_before_threshold": 0.14495515695067265,
+   "threshold": 0.5086101223675241,
+   "wall_opt_s": 394.98616886138916,
+   "wall_eval_s": 1.8571016788482666
+  },
+  {
+   "vf_target": 0.45,
+   "vf": 0.45,
+   "connected": 1.0,
+   "compliance": 13.248289977334329,
+   "umax": 13.445586212769399,
+   "compliance_grey_simp": 14.65658293059899,
+   "n_iter": 300,
+   "greyness_before_threshold": 0.21170403587443945,
+   "threshold": 0.514120413980242,
+   "wall_opt_s": 532.3222222328186,
+   "wall_eval_s": 2.37558913230896
+  },
+  {
+   "vf_target": 0.5,
+   "vf": 0.5,
+   "connected": 1.0,
+   "compliance": 11.924028583148054,
+   "umax": 12.104654477442205,
+   "compliance_grey_simp": 12.97832364236371,
+   "n_iter": 300,
+   "greyness_before_threshold": 0.19982062780269058,
+   "threshold": 0.51610081009768,
+   "wall_opt_s": 526.9833264350891,
+   "wall_eval_s": 2.238736867904663
+  }
+ ],
+ "wall_total_s": 933.7529304027557
+}

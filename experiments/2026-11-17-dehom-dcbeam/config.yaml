@@ -1,0 +1,11 @@
+# Inputs for dehom-dcbeam (trial 14 second problem: Xu et al. 2026 Sec. 4.1 double-clamped beam)
+seed: 42
+problem: DCBEAM          # hf.PROBLEM
+domain_mm: [150.0, 40.0]
+hc_mm: 2.5               # coarse LF grid 60 x 16
+h_mm: 0.25               # fine HF grid 600 x 160
+lambda_mm: 7.5
+support: fixed
+end_block_w_mm: 5.0
+load_block_mm: [10.0, 2.5]
+P: 1.0

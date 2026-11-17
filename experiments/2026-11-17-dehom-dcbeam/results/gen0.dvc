@@ -1,0 +1,6 @@
+outs:
+- md5: 389bbcce646dd324ae72e2897b106217.dir
+  size: 25460960
+  nfiles: 6
+  hash: md5
+  path: gen0
