@@ -7,10 +7,11 @@ J=~/claude-system/coordinator/.venv/bin/claude-coordinator-jobs
 PY=../../.venv/bin/python
 L=results/logs; mkdir -p $L
 export XLA_FLAGS="--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=1"
-running() { systemctl --user list-units 'job-t14*' --state=active --no-legend | wc -l; }
+running() { systemctl --user list-units 'job-t14-*' 'job-t14b-*' --state=active --no-legend | wc -l; }
 maxj() { h=$(date -u +%H%M); if [ "$h" -ge 0730 ] && [ "$h" -lt 1115 ]; then echo 1; else echo 4; fi; }
 launch() {
   local name=$1 hours=$2; shift 2
+  grep -q " launched $name\$" $L/campaign.log 2>/dev/null && return 0     # already launched (driver restart)
   while [ "$(running)" -ge "$(maxj)" ]; do sleep 30; done
   $J run --no-gate --name "t14b-$name" --cores 8 --ram-gb 9 --hours "$hours" --class batch --log "$L/$name.log" -- \
     systemd-run --user --scope -q -p MemoryMax=16G -p MemorySwapMax=0 "$@" >> "$L/$name.log" 2>&1
