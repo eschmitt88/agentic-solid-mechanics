@@ -39,6 +39,16 @@ BLF → 0 under refinement); swap-invariant 5-channel orientation encoding inste
 instead of polynomial C^H fit (C^H jumps at w = 1); robust projection for the void indicator;
 100 / 30 generations instead of 300.
 
+## Correction (2026-11-17)
+
+Trial 14 found a bug in this trial's decoder (`ea.decode`): θ and θ + π tied exactly, so rounding
+chose the bar's sign convention, and the de-homogenised realisation changed with it. The evaluator
+therefore carried ~9 % compliance noise per design (a 1e-12 change of a design moved its compliance
+by a median 8.7 %). The bug affected every arm equally, so the relative conclusions are plausible,
+but part of each arm's gain is noise mining (consistent with H6's winner's curse). The headline arms
+are rerun with the fixed decoder in `experiments/2026-11-17-dehom-ea-followups/`; cite that trial,
+not these numbers.
+
 ## Result
 
 See `results/grades.json` and the review page `docs/qa/trial-13-evolutionary-dehomogenization/`.

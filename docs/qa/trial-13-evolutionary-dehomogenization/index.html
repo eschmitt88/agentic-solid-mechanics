@@ -20,6 +20,7 @@ dt{font-weight:600}dd{margin:0 0 .6em 0;color:var(--mut)}
 (<a href="https://doi.org/10.1016/j.engstruct.2026.124076">doi</a>, <a href="https://arxiv.org/abs/2510.08830">arXiv 2510.08830</a>),
 with a different geometry and supports, and with controls the paper did not run. Hypotheses and pass rules were frozen before any run.</p>
 
+<div class="card" style="border-color:#cf222e"><p><b>Correction, 17 Nov 2026.</b> A bug in this trial's decoder (the bar direction θ and θ + π tied, and rounding picked one) made the evaluator noisy: about 9 % compliance noise per design. All arms were affected equally, but part of every gain below is noise. The headline arms are being rerun with the fix in trial 14.</p></div>
 <div class="card"><p><b>What happened, in one paragraph.</b> The paper's method designs lattice-filled structures in two steps: a cheap
 "averaged-material" optimiser proposes designs, a phasor pattern turns them into real lattice geometry, and an evolutionary search
 improves the result by scoring the real geometry. On our girder the evolutionary step <b>does</b> improve the trade-off between material
