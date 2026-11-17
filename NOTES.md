@@ -355,3 +355,51 @@ SessionEnd hook backstops this if you forget.
 - SMC2023 redo with a cantilever-fracture-capable model; design with elastic
   frame + 3D in the loop; tighter identification tolerances and prediction
   through peak load; Globus-gated items (SFC3, raw DMC/SMC data) when possible.
+
+## 2026-11-17
+
+### Did
+- Trial 13 `experiments/2026-11-16-evolutionary-dehomogenization/`: reproduced Xu, Guo, Kawabe & Yaji
+  (Eng. Struct. 2026, arXiv 2510.08830; `raw/papers/xu2025evolutionary.pdf`) on a new problem — a
+  100 × 50 mm girder on spring bearings with a deck load and a lined duct. Built `hf.py` (pixel Q4,
+  compliance + linear buckling), `homog.py`/`lf.py` (cross-cell homogenisation TO, MMA), `dehom.py`
+  (phasor port of deHomTop808, snapshot in `raw/repos/deHomTop808/`), `ea.py`/`run_arm.py`
+  (PCA + NSGA-II + VAE + mutation), `verify_ccx.py` (body-fitted CalculiX), controls `run_morelf.py`,
+  `rereal.py`, graders `analyze.py`/`grade_ccx.py`. Fable reviewed the design; three builder subagents
+  wrote LF, dehom and the CalculiX oracle.
+- Pre-registered H1–H7 (`PREREGISTRATION.md`, Addendum A cut B arms to 30 generations for budget);
+  ran 17 arms + MORELF; review page `docs/qa/trial-13-evolutionary-dehomogenization/`.
+
+### Findings
+- H1 PASS: EA HV gain +19.5 % (stiffness, 100 gens) / +14.9 % (buckling, 30 gens); paper 15.1/19.4 %.
+- H2a: EA beats a matched budget of extra LF designs (stiffness +1.6 % for more-LF; buckling +10.1 %,
+  closer). H2b PASS: no selection → +0–6 %.
+- H3/H4 MISS: mutation inert (−1.7 pp; mutants ≤ 2 % of survivors); the VAE hurts (−10.2 pp vs
+  PCA-space crossover) by collapsing population diversity.
+- H5 MISS: SIMP beats evolved buckling designs in BLF and compliance (CalculiX agrees).
+- H6 PASS (86 % / 68 % retained) but winner's curse per design; H7 MISS: ranks agree (ρ 0.99/0.90),
+  one selected design was a pixel-connectivity artefact (CalculiX C 2.6× pixel).
+- Pixel linear buckling is not mesh-objective (corner singularities); fixed supports give a corner
+  mode whose BLF → 0. Fixed with spring bearings + K_σ from stress averaged over 1 mm.
+- Two container restarts were global OOMs from a pypardiso leak in hf.py (fixed; jobs now run in
+  memory-capped systemd scopes). Running the downloaded MATLAB under Octave was blocked.
+
+### Next
+- Diversity-preserving recombination instead of the VAE, 300 generations, both objectives.
+- Body-fitted check / adversarial re-realisation archive inside the loop so selection can't keep
+  evaluator artefacts or lucky phase draws.
+- Branch closure in the phasor port; measure how much of the EA gain it absorbs.
+- `/ingest raw/papers/xu2025evolutionary.pdf` and `woldseth2024dehomtop808.pdf` into `literature/`.
+
+### Structured
+```yaml
+intended_effect_confirmed: partial
+leakage_check: "evaluator hashes logged before first arm; CalculiX never in loop"
+overfitting_signal: "winner's curse under phase re-draw; one pixel artefact selected"
+delta_from_prior: "first gradient-free design loop; SIMP still wins on buckling"
+unexpected_findings: "VAE collapses diversity and lowers HV; fixed-support corner buckling mode"
+next_candidates:
+  - "PCA-space BLX + novelty archive, 300 generations"
+  - "in-loop body-fitted or adversarial re-realisation check"
+  - "phasor branch closure ablation"
+```
