@@ -1,0 +1,6 @@
+outs:
+- md5: a35e07f1a8b73f1d5fdbe773c18f2879.dir
+  size: 54088675
+  nfiles: 8
+  hash: md5
+  path: gen0

@@ -1,0 +1,6 @@
+outs:
+- md5: 4bea50d8fc12924bdb9da53a446263c8.dir
+  size: 182824265
+  nfiles: 3
+  hash: md5
+  path: morelf

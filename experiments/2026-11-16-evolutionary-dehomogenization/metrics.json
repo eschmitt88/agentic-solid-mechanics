@@ -1,1 +1,54 @@
-{}
+{
+ "H1_stiff_gain_mean": 0.19547555741852984,
+ "H1_buck_gain_mean": 0.14903669952945697,
+ "stiff_gain_FULL": [
+  0.24818545976048334,
+  0.20308862467656708,
+  0.13515258781853912
+ ],
+ "stiff_gain_NOVAE": [
+  0.2817813333200341,
+  0.31908967973958524,
+  0.2920926366711307
+ ],
+ "stiff_gain_NOMUT": [
+  0.1375149914648539,
+  0.28870630918271845,
+  0.21072147486889348
+ ],
+ "stiff_gain_NOSEL": [
+  0.029579736885587904,
+  0.0012062455680514894,
+  0.03621933688746748
+ ],
+ "stiff_gain_MORELF_raw": 0.015698326413495334,
+ "buck_gain_FULL": [
+  0.12676805472251274,
+  0.13665975147293663,
+  0.18368229239292155
+ ],
+ "buck_gain_NOSEL": [
+  0.060061912920776006
+ ],
+ "buck_gain_MORELF_raw": 0.10072414079831793,
+ "H6_stiff_retained": 0.863038355485974,
+ "H6_buck_retained_unconstrained": 0.6770319719494413,
+ "H7_spearman_C": 0.992153443766347,
+ "H7_spearman_BLF": 0.902917618147995,
+ "H7_ratio_cv_C": 0.12698713446573312,
+ "H7_ratio_cv_BLF": 0.25746067689164603,
+ "H5_wins_of_4": 1,
+ "verdicts": {
+  "H1_stiff": "PASS",
+  "H2a_stiff": "EA > more LF",
+  "H2b_stiff": "PASS",
+  "H1_buck": "PASS",
+  "H2a_buck": "EA > more LF",
+  "H2b_buck": "PASS",
+  "H3": "MISS",
+  "H4": "MISS",
+  "H5": "MISS",
+  "H6_stiff": "PASS",
+  "H6_buck": "PASS"
+ }
+}
