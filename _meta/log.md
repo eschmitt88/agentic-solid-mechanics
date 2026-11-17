@@ -36,3 +36,4 @@ skills; read by `/lint`.
 2026-11-15 21:00 phase-2b done: trials 10 (contact 22/31, blind SMC2023 missed), 11 (DIC identification 12/12), 12 (hard inverse design, mostly negative); summary docs/qa/phase-2/ covers 7-12
 2026-11-17 02:11 trial-13 done: evolutionary de-homogenisation reproduction (Xu et al. 2026) on a new girder; H1/H2/H6 pass, H3/H4/H5/H7 miss; review docs/qa/trial-13-evolutionary-dehomogenization/
 2026-11-17 wrap trial 13 evolutionary de-homogenisation reproduction done (H1/H2/H6 pass, H3/H4/H5/H7 miss)
+2026-11-17 new-experiment dehom-ea-followups

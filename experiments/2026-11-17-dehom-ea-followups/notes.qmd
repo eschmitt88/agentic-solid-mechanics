@@ -1,0 +1,7 @@
+---
+title: "dehom-ea-followups notes"
+format: html
+---
+
+```{python}
+```
