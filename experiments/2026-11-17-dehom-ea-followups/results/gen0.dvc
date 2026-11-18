@@ -1,0 +1,6 @@
+outs:
+- md5: 7cf742cba5ecd1348f4a3aa000863e94.dir
+  size: 33177298
+  nfiles: 17
+  hash: md5
+  path: gen0
