@@ -403,3 +403,46 @@ next_candidates:
   - "in-loop body-fitted or adversarial re-realisation check"
   - "phasor branch closure ablation"
 ```
+
+## 2026-11-18
+
+### Did
+- Trial 14 `experiments/2026-11-17-dehom-ea-followups/` (+ 14b `experiments/2026-11-17-dehom-dcbeam/`, the
+  paper's own beam): the three follow-ups from trial 13 under a pre-registration (H1–H9, Addenda A/B),
+  with Fable consulted on design (twice) and on publication framing.
+- Found and fixed trial 13's evaluator noise (our decoder: θ/θ+π tie → realisation picked by rounding),
+  via a 2×2 showing deHomTop808's algorithm stable on raw fields; added a correction note to trial 13.
+- Evaluator 10× faster (pypardiso factorise-once; solid-only system); box measured memory-bandwidth bound.
+- Ran 300-generation stiffness arms (FULL/PCA × 3, + 2 seeds at 100), buckling (× 5), beam (× 3), LOTTERY,
+  VAE32/VAE64/RAWTH, ROB3, SIMP multi-start; held-out grading daemon; all-480 baseline; extension control
+  (LF at V0 0.10–0.25); decomposition; translation-only realisations; CalculiX spot-check; paired stats.
+- Paper skeleton `docs/paper/outline.md`, Figures 2–6 in `docs/paper/figs/`.
+
+### Findings
+- The EA's held-out gain is real (every seed/problem) but small at matched volume (compliance −2…−9 %,
+  BLF ≤ +2 %, beam −1…−2 %); reported-style HV gains (27–37 % girder) are mostly realisation fitting,
+  a winner's-cursed baseline and front extension below gen 0's volumes (LF at lower V0 reproduces it).
+- VAE crossover ≡ linear PCA crossover held-out in every block; trial 13's "VAE hurts" was PCA mining
+  realisation luck (nominal lead 5–9 pp, held-out ~0). Latent size, raw-θ encoding, robust selection: no effect.
+- SIMP beats the best lattice at every graded volume (compliance and BLF).
+- One-pixel-neck pixel artefacts recur in evolved buckling fronts (CalculiX ×17 on one design).
+- Two OOM-free days: memory caps held; one stuck-driver and duplicate-driver incident fixed (idempotent drivers).
+
+### Next
+- Beam FULL × 3 at 300 generations runs after 11:15 UTC (queued) → regrade, add to Fig 3 / outline.
+- Decide on the paper (user): contact the authors with a draft; AI-use declaration; optional branch closure.
+- Write the paper text from `docs/paper/outline.md`; Table 1 (deviations), Table 2 (hypotheses).
+- `/ingest` the two raw papers into `literature/`.
+
+### Structured
+```yaml
+intended_effect_confirmed: partial
+leakage_check: "held-out seeds never used in search; evaluator hashes at freeze"
+overfitting_signal: "held-out/nominal 0.38-0.71 (girder); optimism p90 up to x37"
+delta_from_prior: "trial-13 'VAE hurts' reversed to no difference held-out"
+unexpected_findings: "decoder theta/theta+pi tie; gen-0 nominal front winner's-cursed; one-pixel-neck artefacts"
+next_candidates:
+  - "beam FULL at 300 generations"
+  - "branch closure port"
+  - "robust selection with K=10 draws"
+```
