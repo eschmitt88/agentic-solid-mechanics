@@ -80,3 +80,18 @@
 - dehom.py: DEHOM_PHASE_MODE=global (translation-only realisations: fixed raster tie order, random
   per-layer global phase); default path unchanged. One gen-0 design: compliance 4.63 (default) →
   4.75 / 5.64 / 6.47 under three translations alone. translation.py running.
+
+## 06:50 UTC — Addendum-B results complete except buckling s3–s4
+- CalculiX spot-check (results/ccx_spot.json, 30 designs: 5 each of FULL s0, PCA s0, gen-0 all-480, S and
+  B): Spearman 0.991 (C) / 0.992 (BLF); median pixel/ccx 1.009 / 0.969; one artefact (buck FULL s0 #36:
+  pixel C 20.9, ccx 363 — a one-pixel neck counted as connected on the pixel grid but not in the
+  contour; the same failure mode as trial 13's single artefact, again in an evolved buckling front).
+- Translation-only realisations (results/translation_only.json): median optimism S gen-0 ×1.00 /
+  FULL ×1.19 / PCA ×1.08 (p90 1.37 / 4.3 / 19.9); B ×1.05 / 1.60 / 1.92. The winner's curse does not
+  depend on randomising the alignment tie order.
+- Beam extension control: EA's low-vf beam front vs LF at V0 0.10–0.25: ratio 0.95–0.99 (one 1.21).
+- H5 (ROB3, 33 000 evals, held-out vs gen-0 front): s0 12.8 / s1 15.5 % vs PCA gen 300 22.4 / 15.4 %
+  → d = −9.6 / +0.1 → "no difference"; winner's-curse index 0.51 / 0.60 vs 0.55 / 0.43. In-range equal.
+- H3 (latent/encoding, S gen 100 mean of s0–s1, held-out vs front): VAE32 18.1, VAE64 13.5, RAWTH 17.8
+  vs PCA 15.3 → best ≥ PCA − 2 pp → "artefact" per the pre-registered rule (i.e. FULL's latent size and
+  encoding don't matter; FULL ≈ PCA anyway).
