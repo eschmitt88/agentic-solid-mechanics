@@ -95,3 +95,12 @@
 - H3 (latent/encoding, S gen 100 mean of s0–s1, held-out vs front): VAE32 18.1, VAE64 13.5, RAWTH 17.8
   vs PCA 15.3 → best ≥ PCA − 2 pp → "artefact" per the pre-registered rule (i.e. FULL's latent size and
   encoding don't matter; FULL ≈ PCA anyway).
+
+## 07:10 UTC — paper figures 2, 4, 5, 6; H7 graded
+- H7 (pre-registered): best held-out lattice (any S arm) vs multi-start SIMP at vf 0.30–0.45: SIMP lower
+  compliance at 4/4; BLF: SIMP higher at 4/4 (lattice ahead only at vf 0.50). Expectation stated in advance
+  (SIMP wins compliance) held; BLF also SIMP.
+- Fig 5 (winner's curse, the front each source reports): median optimism S gen-0 nominal front ×1.08 /
+  FULL ×1.28 / PCA ×1.41 (p90 2.5 / 8.8 / 37.6; 16 % of PCA's front disconnects under some realisation);
+  B ×1.40 / 1.68 / 1.92.
+- docs/paper/: outline.md, figs/fig2–fig6 drafts. Beam FULL ×3 at 300 generations queued after 11:15.
