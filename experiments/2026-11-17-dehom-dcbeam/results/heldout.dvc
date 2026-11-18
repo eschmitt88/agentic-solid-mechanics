@@ -1,0 +1,6 @@
+outs:
+- md5: 32543926aeedff47b139de9337ff5be2.dir
+  size: 9276944
+  nfiles: 11
+  hash: md5
+  path: heldout

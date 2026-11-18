@@ -2,9 +2,9 @@
 kind: experiment
 slug: "dehom-dcbeam"
 date: "2026-11-17"
-status: running     # running | done | abandoned
+status: done     # running | done | abandoned
 hypothesis: "Second test problem for trial 14 (2026-11-17-dehom-ea-followups): the same evolutionary arms on Xu et al. 2026 Sec. 4.1 double-clamped beam, objective umax (and compliance)."
-result: ""
+result: "The paper's double-clamped beam (vf, umax), our pipeline: FULL improves held-out HV on every seed (100 gen: 8.2–11.6 %; 300 gen: 8.2–10.4 %); nominal gain at 300 generations 10.2–10.6 % vs the paper's 15.1 % (normalisation differs); against all 480 initial designs 3.5–4.4 %, in range 2.3–3.0 %, umax at matched volume 1–2 % lower. VAE vs linear PCA crossover: no difference (d = +1.5 pp [−2.6, 5.6]). The beam is barely realisation-sensitive (median optimism ×1.05). Graded in trial 14 (H1, H2, H8)."
 related_concepts: []
 related_literature: []
 tags: [dehomogenisation, evolutionary, reproduction, xu2026]
@@ -77,3 +77,15 @@ is itself the final-scoring pass.
 ## Follow-up
 
 - ...
+
+
+## Result (folded in 2026-11-18 15:10 UTC; grading in trial 14)
+
+| run | gen | nominal | held-out vs gen-0 front | vs all 480 | in range | matched-vf umax |
+|---|---|---|---|---|---|---|
+| FULL s0–s2 | 100 | 9.4–10.3 % | 8.2–11.6 % | 3.4–5.1 % | 2.0–3.6 % | 1–2 % lower |
+| PCA s0–s2 | 100 | 8.9–9.2 % | 11.4–12.1 % | 5.1–6.0 % | 2.8–4.0 % | 1.6–2.3 % lower |
+| FULL s10–s12 | 300 | 10.2–10.6 % | 8.2–10.4 % | 3.5–4.4 % | 2.3–3.0 % | 1.1–1.9 % lower |
+
+Paper (Xu et al. 2026, Sec. 4.1.2): +15.1 % HV after 300 iterations; their HV normalisation/reference is not
+stated, so the comparison is indicative. Source: `../2026-11-17-dehom-ea-followups/results/decomposition.json`.

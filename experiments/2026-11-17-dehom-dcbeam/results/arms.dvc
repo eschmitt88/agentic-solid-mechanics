@@ -1,0 +1,6 @@
+outs:
+- md5: b0d216f90d4dea1b42b4851a3bdad083.dir
+  size: 561611609
+  nfiles: 27
+  hash: md5
+  path: arms

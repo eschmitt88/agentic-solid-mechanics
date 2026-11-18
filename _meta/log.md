@@ -39,3 +39,4 @@ skills; read by `/lint`.
 2026-11-17 new-experiment dehom-ea-followups
 2026-11-18 07:50 trial-14 done: held-out grading overturns trial-13 operator result; decomposition shows reported-style HV gain is mostly realisation fitting, baseline selection and extension; paper outline in docs/paper/
 2026-11-18 wrap trial 14 done (held-out grading, decomposition, paper skeleton); beam 300-gen pending
+2026-11-18 15:07 trial-14b done: beam 300-gen nominal 10.2-10.6 % (paper 15.1 %), in range 2.3-3.0 %

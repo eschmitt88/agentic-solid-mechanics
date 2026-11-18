@@ -1,6 +1,6 @@
 ---
 title: "What does evolutionary de-homogenisation actually gain? A pre-registered replication with held-out realisations"
-status: outline (2026-11-18); numbers final except buckling seeds 3–4
+status: outline (2026-11-18); all numbers final
 target: Structural and Multidisciplinary Optimization (research paper); arXiv preprint first
 replicates: Xu, Guo, Kawabe & Yaji, Eng. Struct. 371 (2027) 124076, doi 10.1016/j.engstruct.2026.124076 (arXiv 2510.08830)
 evidence: experiments/2026-11-16-evolutionary-dehomogenization (trial 13), experiments/2026-11-17-dehom-ea-followups (trial 14), experiments/2026-11-17-dehom-dcbeam (trial 14b)
@@ -60,7 +60,11 @@ paper's generative-model operator is indistinguishable from linear recombination
    (S gen 100, n = 5: matched-vf compliance d = −0.6 % [−1.3, +0.2]); latent 8/32/64 and raw-θ encoding
    indistinguishable; image mutation inert (≤ 2 % of survivors; trial 13); robust selection (3 draws)
    no gain at matched evaluations.
-5. SIMP reference: multi-start SIMP is stiffer at every volume and higher BLF at 3/4 volumes (girder).
+5. SIMP reference: multi-start SIMP is stiffer and has a higher BLF at every graded volume (vf 0.30–0.45, girder).
+6. Direct comparison on the paper's beam at 300 generations (FULL, 3 seeds): nominal HV gain 10.2–10.6 %
+   (paper: 15.1 %; HV normalisation and reference point differ, so this is indicative, not exact);
+   held-out 8.2–10.4 %; fair baseline 3.5–4.4 %; in range 2.3–3.0 %; max displacement at matched volume
+   1–2 % lower. 100 → 300 generations changes the nominal gain by < 1 pp.
 
 ## 5. Threats to validity
 Not the authors' pipeline (pixel HF in loop, our encoding, no branch closure, 100 generations for B and
@@ -86,5 +90,4 @@ run a lottery control; ε-continuity test for any new encoding; filter one-pixel
   vf range of their initial and final fronts, latent size, number of runs. Email from the human author.
 - AI-use declaration per the journal; short methods paragraph on the agentic workflow; human author
   responsible.
-- Optional strengthening: beam FULL at 300 generations (direct comparison with their 15.1 %); branch
-  closure; more seeds.
+- Optional strengthening: branch closure; more seeds. (Beam at 300 generations: done, Results item 6.)
