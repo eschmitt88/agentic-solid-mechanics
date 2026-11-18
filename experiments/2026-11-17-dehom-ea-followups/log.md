@@ -48,3 +48,13 @@
   search fits the default phasor realisation). PCA's nominal lead over FULL (~10 pp) shrinks to ~1 pp
   held-out at gen 100 — the trial-13 "VAE hurts" result may be mostly PCA mining realisation luck.
 - heldout_daemon.sh grades finished arms (both trials) automatically.
+
+## 03:50 UTC (11-18) — headline blocks graded; beam "ratio > 1" explained
+- H1 PASS (all blocks), H2 "no difference" (all four blocks; B leans PCA +1.2/+7.5/+4.4), H4 PASS
+  (LOTTERY +5.0 % vs ~15–16 %). Table: RESULTS_INTERIM.md, results/heldout_summary.json.
+- Per-design optimism of nominal over realisation-averaged objectives (median): girder S gen-0 front
+  ×1.08, FULL ×1.28, PCA ×1.41 (16 % of PCA front designs disconnect under some held-out seed);
+  girder B ×1.40 / 1.68 / 1.92; beam umax ×1.05 / 1.10 / 1.05. The beam's lattices barely depend on
+  the phasor phase, so nominal ≈ held-out there (ratio 0.87–1.34 is HV noise around 1); the girder is
+  realisation-sensitive and search amplifies it, PCA most (explains PCA's nominal lead).
+- Fable consulted on the publication framing.
