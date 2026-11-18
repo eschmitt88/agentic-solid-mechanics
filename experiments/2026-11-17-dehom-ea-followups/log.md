@@ -58,3 +58,16 @@
   the phasor phase, so nominal ≈ held-out there (ratio 0.87–1.34 is HV noise around 1); the girder is
   realisation-sensitive and search amplifies it, PCA most (explains PCA's nominal lead).
 - Fable consulted on the publication framing.
+
+## 05:40 UTC — Addendum B decomposition (results/decomposition.json)
+- Fair baseline (all 480 gen-0 designs held-out): girder S held-out gain 11–21 % (vs 12–22 % against the
+  gen-0 front — small effect for S), girder B 4.8–8.1 % (vs 11–19 %: the gen-0 front baseline was
+  strongly winner's-cursed for buckling), beam 3.4–6.0 % (vs 8–12 %).
+- In-range (HV clipped at the baseline's min vf): S 0.2–0.8 %, B 0.0–1.8 %, beam 2.0–4.0 %. The rest is
+  front extension below gen 0's sampled volumes (gen 0 starts at V0 = 0.25; runs reach vf 0.10–0.24).
+- Matched-volume attainment, in range (geometric mean ratio, < 1 = run better): S 0.91–0.98
+  (compliance 2–9 % lower), B 0.98–1.00, beam 0.98–0.99. LOTTERY S 0.977.
+- Extension control (240 LF designs at V0 0.10–0.25, held-out): the EA's low-vf front vs LF-at-low-V0,
+  matched vf: ratio 0.65–1.64, median ~1.1 (S) and 1.0–1.3 (B) — running the LF optimiser at lower
+  targets gets as far as the EA in most runs. Beam extension control running.
+- Operators (RAWTH, VAE32, VAE64, PCA, FULL) remain indistinguishable on every decomposed metric.
