@@ -42,6 +42,14 @@ def run_front(obj, run, archive="archive.npz"):
     return a["Z"][idx], a["F"][idx], enc
 
 
+def gen0_all(obj):
+    """Addendum B: all 480 gen-0 designs (PCA-reconstructed), so the held-out baseline front is not
+    selected on the default realisation."""
+    Z0, rec = ra.load_gen0(obj, "inv5")
+    F, cv = ra.objectives(rec, obj, ra.cref_for(obj))
+    return Z0, F, "inv5"
+
+
 def gen0_front(obj):
     Z0, rec = ra.load_gen0(obj, "inv5")
     F, cv = ra.objectives(rec, obj, ra.cref_for(obj))
@@ -83,6 +91,9 @@ def main(a):
     if a.gen0:
         Z, F, enc = gen0_front(a.obj)
         jobs.append((OUT / f"{a.obj}__gen0.npz", Z, F, enc))
+    if a.gen0_all:
+        Z, F, enc = gen0_all(a.obj)
+        jobs.append((OUT / f"{a.obj}__gen0all.npz", Z, F, enc))
     for run in (a.runs.split(",") if a.runs else []):
         Z, F, enc = run_front(a.obj, run, a.archive)
         tag = a.archive.replace(".npz", "")
@@ -102,5 +113,6 @@ if __name__ == "__main__":
     ap.add_argument("--runs", default="")
     ap.add_argument("--archive", default="archive.npz")
     ap.add_argument("--gen0", action="store_true")
+    ap.add_argument("--gen0-all", action="store_true")
     ap.add_argument("--workers", type=int, default=12)
     main(ap.parse_args())

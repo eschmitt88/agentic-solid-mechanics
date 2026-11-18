@@ -66,3 +66,21 @@ Cut order if time runs out: PCANOV, then VAE64, then ROB3 s1, then the C pilot.
 Hashes of hf.py, dehom.py, ea.py, run_arm.py, heldout.py, run_pg.py, pg_ops.py recorded in log.md at
 freeze. CalculiX is not used in this trial's grading (the held-out phase seeds are the oracle here);
 trial 13's CalculiX calibration (rank agreement 0.99/0.90) is the cited evidence for the pixel evaluator.
+
+## Addendum B — 2026-11-18 ~04:00 UTC (after the headline blocks were graded; NOT blind)
+
+Prompted by the technical consultant's exploratory re-analysis of the graded held-out files, which
+suggested (i) the girder stiffness gain is mostly front extension below gen 0's volume range and (ii) the
+held-out baseline (gen 0's nominal front) is itself selected on the default realisation. These analyses
+are therefore post hoc; the pre-registered primary metric and verdicts above stand and are reported
+unchanged. Added, all reported next to the primary:
+1. **Fair baseline:** all 480 gen-0 designs evaluated on the 10 held-out seeds; held-out gain vs the
+   held-out front of all 480 (`heldout.py --gen0-all`).
+2. **Decomposition** (`decompose.py`): nominal → held-out vs front → held-out vs all-480 → in-range
+   (HV clipped at the baseline's minimum vf) and matched-volume attainment ratios.
+3. **Extension control** (`extension.py`): 240 LF designs at V0 0.10–0.25, held-out graded; the EA's
+   low-volume front is compared with it on matched volumes.
+4. **Paired statistics:** d with t-intervals and an exact sign-flip test; tails (p90 held-out/nominal).
+5. **CalculiX spot-check** of ~30 trial-14 front designs per block (pixel artefacts).
+Arms cut (compute redirected): PCANOV (H6), VAE64 beyond the two seeds already run, the problem-grain
+pilot (H9; a different question). Added: buckling FULL/PCA seeds 3–4 (H2-B is closest to its threshold).
