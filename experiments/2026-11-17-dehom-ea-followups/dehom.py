@@ -383,6 +383,7 @@ def _clean_frame(n1x, n1y, act_union, g):
 DEFAULT_PHASE = 0.3
 import os as _os
 ORDER_MODE = _os.environ.get("DEHOM_ORDER", "width")
+PHASE_MODE = _os.environ.get("DEHOM_PHASE_MODE", "full")
 
 
 def _align_prep(nx, ny, act, w, g, rng, first_sweep="flood"):
@@ -413,6 +414,11 @@ def _align_prep(nx, ny, act, w, g, rng, first_sweep="flood"):
         # row (w = 0.2 bars came out 15 % thin, builder report). 0.3 rad shifts edges
         # 0.43 px off the pixel grid.
         phi0_val = DEFAULT_PHASE
+    elif PHASE_MODE == "global":
+        # Addendum B: translation-only realisation — fixed raster tie order, random global phase
+        # per layer (the alignment then shifts every phase by the same amount: a pure translation).
+        tie = g["mat_rank"][aind]
+        phi0_val = rng.uniform(-np.pi, np.pi)
     else:
         tie = rng.permutation(aind.size)
         phi0_val = rng.uniform(-np.pi, np.pi)
