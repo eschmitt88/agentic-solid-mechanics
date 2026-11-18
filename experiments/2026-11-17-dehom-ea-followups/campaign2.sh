@@ -8,7 +8,7 @@ PY=../../.venv/bin/python
 L=results/logs
 export XLA_FLAGS="--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=1"
 running() { systemctl --user list-units 'job-t14-*' 'job-t14b-*' --state=active --no-legend | wc -l; }
-maxj() { h=$(date -u +%H%M); if [ "$h" -ge 0730 ] && [ "$h" -lt 1115 ]; then echo 1; else echo 3; fi; }
+maxj() { h=$(date -u +%H%M); if [ "$h" -ge 0700 ] && [ "$h" -lt 1115 ]; then echo 0; else echo 3; fi; }   # no launches while the 06:45-11:15 scheduled jobs need RAM
 launch() {
   local name=$1 hours=$2; shift 2
   grep -q " launched $name\$" $L/campaign.log 2>/dev/null && return 0
