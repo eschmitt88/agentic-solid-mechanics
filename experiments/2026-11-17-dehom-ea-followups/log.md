@@ -71,3 +71,12 @@
   matched vf: ratio 0.65–1.64, median ~1.1 (S) and 1.0–1.3 (B) — running the LF optimiser at lower
   targets gets as far as the EA in most runs. Beam extension control running.
 - Operators (RAWTH, VAE32, VAE64, PCA, FULL) remain indistinguishable on every decomposed metric.
+
+## 05:50 UTC — paired statistics (results/paired_stats.json); translation-only mode
+- d = PCA − FULL, 95 % t-CI, exact sign-flip p: no block/metric differs (all p ≥ 0.19). Tightest:
+  S gen 100 (n = 5) in-range matched-vf compliance ratio d = −0.006 [−0.013, +0.002] — equivalence within
+  ~1.3 %. Held-out HV vs all-480: S gen 300 −0.2 pp [−7.4, +6.9]; B (n = 3) +1.5 pp [−2.4, +5.4];
+  beam +1.2 pp [−1.1, +3.5]. B s3–s4 running → n = 5.
+- dehom.py: DEHOM_PHASE_MODE=global (translation-only realisations: fixed raster tie order, random
+  per-layer global phase); default path unchanged. One gen-0 design: compliance 4.63 (default) →
+  4.75 / 5.64 / 6.47 under three translations alone. translation.py running.
