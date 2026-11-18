@@ -37,3 +37,4 @@ skills; read by `/lint`.
 2026-11-17 02:11 trial-13 done: evolutionary de-homogenisation reproduction (Xu et al. 2026) on a new girder; H1/H2/H6 pass, H3/H4/H5/H7 miss; review docs/qa/trial-13-evolutionary-dehomogenization/
 2026-11-17 wrap trial 13 evolutionary de-homogenisation reproduction done (H1/H2/H6 pass, H3/H4/H5/H7 miss)
 2026-11-17 new-experiment dehom-ea-followups
+2026-11-18 07:50 trial-14 done: held-out grading overturns trial-13 operator result; decomposition shows reported-style HV gain is mostly realisation fitting, baseline selection and extension; paper outline in docs/paper/

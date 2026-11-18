@@ -100,8 +100,8 @@ Triage archived → `raw/_candidates/_done/2026-06-25-gpu-differentiable-physics
 - `experiments/2026-11-15-dic-plasticity-identification/` — **done** (trial 11): Hill-48 + Voce identified from Sandia 304L DIC, held-out geometries 12 of 12; uniaxial baseline also passes.
 - `experiments/2026-11-15-metamaterial-inverse-design-hard/` — **done** (trial 12): harder targets miss, robust design no gain, snap remedy 1 of 11, relaxed idealisations break trial 9's passes.
 - `experiments/2026-11-16-evolutionary-dehomogenization/` — **done** (trial 13): reproduction of Xu et al. 2026 (evolutionary phasor de-homogenisation) on a new girder; EA gain replicates (+19.5 % / +14.9 % HV) and beats a matched budget of extra LF designs; mutation inert, VAE hurts (diversity collapse); SIMP still wins on buckling; pixel evaluator ranks right but one artefact was selected.
-- `experiments/2026-11-17-dehom-ea-followups/` — **running** (trial 14): three follow-ups to trial 13 — diversity-preserving recombination at 300 generations, an adversarial re-realisation archive, and problem-grain mutation by an LLM vs a random operator.
-- `experiments/2026-11-17-dehom-dcbeam/` — **running** (trial 14b): the paper's own double-clamped beam (vf, umax) for H8 of trial 14.
+- `experiments/2026-11-17-dehom-ea-followups/` — **done** (trial 14): clean evaluator + held-out grading; EA gain real but mostly realisation fitting, a selected baseline and front extension (in-range ~0.5–3 %); VAE ≡ linear PCA crossover held-out; SIMP wins; decoder bug from trial 13 found and fixed. Paper skeleton in docs/paper/.
+- `experiments/2026-11-17-dehom-dcbeam/` — **running** (trial 14b; 100-gen arms done, FULL ×3 at 300 gen pending): the paper's own double-clamped beam (vf, umax) for H8 of trial 14.
 
 ## QA review surface
 

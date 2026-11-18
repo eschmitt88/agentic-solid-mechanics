@@ -12,14 +12,19 @@ LAB = {"FULL": "paper's method (VAE crossover)", "PCA": "linear crossover in PCA
 STAGES = ["nominal", "ho_front", "ho_all", "ho_all_inrng"]
 XT = ["nominal\n(search's own\nrealisation)", "held-out\nphases", "+ fair\nbaseline", "+ inside gen-0\nvolume range"]
 rows = json.load(open("results/decomposition.json"))
-blocks = [("Girder, stiffness (300 generations)", "stiff", 300, [0, 1, 2]),
-          ("Girder, buckling (100 generations)", "buck", 100, [0, 1, 2, 3, 4]),
-          ("Paper's double-clamped beam (100 generations)", "umax", 100, [0, 1, 2])]
+blocks = [("Girder stiffness, 300 gen", "stiff", 300, [0, 1, 2]),
+          ("Girder buckling, 100 gen", "buck", 100, [0, 1, 2, 3, 4]),
+          ("Paper's beam, 100 gen", "umax", 100, [0, 1, 2])]
 fig, axs = plt.subplots(1, 3, figsize=(13.5, 4.6), sharey=True)
 x = np.arange(len(STAGES))
 for ax, (title, obj, gen, seeds) in zip(axs, blocks):
     ax.set_facecolor(SURF)
+    means = {}
     for arm in ("FULL", "PCA"):
+        Rm = [r for r in rows if r["run"] in [f"{obj}_{arm}_s{s}" for s in seeds] and r["gen"] == gen]
+        means[arm] = np.mean([[100 * r[s] for s in STAGES] for r in Rm], axis=0)
+    for arm in ("FULL", "PCA"):
+        other = "PCA" if arm == "FULL" else "FULL"
         R = [r for r in rows if r["run"] in [f"{obj}_{arm}_s{s}" for s in seeds] and r["gen"] == gen]
         if not R:
             continue
@@ -27,13 +32,14 @@ for ax, (title, obj, gen, seeds) in zip(axs, blocks):
         for y in Y:
             ax.plot(x, y, color=COL[arm], lw=0.9, alpha=0.35)
         m = Y.mean(0)
-        ax.plot(x, m, color=COL[arm], lw=2, marker="o", ms=8, mec=SURF, mew=2, label=f"{LAB[arm]} (n = {len(R)})")
-        ax.annotate(f"{m[-1]:.1f}%", (x[-1], m[-1]), xytext=(8, 6 if arm == "PCA" else -10), textcoords="offset points",
+        ax.plot(x, m, color=COL[arm], lw=2, marker="o", ms=8, mec=SURF, mew=2, label=LAB[arm])
+        nseed = len(R)
+        ax.annotate(f"{m[-1]:.1f}%", (x[-1], m[-1]), xytext=(8, 6 if means[arm][-1] >= means[other][-1] else -10), textcoords="offset points",
                     fontsize=9, color=INK)
-        ax.annotate(f"{m[0]:.0f}%", (x[0], m[0]), xytext=(-30, 0), textcoords="offset points", fontsize=9, color=INK, va="center")
+        ax.annotate(f"{m[0]:.0f}%", (x[0], m[0]), xytext=(-30, 7 if means[arm][0] >= means[other][0] else -7), textcoords="offset points", fontsize=9, color=INK, va="center")
     ax.axhline(0, color=INK2, lw=0.8)
     ax.set_xticks(x); ax.set_xticklabels(XT, fontsize=8.5, color=INK2)
-    ax.set_title(title, loc="left", fontsize=10.5, fontweight="bold", color=INK)
+    ax.set_title(f"{title}, {nseed} seeds", loc="left", fontsize=10.5, fontweight="bold", color=INK)
     for s in ("top", "right"):
         ax.spines[s].set_visible(False)
     for s in ("left", "bottom"):
